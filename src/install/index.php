@@ -40,7 +40,7 @@ $LNG->getUserAgentLanguage();
 $LNG->includeData(array('L18N', 'INGAME', 'INSTALL', 'CUSTOM'));
 
 $template = new Template();
-$template->assign(array(
+$template->assign_vars(array(
    'lang'       => $LNG->getLanguage(),
    'Selector'   => $LNG->getAvailableLanguages(false),
    'title'      => $LNG['title_install'] . ' &bull; 2Moons',
@@ -97,8 +97,13 @@ switch ($mode) {
 			exit($LNG['req_ftp_error_dir']);
 		}
 
-		$CHMOD = (php_sapi_name() == 'apache2handler') ? 0777 : 0755;
+		$CHMOD = 0777;
+
+        $directories = array('cache/', 'cache/templates/', 'cache/sessions/', 'includes/');
+
 		$ftp->chmod('cache', $CHMOD);
+		$ftp->chmod('cache/templates', $CHMOD);
+		$ftp->chmod('cache/sessions', $CHMOD);
 		$ftp->chmod('includes', $CHMOD);
 		$ftp->chmod('install', $CHMOD);
 		break;
@@ -254,7 +259,7 @@ switch ($mode) {
 						HTTP::redirectTo('index.php?mode=install&step=2');
 					}
 					else {
-						$template->assign(array(
+						$template->assign_vars(array(
 											   'accept' => false,));
 					}
 				}
@@ -332,36 +337,53 @@ switch ($mode) {
 					$error  = true;
 					$ftp    = true;
 				}
+
 				$directories = array('cache/', 'cache/templates/', 'cache/sessions/', 'includes/');
 				$dirs        = "";
-				foreach ($directories as $dir) {
-					if (is_writable(ROOT_PATH . $dir)) {
-						$chmod = "<span class=\"yes\"> - " . $LNG['reg_writable'] . "</span>";
-					}
-					else {
-						$chmod = " - <span class=\"no\">" . $LNG['reg_not_writable'] . "</span>";
-						$error = true;
-						$ftp   = true;
-					}
-					$dirs .= "<tr><td class=\"transparent left\"><p>" . sprintf($LNG['reg_dir'], $dir) . "</p></td><td class=\"transparent\"><span class=\"yes\">" . $LNG['reg_found'] . "</span>" . $chmod . "</td></tr>";
+				foreach ($directories as $dir)
+                {
+                    if(!file_exists(ROOT_PATH . $dir))
+                    {
+                        $found = '<span class="no">' . $LNG['reg_not_found'] . '</span>';
+                        $chmod = '';
+                        $error = true;
+                        $ftp   = true;
+                    }
+                    else
+                    {
+                        $found = '<span class="yes">' . $LNG['reg_found'] . '</span>';
+                        if (is_writable(ROOT_PATH . $dir))
+                        {
+                            $chmod = "<span class=\"yes\"> - " . $LNG['reg_writable'] . "</span>";
+                        }
+                        else
+                        {
+                            $chmod = " - <span class=\"no\">" . $LNG['reg_not_writable'] . "</span>";
+                            $error = true;
+                            $ftp   = true;
+                        }
+                    }
+					$dirs .= "<tr><td class=\"transparent left\"><p>" . sprintf($LNG['reg_dir'], $dir) . "</p></td><td class=\"transparent\">". $found . $chmod . "</td></tr>";
 				}
+
 				if ($error == false) {
 					$done = '<tr class="noborder"><td colspan="2" class="transparent"><a href="index.php?mode=install&step=3"><button style="cursor: pointer;">' . $LNG['continue'] . '</button></a></td></tr>';
 				}
 				else {
 					$done = '';
 				}
-				$template->assign(array(
-									   'dir'    => $dirs,
-									   'json'   => $json,
-									   'done'   => $done,
-									   'config' => $config,
-									   'gdlib'  => $gdlib,
-									   'PHP'    => $PHP,
-									   'pdo'    => $pdo,
-									   'ftp'    => $ftp,
-									   'iniset' => $iniset,
-									   'global' => $global));
+				$template->assign_vars(array(
+                    'dir'    => $dirs,
+                    'json'   => $json,
+                    'done'   => $done,
+                    'config' => $config,
+                    'gdlib'  => $gdlib,
+                    'PHP'    => $PHP,
+                    'pdo'    => $pdo,
+                    'ftp'    => $ftp,
+                    'iniset' => $iniset,
+                    'global' => $global
+                ));
 				$template->show('ins_req.tpl');
 				break;
 			case 3:
@@ -374,35 +396,35 @@ switch ($mode) {
 				$userpw = HTTP::_GP('passwort', '', true);
 				$dbname = HTTP::_GP('dbname', '', true);
 				$prefix = HTTP::_GP('prefix', 'uni1_');
-				$template->assign(array(
+				$template->assign_vars(array(
 									   'host'   => $host,
 									   'port'   => $port,
 									   'user'   => $user,
 									   'dbname' => $dbname,
 									   'prefix' => $prefix,));
 				if (empty($dbname)) {
-					$template->assign(array(
+					$template->assign_vars(array(
 										   'class'   => 'fatalerror',
 										   'message' => $LNG['step2_db_no_dbname'],));
 					$template->show('ins_step4.tpl');
 					exit;
 				}
 				if (strlen($prefix) > 36) {
-					$template->assign(array(
+					$template->assign_vars(array(
 										   'class'   => 'fatalerror',
 										   'message' => $LNG['step2_db_too_long'],));
 					$template->show('ins_step4.tpl');
 					exit;
 				}
 				if (strspn($prefix, '-./\\') !== 0) {
-					$template->assign(array(
+					$template->assign_vars(array(
 										   'class'   => 'fatalerror',
 										   'message' => $LNG['step2_prefix_invalid'],));
 					$template->show('ins_step4.tpl');
 					exit;
 				}
 				if (preg_match('!^[0-9]!', $prefix) !== 0) {
-					$template->assign(array(
+					$template->assign_vars(array(
 										   'class'   => 'fatalerror',
 										   'message' => $LNG['step2_prefix_invalid'],));
 					$template->show('ins_step4.tpl');
@@ -411,7 +433,7 @@ switch ($mode) {
 
 				if (is_file(ROOT_PATH . "includes/config.php") && filesize(ROOT_PATH . "includes/config.php") != 0)
 				{
-					$template->assign(array(
+					$template->assign_vars(array(
 						'class'   => 'fatalerror',
 						'message' => $LNG['step2_config_exists'],
 					));
@@ -422,7 +444,7 @@ switch ($mode) {
 
 				@touch(ROOT_PATH . "includes/config.php");
 				if (!is_writable(ROOT_PATH . "includes/config.php")) {
-					$template->assign(array(
+					$template->assign_vars(array(
 										   'class'   => 'fatalerror',
 										   'message' => $LNG['step2_conf_op_fail'],));
 					$template->show('ins_step4.tpl');
@@ -441,7 +463,7 @@ switch ($mode) {
 					Database::get();
 				}
 				catch (Exception $e) {
-					$template->assign(array(
+					$template->assign_vars(array(
 										   'class'   => 'fatalerror',
 										   'message' => $LNG['step2_db_con_fail'] . '</p><p>' . $e->getMessage(),));
 					$template->show('ins_step4.tpl');
@@ -450,7 +472,7 @@ switch ($mode) {
 					exit;
 				}
 				@touch(ROOT_PATH . "includes/error.log");
-				$template->assign(array(
+				$template->assign_vars(array(
 									   'class'   => 'noerror',
 									   'message' => $LNG['step2_db_done'],));
 				$template->show('ins_step4.tpl');
@@ -502,7 +524,7 @@ switch ($mode) {
 					require 'includes/config.php';
 					@unlink('includes/config.php');
 					$error = $e->getMessage();
-					$template->assign(array(
+					$template->assign_vars(array(
 						'host'    => $database['host'],
 						'port'    => $database['port'],
 						'user'    => $database['user'],
@@ -532,7 +554,7 @@ switch ($mode) {
 				$hashPassword = PlayerUtil::cryptPassword($password);
 
 				if (empty($username) || empty($password) || empty($mail)) {
-					$template->assign(array(
+					$template->assign_vars(array(
 						'message' 	=> $LNG['step8_need_fields'],
 						'username'	=> $username,
 						'mail'		=> $mail,
@@ -553,7 +575,7 @@ switch ($mode) {
 		}
 		break;
 	default:
-		$template->assign(array(
+		$template->assign_vars(array(
 							   'intro_text'    => $LNG['intro_text'],
 							   'intro_welcome' => $LNG['intro_welcome'],
 							   'intro_install' => $LNG['intro_install'],));
