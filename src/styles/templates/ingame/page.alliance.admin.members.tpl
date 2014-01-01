@@ -42,7 +42,7 @@
 </form>
 {/block}
 {block name="script" append}
-<script src="scripts/base/jquery.tablesorter.js"></script>
+<script src="resource/js/base/jquery.tablesorter.js"></script>
 <script>$(function() {
     $("#memberList").tablesorter({
 		headers: { 

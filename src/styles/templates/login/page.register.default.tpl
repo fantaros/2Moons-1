@@ -1,11 +1,11 @@
 {block name="title" prepend}{$LNG.siteTitleRegister}{/block}
 {block name="content"}
 <div id="registerFormWrapper">
-<form id="registerForm" method="post" action="index.php?page=register" data-action="index.php?page=register">
-<input type="hidden" value="send" name="mode">
-<input type="hidden" value="{$externalAuth.account}" name="externalAuth[account]">
-<input type="hidden" value="{$externalAuth.method}" name="externalAuth[method]">
-<input type="hidden" value="{$referralData.id}" name="referralID">
+    <form id="registerForm" method="post" action="index.php?page=register" data-action="index.php?page=register">
+    <input type="hidden" value="send" name="mode">
+    <input type="hidden" value="{$externalAuth.account}" name="externalAuth[account]">
+    <input type="hidden" value="{$externalAuth.method}" name="externalAuth[method]">
+    <input type="hidden" value="{$referralData.id}" name="referralID">
 	<div class="rowForm">
 		<label for="universe">{$LNG.universe}</label>
 		<select name="uni" id="universe" class="changeAction">{html_options options=$universeSelect selected=$UNI}</select>
@@ -112,6 +112,6 @@ Recaptcha.create(recaptchaPublicKey, 'display_captcha', {
 });
 </script>
 {/if}
-<script type="text/javascript" src="scripts/login/register.js"></script>
+<script type="text/javascript" src="resource/js/login/register.js"></script>
 <script></script>
 {/block}

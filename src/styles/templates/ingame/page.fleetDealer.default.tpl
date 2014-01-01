@@ -38,7 +38,7 @@
 </form>
 {/block}
 {block name="script" append}
-<script src="scripts/game/fleetDealer.js"></script>
+<script src="resource/js/game/fleetDealer.js"></script>
 <script>
 var elementData = {$elementsData|json};
 var Charge = {$Charge};

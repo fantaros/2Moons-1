@@ -126,7 +126,7 @@
 {/if}
 {/block}
 {block name="script" append}
-<script type="text/javascript" src="scripts/base/tinymce/tiny_mce_gzip.js"></script>
+<script type="text/javascript" src="resource/js/base/tinymce/tiny_mce_gzip.js"></script>
 <script type="text/javascript">
 $(function() {
 	tinyMCE_GZ.init({

@@ -110,5 +110,5 @@
 </table>
 {/block}
 {block name="script" append}
-    <script src="scripts/game/overview.js"></script>
+    <script src="resource/js/game/overview.js"></script>
 {/block}

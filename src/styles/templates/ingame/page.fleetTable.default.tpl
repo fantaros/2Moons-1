@@ -127,5 +127,5 @@
 </table>
 {/block}
 {block name="script" append}
-<script src="scripts/game/fleetTable.js"></script>
+<script src="resource/js/game/fleetTable.js"></script>
 {/block}

@@ -96,5 +96,5 @@
 {/if}
 {/block}
 {block name="script"}
-<script src="scripts/game/officier.js"></script>
+<script src="resource/js/game/officier.js"></script>
 {/block}

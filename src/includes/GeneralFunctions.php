@@ -519,9 +519,9 @@ function exceptionHandler($exception)
 		Information and contribution at http://2moons.cc/
 	-->
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/resource/css/base/boilerplate.css?v='.$VERSION.'">
-	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/resource/css/ingame/main.css?v='.$VERSION.'">
-	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/resource/css/base/jquery.css?v='.$VERSION.'">
+	<link rel="stylesheet" type="text/css" href="'.$DIR.'/resource/lib/boilerplate/boilerplate.css?v='.$VERSION.'">
+	<link rel="stylesheet" type="text/css" href="'.$DIR.'/resource/css/base/resource/lib/jquery-ui/css/jquery-ui-1.10.3.custom.min.css?v='.$VERSION.'">
+	<link rel="stylesheet" type="text/css" href="'.$DIR.'/resource/css/ingame/main.css?v='.$VERSION.'">
 	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/theme/gow/formate.css?v='.$VERSION.'">
 	<link rel="shortcut icon" href="'.$DIR.'/favicon.ico" type="image/x-icon">
 	'.(MODE == 'CHAT' ? '<style>body{background: none;}</style>': '').'

@@ -54,5 +54,5 @@
 	{/foreach}
 </table>
 </form>
-<script src="scripts/admin/messageList.js"></script>
+<script src="resource/js/admin/messageList.js"></script>
 {include file="overall_footer.tpl"}

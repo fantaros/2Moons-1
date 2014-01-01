@@ -18,11 +18,11 @@
 	<meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
 	{/if}
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="./styles/resource/css/base/boilerplate.css?v={$REV}">
-	<link rel="stylesheet" type="text/css" href="./styles/resource/css/ingame/main.css?v={$REV}">
-	<link rel="stylesheet" type="text/css" href="./styles/resource/css/base/jquery.css?v={$REV}">
-	<link rel="stylesheet" type="text/css" href="./styles/resource/css/base/jquery.fancybox.css?v={$REV}">
-	<link rel="stylesheet" type="text/css" href="./styles/resource/css/base/validationEngine.jquery.css?v={$REV}">
+	<link rel="stylesheet" type="text/css" href="resource/lib/boilerplate/boilerplate.css?v={$REV}">
+	<link rel="stylesheet" type="text/css" href="resource/lib/jquery-ui/css/jquery-ui-1.10.3.custom.min.css?v={$REV}">
+	<link rel="stylesheet" type="text/css" href="resource/lib/fancybox/jquery.fancybox-1.3.4.css?v={$REV}">
+    <link rel="stylesheet" type="text/css" href="resource/css/base/validationEngine.jquery.css?v={$REV}">
+    <link rel="stylesheet" type="text/css" href="resource/css/ingame/main.css?v={$REV}">
 	<link rel="stylesheet" type="text/css" href="{$dpath}formate.css?v={$REV}">
 	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 	<script type="text/javascript">
@@ -46,16 +46,17 @@
 		serverTime.setSeconds(serverTime.getSeconds()+1);
 	}, 1000);
 	</script>
-	<script type="text/javascript" src="./scripts/base/jquery.js?v={$REV}"></script>
-	<script type="text/javascript" src="./scripts/base/jquery.ui.js?v={$REV}"></script>
-	<script type="text/javascript" src="./scripts/base/jquery.cookie.js?v={$REV}"></script>
-	<script type="text/javascript" src="./scripts/base/jquery.fancybox.js?v={$REV}"></script>
-	<script type="text/javascript" src="./scripts/base/jquery.validationEngine.js?v={$REV}"></script>
-	<script type="text/javascript" src="./scripts/l18n/validationEngine/jquery.validationEngine-{$lang}.js?v={$REV}"></script>
-	<script type="text/javascript" src="./scripts/base/tooltip.js?v={$REV}"></script>
-	<script type="text/javascript" src="./scripts/game/base.js?v={$REV}"></script>
+	<script type="text/javascript" src="resource/lib/jquery/jquery-1.10.2.min.js?v={$REV}"></script>
+	<script type="text/javascript" src="resource/lib/jquery/jquery-migrate-1.2.1.min.js?v={$REV}"></script>
+	<script type="text/javascript" src="resource/lib/jquery-ui/js/jquery-ui-1.10.3.custom.min.js?v={$REV}"></script>
+	<script type="text/javascript" src="resource/js/base/jquery.cookie.js?v={$REV}"></script>
+	<script type="text/javascript" src="resource/lib/fancybox/jquery.fancybox-1.3.4.pack.js?v={$REV}"></script>
+	<script type="text/javascript" src="resource/js/base/jquery.validationEngine.js?v={$REV}"></script>
+	<script type="text/javascript" src="resource/js/l18n/validationEngine/jquery.validationEngine-{$lang}.js?v={$REV}"></script>
+	<script type="text/javascript" src="resource/js/base/tooltip.js?v={$REV}"></script>
+	<script type="text/javascript" src="resource/js/game/base.js?v={$REV}"></script>
 	{foreach item=scriptname from=$scripts}
-	<script type="text/javascript" src="./scripts/game/{$scriptname}.js?v={$REV}"></script>
+	<script type="text/javascript" src="resource/js/game/{$scriptname}.js?v={$REV}"></script>
 	{/foreach}
 	{block name="script"}{/block}
 	<script type="text/javascript">

@@ -156,7 +156,7 @@
 </form>
 {/block}
 {block name="script" append}
-<script src="scripts/game/fleet.js"></script>
+<script src="resource/js/game/fleet.js"></script>
 <script type="text/javascript">
 var missionData		= {$missionData|json};
 var shortCutRows	= {$themeSettings.SHORTCUT_ROWS_ON_FLEET1};

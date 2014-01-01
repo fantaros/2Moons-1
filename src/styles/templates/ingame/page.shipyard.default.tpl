@@ -104,8 +104,8 @@
 {/block}
 {block name="script" append}
 {if !empty($queueData.queue)}
-<script src="scripts/base/bcmath.js"></script>
-<script src="scripts/game/shipyard.js"></script>
+<script src="resource/js/base/bcmath.js"></script>
+<script src="resource/js/game/shipyard.js"></script>
 <script type="text/javascript">
 bd_operating	= '{$LNG.bd_operating}';
 bd_available	= '{$LNG.bd_available}';

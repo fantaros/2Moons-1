@@ -16,5 +16,5 @@
 </div>
 {/block}
 {block name="script" append}
-    <script src="scripts/game/overview.actions.js"></script>
+    <script src="resource/js/game/overview.actions.js"></script>
 {/block}

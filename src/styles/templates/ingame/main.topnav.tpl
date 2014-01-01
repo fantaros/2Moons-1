@@ -30,7 +30,7 @@
 									{foreach $resourceTable as $resourceID => $resourceData}
 									{if !isset($resourceData.current)}
 									{$resourceData.current = $resourceData.max + $resourceData.used}
-									<td class="res_current tooltip" data-tooltip-content="{$resourceData.current|number}&nbsp;/&nbsp;{$resourceData.max|number}"><span{if $resourceData.current < 0} style="color:red"{/if}>{shortly_number($resourceData.current)}&nbsp;/&nbsp;{shortly_number($resourceData.max)}</span></td>
+									<td class="res_current tooltip" data-tooltip-content="{$resourceData.current|number}&nbsp;/&nbsp;{$resourceData.max|number}"><span{if $resourceData.current < 0} style="color:#ff0000"{/if}>{shortly_number($resourceData.current)}&nbsp;/&nbsp;{shortly_number($resourceData.max)}</span></td>
 									{else}
 									<td class="res_current tooltip" id="current_{$resourceData.name}" data-real="{$resourceData.current}" data-tooltip-content="{$resourceData.current|number}">{shortly_number($resourceData.current)}</td>
 									{/if}
@@ -89,8 +89,8 @@
 		{/foreach}
         });
 		</script>
-        <script src="scripts/game/topnav.js"></script>
-        {if $hasGate}<script src="scripts/game/gate.js"></script>{/if}
+        <script src="resource/js/game/topnav.js"></script>
+        {if $hasGate}<script src="resource/js/game/gate.js"></script>{/if}
 		{/if}
 	</div>
 	{if $closed}

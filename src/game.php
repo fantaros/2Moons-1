@@ -30,8 +30,8 @@ define('MODE', 'INGAME');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 set_include_path(ROOT_PATH);
 
-require 'includes/pages/game/AbstractGamePage.class.php';
-require 'includes/pages/game/ShowErrorPage.class.php';
+require 'includes/pages/ingame/AbstractGamePage.class.php';
+require 'includes/pages/ingame/ShowErrorPage.class.php';
 require 'includes/common.php';
 /** @var $LNG Language */
 
@@ -40,7 +40,7 @@ $mode 		= HTTP::_GP('mode', 'show');
 $page		= str_replace(array('_', '\\', '/', '.', "\0"), '', $page);
 $pageClass	= 'Show'.ucfirst($page).'Page';
 
-$path		= 'includes/pages/game/'.$pageClass.'.class.php';
+$path		= 'includes/pages/ingame/'.$pageClass.'.class.php';
 
 if(!file_exists($path)) {
 	ShowErrorPage::printError($LNG['page_doesnt_exist']);

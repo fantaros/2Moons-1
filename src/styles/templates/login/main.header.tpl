@@ -5,8 +5,8 @@
 <!--[if IE 9 ]>    <html lang="{$lang}" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="{$lang}" class="no-js"> <!--<![endif]-->
 <head>
-	<link rel="stylesheet" type="text/css" href="styles/resource/css/login/main.css?v={$REV}">
-	<link rel="stylesheet" type="text/css" href="styles/resource/css/base/jquery.fancybox.css?v={$REV}">
+    <link rel="stylesheet" type="text/css" href="resource/lib/fancybox/jquery.fancybox-1.3.4.css?v={$REV}">
+	<link rel="stylesheet" type="text/css" href="resource/css/login/main.css?v={$REV}">
 	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 	<title>{block name="title"} - {$gameName}{/block}</title>
 	<meta name="generator" content="2Moons {$VERSION}">
@@ -19,12 +19,13 @@
 	<meta name="keywords" content="Weltraum Browsergame, XNova, 2Moons, Space, Private, Server, Speed">
 	<meta name="description" content="2Moons Browsergame powerd by http://2moons.cc/"> <!-- Noob Check :) -->
 	<!--[if lt IE 9]>
-	<script src="scripts/base/html5.js"></script>
+	<script src="resource/js/base/html5.js"></script>
 	<![endif]-->
-	<script src="scripts/base/jquery.js?v={$REV}"></script>
-	<script src="scripts/base/jquery.cookie.js?v={$REV}"></script>
-	<script src="scripts/base/jquery.fancybox.js?v={$REV}"></script>
-	<script src="scripts/login/main.js"></script>
+	<script src="resource/lib/jquery/jquery-1.10.2.min.js?v={$REV}"></script>
+	<script src="resource/lib/jquery/jquery-migrate-1.2.1.min.js?v={$REV}"></script>
+	<script src="resource/js/base/jquery.cookie.js?v={$REV}"></script>
+	<script src="resource/lib/fancybox/jquery.fancybox-1.3.4.pack.js?v={$REV}"></script>
+	<script src="resource/js/login/main.js"></script>
 	<script>{if isset($code)}var loginError = {$code|json};{/if}</script>
 	{block name="script"}{/block}	
 </head>
