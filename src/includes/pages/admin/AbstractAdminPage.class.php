@@ -26,59 +26,10 @@
  * @link http://2moons.cc/
  */
 
-abstract class AbstractAdminPage
-{
-	/**
-	 * reference of the template object
-	 * @var Template
-	 */
-	protected $tplObj;
+require 'includes/classes/AbstractPage.class.php';
 
-	protected $window;
-	
-	protected function __construct() {
-		
-		if(!AJAX_REQUEST)
-		{
-			$this->setWindow('full');
-			$this->initTemplate();
-		} else {
-			$this->setWindow('ajax');
-		}
-	}
-	
-	protected function initTemplate() {
-		if(isset($this->tplObj))
-			return true;
-			
-		$this->tplObj	= new Template;
-		return true;
-	}
-	
-	protected function setWindow($window) {
-		$this->window	= $window;
-	}
-		
-	protected function getWindow() {
-		return $this->window;
-	}
-	
-	protected function getQueryString() {
-		$queryString	= array();
-		$page			= HTTP::_GP('page', '');
-		
-		if(!empty($page)) {
-			$queryString['page']	= $page;
-		}
-		
-		$mode			= HTTP::_GP('mode', '');
-		if(!empty($mode)) {
-			$queryString['mode']	= $mode;
-		}
-		
-		return http_build_query($queryString);
-	}
-	
+abstract class AbstractAdminPage extends AbstractPage
+{
 	protected function getPageData() 
     {
 		global $USER, $THEME;
@@ -114,68 +65,18 @@ abstract class AbstractAdminPage
 			'themeSettings'		=> $THEME->getStyleSettings(),
 		));
 	}
-	protected function printMessage($message, $redirectButtons = NULL, $redirect = NULL, $fullSide = true)
-	{
-		$this->assign(array(
-			'message'			=> $message,
-			'redirectButtons'	=> $redirectButtons,
-		));
 
-		if(isset($redirect)) {
-			$this->tplObj->gotoside($redirect[0], $redirect[1]);
-		}
+	protected function assignBasicData()
+    {
+        global $THEME, $LNG;
 
-		if(!$fullSide) {
-			$this->setWindow('popup');
-		}
-
-		$this->display('error.default.tpl');
-	}
-	
-	protected function save()
-	{
-
-	}
-
-	protected function assign($array, $nocache = true) {
-		$this->tplObj->assign_vars($array, $nocache);
-	}
-
-	protected function display($file) {
-		global $THEME, $LNG;
-		
-		$this->save();
-		
-		if($this->getWindow() !== 'ajax') {
-			$this->getPageData();
-		}
-		
-		$this->assign(array(
+        $this->assign(array(
             'lang'    		=> $LNG->getLanguage(),
-            'dpath'			=> $THEME->getTheme(),
-			'scripts'		=> $this->tplObj->jsscript,
-			'execscript'	=> implode("\n", $this->tplObj->script),
-			'basepath'		=> PROTOCOL.HTTP_HOST.HTTP_BASE,
-			'sessionId'		=> session_id()
-		));
-
-		$this->assign(array(
-			'LNG'			=> $LNG,
-		), false);
-		
-		$this->tplObj->display('extends:layout.'.$this->getWindow().'.tpl|'.$file);
-		exit;
-	}
-	
-	protected function sendJSON($data) {
-		$this->save();
-		echo json_encode($data);
-		exit;
-	}
-	
-	protected function redirectTo($url) {
-		$this->save();
-		HTTP::redirectTo($url);
-		exit;
+            'themeName'		=> $THEME->getTheme(),
+            'scripts'		=> $this->tplObj->jsscript,
+            'execscript'	=> implode("\n", $this->tplObj->script),
+            'basePath'		=> PROTOCOL.HTTP_HOST.HTTP_BASE,
+            'sessionId'		=> session_id()
+        ));
 	}
 }

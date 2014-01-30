@@ -28,14 +28,8 @@
 
 class ShowOverviewPage extends AbstractGamePage 
 {
-	public static $requireModule = 0;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-	
-	private function GetTeamspeakData()
+    private function GetTeamspeakData()
 	{
 		global $USER, $LNG;
 

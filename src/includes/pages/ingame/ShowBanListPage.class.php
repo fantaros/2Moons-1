@@ -30,12 +30,7 @@ class ShowBanListPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_SUPPORT;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-
-	function show()
+    function show()
 	{
 		global $USER, $LNG;
 		

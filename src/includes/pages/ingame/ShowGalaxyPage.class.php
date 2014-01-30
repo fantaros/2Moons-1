@@ -32,12 +32,7 @@ class ShowGalaxyPage extends AbstractGamePage
 {
     public static $requireModule = MODULE_RESEARCH;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-	
-	public function show()
+    public function show()
 	{
 		global $USER, $PLANET, $LNG;
 

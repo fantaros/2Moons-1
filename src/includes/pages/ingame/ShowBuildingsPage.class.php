@@ -30,12 +30,7 @@ class ShowBuildingsPage extends AbstractGamePage
 {	
 	public static $requireModule = MODULE_BUILDING;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-
-	private function getQueueData()
+    	private function getQueueData()
 	{
 		global $LNG, $USER;
 

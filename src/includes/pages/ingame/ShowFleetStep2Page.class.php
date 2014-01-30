@@ -30,12 +30,7 @@ class ShowFleetStep2Page extends AbstractGamePage
 {
 	public static $requireModule = MODULE_FLEET_TABLE;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-	
-	public function show()
+    public function show()
 	{
 		global $USER, $PLANET, $LNG;
 		

@@ -29,10 +29,6 @@
 class ShowSearchPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_SEARCH;
-	
-	function __construct() {
-		parent::__construct();
-	}
 
 	static function _getSearchList($searchMode, $searchText, $maxResult)
 	{
@@ -242,7 +238,7 @@ class ShowSearchPage extends AbstractGamePage
 		
 		$this->assign(array(
 			'searchList'	=> $searchList,
-            'dpath'			=> $THEME->getTheme(),
+            'themeName'			=> $THEME->getTheme(),
 		));
 		
 		$templateSuffix	= ($seachMode === "allyname" || $seachMode === "allytag") ? "ally" : "default";

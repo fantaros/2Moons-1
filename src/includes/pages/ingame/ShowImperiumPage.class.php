@@ -31,12 +31,7 @@ class ShowImperiumPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_IMPERIUM;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-
-	function show()
+    	function show()
 	{
 		global $USER, $PLANET;
 

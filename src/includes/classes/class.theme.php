@@ -34,7 +34,7 @@ class Theme
 	function __construct()
 	{	
 		$this->skininfo = array();
-		$this->skin		= isset($_SESSION['dpath']) ? $_SESSION['dpath'] : DEFAULT_THEME;
+		$this->skin		= isset($_SESSION['themeName']) ? $_SESSION['themeName'] : DEFAULT_THEME;
 		$this->setUserTheme($this->skin);
 	}
 	

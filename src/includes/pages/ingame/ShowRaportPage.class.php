@@ -28,16 +28,10 @@
 
 class ShowRaportPage extends AbstractGamePage
 {
-	public static $requireModule = 0;
-	
+
 	protected $disableEcoSystem = true;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-	
-	private function BCWrapperPreRev2321($combatReport)
+    private function BCWrapperPreRev2321($combatReport)
 	{
 		if(isset($combatReport['moon']['desfail']))
 		{

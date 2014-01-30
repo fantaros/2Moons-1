@@ -31,12 +31,7 @@ class ShowFleetDealerPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_FLEET_TRADER;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-	
-	public function send()
+    public function send()
 	{
 		global $USER, $PLANET, $LNG;
 

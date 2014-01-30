@@ -30,12 +30,7 @@ class ShowResourcesPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_RESSOURCE_LIST;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-	
-	function send()
+    public function send()
 	{
 		global $USER, $PLANET;
 		if ($USER['urlaubs_modus'] == 0)
@@ -164,7 +159,7 @@ class ShowResourcesPage extends AbstractGamePage
 
 				$productionAmount = eval(Economy::getProd($elementProductionObj->calcProduction[$elementResourceId]));
 
-                if($elementObj->hasFlag(Vars::FLAG_ENERGY))
+                if($elementProductionObj->hasFlag(Vars::FLAG_ENERGY))
 				{
                     $productionAmount *= $config->energySpeed;
 				}

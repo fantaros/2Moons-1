@@ -31,12 +31,7 @@ class ShowStatisticsPage extends AbstractGamePage
 {
     public static $requireModule = MODULE_STATISTICS;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-
-    function show()
+        function show()
     {
         global $USER, $LNG;
 

@@ -32,11 +32,6 @@ class ShowResearchPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_RESEARCH;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-
     public function build()
     {
         global $USER;

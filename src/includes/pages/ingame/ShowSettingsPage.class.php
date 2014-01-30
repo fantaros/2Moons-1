@@ -28,14 +28,8 @@
 
 class ShowSettingsPage extends AbstractGamePage
 {
-	public static $requireModule = 0;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-	
-	public function show()
+    public function show()
 	{
 		global $USER, $LNG;
 		if($USER['urlaubs_modus'] == 1)

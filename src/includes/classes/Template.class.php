@@ -73,7 +73,8 @@ class Template
 
 		$this->smarty->setTemplateDir(array(
             $THEME->getTemplatePath().strtolower(MODE),
-            TEMPLATE_PATH.strtolower(MODE)
+            TEMPLATE_PATH.strtolower(MODE),
+            TEMPLATE_PATH.'basic'
         ));
 	}
 
@@ -82,11 +83,6 @@ class Template
 		$this->smarty->force_compile 		= true;
 		require_once 'includes/libs/wcf/BasicFileUtil.class.php';
 		return BasicFileUtil::getTempFolder();
-	}
-		
-	public function assign_vars($var, $nocache = true) 
-	{
-		$this->smarty->assign($var, NULL, $nocache);
 	}
 
 	public function loadscript($script)
@@ -98,96 +94,17 @@ class Template
 	{
 		$this->script[]				= $script;
 	}
-	
-	private function adm_main()
-	{
-		global $LNG, $USER;
-		
-		$dateTimeServer		= new DateTime("now");
-		if(isset($USER['timezone'])) {
-			try {
-				$dateTimeUser	= new DateTime("now", new DateTimeZone($USER['timezone']));
-			} catch (Exception $e) {
-				$dateTimeUser	= $dateTimeServer;
-			}
-		} else {
-			$dateTimeUser	= $dateTimeServer;
-		}
-
-		$config	= Config::get();
-
-		$this->assign_vars(array(
-			'scripts'			=> $this->script,
-			'title'				=> $config->game_name.' - '.$LNG['adm_cp_title'],
-			'fcm_info'			=> $LNG['fcm_info'],
-            'lang'    			=> $LNG->getLanguage(),
-			'REV'				=> substr($config->VERSION, -4),
-			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
-			'Offset'			=> $dateTimeUser->getOffset() - $dateTimeServer->getOffset(),
-			'VERSION'			=> $config->VERSION,
-			'dpath'				=> 'styles/theme/gow/',
-			'bodyclass'			=> 'full'
-		));
-	}
-	
-	public function show($file)
-	{		
-		global $LNG;
-
-		if(MODE === 'ADMIN') {
-			$this->adm_main();
-		}
-
-		$this->assign_vars(array(
-			'scripts'		=> $this->jsscript,
-			'execscript'	=> implode("\n", $this->script),
-		));
-
-		$this->assign_vars(array(
-			'LNG'			=> $LNG,
-		), false);
-
-		
-		$this->display($file);
-	}
 
 	public function display($file)
 	{
-		global $LNG, $THEME;
+        global $LNG, $THEME;
+
+        $this->smarty->assign(array(
+            'scripts'		=> $this->jsscript,
+            'execscript'	=> implode("\n", $this->script),
+        ));
+
 		$this->smarty->compile_id	= $LNG->getLanguage().'_'.$THEME->getThemeName();
 		$this->smarty->display($file);
-	}
-	
-	public function gotoside($dest, $time = 3)
-	{
-		$this->assign_vars(array(
-			'gotoinsec'	=> $time,
-			'goto'		=> $dest,
-		));
-	}
-	
-	public function message($mes, $dest = false, $time = 3, $Fatal = false)
-	{
-		global $LNG, $THEME;
-	
-		$this->assign_vars(array(
-			'mes'		=> $mes,
-			'fcm_info'	=> $LNG['fcm_info'],
-			'Fatal'		=> $Fatal,
-            'dpath'		=> $THEME->getTheme(),
-		));
-		
-		$this->gotoside($dest, $time);
-		$this->show('error_message_body.tpl');
-	}
-	
-	public static function printMessage($Message, $fullSide = true, $redirect = NULL) {
-		$template	= new self;
-		if(!isset($redirect)) {
-			$redirect	= array(false, 0);
-		}
-		
-		$template->message($Message, $redirect[0], $redirect[1], !$fullSide);
-		exit;
 	}
 }

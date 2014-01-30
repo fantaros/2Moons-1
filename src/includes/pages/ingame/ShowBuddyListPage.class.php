@@ -30,12 +30,7 @@ class ShowBuddyListPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_BUDDYLIST;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-	
-	function request()
+    function request()
 	{
 		global $USER, $LNG;
 		

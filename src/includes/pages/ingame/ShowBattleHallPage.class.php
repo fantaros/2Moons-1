@@ -30,11 +30,7 @@ class ShowBattleHallPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_BATTLEHALL;
 	
-	function __construct() {
-		parent::__construct();
-	}
-	
-	function show()
+    function show()
 	{
 		global $USER, $LNG;
 		$order = HTTP::_GP('order', 'units');

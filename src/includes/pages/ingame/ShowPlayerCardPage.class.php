@@ -33,12 +33,7 @@ class ShowPlayerCardPage extends AbstractGamePage
 	
 	protected $disableEcoSystem = true;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-	
-	function show()
+    public function show()
 	{
 		global $USER, $LNG;
 		

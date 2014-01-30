@@ -29,7 +29,6 @@
 
 class ShowOfficierPage extends AbstractGamePage
 {
-	public static $requireModule = 0;
 
 	function __construct()
 	{

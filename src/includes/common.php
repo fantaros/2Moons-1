@@ -156,7 +156,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 	{
 		HTTP::redirectTo('index.php?code=3');
 	}
-	
+
 	$LNG	= new Language($USER['lang']);
 	$LNG->includeData(array('L18N', 'INGAME', 'TECH', 'CUSTOM'));
 	$THEME->setUserTheme($USER['dpath']);

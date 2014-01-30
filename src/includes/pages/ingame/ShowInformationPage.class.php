@@ -33,12 +33,7 @@ class ShowInformationPage extends AbstractGamePage
 	
 	protected $disableEcoSystem = true;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-		
-	static function getNextJumpWaitTime($lastTime)
+    static function getNextJumpWaitTime($lastTime)
 	{
 		return $lastTime + Config::get()->gate_wait_time;
 	}

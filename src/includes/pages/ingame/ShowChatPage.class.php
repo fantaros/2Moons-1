@@ -30,12 +30,7 @@ class ShowChatPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_CHAT;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-	
-	function show() 
+    public function show()
 	{
 		$action	= HTTP::_GP('action', '');
 		if($action == 'alliance') {

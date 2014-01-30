@@ -6,25 +6,13 @@
 <!--[if IE 9 ]>    <html lang="{$lang}" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="{$lang}" class="no-js"> <!--<![endif]-->
 <head>
+    {include 'headInclude.tpl' jqueryui=1 fancybox=1 validEngine=1}
+
 	<title>{block name="title"} - {$uni_name} - {$game_name}{/block}</title>
-	<meta name="generator" content="2Moons {$VERSION}">
-	<!-- 
-		This website is powered by 2Moons {$VERSION}
-		2Moons is a free Space Browsergame initially created by Jan Kröpke and licensed under GNU/GPL.
-		2Moons is copyright 2009-2013 of Jan Kröpke. Extensions are copyright of their respective owners.
-		Information and contribution at http://2moons.cc/
-	-->
-	{if !empty($goto)}
-	<meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
-	{/if}
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="resource/lib/boilerplate/boilerplate.css?v={$REV}">
-	<link rel="stylesheet" type="text/css" href="resource/lib/jquery-ui/css/jquery-ui-1.10.3.custom.min.css?v={$REV}">
-	<link rel="stylesheet" type="text/css" href="resource/lib/fancybox/jquery.fancybox-1.3.4.css?v={$REV}">
-    <link rel="stylesheet" type="text/css" href="resource/css/base/validationEngine.jquery.css?v={$REV}">
+
     <link rel="stylesheet" type="text/css" href="resource/css/ingame/main.css?v={$REV}">
-	<link rel="stylesheet" type="text/css" href="{$dpath}formate.css?v={$REV}">
-	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="{$themeName}formate.css?v={$REV}">
+
 	<script type="text/javascript">
 	var ServerTimezoneOffset = {$Offset};
 	var serverTime 	= new Date({$date.0}, {$date.1 - 1}, {$date.2}, {$date.3}, {$date.4}, {$date.5});
@@ -33,12 +21,12 @@
 	var localTS 	= startTime;
 	var Gamename	= document.title;
 	var Ready		= "{$LNG.ready}";
-	var Skin		= "{$dpath}";
+	var Skin		= "{$themeName}";
 	var Lang		= "{$lang}";
 	var head_info	= "{$LNG.fcm_info}";
 	var auth		= {$authlevel|default:'0'};
-	var days 		= {$LNG.week_day|json|default:'[]'} 
-	var months 		= {$LNG.months|json|default:'[]'} ;
+	var days 		= {$LNG.week_day|json}
+	var months 		= {$LNG.months|json} ;
 	var tdformat	= "{$LNG.js_tdformat}";
 	var queryString	= "{$queryString|escape:'javascript'}";
 
@@ -46,19 +34,12 @@
 		serverTime.setSeconds(serverTime.getSeconds()+1);
 	}, 1000);
 	</script>
-	<script type="text/javascript" src="resource/lib/jquery/jquery-1.10.2.min.js?v={$REV}"></script>
-	<script type="text/javascript" src="resource/lib/jquery/jquery-migrate-1.2.1.min.js?v={$REV}"></script>
-	<script type="text/javascript" src="resource/lib/jquery-ui/js/jquery-ui-1.10.3.custom.min.js?v={$REV}"></script>
-	<script type="text/javascript" src="resource/js/base/jquery.cookie.js?v={$REV}"></script>
-	<script type="text/javascript" src="resource/lib/fancybox/jquery.fancybox-1.3.4.pack.js?v={$REV}"></script>
-	<script type="text/javascript" src="resource/js/base/jquery.validationEngine.js?v={$REV}"></script>
-	<script type="text/javascript" src="resource/js/l18n/validationEngine/jquery.validationEngine-{$lang}.js?v={$REV}"></script>
 	<script type="text/javascript" src="resource/js/base/tooltip.js?v={$REV}"></script>
 	<script type="text/javascript" src="resource/js/game/base.js?v={$REV}"></script>
+
 	{foreach item=scriptname from=$scripts}
 	<script type="text/javascript" src="resource/js/game/{$scriptname}.js?v={$REV}"></script>
 	{/foreach}
-	{block name="script"}{/block}
 	<script type="text/javascript">
 	$(function() {
 		{$execscript}

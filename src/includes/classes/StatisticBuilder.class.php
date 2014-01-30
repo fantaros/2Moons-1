@@ -70,7 +70,9 @@ class StatisticBuilder
 	{
 		$queryUser      = array();
 		$queryPlanet    = array();
-				
+
+		Vars::init();
+
 		foreach(Vars::getElements(Vars::CLASS_BUILDING) as $elementObj)
 		{
 			$queryPlanet[]  = "planet.".$elementObj->name;

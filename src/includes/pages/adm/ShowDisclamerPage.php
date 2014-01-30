@@ -71,7 +71,7 @@ function ShowDisclamerPage()
 
 	$template	= new Template();
 	$template->loadscript('../base/jquery.autosize-min.js');
-	$template->execscript('$(\'textarea\').autosize();');
+    $template->execscript('$(\'textarea\').autosize();');
 
 	$template->assign_vars(array(
 		'disclaimerAddress'		=> $config->disclamerAddress,

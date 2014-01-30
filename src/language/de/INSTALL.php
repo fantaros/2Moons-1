@@ -88,6 +88,7 @@ $LNG['req_ftp_dir']				= 'Installationspfad zu 2Moons';
 $LNG['req_ftp_send']			= 'Absenden';
 $LNG['req_ftp_error_data']		= 'Mit den angegebenen Zugangsdaten konnte keine Verbindung zu einem FTP-Server hergestellt werden.';
 $LNG['req_ftp_error_dir']		= 'Das eingegebene Verzeichnis ist ungültig.';
+$LNG['req_ftp_success']         = 'Die Dateirechte wurde erfolgreich gesetzt!';
 
 $LNG['step1_head']				= 'Datenbankzugang konfigurieren';
 $LNG['step1_desc']				= 'Nachdem nun festgestellt wurde, dass 2Moons auf deinem Server betrieben werden kann, musst du noch einige Informationen angeben. Wenn du nicht weißt, wie die Verbindungsdaten für deine Datenbank lauten, kontaktiere bitte als erstes deinen Webhosting-Provider oder wende dich an die 2Moons Support-Foren. Wenn du Daten eingibst, prüfe diese bitte sorgfältig, bevor du fortfährst.';

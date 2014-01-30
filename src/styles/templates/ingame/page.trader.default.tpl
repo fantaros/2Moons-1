@@ -28,11 +28,11 @@
                             <form action="game.php?page=trader" method="post">
                             <input type="hidden" name="mode" value="trade">
                             <input type="hidden" name="resource" value="{$elementId}">
-                            <input type="image" id="trader_{$elementObj->name}" src="{$dpath}images/{$elementObj->name}.gif" title="{$LNG.tech.$elementId}" height="32" width="52"><br>
+                            <input type="image" id="trader_{$elementObj->name}" src="{$themeName}images/{$elementObj->name}.gif" title="{$LNG.tech.$elementId}" height="32" width="52"><br>
                             <label for="trader_{$elementObj->name}">{$LNG.tech.$elementId}</label>
                             </form>
 						{else}
-                            <img src="{$dpath}images/{$elementObj->name}.gif" title="{$LNG.tech.$elementId}" border="0" height="32" width="52" style="margin: 3px;"><br>{$LNG.tech.$elementId}
+                            <img src="{$themeName}images/{$elementObj->name}.gif" title="{$LNG.tech.$elementId}" border="0" height="32" width="52" style="margin: 3px;"><br>{$LNG.tech.$elementId}
                         {/if}
 					</div>
 					{/foreach}

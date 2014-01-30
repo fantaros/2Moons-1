@@ -30,12 +30,7 @@ class ShowBattleSimulatorPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_SIMULATOR;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-
-	function send()
+    function send()
 	{
 		global $LNG;
 		

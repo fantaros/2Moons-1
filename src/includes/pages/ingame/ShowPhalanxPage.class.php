@@ -52,10 +52,6 @@ class ShowPhalanxPage extends AbstractGamePage
 		return ($PhalanxLevel == 1) ? 1 : pow($PhalanxLevel, 2) - 1;
 	}
 	
-	function __construct() {
-		
-	}
-	
 	function show()
 	{
 		global $PLANET, $LNG;

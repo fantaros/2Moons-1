@@ -68,9 +68,12 @@ class Vars
 
     static function init()
     {
-        $cache	= Cache::get();
-        $cache->add('vars', 'VarsBuildCache');
-        self::$data = $cache->getData('vars');
+		if(empty(self::$data))
+		{
+			$cache	= Cache::get();
+			$cache->add('vars', 'VarsBuildCache');
+			self::$data = $cache->getData('vars');
+		}
     }
 
     static function generateCache()

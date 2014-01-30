@@ -31,12 +31,7 @@ class ShowFleetTablePage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_FLEET_TABLE;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-	
-	public function createACS($fleetId, $fleetData)
+    public function createACS($fleetId, $fleetData)
     {
 		global $USER;
 		

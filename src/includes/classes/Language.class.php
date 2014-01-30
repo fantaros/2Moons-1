@@ -55,12 +55,12 @@ class Language implements ArrayAccess
 	{
    		if (isset($_REQUEST['lang']) && in_array($_REQUEST['lang'], self::getAvailableLanguages()))
 		{
-			HTTP::sendCookie('lang', $_REQUEST['lang'], 2147483647);
+			HTTP::sendCookie('language', $_REQUEST['lang'], 2147483647);
 			$this->setLanguage($_REQUEST['lang']);
 			return true;
 		}
 		
-   		if ((MODE === 'LOGIN' || MODE === 'INSTALL') && isset($_COOKIE['lang']) && in_array($_COOKIE['lang'], self::getAvailableLanguages()))
+   		if ((MODE === 'LOGIN' || MODE === 'INSTALL') && in_array(HTTP::getCookie('language'), self::getAvailableLanguages()))
 		{
 			$this->setLanguage($_COOKIE['lang']);
 			return true;
@@ -92,8 +92,8 @@ class Language implements ArrayAccess
 				break;
 			}
         }
-		
-		HTTP::sendCookie('lang', $language, 2147483647);
+
+        HTTP::sendCookie('language', $language, 2147483647);
 		$this->setLanguage($language);
 
 		return $language;

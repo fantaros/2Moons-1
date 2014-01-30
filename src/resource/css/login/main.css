@@ -60,7 +60,7 @@ footer, .small{
 	display:block
 }
 
-a {
+a, a:visited  {
 	cursor: pointer;
     color: #FFD700;
     text-decoration: none;

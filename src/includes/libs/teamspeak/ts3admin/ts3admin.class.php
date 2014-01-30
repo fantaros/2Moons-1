@@ -3,7 +3,7 @@
  *                         ts3admin.class.php
  *                         ------------------                    
  *   begin                : 18. December 2009
- *   copyright            : (C) 2009-2013 Par0noid Solutions
+ *   copyright            : (C) 2009-2014 Par0noid Solutions
  *   email                : contact@ts3admin.info
  *   version              : 0.6.9.0
  *   last modified        : 17. August 2013
@@ -37,7 +37,7 @@
  * 
  * @author      Par0noid Solutions <contact@ts3admin.info>
  * @version     0.6.9.0
- * @copyright   Copyright (c) 2009-2013, Stefan Z.
+ * @copyright   Copyright (c) 2009-2014, Stefan Z.
  * @package		ts3admin
  * @link        http://ts3admin.info
  */

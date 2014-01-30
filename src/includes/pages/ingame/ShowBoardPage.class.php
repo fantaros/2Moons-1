@@ -29,14 +29,8 @@
 
 class ShowBoardPage extends AbstractGamePage
 {
-	public static $requireModule = 0;
 
-	function __construct() 
-	{
-		parent::__construct();
-	}
-	
-	function show() 
+    public function show()
 	{
 		global $LNG;
 		$boardUrl	= Config::get()->forum_url;

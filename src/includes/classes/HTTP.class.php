@@ -55,6 +55,11 @@ class HTTP {
 	{
 		setcookie($name, $value, $toTime);
 	}
+
+    static public function getCookie($name)
+    {
+        return isset($_COOKIE[$name]) ? $_COOKIE[$name] : false;
+    }
 	
 	static public function _GP($name, $default, $multibyte = false, $highnum = false)
 	{
