@@ -105,6 +105,6 @@ class ShowPlayerCardPage extends AbstractGamePage
 			'drawsprozent'  => round($drawsprozent, 2),
 		));
 		
-		$this->display('page.playerCard.default.tpl');
+		$this->display('page.playerCard.default');
 	}
 }

@@ -147,7 +147,7 @@ function ShowQuickEditorPage()
 				'crystal_c'		=> pretty_number($PlanetData['crystal']),
 				'deuterium_c'	=> pretty_number($PlanetData['deuterium']),
 			));
-			$template->show('QuickEditorPlanet.tpl');
+			$template->show('QuickEditorPlanet');
 		break;
 		case 'player':
 			$DataIDs	= array_merge($reslist['tech'], $reslist['officier']);
@@ -254,7 +254,7 @@ function ShowQuickEditorPage()
 				'darkmatter'	=> floattostring($UserData['darkmatter']),
 				'darkmatter_c'	=> pretty_number($UserData['darkmatter']),
 			));
-			$template->show('QuickEditorUser.tpl');
+			$template->show('QuickEditorUser');
 		break;
 	}
 }

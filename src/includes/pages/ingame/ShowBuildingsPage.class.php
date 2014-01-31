@@ -241,6 +241,6 @@ class ShowBuildingsPage extends AbstractGamePage
 			'HaveMissiles'		=> $haveMissiles,
 		));
 			
-		$this->display('page.buildings.default.tpl');
+		$this->display('page.buildings.default');
 	}
 }

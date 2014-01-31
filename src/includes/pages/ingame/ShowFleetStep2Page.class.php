@@ -226,6 +226,6 @@ class ShowFleetStep2Page extends AbstractGamePage
 			'resourceElementIds'	=> array_keys(Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_TRANSPORT)),
 		), false);
 		
-		$this->display('page.fleetStep2.default.tpl');
+		$this->display('page.fleetStep2.default');
 	}
 }

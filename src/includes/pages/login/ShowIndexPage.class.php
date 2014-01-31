@@ -71,6 +71,6 @@ class ShowIndexPage extends AbstractIndexPage
 			'loginInfo'				=> sprintf($LNG['loginInfo'], '<a href="index.php?page=rules">'.$LNG['menu_rules'].'</a>')
 		));
 		
-		$this->display('page.index.default.tpl');
+		$this->display('page.index.default');
 	}
 }

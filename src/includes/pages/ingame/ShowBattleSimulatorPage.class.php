@@ -281,6 +281,6 @@ class ShowBattleSimulatorPage extends AbstractGamePage
 			'resourceElements'	=> array_keys($resourceElements),
 		), false);
 		
-		$this->display('page.battleSimulator.default.tpl');   
+		$this->display('page.battleSimulator.default');
 	}
 }

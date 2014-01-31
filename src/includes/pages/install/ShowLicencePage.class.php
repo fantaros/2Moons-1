@@ -30,7 +30,10 @@ class ShowLicencePage extends AbstractInstallPage
 {
     public function show()
     {
-        $this->display('page.license.default.tpl');
+        $this->assign(array(
+            'needAccepted' => false,
+        ));
+        $this->display('page.license.default');
     }
 
     public function accept()
@@ -42,11 +45,11 @@ class ShowLicencePage extends AbstractInstallPage
                 'needAccepted' => true,
             ));
 
-            $this->display('page.license.default.tpl');
+            $this->display('page.license.default');
         }
         else
         {
-            $this->redirectTo('index.php?mode=requirements');
+            $this->redirectTo('index.php?page=requirements');
         }
     }
 }

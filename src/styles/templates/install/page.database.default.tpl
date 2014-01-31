@@ -1,14 +1,13 @@
-{block name="title" prepend}Somethink Cool{/block}
+{block name="title" prepend}{$LNG['step1_head']}{/block}
 {block name="content"}
-<table style="width:960px">
+<table>
     <tr>
-        <th>Blah</th>
+        <th>{$LNG.step1_head}</th>
     </tr>
     <tr>
         <td class="left">
-            <h2>{$LNG.step1_head}</h2>
             <p>{$LNG.step1_desc}</p>
-            <form action="index.php?page=database&amp;mode=test" method="post">
+            <form action="install/index.php?page=database&amp;mode=test" method="post">
                 <table class="req">
                     <tr>
                         <td class="transparent left"><p><label for="mysql_hostname">{$LNG.step1_mysql_server}</label></p></td>

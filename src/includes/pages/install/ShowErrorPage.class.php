@@ -27,7 +27,7 @@
  */
 
 
-class ShowErrorPage extends AbstractGamePage
+class ShowErrorPage extends AbstractInstallPage
 {
 	protected $disableEcoSystem = true;
 	

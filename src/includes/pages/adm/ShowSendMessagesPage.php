@@ -106,5 +106,5 @@ function ShowSendMessagesPage() {
 		'langSelector' => array_merge(array('' => $LNG['ma_all']), $LNG->getAvailableLanguages(false)),
 		'modes' => $sendModes,
 	));
-	$template->show('SendMessagesPage.tpl');
+	$template->show('SendMessagesPage');
 }

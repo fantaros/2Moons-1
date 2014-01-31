@@ -66,7 +66,7 @@ class ShowTicketPage extends AbstractGamePage
 			'ticketList'	=> $ticketList
 		));
 			
-		$this->display('page.ticket.default.tpl');
+		$this->display('page.ticket.default');
 	}
 	
 	function create() 
@@ -77,7 +77,7 @@ class ShowTicketPage extends AbstractGamePage
 			'categoryList'	=> $categoryList,
 		));
 			
-		$this->display('page.ticket.create.tpl');		
+		$this->display('page.ticket.create');
 	}
 	
 	function send() 
@@ -171,6 +171,6 @@ class ShowTicketPage extends AbstractGamePage
 			'status'		=> $ticket_status,
 		));
 			
-		$this->display('page.ticket.view.tpl');		
+		$this->display('page.ticket.view');
 	}
 }

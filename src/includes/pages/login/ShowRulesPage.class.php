@@ -45,6 +45,6 @@ class ShowRulesPage extends AbstractIndexPage
 			'rules'		=> $LNG->getTemplate('rules'),
 		));
 		
-		$this->display('page.rules.default.tpl');
+		$this->display('page.rules.default');
 	}
 }

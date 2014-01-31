@@ -41,7 +41,7 @@
 	<tr>
 		<td rowspan="2" style="width:120px;">
 			<a href="#" onclick="return Dialog.info({$elementId})">
-				<img src="{$themeName}gebaeude/{$elementId}.gif" alt="{$LNG.tech.{$elementId}}" width="120" height="120">
+				<img src="{$themePath}gebaeude/{$elementId}.gif" alt="{$LNG.tech.{$elementId}}" width="120" height="120">
 			</a>
 		</td>
 		<th>

@@ -36,6 +36,6 @@ class ShowIndexPage extends AbstractInstallPage
             'canUpgrade'        => file_exists('includes/config.php') && filesize('includes/config.php') !== 0
         ));
 
-        $this->display('page.index.default.tpl');
+        $this->display('page.index.default');
     }
 }

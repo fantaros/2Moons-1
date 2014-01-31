@@ -72,7 +72,7 @@ function ShowRightsPage()
 					'sid'						=> session_id(), 
 				));
 				
-				$template->show('ModerrationRightsPostPage.tpl');		
+				$template->show('ModerrationRightsPostPage');
 				exit;
 			}
 							
@@ -111,7 +111,7 @@ function ShowRightsPage()
 				'sid'						=> session_id(), 
 			));
 	
-			$template->show('ModerrationRightsPage.tpl');
+			$template->show('ModerrationRightsPage');
 		break;
 		case 'users':
 			$template	= new Template();
@@ -169,7 +169,7 @@ function ShowRightsPage()
 				'sid'						=> session_id(), 
 			));
 	
-			$template->show('ModerrationUsersPage.tpl');
+			$template->show('ModerrationUsersPage');
 		break;
 	}
 }

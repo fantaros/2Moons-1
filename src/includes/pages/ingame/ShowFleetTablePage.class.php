@@ -285,6 +285,6 @@ class ShowFleetTablePage extends AbstractGamePage
 			'bonusHyperspace'		=> $USER[Vars::getElement(118)->name] * 30,
 		));
 		
-		$this->display('page.fleetTable.default.tpl');
+		$this->display('page.fleetTable.default');
 	}
 }

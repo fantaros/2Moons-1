@@ -95,6 +95,23 @@ class ShowRequirementsPage extends AbstractInstallPage
             'value'         => sprintf($valueHTML, $value, $LNG['reg_'.$value]),
         );
 
+        // Check if gdlib is available
+        if(extension_loaded('gd'))
+        {
+            $value      = 'yes';
+        }
+        else
+        {
+            $value      = 'no';
+            $isError    = true;
+        }
+
+        $requirements[] = array(
+            'name'          => $LNG['reg_gd_need'],
+            'description'   => $LNG['reg_gd_desc'],
+            'value'         => sprintf($valueHTML, $value, $LNG['reg_'.$value]),
+        );
+
         // Check if json is available
         if(function_exists('json_encode'))
         {
@@ -127,23 +144,6 @@ class ShowRequirementsPage extends AbstractInstallPage
             'value'         => sprintf($valueHTML, $value, $LNG['reg_'.$value]),
         );
 
-        // Check if gdlib is available
-        if(extension_loaded('gd'))
-        {
-            $value      = 'yes';
-        }
-        else
-        {
-            $value      = 'no';
-            $isError    = true;
-        }
-
-        $requirements[] = array(
-            'name'          => $LNG['reg_gd_need'],
-            'description'   => $LNG['reg_gd_desc'],
-            'value'         => sprintf($valueHTML, $value, $LNG['reg_'.$value]),
-        );
-
         foreach(self::$requiredFiles as $file)
         {
             if (file_exists($file) || @touch($file))
@@ -170,7 +170,7 @@ class ShowRequirementsPage extends AbstractInstallPage
             }
 
             $requirements[] = array(
-                'name'          => $LNG['reg_file'].' '.$file,
+                'name'          => sprintf($LNG['reg_file'], $file),
                 'value'         => $value,
             );
         }
@@ -201,7 +201,7 @@ class ShowRequirementsPage extends AbstractInstallPage
             }
 
             $requirements[] = array(
-                'name'          => $LNG['reg_dir'].' '.$dir,
+                'name'          => sprintf($LNG['reg_dir'], $dir),
                 'value'         => $value,
             );
         }
@@ -218,6 +218,6 @@ class ShowRequirementsPage extends AbstractInstallPage
             'writeError'    => $writeError,
         ));
 
-        $this->display('page.requirements.default.tpl');
+        $this->display('page.requirements.default');
     }
 }

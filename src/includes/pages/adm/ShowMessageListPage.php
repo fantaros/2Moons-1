@@ -142,5 +142,5 @@ function ShowMessageListPage()
 		'receiver'		=> $receiver,
 	));
 				
-	$template->show('MessageList.tpl');
+	$template->show('MessageList');
 }

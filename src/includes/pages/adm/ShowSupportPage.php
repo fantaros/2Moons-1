@@ -65,7 +65,7 @@ class ShowSupportPage
 			'ticketList'	=> $ticketList
 		));
 			
-		$this->tplObj->show('page.ticket.default.tpl');
+		$this->tplObj->show('page.ticket.default');
 	}
 	
 	function send() 
@@ -144,6 +144,6 @@ class ShowSupportPage
 			'answerList'	=> $answerList,
 		));
 			
-		$this->tplObj->show('page.ticket.view.tpl');		
+		$this->tplObj->show('page.ticket.view');
 	}
 }	

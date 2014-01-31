@@ -59,14 +59,9 @@ class ShowInstallPage extends AbstractInstallPage
 
         try {
             $db->query(str_replace(array(
-                '%PREFIX%',
-                '%VERSION%',
-                '%REVISION%'
+                'prefix_',
             ), array(
                 DB_PREFIX,
-                $installVersion,
-                $installRevision,
-                $installSQL
             ), $installSQL));
 
             $config = Config::get(Universe::current());
@@ -77,10 +72,10 @@ class ShowInstallPage extends AbstractInstallPage
             $config->uni_name			= $LNG['fcm_universe'] . ' ' . Universe::current();
             $config->close_reason		= $LNG['sql_close_reason'];
             $config->moduls				= implode(';', array_fill(0, MODULE_AMOUNT - 1, 1));
+            $config->VERSION			= $installVersion;
+            $config->sql_revision		= $installSQL;
 
             $config->save();
-
-            HTTP::redirectTo('index.php?mode=account');
         }
         catch (Exception $e)
         {
@@ -92,7 +87,9 @@ class ShowInstallPage extends AbstractInstallPage
                 'class'   => 'fatalerror',
                 'message' => $LNG['step3_db_error'].'</p><p>'.$error,
             ));
-            $this->display('page.database.test.tpl');
+            $this->display('page.database.test');
         }
+
+        HTTP::redirectTo('index.php?page=account');
     }
 }

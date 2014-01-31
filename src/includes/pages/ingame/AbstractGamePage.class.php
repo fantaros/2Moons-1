@@ -154,7 +154,6 @@ abstract class AbstractGamePage extends AbstractPage
             'vmode'				=> $USER['urlaubs_modus'],
 			'authlevel'			=> $USER['authlevel'],
 			'userID'			=> $USER['id'],
-			'bodyclass'			=> $this->getWindow(),
             'game_name'			=> $config->game_name,
             'uni_name'			=> $config->uni_name,
 			'ga_active'			=> $config->ga_active,
@@ -181,7 +180,7 @@ abstract class AbstractGamePage extends AbstractPage
         global $THEME, $LNG;
         $this->assign(array(
             'lang'    		=> $LNG->getLanguage(),
-            'themeName'			=> $THEME->getTheme(),
+            'themePath'			=> $THEME->getTheme(),
             'scripts'		=> $this->tplObj->jsscript,
             'execscript'	=> implode("\n", $this->tplObj->script),
             'basePath'		=> PROTOCOL.HTTP_HOST.HTTP_BASE,

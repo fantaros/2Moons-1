@@ -69,5 +69,5 @@ function ShowOverviewPage()
 		'date'				=> date('m\_Y', TIMESTAMP),
 	));
 	
-	$template->show('OverviewBody.tpl');
+	$template->show('OverviewBody');
 }

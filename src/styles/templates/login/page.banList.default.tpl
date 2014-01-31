@@ -4,15 +4,12 @@
 {html_options options=$universeSelect selected=$UNI class="changeUni" id="universe" name="universe"}
 </p>{/if}
 <table>
-	<tr>
-		<th colspan="5">{$LNG.bn_players_banned_list}</th>
-	</tr>
 {if $banCount}
 	<tr>
 		<td style="text-align:right;" colspan="5">{$LNG.mg_page}: {if $page != 1}<a href="index.php?page=banList&amp;side={$page - 1}">&laquo;</a>&nbsp;{/if}{for $site=1 to $maxPage}<a href="index.php?page=banList&amp;side={$site}">{if $site == $page}<b>[{$site}]</b>{else}[{$site}]{/if}</a>{if $site != $maxPage}&nbsp;{/if}{/for}{if $page != $maxPage}&nbsp;<a href="index.php?page=banList&amp;side={$page + 1}">&raquo;</a>{/if}</td>
 	</tr>
 {/if}
-	<tr>
+	<tr style="height: 30px;">
 		<td>{$LNG.bn_from}</td>
 		<td>{$LNG.bn_until}</td>
 		<td>{$LNG.bn_player}</td>

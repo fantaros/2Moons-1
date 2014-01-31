@@ -195,6 +195,6 @@ class ShowResourcesPage extends AbstractGamePage
 			'storage'			=> $storage,
 		));
 		
-		$this->display('page.resources.default.tpl');
+		$this->display('page.resources.default');
 	}
 }

@@ -73,7 +73,7 @@ function ShowVertify()
 		break;
 		case 'vertify':
 			$template->loadscript('vertify.js');
-			$template->show("VertifyPageResult.tpl");
+			$template->show("VertifyPageResult");
 			exit;
 		break;
 		case 'getFileList':
@@ -90,7 +90,7 @@ function ShowVertify()
 		break;
 	}
 	
-	$template->show("VertifyPage.tpl");
+	$template->show("VertifyPage");
 }
 
 function dir_tree($dir, $EXT, $subDir = true) {

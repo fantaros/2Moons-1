@@ -159,5 +159,5 @@ function ShowConfigBasicPage()
 		'Selector'						=> array('timezone' => $TimeZones, 'mail' => $LNG['se_mail_sel'], 'encry' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
 	));
 	
-	$template->show('ConfigBasicBody.tpl');
+	$template->show('ConfigBasicBody');
 }

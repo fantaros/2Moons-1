@@ -81,8 +81,7 @@ class Template
 	private function getTempPath()
 	{
 		$this->smarty->force_compile 		= true;
-		require_once 'includes/libs/wcf/BasicFileUtil.class.php';
-		return BasicFileUtil::getTempFolder();
+		return sys_get_temp_dir();
 	}
 
 	public function loadscript($script)

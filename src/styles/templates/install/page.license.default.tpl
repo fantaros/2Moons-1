@@ -1,8 +1,8 @@
-{block name="title" prepend}Somethink Cool{/block}
+{block name="title" prepend}{$LNG.menu_license}{/block}
 {block name="content"}
-<table style="width:960px">
+<table>
     <tr>
-        <th>Blah</th>
+        <th>{$LNG.menu_license}</th>
     </tr>
 <tr>
 <td class="left">
@@ -640,18 +640,17 @@ copy of the Program in return for a fee.</p>
 
 <p>END OF TERMS AND CONDITIONS</p>
 </div>
-<form action="index.php?mode=install&step=1" method="post">
-<input type="hidden" name="post" value="1"> 
+<form action="install/index.php?page=licence&amp;mode=accept" method="post">
 <table style="width: 100%;max-width:100%;margin-top:10px">
 	<tr>
 		<td class="transparent" width="70">
-			<input type="checkbox" name="accept">
+			<input type="checkbox" name="accept" id="accept" value="1">
 		</td>
 		<td class="transparent left">
-			<label>{$LNG.licence_accept}</label>
+			<label for="accept">{$LNG.licence_accept}</label>
 		</td>
 	</tr>
-	{if isset($accept)}
+	{if $needAccepted}
 	<tr>
 		<td class="transparent" colspan="2">
 			<span class="no">{$LNG.licence_need_accept}</span>
@@ -665,7 +664,6 @@ copy of the Program in return for a fee.</p>
 	</tr>
 </table>
 </form>
-</div>
 </td>
 </tr>
 </table>

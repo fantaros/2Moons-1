@@ -104,6 +104,6 @@ class ShowBattleHallPage extends AbstractGamePage
 			'order'			=> $order,
 		));
 		
-		$this->display('page.battlehall.default.tpl');
+		$this->display('page.battlehall.default');
 	}
 }

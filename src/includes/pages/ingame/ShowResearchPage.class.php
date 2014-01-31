@@ -183,6 +183,6 @@ class ShowResearchPage extends AbstractGamePage
             'ResearchList'  => $ResearchList,
 		));
 		
-		$this->display('page.research.default.tpl');
+		$this->display('page.research.default');
 	}
 }

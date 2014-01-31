@@ -85,6 +85,6 @@ class ShowBanListPage extends AbstractIndexPage
 			'maxPage'			=> $maxPage,
 		));
 		
-		$this->display('page.banList.default.tpl');
+		$this->display('page.banList.default');
 	}
 }

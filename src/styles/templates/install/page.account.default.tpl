@@ -1,6 +1,6 @@
 {block name="title" prepend}Somethink Cool{/block}
 {block name="content"}
-<table style="width:960px">
+<table>
     <tr>
         <th>Blah</th>
     </tr>
@@ -8,7 +8,7 @@
         <td class="left">
             <h2>{$LNG.step4_head}</h2>
             <p>{$LNG.step4_desc}</p>
-            <form action="index.php?mode=install&step=8" method="post">
+            <form action="install/index.php?page=account&amp;mode=create" method="post">
             <input type="hidden" name="post" value="1">
             <table class="req">
                 <tr>

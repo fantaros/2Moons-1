@@ -66,6 +66,6 @@ class ShowLoginPage extends AbstractAdminPage
 			'username'	=> $USER['username']
 		));
 
-		$template->display('page.login.default.tpl');
+		$template->display('page.login.default');
 	}
 }

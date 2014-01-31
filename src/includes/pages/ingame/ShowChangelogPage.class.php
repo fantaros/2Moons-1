@@ -38,6 +38,6 @@ class ShowChangelogPage extends AbstractGamePage
 			'ChangelogList'	=> array_map('makebr', $LNG['changelog']),
 		));
 		
-		$this->display('page.changelog.default.tpl');
+		$this->display('page.changelog.default');
 	}
 }

@@ -86,7 +86,7 @@ class ShowRecordsPage extends AbstractGamePage
 			'update'		=> _date($LNG['php_tdformat'], Cronjob::getLastExecutionTime('statistic'), $USER['timezone']),
 		));
 		
-		$this->display('page.records.default.tpl');
+		$this->display('page.records.default');
 	}
 }
  

@@ -1,8 +1,8 @@
-{block name="title" prepend}Somethink Cool{/block}
+{block name="title" prepend}{$LNG['step1_head']}{/block}
 {block name="content"}
-<table style="width:960px">
+<table>
     <tr>
-        <th>Blah</th>
+        <th>{$LNG.step1_head}</th>
     </tr>
     <tr>
         <td>
@@ -10,7 +10,7 @@
                 <div class="{$class}"><p>{$message}</p></div>
                 <div style="text-align:center;"><p>
                 {if $class == 'noerror'}
-                    <a href="index.php?page=install"><button>{$LNG.continue}</button></a>
+                    <a href="install/index.php?page=install"><button>{$LNG.continue}</button></a>
                 {else}
                     <a href="javascript:window.history.back()"><button>{$LNG.back}</button></a>
                 {/if}
@@ -18,4 +18,5 @@
             </div>
         </td>
     </tr>
-{include file="ins_footer.tpl"}
+</table>
+{/block}

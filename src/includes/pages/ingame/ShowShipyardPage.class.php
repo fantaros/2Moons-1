@@ -221,6 +221,6 @@ class ShowShipyardPage extends AbstractGamePage
 			'mode'			    => $mode,
 		));
 
-		$this->display('page.shipyard.default.tpl');
+		$this->display('page.shipyard.default');
 	}
 }

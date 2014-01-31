@@ -1,8 +1,8 @@
-{block name="title" prepend}Somethink Cool{/block}
+{block name="title" prepend}{$LNG.req_head}{/block}
 {block name="content"}
-<table style="width:960px">
+<table>
 	<tr>
-		<th>Blah</th>
+		<th>{$LNG.req_head}</th>
 	</tr>
 	<tr>
 		<td class="left">
@@ -17,7 +17,7 @@
 			{if !$isError}
 			<tr class="noborder">
 				<td colspan="2" class="transparent">
-					<a href="index.php?page=database"><button style="cursor: pointer;">{$LNG.continue}</button></a>
+					<a href="install/index.php?page=database"><button style="cursor: pointer;">{$LNG.continue}</button></a>
 				</td>
 			</tr>
 			{/if}
@@ -33,7 +33,7 @@
 	</tr>
 	<tr>
 		<td>
-			<form name="ftp" id="ftp" action="index.php?page=setPermission&amp;mode=ftp">
+			<form name="ftp" id="ftp" action="install/index.php?page=setPermission&amp;mode=ftp">
 			<table class="req">
 				<tr>
 					<td class="transparent left" colspan="2">
@@ -46,7 +46,7 @@
 				</tr>
 				<tr>
 					<td class="transparent left">{$LNG.req_ftp_username}:</td>
-					<td class="transparent"><input type="text" name="user"></th>
+					<td class="transparent"><input type="text" name="user"></td>
 				</tr>
 				<tr>
 					<td class="transparent left">{$LNG.req_ftp_password}:</td>

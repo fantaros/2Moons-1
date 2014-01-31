@@ -441,6 +441,6 @@ class ShowFleetStep3Page extends AbstractGamePage
 			'fleetList'			=> $fleetData,
 		));
 
-		$this->display('page.fleetStep3.default.tpl');
+		$this->display('page.fleetStep3.default');
 	}
 }

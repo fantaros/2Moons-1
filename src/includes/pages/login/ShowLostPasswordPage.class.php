@@ -46,7 +46,7 @@ class ShowLostPasswordPage extends AbstractIndexPage
 			'universeSelect'	=> $universeSelect
 		));
 		
-		$this->display('page.lostPassword.default.tpl');
+		$this->display('page.lostPassword.default');
 	}
 	
 	function newPassword() 

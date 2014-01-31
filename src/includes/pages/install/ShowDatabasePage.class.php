@@ -30,7 +30,7 @@ class ShowDatabasePage extends AbstractInstallPage
 {
     public function show()
     {
-        $this->display('page.database.default.tpl');
+        $this->display('page.database.default');
     }
 
     public function test()
@@ -64,7 +64,7 @@ class ShowDatabasePage extends AbstractInstallPage
             $this->_showMessage($LNG['step2_config_exists'], 'fatalerror');
         }
 
-        if (!is_writable('includes/config.php'))
+        if (!is_writable('includes/config.php') && !touch('includes/config.php'))
         {
             $this->_showMessage($LNG['step2_conf_op_fail'], 'fatalerror');
         }
@@ -103,6 +103,6 @@ class ShowDatabasePage extends AbstractInstallPage
             'message' => $message,
         ));
 
-        $this->display('page.database.test.tpl');
+        $this->display('page.database.test');
     }
 }

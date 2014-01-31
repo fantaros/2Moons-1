@@ -79,6 +79,6 @@ class ShowBattleHallPage extends AbstractIndexPage
 			'universeSelect'	=> $universeSelect,
 			'hallList'			=> $hallList,
 		));
-		$this->display('page.battleHall.default.tpl');
+		$this->display('page.battleHall.default');
 	}
 }

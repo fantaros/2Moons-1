@@ -101,7 +101,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 			'missionData'		=> $missionData,
 		));
 		
-		$this->display('page.fleetStep1.default.tpl');
+		$this->display('page.fleetStep1.default');
 	}
 	
 	public function saveShortcuts()

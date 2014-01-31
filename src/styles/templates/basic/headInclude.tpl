@@ -1,3 +1,5 @@
+<base href="{$basePath}">
+
 {nocache}
 {if !empty($metaRefresh)}
     <meta http-equiv="refresh" content="{$metaRefresh.seconds};URL={$metaRefresh.url}">
@@ -7,7 +9,9 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
-<!-- <link rel="stylesheet" type="text/css" href="resource/lib/boilerplate/boilerplate.css?v={$REV}">-->
+{if !empty($boilerplate)}
+    <link rel="stylesheet" type="text/css" href="resource/lib/boilerplate/boilerplate.css?v={$REV}">
+{/if}
 {if !empty($jqueryui)}
     <link rel="stylesheet" type="text/css" href="resource/lib/jquery-ui/css/jquery-ui-1.10.3.custom.min.css?v={$REV}">
 {/if}
@@ -17,8 +21,6 @@
 {if !empty($validEngine)}
     <link rel="stylesheet" type="text/css" href="resource/css/base/validationEngine.jquery.css?v={$REV}">
 {/if}
-
-<base href="{$basePath}">
 
 <meta name="generator" content="2Moons {$VERSION}">
 <!--

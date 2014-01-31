@@ -72,7 +72,7 @@ abstract class AbstractAdminPage extends AbstractPage
 
         $this->assign(array(
             'lang'    		=> $LNG->getLanguage(),
-            'themeName'		=> $THEME->getTheme(),
+            'themePath'		=> $THEME->getTheme(),
             'scripts'		=> $this->tplObj->jsscript,
             'execscript'	=> implode("\n", $this->tplObj->script),
             'basePath'		=> PROTOCOL.HTTP_HOST.HTTP_BASE,

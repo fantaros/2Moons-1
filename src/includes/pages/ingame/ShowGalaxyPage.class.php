@@ -153,6 +153,6 @@ class ShowGalaxyPage extends AbstractGamePage
 			),
 		));
 		
-		$this->display('page.galaxy.default.tpl');
+		$this->display('page.galaxy.default');
 	}
 }

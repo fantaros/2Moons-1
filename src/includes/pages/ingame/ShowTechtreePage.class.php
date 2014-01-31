@@ -72,6 +72,6 @@ class ShowTechtreePage extends AbstractGamePage
 			'TechTreeList'		=> $techTreeList,
 		));
 
-		$this->display('page.techtree.default.tpl');
+		$this->display('page.techtree.default');
 	}
 }

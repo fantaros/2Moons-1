@@ -55,7 +55,7 @@ class ShowSetPermissionPage extends AbstractInstallPage
         {
             $this->printMessage($LNG['req_ftp_error_data'], array(array(
                 'label'	=> $LNG['back'],
-                'url'	=> 'index.php?page=requirements',
+                'url'	=> 'install/index.php?page=requirements',
             )));
         }
 
@@ -63,7 +63,7 @@ class ShowSetPermissionPage extends AbstractInstallPage
         {
             $this->printMessage($LNG['req_ftp_error_dir'], array(array(
                 'label'	=> $LNG['back'],
-                'url'	=> 'index.php?page=requirements',
+                'url'	=> 'install/index.php?page=requirements',
             )));
         }
 
@@ -80,7 +80,7 @@ class ShowSetPermissionPage extends AbstractInstallPage
 
         $this->printMessage($LNG['req_ftp_success'], array(array(
             'label'	=> $LNG['continue'],
-            'url'	=> 'index.php?page=requirements',
+            'url'	=> 'install/index.php?page=requirements',
         )));
     }
 }

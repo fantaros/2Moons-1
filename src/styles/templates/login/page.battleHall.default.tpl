@@ -5,10 +5,10 @@
 </p>{/if}
 <table>
 <tr>
-	<th style="color:lime">{$LNG.tkb_platz}</th>
-	<th style="color:lime">{$LNG.tkb_owners}</th>
-	<th style="color:lime">{$LNG.tkb_datum}</th>
-	<th style="color:lime">{$LNG.tkb_units}</th>
+	<th>{$LNG.tkb_platz}</th>
+	<th>{$LNG.tkb_owners}</th>
+	<th>{$LNG.tkb_datum}</th>
+	<th>{$LNG.tkb_units}</th>
 </tr>
 {foreach $hallList as $hallRow}
 <tr>

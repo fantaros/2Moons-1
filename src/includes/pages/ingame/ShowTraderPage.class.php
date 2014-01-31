@@ -58,7 +58,7 @@ class ShowTraderPage extends AbstractGamePage
 			'requiredDarkMatter'	=> $USER['darkmatter'] < $darkmatter_cost_trader ? sprintf($LNG['tr_not_enought'], $LNG['tech'][921]) : false,
 		));
 		
-		$this->display("page.trader.default.tpl");
+		$this->display("page.trader.default");
 	}
 		
 	function trade()
@@ -89,7 +89,7 @@ class ShowTraderPage extends AbstractGamePage
 			'charge' 			=> self::$Charge[$elementId],
 		));
 
-		$this->display('page.trader.trade.tpl');
+		$this->display('page.trader.trade');
 	}
 	
 	function send()

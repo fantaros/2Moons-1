@@ -97,19 +97,19 @@
 			<th>{$LNG.op_show}</th>
 		</tr>
 		<tr>
-			<td><img src="{$themeName}img/e.gif" alt="">{$LNG.op_spy}</td>
+			<td><img src="{$themePath}img/e.gif" alt="">{$LNG.op_spy}</td>
 			<td><input name="galaxySpy" type="checkbox" value="1" {if $galaxySpy == 1}checked="checked"{/if}></td>
 		</tr>
 		<tr>
-			<td><img src="{$themeName}img/m.gif" alt="">{$LNG.op_write_message}</td>
+			<td><img src="{$themePath}img/m.gif" alt="">{$LNG.op_write_message}</td>
 			<td><input name="galaxyMessage" type="checkbox" value="1" {if $galaxyMessage == 1}checked="checked"{/if}></td>
 		</tr>
 		<tr>
-			<td><img src="{$themeName}img/b.gif" alt="">{$LNG.op_add_to_buddy_list}</td>
+			<td><img src="{$themePath}img/b.gif" alt="">{$LNG.op_add_to_buddy_list}</td>
 			<td><input name="galaxyBuddyList" type="checkbox" value="1" {if $galaxyBuddyList == 1}checked="checked"{/if}></td>
 		</tr>
 		<tr>
-			<td><img src="{$themeName}img/r.gif" alt="">{$LNG.op_missile_attack}</td>
+			<td><img src="{$themePath}img/r.gif" alt="">{$LNG.op_missile_attack}</td>
 			<td><input name="galaxyMissle" type="checkbox" value="1" {if $galaxyMissle == 1}checked="checked"{/if}></td>
 		</tr>
 		<tr>

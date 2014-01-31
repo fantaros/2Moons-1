@@ -511,7 +511,7 @@ function ShowAccountDataPage()
 				'ac_coords'						=> $LNG['ac_coords'],
 				'ac_time_destroyed'				=> $LNG['ac_time_destroyed'],
 			));					
-			$template->show('AccountDataPageDetail.tpl');
+			$template->show('AccountDataPageDetail');
 		}
 		exit;
 	}
@@ -532,5 +532,5 @@ function ShowAccountDataPage()
 		'ac_select_id_num'	=> $LNG['ac_select_id_num'],
 		'button_submit'		=> $LNG['button_submit'],
 	));					
-	$template->show('AccountDataPageIntro.tpl');
+	$template->show('AccountDataPageIntro');
 }

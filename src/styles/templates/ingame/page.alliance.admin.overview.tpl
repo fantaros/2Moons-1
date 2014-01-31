@@ -148,7 +148,7 @@ $(function() {
 			theme_advanced_toolbar_location : "bottom",
 			theme_advanced_toolbar_align : "center",
 			theme_advanced_styles : "Code=codeStyle;Quote=quoteStyle",
-			content_css : "{$themeName}formate.css",
+			content_css : "{$themePath}formate.css",
 			entity_encoding : "raw",
 			add_unload_trigger : false,
 			remove_linebreaks : false,

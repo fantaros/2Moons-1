@@ -96,6 +96,6 @@ function ShowGiveaway()
 	$template->assign_vars(array(	
 		'reslist'		=> $reslist
 	));
-	$template->show("giveaway.tpl");
+	$template->show("giveaway");
 }
 

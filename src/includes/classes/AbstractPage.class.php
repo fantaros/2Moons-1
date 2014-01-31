@@ -85,7 +85,7 @@ abstract class AbstractPage
 
     protected function assign($array)
     {
-        $this->tplObj->getSmartyObj()->assign($array);
+        $this->tplObj->getSmartyObj()->assign($array, NULL, true);
     }
 
     protected function display($file)
@@ -102,14 +102,15 @@ abstract class AbstractPage
         $this->assignBasicData();
 
         $this->assign(array(
-            'metaRefresh' => array()
+            'metaRefresh'   => array(),
+            'bodyclass'     => $this->getWindow(),
         ));
 
-        $this->assign(array(
+        $this->tplObj->getSmartyObj()->assign(array(
             'LNG'			=> $LNG,
-        ), false);
+        ), NULL, false);
 
-        $this->tplObj->display('extends:layout.'.$this->getWindow().'.tpl|'.$file);
+        $this->tplObj->display('extends:layout.'.$this->getWindow().'.tpl|'.$file.'.tpl');
         exit;
     }
 
@@ -155,7 +156,7 @@ abstract class AbstractPage
             'redirectButtons'	=> $redirectButtons,
         ));
 
-        $this->display('error.default.tpl');
+        $this->display('error.default');
     }
 
     protected function sendJSON($data)
@@ -169,7 +170,6 @@ abstract class AbstractPage
     {
         $this->save();
         HTTP::redirectTo($url);
-        exit;
     }
 
     protected function redirectPost($url, $postFields)
@@ -180,6 +180,6 @@ abstract class AbstractPage
             'postFields'	=> $postFields,
         ));
 
-        $this->display('info.redirectPost.tpl');
+        $this->display('info.redirectPost');
     }
 }

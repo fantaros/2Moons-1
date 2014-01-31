@@ -6,12 +6,12 @@
 <!--[if IE 9 ]>    <html lang="{$lang}" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="{$lang}" class="no-js"> <!--<![endif]-->
 <head>
-    {include 'headInclude.tpl' jqueryui=1 fancybox=1 validEngine=1}
+    {include 'headInclude.tpl' jqueryui=1 fancybox=1 validEngine=1 boilerplate=1}
 
 	<title>{block name="title"} - {$uni_name} - {$game_name}{/block}</title>
 
     <link rel="stylesheet" type="text/css" href="resource/css/ingame/main.css?v={$REV}">
-	<link rel="stylesheet" type="text/css" href="{$themeName}formate.css?v={$REV}">
+	<link rel="stylesheet" type="text/css" href="{$themePath}formate.css?v={$REV}">
 
 	<script type="text/javascript">
 	var ServerTimezoneOffset = {$Offset};
@@ -21,7 +21,7 @@
 	var localTS 	= startTime;
 	var Gamename	= document.title;
 	var Ready		= "{$LNG.ready}";
-	var Skin		= "{$themeName}";
+	var Skin		= "{$themePath}";
 	var Lang		= "{$lang}";
 	var head_info	= "{$LNG.fcm_info}";
 	var auth		= {$authlevel|default:'0'};

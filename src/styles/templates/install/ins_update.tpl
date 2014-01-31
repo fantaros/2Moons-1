@@ -10,7 +10,7 @@
 				</form>
 			{else}
 				<p class="left">{sprintf($LNG.upgrade_notavailable,$sql_revision)}</p>
-				<p><a href="index.php"><button style="cursor: pointer;">{$LNG.upgrade_back}</button></a></p>
+				<p><a href="install/index.php"><button style="cursor: pointer;">{$LNG.upgrade_back}</button></a></p>
 			{/if}
 		</div>
 	</td>

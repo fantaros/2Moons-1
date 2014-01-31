@@ -68,6 +68,6 @@ class ShowScreensPage extends AbstractIndexPage
 			'images' => $images
 		));
 
-		$this->display('page.screens.default.tpl');
+		$this->display('page.screens.default');
 	}
 }

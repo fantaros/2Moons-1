@@ -5,6 +5,7 @@ table{
 
 body > table{
 	width:960px;
+    margin-top: 40px;
 }
 
 .yes{

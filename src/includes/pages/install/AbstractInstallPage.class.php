@@ -35,18 +35,21 @@ abstract class AbstractInstallPage extends AbstractPage
 
     public function __construct()
     {
-        $this->isInstallToolEnabled();
         parent::__construct();
+        $this->isInstallToolEnabled();
     }
 
     protected function assignFullPageData()
     {
         global $LNG;
+        $gameVersion    = file_get_contents('install/VERSION');
+        $gameRevision   = explode('.', $gameVersion);
         $this->assign(array(
             'lang'    		=> $LNG->getLanguage(),
-            'themeName'			=> 'gow',
-            'basePath'		=> PROTOCOL.HTTP_HOST.HTTP_BASE,
-            'VERSION'		=> file_get_contents('install/VERSION'),
+            'themePath'		=> 'styles/theme/'.DEFAULT_THEME.'/',
+            'basePath'		=> str_replace('install/', '', PROTOCOL.HTTP_HOST.HTTP_BASE),
+            'VERSION'		=> $gameVersion,
+            'REV'		    => $gameRevision[2],
             'gameName'      => '2Moons'
         ));
     }

@@ -30,7 +30,7 @@ class ShowAccountPage extends AbstractInstallPage
 {
     public function show()
     {
-        $this->display('page.account.default.tpl');
+        $this->display('page.account.default');
     }
 
     public function create()
@@ -42,8 +42,6 @@ class ShowAccountPage extends AbstractInstallPage
         $mail		= HTTP::_GP('email', '');
 
         require 'includes/classes/BuildUtil.class.php';
-        require 'includes/classes/Element.class.php';
-        require 'includes/classes/Vars.class.php';
 
         Vars::init();
 

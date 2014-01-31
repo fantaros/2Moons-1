@@ -1,3 +1,3 @@
-{include file="main.header.tpl" bodyclass="full"}
-<div id="content">{block name="content"}{/block}</div>
-{include file="main.footer.tpl" nocache}
+{include file="main.header.tpl"}
+{block name="content"}{/block}
+{include file="main.footer.tpl"}

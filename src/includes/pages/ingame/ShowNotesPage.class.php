@@ -65,7 +65,7 @@ class ShowNotesPage extends AbstractGamePage
 			'notesList'	=> $notesList,
 		));
 		
-		$this->display('page.notes.default.tpl');
+		$this->display('page.notes.default');
 	}
 	
 	function detail()
@@ -96,7 +96,7 @@ class ShowNotesPage extends AbstractGamePage
 			'noteDetail'	=> $noteDetail,
 		));
 		
-		$this->display('page.notes.detail.tpl');
+		$this->display('page.notes.detail');
 	}
 	
 	public function insert()

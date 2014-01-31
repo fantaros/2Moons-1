@@ -48,7 +48,6 @@ abstract class AbstractIndexPage extends AbstractPage
         $config	= Config::get();
         $this->assign(array(
             'lang'    			    => $LNG->getLanguage(),
-            'bodyclass'			    => $this->getWindow(),
             'basePath'			    => PROTOCOL.HTTP_HOST.HTTP_BASE,
             'isMultiUniverse'	    => count(Universe::availableUniverses()) > 1,
             'recaptchaEnable'		=> $config->capaktiv,

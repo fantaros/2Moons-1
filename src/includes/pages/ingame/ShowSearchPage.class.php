@@ -238,12 +238,12 @@ class ShowSearchPage extends AbstractGamePage
 		
 		$this->assign(array(
 			'searchList'	=> $searchList,
-            'themeName'			=> $THEME->getTheme(),
+            'themePath'			=> $THEME->getTheme(),
 		));
 		
 		$templateSuffix	= ($seachMode === "allyname" || $seachMode === "allytag") ? "ally" : "default";
 		
-		$this->display('page.search.result.'.$templateSuffix.'.tpl');
+		$this->display('page.search.result.'.$templateSuffix.'');
 	}
 	
 	function show()
@@ -259,6 +259,6 @@ class ShowSearchPage extends AbstractGamePage
 			'seachMode'		=> $seachMode,
 		));
 		
-		$this->display('page.search.default.tpl');
+		$this->display('page.search.default');
 	}
 }

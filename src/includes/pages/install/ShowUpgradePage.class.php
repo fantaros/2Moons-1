@@ -62,7 +62,7 @@ class ShowUpgradePage extends AbstractInstallPage
             'header'        => $LNG['menu_upgrade']
         ));
 
-        $this->display('page.update.default.tpl');
+        $this->display('page.update.default');
     }
 
     public function execute()
@@ -173,6 +173,6 @@ class ShowUpgradePage extends AbstractInstallPage
             'update'   => !empty($fileList),
             'revision' => $revision,
             'header'   => $LNG['menu_upgrade'],));
-        $template->show('ins_doupdate.tpl');
+        $template->show('ins_doupdate');
     }
 }
