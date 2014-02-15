@@ -29,7 +29,7 @@
 					<input type="hidden" name="taskId" value="{$taskId}">
 					<button type="submit" class="build_submit onlist">{$LNG.bd_cancel}</button>
 				</form>
-				<br><span style="color:lime" data-time="{$task.endtime}" class="timer">{$task.display}</span>
+				<br><span style="color:lime" data-time="{$task.endtime}">{$task.display}</span>
 			</td>
 		</tr>
 	{/foreach}

@@ -8,7 +8,7 @@
 <head>
     {include 'headInclude.tpl' jqueryui=1 fancybox=1 validEngine=1 boilerplate=1}
 
-	<title>{block name="title"} - {$uni_name} - {$game_name}{/block}</title>
+	<title>{block name="title"} - {$uniName} - {$gameName}{/block}</title>
 
     <link rel="stylesheet" type="text/css" href="resource/css/ingame/main.css?v={$REV}">
 	<link rel="stylesheet" type="text/css" href="{$themePath}formate.css?v={$REV}">

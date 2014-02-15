@@ -6,7 +6,7 @@
     </tr>
     <tr>
         <td>
-            <div id="lang" class="right"><label for="lang">{$LNG.intro_lang}</label>:&nbsp;<select id="lang"  name="lang" onchange="document.location = '?lang='+$(this).val();">{html_options options=$languageSelect}</select></div>
+            <div id="lang" class="right"><label for="lang">{$LNG.intro_lang}</label>:&nbsp;<select id="lang"  name="lang" onchange="document.location = 'install/index.php?lang='+$(this).val();">{html_options options=$languageSelect}</select></div>
             <div id="main" class="left">
                 <h2>{$LNG.intro_welcome}</h2>
                 <p>{$LNG.intro_text}</p>

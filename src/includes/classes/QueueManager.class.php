@@ -150,7 +150,7 @@ class QueueManager
 		$sql	= 'SELECT * FROM %%QUEUE%% WHERE userId = :userId AND (planetId = :planetId OR taskType = :taskType) AND queueId IN ('.implode(',', $queueId).') ORDER BY taskId ASC;';
 
 		return Database::get()->select($sql, array(
-			':userId'	   => $this->userId,
+			':userId'	 => $this->userId,
 			':planetId'	 => $this->planetId,
 			':taskType'	 => self::USER,
 		));

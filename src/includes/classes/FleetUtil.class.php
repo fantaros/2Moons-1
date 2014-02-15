@@ -417,8 +417,9 @@ class FleetUtil
 		}
 		elseif ($targetPlanet['planet_type'] == 2)
 		{
-			if (ArrayUtil::checkIfOneKeyExists($fleetData, array_keys(Vars::getElements(Vars::CLASS_FLEET, Vars::FLAG_COLLECT)))
-				&& isModulAvalible(MODULE_MISSION_RECYCLE) && !($targetPlanet['der_metal'] == 0 && $targetPlanet['der_crystal'] == 0))
+			if (($targetPlanet['der_metal'] != 0 || $targetPlanet['der_crystal'] != 0)
+                && ArrayUtil::checkIfOneKeyExists($fleetData, array_keys(Vars::getElements(Vars::CLASS_FLEET, Vars::FLAG_COLLECT)))
+				&& isModulAvalible(MODULE_MISSION_RECYCLE))
 			{
 				$availableMissions[]	= 8;
 			}
@@ -645,6 +646,11 @@ class FleetUtil
 
 	static public function getFleetElements($currentFleets)
 	{
+        if(empty($currentFleets))
+        {
+            return array();
+        }
+
 		$db	= Database::get();
 		$sql = "SELECT * FROM %%FLEETS_ELEMENTS%% WHERE fleetId IN (".implode(',', array_keys($currentFleets)).");";
 		$elementResult = $db->select($sql);

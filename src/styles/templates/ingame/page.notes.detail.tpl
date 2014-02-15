@@ -1,6 +1,6 @@
 {block name="title" prepend}{$LNG.lm_notes}{/block}
 {block name="content"}
-<form action="?page=notes&amp;mode=insert" method="post">
+<form action="game.php?page=notes&amp;mode=insert" method="post">
 	<input type="hidden" name="id" value="{$noteDetail.id}">
 	<table style="width:90%;">
 		<tr>

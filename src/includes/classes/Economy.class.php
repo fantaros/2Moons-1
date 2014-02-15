@@ -384,9 +384,6 @@ class Economy
 
                 $elementObj     = Vars::getElement($task['elementId']);
                 $costResources  = BuildUtil::getElementPrice($elementObj, $task['amount'], $task['taskType'] == QueueManager::DESTROY);
-
-                $buildTime      = BuildUtil::getBuildingTime($this->USER, $this->PLANET, $elementObj, $costResources);
-
                 if(!BuildUtil::isElementBuyable($this->USER, $taskPlanet, $elementObj, $costResources))
                 {
                     $this->queueObj->removeAllTaskByElementObj($elementObj);
@@ -405,11 +402,13 @@ class Economy
                     {
                         $this->USER[$resourceElementObj->name] 	-= $costResources[$resourceElementId];
                     }
-                    elseif($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
+                    else
                     {
                         $taskPlanet[$resourceElementObj->name]	-= $costResources[$resourceElementId];
                     }
                 }
+
+                $buildTime      = BuildUtil::getBuildingTime($this->USER, $this->PLANET, $elementObj, $costResources);
 
                 if($buildTime != $task['buildTime'])
                 {
@@ -589,11 +588,11 @@ class Economy
                 $resourceElementObj    = Vars::getElement($resourceElementId);
                 if($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_PLANET))
                 {
-                    $this->PLANET[$resourceElementObj->name]	-= $costResources[$resourceElementId];
+                    $this->PLANET[$resourceElementObj->name]    -= $value;
                 }
                 elseif($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
                 {
-                    $this->USER[$resourceElementObj->name] 	    -= $costResources[$resourceElementId];
+                    $this->USER[$resourceElementObj->name] 	    -= $value;
                 }
             }
         }
@@ -662,17 +661,17 @@ class Economy
             {
                 if($taskData['taskType'] == QueueManager::SHIPYARD)
                 {
-                    $costResources[$resourceElementId]  = round($costResources[$resourceElementId] * FACTOR_CANCEL_SHIPYARD);
+                    $value  = round($value * FACTOR_CANCEL_SHIPYARD);
                 }
 
                 $resourceElementObj    = Vars::getElement($resourceElementId);
                 if($resourceElementObj->isUserResource())
                 {
-                    $this->USER[$resourceElementObj->name] 	+= $costResources[$resourceElementId];
+                    $this->USER[$resourceElementObj->name] 	+= $value;
                 }
                 else
                 {
-                    $taskPlanet[$resourceElementObj->name]	+= $costResources[$resourceElementId];
+                    $taskPlanet[$resourceElementObj->name]	+= $value;
                 }
             }
 

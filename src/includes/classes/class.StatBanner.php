@@ -28,7 +28,7 @@
 
 class StatBanner {
 
-	private $source = "styles/resource/images/banner.jpg";
+	private $source = "resource/images/banner.jpg";
 
 	public function GetData($id)
 	{
@@ -52,7 +52,7 @@ class StatBanner {
 
 		$Font		= $data['ttf_file'];
 		if(!file_exists($Font))
-			$this->BannerError('TTF Font missing!');
+			$this->BannerError('TTF Font "'.$Font.'" missing!');
 			
 		// Colors		
 		$color	= imagecolorallocate($image, 255, 255, 225);
@@ -90,7 +90,13 @@ class StatBanner {
 		imagedestroy($image);
 	}
 	
-	function BannerError($Message) {
+	function BannerError($Message)
+    {
+        if(isset($_GET['debug']))
+        {
+            throw new Exception($Message);
+        }
+
 		HTTP::sendHeader('Content-type', 'image/jpg');
 		$im	 = imagecreate(450, 80);
 		$text_color = imagecolorallocate($im, 233, 14, 91);

@@ -36,7 +36,7 @@ class DumpCronjob implements CronjobTask
 	{
 		$prefixCounts	= strlen(DB_PREFIX);
 		$dbTables		= array();
-		$tableNames		= Database::get()->nativeQuery('SHOW TABLE STATUS FROM '.DB_NAME.';');
+		$tableNames		= Database::get()->nativeQuery('SHOW TABLE STATUS FROM `'.DB_NAME.'`;');
 
 		foreach($tableNames as $table)
 		{

@@ -166,10 +166,10 @@ class Universe {
 		}
 		else
 		{
-			if(HTTP_ROOT != HTTP_BASE)
-			{
-				HTTP::redirectTo(PROTOCOL.HTTP_HOST.HTTP_BASE.HTTP_FILE, true);
-			}
+			#if(HTTP_ROOT != HTTP_BASE)
+			#{
+			#	HTTP::redirectTo(PROTOCOL.HTTP_HOST.HTTP_BASE.HTTP_FILE, true);
+			#}
 			$universe = ROOT_UNI;
 		}
 

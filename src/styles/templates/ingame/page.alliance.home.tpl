@@ -19,18 +19,18 @@
 	</tr>
 	<tr>
 		<td>{$LNG.al_ally_info_members}</td>
-		<td>{$ally_max_members} / {$ally_members}{if $rights.MEMBERLIST} (<a href="?page=alliance&amp;mode=memberList">{$LNG.al_user_list}</a>){/if}</td>
+		<td>{$ally_max_members} / {$ally_members}{if $rights.MEMBERLIST} (<a href="game.php?page=alliance&amp;mode=memberList">{$LNG.al_user_list}</a>){/if}</td>
 	</tr>
 	<tr>
 		<td>{$LNG.al_rank}</td>
-		<td>{$rankName}{if $rights.ADMIN} (<a href="?page=alliance&amp;mode=admin">{$LNG.al_manage_alliance}</a>){/if}</td>
+		<td>{$rankName}{if $rights.ADMIN} (<a href="game.php?page=alliance&amp;mode=admin">{$LNG.al_manage_alliance}</a>){/if}</td>
 	</tr>
 	<tr>
 		<td colspan="2"><a href="#" onclick="return Dialog.AllianceChat();">{$LNG.al_goto_chat}</a></td>
 	</tr> 
 	{if $rights.SEEAPPLY && $applyCount > 0}		
 	<tr>
-		<td>{$LNG.al_requests}</td><td><a href="?page=alliance&amp;mode=admin&amp;action=mangeApply">{$requests}</a></td>
+		<td>{$LNG.al_requests}</td><td><a href="game.php?page=alliance&amp;mode=admin&amp;action=mangeApply">{$requests}</a></td>
 	</tr>
 	{/if}
 	{if $rights.ROUNDMAIL}
@@ -81,11 +81,11 @@
 	<tr>
 		<td colspan="2">
 		{if $DiploInfo}
-			{if !empty($DiploInfo.0)}<b><u>{$LNG.al_diplo_level.0}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.0}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
-		{if !empty($DiploInfo.1)}<b><u>{$LNG.al_diplo_level.1}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.1}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
-		{if !empty($DiploInfo.2)}<b><u>{$LNG.al_diplo_level.2}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.2}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
-		{if !empty($DiploInfo.3)}<b><u>{$LNG.al_diplo_level.3}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.3}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
-			{if !empty($DiploInfo.4)}<b><u>{$LNG.al_diplo_level.4}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.4}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
+			{if !empty($DiploInfo.0)}<b><u>{$LNG.al_diplo_level.0}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.0}<a href="game.php?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
+		{if !empty($DiploInfo.1)}<b><u>{$LNG.al_diplo_level.1}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.1}<a href="game.php?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
+		{if !empty($DiploInfo.2)}<b><u>{$LNG.al_diplo_level.2}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.2}<a href="game.php?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
+		{if !empty($DiploInfo.3)}<b><u>{$LNG.al_diplo_level.3}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.3}<a href="game.php?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
+			{if !empty($DiploInfo.4)}<b><u>{$LNG.al_diplo_level.4}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.4}<a href="game.php?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
 		{else}
 			{$LNG.al_no_diplo}
 		{/if}

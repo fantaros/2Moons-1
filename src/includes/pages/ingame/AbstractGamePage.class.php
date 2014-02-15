@@ -39,7 +39,7 @@ abstract class AbstractGamePage extends AbstractPage
 
     public static $requireModule = 0;
 	
-	protected function __construct()
+	public function __construct()
     {
 	    parent::__construct();
 		if(!AJAX_REQUEST && !$this->disableEcoSystem)
@@ -127,15 +127,17 @@ abstract class AbstractGamePage extends AbstractPage
 			'hasGate'			=> $PLANET[Vars::getElement(43)->name] > 0
 		));
 	}
-	
-	protected function getPageData() 
+
+
+    protected function assignFullPageData()
     {
-		global $USER, $THEME;
-		
-		if($this->getWindow() === 'full') {
-			$this->getNavigationData();
-			$this->getCronjobsTodo();
-		}
+        $this->getNavigationData();
+        $this->getCronjobsTodo();
+    }
+
+    protected function assignBasicData()
+    {
+		global $USER, $THEME, $LNG;
 		
 		$dateTimeServer		= new DateTime("now");
 		if(isset($USER['timezone'])) {
@@ -154,8 +156,8 @@ abstract class AbstractGamePage extends AbstractPage
             'vmode'				=> $USER['urlaubs_modus'],
 			'authlevel'			=> $USER['authlevel'],
 			'userID'			=> $USER['id'],
-            'game_name'			=> $config->game_name,
-            'uni_name'			=> $config->uni_name,
+            'gameName'			=> $config->game_name,
+            'uniName'			=> $config->uni_name,
 			'ga_active'			=> $config->ga_active,
 			'ga_key'			=> $config->ga_key,
 			'debug'				=> $config->debug,
@@ -165,6 +167,11 @@ abstract class AbstractGamePage extends AbstractPage
 			'Offset'			=> $dateTimeUser->getOffset() - $dateTimeServer->getOffset(),
 			'queryString'		=> $this->getQueryString(),
 			'themeSettings'		=> $THEME->getStyleSettings(),
+            'lang'    		    => $LNG->getLanguage(),
+            'themePath'		    => $THEME->getTheme(),
+            'scripts'		    => $this->tplObj->jsscript,
+            'execscript'	    => implode("\n", $this->tplObj->script),
+            'basePath'		    => PROTOCOL.HTTP_HOST.HTTP_BASE,
 		));
 	}
 	
@@ -174,16 +181,4 @@ abstract class AbstractGamePage extends AbstractPage
 			$this->ecoObj->SavePlanetToDB();
 		}
 	}
-
-    protected function assignFullPageData()
-    {
-        global $THEME, $LNG;
-        $this->assign(array(
-            'lang'    		=> $LNG->getLanguage(),
-            'themePath'			=> $THEME->getTheme(),
-            'scripts'		=> $this->tplObj->jsscript,
-            'execscript'	=> implode("\n", $this->tplObj->script),
-            'basePath'		=> PROTOCOL.HTTP_HOST.HTTP_BASE,
-        ));
-    }
 }

@@ -56,7 +56,7 @@ class Template
 	private function smartySettings()
 	{
         global $THEME;
-		$this->smarty->caching 					= true;
+		$this->smarty->caching 					= false;
 		$this->smarty->merge_compiled_includes	= true;
 		$this->smarty->compile_check			= true; #Set false for production!
 		$this->smarty->php_handling				= Smarty::PHP_REMOVE;

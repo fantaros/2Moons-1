@@ -7,7 +7,7 @@
 			<th>{$LNG.lm_battlesim}</th>
 		</tr>
 		<tr>
-			<td>{$LNG.bs_steal}:{foreach $resourceElements as $elementResourceId} <label for="resource_{$elementResourceId}">{$LNG.tech.$elementResourceId}</label>: <input type="text" id="resource_{$elementResourceId}" size="10" value="{if isset($battleinput.0.1.$elementResourceId)}{$battleinput.0.1.$elementResourceId}{else}0{/if}" name="battleinput[0][1][{$elementResourceId}]">{/foreach}
+			<td>{$LNG.bs_steal}{foreach $resourceElements as $elementResourceId} <label for="resource_{$elementResourceId}">{$LNG.tech.$elementResourceId}</label>: <input type="text" id="resource_{$elementResourceId}" size="10" value="{if isset($battleinput.0.1.$elementResourceId)}{$battleinput.0.1.$elementResourceId}{else}0{/if}" name="battleinput[0][1][{$elementResourceId}]">{/foreach}
     	</tr>
 		<tr>
 			<td class="left"><input type="button" onClick="return add();" value="{$LNG.bs_add_acs_slot}"></td>
@@ -109,4 +109,7 @@
 		</tr>
 	</table>
 </form>
+{/block}
+{block name="script" append}
+    <script src="resource/js/game/battlesim.js"></script>
 {/block}

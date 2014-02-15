@@ -1,4 +1,4 @@
-<form action="?page=fleetTable&amp;action=acs" method="post">
+<form action="game.php?page=fleetTable&amp;action=acs" method="post">
 <input name="fleetId" value="{$acsData.mainFleetID}" type="hidden">
 	<table class="table519">
 		<tr style="height:20px;">
@@ -37,7 +37,7 @@
 <script type="text/javascript">
 function Rename(){
 	var Name = prompt("{$LNG.fl_acs_change_name}", "{$acsData.acsName}");
-	$.getJSON('?page=fleetTable&action=acs&fleetId={$acsData.mainFleetID}&acsName='+Name, function(data) {
+	$.getJSON('game.php?page=fleetTable&action=acs&fleetId={$acsData.mainFleetID}&acsName='+Name, function(data) {
 		if(data != "") {
 			alert(data);
 			return;

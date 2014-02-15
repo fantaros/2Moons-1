@@ -1,4 +1,4 @@
-{include file="main.header.tpl" bodyclass="full"}
+{include file="main.header.tpl" nocache}
 {if $hasAdminAccess}
 <div class="globalWarning">
 {$LNG.admin_access_1} <a id="drop-admin">{$LNG.admin_access_link}</a>{$LNG.admin_access_2}

@@ -100,7 +100,7 @@ class SQLDumper
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;\n\n");
 
-			$createTable	= $db->nativeQuery("SHOW CREATE TABLE ".$dbTable);
+			$createTable	= $db->nativeQuery("SHOW CREATE TABLE `".$dbTable."`");
 			fwrite($fp, $createTable[0]['Create Table'].';');
 			fwrite($fp, "\n\n/*!40101 SET character_set_client = @saved_cs_client */;");
 

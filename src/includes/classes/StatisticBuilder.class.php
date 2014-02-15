@@ -101,7 +101,7 @@ class StatisticBuilder
 		$flyingFleets	= array();
 		$db	            = Database::get();
 
-		$fleetResult    = $db->select('SELECT %%FLEETS_ELEMENTS%%.*,fleet_owner FROM %%FLEETS_ELEMENTS%% INNER JOIN %%FLEETS%% on fleetId = fleetId;');
+		$fleetResult    = $db->select('SELECT %%FLEETS_ELEMENTS%%.*,fleet_owner FROM %%FLEETS_ELEMENTS%% INNER JOIN %%FLEETS%% USING(fleetId);');
 		foreach($fleetResult as $fleetRow)
 		{
 			if(!isset($flyingFleets[$fleetRow['fleet_owner']]))

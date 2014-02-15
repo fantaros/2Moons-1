@@ -64,16 +64,18 @@ class ShowInstallPage extends AbstractInstallPage
                 DB_PREFIX,
             ), $installSQL));
 
-            $config = Config::get(Universe::current());
+            $config = Config::get();
             $config->sql_revision		= $installRevision;
             $config->timezone			= @date_default_timezone_get();
             $config->lang	 			= $LNG->getLanguage();
             $config->OverviewNewsText	= $LNG['sql_welcome'] . $installVersion;
+            $config->game_name			= '2Moons';
             $config->uni_name			= $LNG['fcm_universe'] . ' ' . Universe::current();
             $config->close_reason		= $LNG['sql_close_reason'];
             $config->moduls				= implode(';', array_fill(0, MODULE_AMOUNT - 1, 1));
             $config->VERSION			= $installVersion;
             $config->sql_revision		= $installSQL;
+            $config->ttf_file   		= 'resource/fonts/DroidSansMono.ttf';
 
             $config->save();
         }

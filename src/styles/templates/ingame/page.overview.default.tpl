@@ -7,7 +7,7 @@
 	</tr>
 	{if $messages}
 	<tr>
-		<td colspan="3"><a href="?page=messages">{$messages}</a></td>
+		<td colspan="3"><a href="game.php?page=messages">{$messages}</a></td>
 	</tr>
 	{/if}
 	<tr>
@@ -26,7 +26,7 @@
 	{if !empty($chatOnline)}
 	<tr>
 		<td style="white-space: nowrap;">{$LNG.ov_chat_online}</td>
-		<td colspan="2">{foreach $chatOnline as $Name}{if !$Name@first},&nbsp;{/if}<a href="?page=chat">{$Name}</a>{/foreach}</td>
+		<td colspan="2">{foreach $chatOnline as $Name}{if !$Name@first},&nbsp;{/if}<a href="game.php?page=chat">{$Name}</a>{/foreach}</td>
 	</tr>
 	{/if}
 	{if $teamspeakData !== false}

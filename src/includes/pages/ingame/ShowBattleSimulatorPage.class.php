@@ -238,7 +238,6 @@ class ShowBattleSimulatorPage extends AbstractGamePage
 
 		$Slots			= HTTP::_GP('slots', 1);
 
-
         $fleetElements     = Vars::getElements(Vars::CLASS_FLEET);
         $defendElements    = Vars::getElements(Vars::CLASS_DEFENSE);
         $resourceElements  = Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_STEAL);
@@ -270,8 +269,6 @@ class ShowBattleSimulatorPage extends AbstractGamePage
 				$BattleArray[0][1][$key]	= floattostring($value);
 			}
 		}
-		
-		$this->tplObj->loadscript('battlesim.js');
 		
 		$this->assign(array(
 			'Slots'			    => $Slots,

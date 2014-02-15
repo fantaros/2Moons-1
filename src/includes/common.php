@@ -53,6 +53,7 @@ require 'includes/classes/Cache.class.php';
 require 'includes/classes/Database.class.php';
 require 'includes/classes/Config.class.php';
 require 'includes/classes/FleetUtil.class.php';
+require 'includes/classes/GameLink.class.php';
 require 'includes/classes/HTTP.class.php';
 require 'includes/classes/Language.class.php';
 require 'includes/classes/PlayerUtil.class.php';
@@ -76,23 +77,9 @@ if (MODE === 'INSTALL')
 	return;
 }
 
-if(!file_exists('includes/config.php')) {
-	HTTP::redirectTo('install/index.php');
-}
-
-if(defined('DATABASE_VERSION') && DATABASE_VERSION === 'OLD')
+if(!file_exists('includes/config.php'))
 {
-	/* For our old Admin panel */
-	require 'includes/classes/Database_BC.class.php';
-	$DATABASE	= new Database_BC();
-	
-	$dbTableNames	= Database::get()->getDbTableNames();
-	$dbTableNames	= array_combine($dbTableNames['keys'], $dbTableNames['names']);
-	
-	foreach($dbTableNames as $dbAlias => $dbName)
-	{
-		define(substr($dbAlias, 2, -2), $dbName);
-	}	
+	HTTP::redirectTo('install/index.php');
 }
 
 $config = Config::get();

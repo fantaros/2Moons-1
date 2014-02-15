@@ -1,10 +1,8 @@
 <base href="{$basePath}">
 
-{nocache}
 {if !empty($metaRefresh)}
     <meta http-equiv="refresh" content="{$metaRefresh.seconds};URL={$metaRefresh.url}">
 {/if}
-{/nocache}
 
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">

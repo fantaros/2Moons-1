@@ -99,17 +99,7 @@ class FlyingFleetsTable
 			$currentFleets[$fleetRow['fleetId']]	= $fleetRow;
 		}
 
-		$sql = "SELECT * FROM %%FLEETS_ELEMENTS%% WHERE fleetId IN (".implode(',', array_keys($currentFleets)).");";
-		$elementResult = Database::get()->select($sql);
-
-		foreach($elementResult as $elementRow)
-		{
-			if(!isset($currentFleets[$elementRow['fleetId']])) continue;
-
-			$currentFleets[$elementRow['fleetId']]['elements'][Vars::getElement($elementRow['elementId'])->class][$elementRow['elementId']]	= $elementRow['amount'];
-		}
-
-		return $currentFleets;
+		return FleetUtil::getFleetElements($currentFleets);
 	}
 
 	public function renderTable()

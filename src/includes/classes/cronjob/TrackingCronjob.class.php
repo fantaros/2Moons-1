@@ -65,15 +65,10 @@ class TrackingCronjob implements CronjobTask
 		}
 
 		$serverData['version']		= Config::get(ROOT_UNI)->VERSION;
-		
-		$ch	= curl_init('http://tracking.2moons.cc/');
-		curl_setopt($ch, CURLOPT_HTTPGET, true);
-		curl_setopt($ch, CURLOPT_AUTOREFERER, true);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $serverData);
-		curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (compatible; 2Moons/".$serverData['version']."; +http://2moons.cc)");
-		
-		curl_exec($ch);
-		curl_close($ch);
+
+        require_once 'includes/classes/HTTPRequest.class.php';
+        $httpRequest = new HTTPRequest();
+        $httpRequest->postData($serverData);
+        $httpRequest->send();
 	}
 }

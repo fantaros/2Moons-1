@@ -1,5 +1,5 @@
-{include file="main.header.tpl"}
-{include file="main.navigation.tpl"}
+{include file="main.header.tpl" nocache}
+{include file="main.navigation.tpl" nocache}
 <div id="content">
 <section>
 	<table class="box-out">

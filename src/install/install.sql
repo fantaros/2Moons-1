@@ -273,7 +273,7 @@ CREATE TABLE `prefix_config` (
   `crystal_start` int(11) unsigned NOT NULL DEFAULT '500',
   `deuterium_start` int(11) unsigned NOT NULL DEFAULT '0',
   `darkmatter_start` int(11) unsigned NOT NULL DEFAULT '0',
-  `ttf_file` varchar(128) NOT NULL DEFAULT 'styles/resource/fonts/DroidSansMono.ttf',
+  `ttf_file` varchar(128) NOT NULL DEFAULT '',
   `ref_active` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `ref_bonus` int(11) unsigned NOT NULL DEFAULT '1000',
   `ref_minpoints` bigint(20) unsigned NOT NULL DEFAULT '2000',

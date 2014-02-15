@@ -1,7 +1,8 @@
 function add(){
-	$("#form").attr('action', 'game.php?page=battleSimulator&action=moreslots');
-	$("#form").attr('method', 'POST');
-	$("#form").submit();
+	$("#form")
+        .attr('action', 'game.php?page=battleSimulator&action=moreslots')
+        .attr('method', 'POST')
+        .submit();
 	return true;
 }
 
@@ -26,13 +27,11 @@ function check(){
 }
 
 $(function() {
-	$("#tabs").tabs();
-
-	var $tabs = $('#tabs').tabs({
-		tabTemplate: '<li><a href="#{href}">#{label}</a></li>',
-	});
+    $('#tabs').tabs({
+        tabTemplate: '<li><a href="#{href}">#{label}</a></li>'
+    });
 	
-	$('.reset').live('click', function(e) {
+	$('.reset').on('click', function(e) {
 		e.preventDefault();
 	
 		var index = $(this).parent().index();

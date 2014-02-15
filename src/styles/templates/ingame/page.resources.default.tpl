@@ -1,6 +1,6 @@
 {block name="title" prepend}{$LNG.lm_resources}{/block}
 {block name="content"}
-<form action="?page=resources" method="post">
+<form action="game.php?page=resources" method="post">
 <input type="hidden" name="mode" value="send">
 <table style="width:760px;">
 <tbody>

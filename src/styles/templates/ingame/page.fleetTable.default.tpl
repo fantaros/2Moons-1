@@ -72,7 +72,7 @@
 {if !empty($acsData)}
 {include file="shared.fleetTable.acsTable.tpl"}
 {/if}
-<form action="?page=fleetStep1" method="post">
+<form action="game.php?page=fleetStep1" method="post">
 <input type="hidden" name="galaxy" value="{$targetGalaxy}">
 <input type="hidden" name="system" value="{$targetSystem}">
 <input type="hidden" name="planet" value="{$targetPlanet}">
