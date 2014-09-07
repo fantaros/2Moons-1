@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.8.0 (2013-03-18)
+ * @version 2.0.0 (2013-03-18)
  * @info $Id: GeneralFunctions.php 2803 2013-10-06 22:23:27Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -519,10 +519,10 @@ function exceptionHandler($exception)
 		Information and contribution at http://2moons.cc/
 	-->
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="'.$DIR.'/resource/lib/boilerplate/boilerplate.css?v='.$VERSION.'">
-	<link rel="stylesheet" type="text/css" href="'.$DIR.'/resource/css/base/resource/lib/jquery-ui/css/jquery-ui-1.10.3.custom.min.css?v='.$VERSION.'">
-	<link rel="stylesheet" type="text/css" href="'.$DIR.'/resource/css/ingame/main.css?v='.$VERSION.'">
-	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/theme/gow/formate.css?v='.$VERSION.'">
+	<link rel="stylesheet" href="'.$DIR.'/resource/lib/boilerplate/boilerplate.css?v='.$VERSION.'">
+	<link rel="stylesheet" href="'.$DIR.'/resource/css/base/resource/lib/jquery-ui/css/jquery-ui-1.10.3.custom.min.css?v='.$VERSION.'">
+	<link rel="stylesheet" href="'.$DIR.'/resource/css/ingame/main.css?v='.$VERSION.'">
+	<link rel="stylesheet" href="'.$DIR.'/styles/theme/gow/formate.css?v='.$VERSION.'">
 	<link rel="shortcut icon" href="'.$DIR.'/favicon.ico" type="image/x-icon">
 	'.(MODE == 'CHAT' ? '<style>body{background: none;}</style>': '').'
 </head>

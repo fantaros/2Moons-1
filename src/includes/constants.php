@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.8.0 (2013-03-18)
+ * @version 2.0.0 (2013-03-18)
  * @info $Id: constants.php 2790 2013-09-20 21:18:08Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -48,14 +48,15 @@ define('HTTP_HOST'					, $_SERVER['HTTP_HOST']);
 define('HTTP_PATH'					, PROTOCOL.HTTP_HOST.HTTP_ROOT);
 
 if(!defined('AJAX_CHAT_PATH')) {
-	define('AJAX_CHAT_PATH', ROOT_PATH.'chat/');
+	define('AJAX_CHAT_PATH', ROOT_PATH.'includes/libs/blueimp-ajax-chat/');
 }
 
 if(!defined('CACHE_PATH')) {
 	define('CACHE_PATH', ROOT_PATH.'cache/');
 }
 
-define('TEMPLATE_PATH', ROOT_PATH.'styles/templates/');
+define('THEME_PATH', ROOT_PATH.'resource/theme/');
+define('TEMPLATE_PATH', ROOT_PATH.'templates/');
 
 define('BATTLE_ENGINE'				, 'xnova');
 
