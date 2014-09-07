@@ -34,12 +34,14 @@ class Database
 		require 'includes/config.php';
 		//Connect
 
-        $db = new PDO("mysql:host=".$database['host'].";port=".$database['port'].";dbname=".$database['databasename'], $database['user'], $database['userpw']);
+        $db = new PDO(sprintf("mysql:host=%s;port=%d;dbname=%s", $database['host'], $database['port'], $database['databasename']),
+            $database['user'],
+            $database['userpw'],
+            array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
+        );
 
 		//error behaviour
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$db->query("set character set utf8");
-		$db->query("set names utf8");
         $db->query("SET SESSION sql_mode = 'STRICT_ALL_TABLES';");
 
 		$this->dbHandle = $db;
@@ -118,7 +120,10 @@ class Database
 			return false;
 
 		if ($type === "insert")
-			$this->lastInsertId = $this->dbHandle->lastInsertId();
+        {
+            $this->lastInsertId = $this->dbHandle->lastInsertId();
+        }
+
 		$this->rowCount = $stmt->rowCount();
 
 		return ($type === "select") ? $stmt : true;

@@ -23,7 +23,7 @@
  * @copyright 2008 Chlorel (XNova)
  * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0 (2012-11-31)
+ * @version 2.0.0 (2012-11-31)
  * @info $Id: Session.class.php 2793 2013-09-29 12:33:56Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -102,7 +102,7 @@ class Session
 	 * @return Session
 	 */
 
-	static public function load()
+	static public function get()
 	{
 		if(!self::existsActiveSession())
 		{

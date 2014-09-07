@@ -21,14 +21,14 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.8.0 (2013-03-18)
+ * @version 2.0.0 (2013-03-18)
  * @info $Id: class.theme.php 2790 2013-09-20 21:18:08Z slaver7 $
  * @link http://2moons.cc/
  */
  
 class Theme
 {
-	static public $Themes;
+	static public $themeList;
 	private $THEMESETTINGS;
 	
 	function __construct()
@@ -38,49 +38,72 @@ class Theme
 		$this->setUserTheme($this->skin);
 	}
 	
-	function isHome() {
+	function isHome()
+    {
 		$this->template		= ROOT_PATH.'styles/home/';
 		$this->customtpls	= array();
 	}
 	
-	function setUserTheme($Theme) {
-		if(!file_exists(ROOT_PATH.'styles/theme/'.$Theme.'/style.cfg'))
+	function setUserTheme($theme)
+    {
+		if(!file_exists(THEME_PATH.$theme.'/style.cfg'))
 			return false;
 			
-		$this->skin		= $Theme;
+		$this->skin		= $theme;
 		$this->parseStyleCFG();
 		$this->setStyleSettings();
         return true;
 	}
 		
-	function getTheme() {
-		return './styles/theme/'.$this->skin.'/';
+	function getTheme()
+    {
+		return str_replace(ROOT_PATH, "", THEME_PATH).$this->skin.'/';
 	}
 	
-	function getThemeName() {
+	function getThemeName()
+    {
 		return $this->skin;
 	}
 	
-	function getTemplatePath() {
+	function getTemplatePath()
+    {
 		return ROOT_PATH.$this->getTheme().'templates/';
 	}
 		
-	function isCustomTPL($tpl) {
+	function isCustomTPL($tpl)
+    {
 		if(!isset($this->customtpls))
 			return false;
 			
 		return in_array($tpl, $this->customtpls);
 	}
 	
-	function parseStyleCFG() {
-		require(ROOT_PATH.'styles/theme/'.$this->skin.'/style.cfg');
+	function parseStyleCFG()
+    {
+        $cfgPath = THEME_PATH.$this->skin.'/style.cfg';
+        if(!is_readable($cfgPath))
+        {
+            throw new Exception("Missing style.cfg on current theme!");
+        }
+
+		require $cfgPath;
+        if(!isset($Skin))
+        {
+            throw new Exception("Incorrect style.cfg on current theme!");
+        }
+
 		$this->skininfo		= $Skin;
 		$this->customtpls	= (array) $Skin['templates'];	
 	}
 	
-	function setStyleSettings() {
-		if(file_exists(ROOT_PATH.'styles/theme/'.$this->skin.'/settings.cfg')) {
-			require(ROOT_PATH.'styles/theme/'.$this->skin.'/settings.cfg');
+	function setStyleSettings()
+    {
+        $THEMESETTINGS = array();
+
+        $settingsCfg = THEME_PATH.$this->skin.'/settings.cfg';
+
+		if(file_exists($settingsCfg)) {
+			require $settingsCfg;
 		}
 		
 		$this->THEMESETTINGS	= array_merge(array(
@@ -92,30 +115,40 @@ class Theme
 		), $THEMESETTINGS);
 	}
 	
-	function getStyleSettings() {
+	function getStyleSettings()
+    {
 		return $this->THEMESETTINGS;
 	}
 	
-	static function getAvalibleSkins() {
-		if(!isset(self::$Themes))
+	static function getAvailableSkins()
+    {
+		if(!isset(self::$themeList))
 		{
 			if(file_exists(ROOT_PATH.'cache/cache.themes.php'))
 			{
-				self::$Themes	= unserialize(file_get_contents(ROOT_PATH.'cache/cache.themes.php'));
-			} else {
-				$Skins	= array_diff(scandir(ROOT_PATH.'styles/theme/'), array('..', '.', '.svn', '.htaccess', 'index.htm'));
-				$Themes	= array();
-				foreach($Skins as $Theme) {
-					if(!file_exists(ROOT_PATH.'styles/theme/'.$Theme.'/style.cfg'))
+				self::$themeList	= unserialize(file_get_contents(ROOT_PATH.'cache/cache.themes.php'));
+			}
+            else
+            {
+				$Skins	= array_diff(scandir(THEME_PATH), array('..', '.', '.svn', '.htaccess', 'index.htm'));
+				$themeList	= array();
+				foreach($Skins as $theme) {
+                    $cfgPath = THEME_PATH.$theme.'/style.cfg';
+					if(!file_exists($cfgPath))
 						continue;
 						
-					require(ROOT_PATH.'styles/theme/'.$Theme.'/style.cfg');
-					$Themes[$Theme]	= $Skin['name'];
+					require $cfgPath;
+
+                    if(isset($Skin['name']))
+                    {
+                        $themeList[$theme]	= $Skin['name'];
+                    }
 				}
-				file_put_contents(ROOT_PATH.'cache/cache.themes.php', serialize($Themes));
-				self::$Themes	= $Themes;
+
+				file_put_contents(ROOT_PATH.'cache/cache.themes.php', serialize($themeList));
+				self::$themeList	= $themeList;
 			}
 		}
-		return self::$Themes;
+		return self::$themeList;
 	}
 }

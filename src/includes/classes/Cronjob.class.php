@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.8.0 (2013-03-18)
+ * @version 2.0.0 (2013-03-18)
  * @info $Id: Cronjob.class.php 2776 2013-08-05 21:30:40Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -57,14 +57,25 @@ class Cronjob
 			':lock'			=> $lockToken,
 			':cronjobId'	=> $cronjobID
 		));
-		
+
+        require_once 'includes/classes/cronjob/CronjobTask.interface.php';
+
 		$cronjobPath		= 'includes/classes/cronjob/'.$cronjobClassName.'.class.php';
-		
-		// die hard, if file not exists.
-		require_once($cronjobPath);
+
+        if(!file_exists($cronjobPath))
+        {
+            throw new Exception("Can not find class for ".$cronjobClassName);
+        }
+
+		require_once $cronjobPath;
 
 		/** @var $cronjobObj CronjobTask */
 		$cronjobObj			= new $cronjobClassName;
+        if(!is_callable(array($cronjobObj, 'run')))
+        {
+            throw new Exception($cronjobClassName."::run is not callable!");
+        }
+
 		$cronjobObj->run();
 
 		self::reCalculateCronjobs($cronjobID);

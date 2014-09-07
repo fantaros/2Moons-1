@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.8.0 (2013-03-18)
+ * @version 2.0.0 (2013-03-18)
  * @info $Id: Language.class.php 2801 2013-10-05 23:55:41Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -59,10 +59,12 @@ class Language implements ArrayAccess
 			$this->setLanguage($_REQUEST['lang']);
 			return true;
 		}
+
+        $cookie = HTTP::getCookie('language');
 		
-   		if ((MODE === 'LOGIN' || MODE === 'INSTALL') && in_array(HTTP::getCookie('language'), self::getAvailableLanguages()))
+   		if ((MODE === 'LOGIN' || MODE === 'INSTALL') && in_array($cookie, self::getAvailableLanguages()))
 		{
-			$this->setLanguage($_COOKIE['lang']);
+			$this->setLanguage($cookie);
 			return true;
 		}
 		

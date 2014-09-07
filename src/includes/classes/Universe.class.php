@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.8.0 (2013-03-18)
+ * @version 2.0.0 (2013-03-18)
  * @info $Id: Universe.class.php 2793 2013-09-29 12:33:56Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -56,7 +56,7 @@ class Universe {
 	{
 		if(is_null(self::$emulatedUniverse))
 		{
-			$session	= Session::load();
+			$session	= Session::get();
 			if(isset($session->emulatedUniverse))
 			{
 				self::setEmulated($session->emulatedUniverse);
@@ -77,7 +77,7 @@ class Universe {
 			throw new Exception('Unknown universe ID: '.$universeId);
 		}
 
-		$session	= Session::load();
+		$session	= Session::get();
 		$session->emulatedUniverse	= $universeId;
 
 		self::$emulatedUniverse	= $universeId;

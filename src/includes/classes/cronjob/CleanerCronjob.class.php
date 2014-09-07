@@ -22,12 +22,10 @@
  * @copyright 2009 Lucky
  * @copyright 2011 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.0 (2011-12-10)
+ * @version 2.0.0 (2011-12-10)
  * @info $Id: CleanerCronjob.class.php 2800 2013-10-04 22:07:04Z slaver7 $
  * @link http://code.google.com/p/2moons/
  */
-
-require_once 'includes/classes/cronjob/CronjobTask.interface.php';
 
 class CleanerCronjob implements CronjobTask
 {
@@ -47,36 +45,38 @@ class CleanerCronjob implements CronjobTask
 			$del_inactive = 2147483647;
 		}
 
+        $db     = Database::get();
+
 		$sql	= 'DELETE FROM %%MESSAGES%% WHERE `message_time` < :time;';
-		Database::get()->delete($sql, array(
+        $db->delete($sql, array(
 			':time'	=> $del_before
 		));
 
 		$sql	= 'DELETE FROM %%ALLIANCE%% WHERE `ally_members` = 0;';
-		Database::get()->delete($sql);
+        $db->delete($sql);
 
 		$sql	= 'DELETE FROM %%PLANETS%% WHERE `destroyed` < :time AND `destroyed` != 0;';
-		Database::get()->delete($sql, array(
+        $db->delete($sql, array(
 			':time'	=> TIMESTAMP
 		));
 
 		$sql	= 'DELETE FROM %%SESSION%% WHERE `lastonline` < :time;';
-		Database::get()->delete($sql, array(
+        $db->delete($sql, array(
 			':time'	=> TIMESTAMP - SESSION_LIFETIME
 		));
 
 		$sql	= 'DELETE FROM %%FLEETS_EVENT%% WHERE fleetId NOT IN (SELECT fleetId FROM %%FLEETS%%);';
-		Database::get()->delete($sql);
+        $db->delete($sql);
 
 		$sql	= 'UPDATE %%USERS%% SET `email_2` = `email` WHERE `setmail` < :time;';
-		Database::get()->update($sql, array(
+        $db->update($sql, array(
 			':time'	=> TIMESTAMP
 		));
 
 		$sql	= 'SELECT `id` FROM %%USERS%% WHERE `authlevel` = :authlevel
 		AND ((`db_deaktjava` != 0 AND `db_deaktjava` < :timeDeleted) OR `onlinetime` < :timeInactive);';
 
-		$deleteUserIds = Database::get()->select($sql, array(
+		$deleteUserIds = $db->select($sql, array(
 			':authlevel'	=> AUTH_USR,
 			':timeDeleted'	=> $del_deleted,
 			':timeInactive'	=> $del_inactive
@@ -105,7 +105,7 @@ class CleanerCronjob implements CronjobTask
 				INNER JOIN %%TOPKB_USERS%% USING (rid)
 				WHERE `universe` = :universe AND `units` < :battleHallLowest;';
 
-				Database::get()->delete($sql, array(
+                $db->delete($sql, array(
 					':universe'			=> $uni,
 					':battleHallLowest'	=> $battleHallLowest
 				));
@@ -113,8 +113,13 @@ class CleanerCronjob implements CronjobTask
 		}
 
 		$sql	= 'DELETE FROM %%RW%% WHERE `time` < :time AND `rid` NOT IN (SELECT `rid` FROM %%TOPKB%%);';
-		Database::get()->delete($sql, array(
+        $db->delete($sql, array(
 			':time'	=> $del_before
 		));
+
+        $db->delete("DELETE FROM %%USERS%% WHERE universe NOT IN (SELECT uni FROM %%CONFIG%%);");
+        $db->delete("DELETE FROM %%USERS%% WHERE id_owner NOT IN (SELECT id FROM %%PLANETS%%);");
+        $db->delete("DELETE FROM %%PLANETS%% WHERE universe NOT IN (SELECT uni FROM %%CONFIG%%);");
+        $db->delete("DELETE FROM %%PLANETS%% WHERE id NOT IN (SELECT id_owner FROM %%USERS%%);");
 	}
 }

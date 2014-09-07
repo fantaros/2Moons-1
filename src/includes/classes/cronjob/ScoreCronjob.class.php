@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2012 Jan Kröpke
+ *  Copyright (C) 2011 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,24 +19,20 @@
  *
  * @package 2Moons
  * @author Jan Kröpke <info@2moons.cc>
- * @copyright 2012 Jan Kröpke <info@2moons.cc>
+ * @copyright 2009 Lucky
+ * @copyright 2011 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
- * @info $Id: BannedBuildCache.class.php 2776 2013-08-05 21:30:40Z slaver7 $
- * @link http://2moons.cc/
+ * @version 2.0.0 (2011-12-10)
+ * @info $Id: StatisticCronjob.class.php 2787 2013-08-13 20:30:56Z slaver7 $
+ * @link http://code.google.com/p/2moons/
  */
 
-class BannedBuildCache implements BuildCache
+class ScoreCronjob implements CronjobTask
 {
-	function buildCache()
-	{
-		$Data	= Core::getDB()->query("SELECT userID, MAX(banTime) FROM ".BANNED." WHERE banTime > ".TIMESTAMP." GROUP BY userID;");
-		$Bans	= array();
-		while($Row = $Data->fetchObject())
-		{
-			$Bans[$Row->userID]	= $Row;
-		}
-
-		return $Bans;
-	}
+    function run()
+    {
+        require 'includes/classes/StatisticBuilder.class.php';
+        $stat	= new StatisticBuilder();
+        $stat->MakeStats();
+    }
 }

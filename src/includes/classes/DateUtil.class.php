@@ -22,21 +22,21 @@
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 2.0.0 (2013-03-18)
- * @info $Id: BannedBuildCache.class.php 2776 2013-08-05 21:30:40Z slaver7 $
+ * @info $Id: PlayerUtil.class.php 2800 2013-10-04 22:07:04Z slaver7 $
  * @link http://2moons.cc/
  */
 
-class BannedBuildCache implements BuildCache
+class DateUtil
 {
-	function buildCache()
-	{
-		$Data	= Core::getDB()->query("SELECT userID, MAX(banTime) FROM ".BANNED." WHERE banTime > ".TIMESTAMP." GROUP BY userID;");
-		$Bans	= array();
-		while($Row = $Data->fetchObject())
-		{
-			$Bans[$Row->userID]	= $Row;
-		}
+    public static function getUserTimeOffset($timezone)
+    {
+        $dateTimeServer		= new DateTime("now");
+        try {
+            $dateTimeUser	= new DateTime("now", new DateTimeZone($timezone));
+        } catch (Exception $e) {
+            $dateTimeUser	= $dateTimeServer;
+        }
 
-		return $Bans;
-	}
+        return $dateTimeUser->getOffset() - $dateTimeServer->getOffset();
+    }
 }

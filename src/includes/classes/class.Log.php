@@ -31,7 +31,7 @@ class Log
 
 	function __construct($mode) {
 		$this->data['mode']		= $mode;
-		$this->data['admin']	= Session::load()->userId;
+		$this->data['admin']	= Session::get()->userId;
 		$this->data['uni']		= Universe::getEmulated();
 	}
 	public function __set($key, $value){
