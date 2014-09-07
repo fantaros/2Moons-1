@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.8.0 (2013-03-18)
+ * @version 2.0.0 (2013-03-18)
  * @info $Id: AbstractGamePage.class.php 2793 2013-09-29 12:33:56Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -33,34 +33,20 @@ abstract class AbstractAdminPage extends AbstractPage
 	protected function getPageData() 
     {
 		global $USER, $THEME;
-		
-		$dateTimeServer		= new DateTime("now");
-		if(isset($USER['timezone'])) {
-			try {
-				$dateTimeUser	= new DateTime("now", new DateTimeZone($USER['timezone']));
-			} catch (Exception $e) {
-				$dateTimeUser	= $dateTimeServer;
-			}
-		} else {
-			$dateTimeUser	= $dateTimeServer;
-		}
 
 		$config	= Config::get();
 
         $this->assign(array(
-            'vmode'				=> $USER['urlaubs_modus'],
 			'authlevel'			=> $USER['authlevel'],
 			'userID'			=> $USER['id'],
 			'bodyclass'			=> $this->getWindow(),
             'game_name'			=> $config->game_name,
             'uni_name'			=> $config->uni_name,
-			'ga_active'			=> $config->ga_active,
-			'ga_key'			=> $config->ga_key,
 			'debug'				=> $config->debug,
 			'VERSION'			=> $config->VERSION,
 			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
 			'REV'				=> substr($config->VERSION, -4),
-			'Offset'			=> $dateTimeUser->getOffset() - $dateTimeServer->getOffset(),
+			'Offset'			=> DateUtil::getUserTimeOffset($USER['timezone']),
 			'queryString'		=> $this->getQueryString(),
 			'themeSettings'		=> $THEME->getStyleSettings(),
 		));
@@ -73,8 +59,6 @@ abstract class AbstractAdminPage extends AbstractPage
         $this->assign(array(
             'lang'    		=> $LNG->getLanguage(),
             'themePath'		=> $THEME->getTheme(),
-            'scripts'		=> $this->tplObj->jsscript,
-            'execscript'	=> implode("\n", $this->tplObj->script),
             'basePath'		=> PROTOCOL.HTTP_HOST.HTTP_BASE,
             'sessionId'		=> session_id()
         ));

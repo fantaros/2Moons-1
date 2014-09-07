@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.8.0 (2013-03-18)
+ * @version 2.0.0 (2013-03-18)
  * @info $Id: ShowSettingsPage.class.php 2801 2013-10-05 23:55:41Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -55,7 +55,7 @@ class ShowSettingsPage extends AbstractGamePage
 						0 => $LNG['op_sort_up'], 
 						1 => $LNG['op_sort_down']
 					), 
-					'Skins' => Theme::getAvalibleSkins(), 
+					'Skins' => Theme::getAvailableSkins(),
 					'lang' => $LNG->getAvailableLanguages(false)
 					),
 				'adminProtection'	=> $USER['authattack'],	
@@ -232,7 +232,7 @@ class ShowSettingsPage extends AbstractGamePage
 		$fleetactions		= min(max($fleetactions, 1), 99);
 		
 		$language			= array_key_exists($language, $LNG->getAvailableLanguages(false)) ? $language : $LNG->getLanguage();
-		$theme				= array_key_exists($theme, Theme::getAvalibleSkins()) ? $theme : $THEME->getThemeName();
+		$theme				= array_key_exists($theme, Theme::getAvailableSkins()) ? $theme : $THEME->getThemeName();
 		
 		$db = Database::get();
 		
@@ -276,7 +276,7 @@ class ShowSettingsPage extends AbstractGamePage
 						':timestamp'=> TIMESTAMP
 					));
 
-					Session::load()->delete();
+					Session::get()->delete();
 				}
 			}
 		}
@@ -289,7 +289,7 @@ class ShowSettingsPage extends AbstractGamePage
 				':newpass'	=> $newpass,
 				':userID'	=> $USER['id']
 			));
-			Session::load()->delete();
+			Session::get()->delete();
 		}
 
 		if (!empty($email) && $email != $USER['email'])

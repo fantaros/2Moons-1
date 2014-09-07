@@ -21,15 +21,25 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.8.0 (2013-03-18)
+ * @version 2.0.0 (2013-03-18)
  * @info $Id: ShowAlliancePage.class.php 2776 2013-08-05 21:30:40Z slaver7 $
  * @link http://2moons.cc/
  */
 
 class ShowRequirementsPage extends AbstractInstallPage
 {
-    public static $requiredDirectories    = array('cache/', 'cache/templates/', 'cache/sessions/', 'includes/');
-    public static $requiredFiles          = array('includes/config.php');
+    public static $requiredDirectories    = array(
+        'cache/',
+        'cache/templates/',
+        'cache/templates/cache/',
+        'cache/templates/compile/',
+        'cache/sessions/',
+        'includes/'
+    );
+
+    public static $requiredFiles          = array(
+        'includes/config.php'
+    );
 
     public function show()
     {
@@ -56,8 +66,8 @@ class ShowRequirementsPage extends AbstractInstallPage
         }
 
         $requirements[] = array(
-            'name'          => $LNG['req_php_need'],
-            'description'   => $LNG['req_php_need_desc'],
+            'name'          => $LNG['req_php'],
+            'description'   => $LNG['req_php_desc'],
             'value'         => sprintf($valueHTML, $value, $LNG['reg_'.$value].', '.PHP_VERSION),
         );
 
@@ -73,7 +83,7 @@ class ShowRequirementsPage extends AbstractInstallPage
         }
 
         $requirements[] = array(
-            'name'          => $LNG['reg_global_need'],
+            'name'          => $LNG['reg_global'],
             'description'   => $LNG['reg_global_desc'],
             'value'         => sprintf($valueHTML, $value, $LNG['reg_'.$value]),
         );
@@ -90,7 +100,7 @@ class ShowRequirementsPage extends AbstractInstallPage
         }
 
         $requirements[] = array(
-            'name'          => $LNG['reg_pdo_active'],
+            'name'          => $LNG['reg_pdo'],
             'description'   => $LNG['reg_pdo_desc'],
             'value'         => sprintf($valueHTML, $value, $LNG['reg_'.$value]),
         );
@@ -189,8 +199,8 @@ class ShowRequirementsPage extends AbstractInstallPage
                 {
                     $value .= ' - '.sprintf($valueHTML, 'no', $LNG['reg_writable']);
 
-                    $isError = true;
-                    $writeError   = true;
+                    $isError        = true;
+                    $writeError     = true;
                 }
             }
             else

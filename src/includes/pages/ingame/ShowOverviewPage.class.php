@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.8.0 (2013-03-18)
+ * @version 2.0.0 (2013-03-18)
  * @info $Id: ShowOverviewPage.class.php 2794 2013-09-29 21:46:22Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -364,7 +364,7 @@ class ShowOverviewPage extends AbstractGamePage
                     ));
                 }
 
-                $session	= Session::load();
+                $session	= Session::get();
                 $session->planetId = $USER['id_planet'];
 				$this->sendJSON(array('ok' => true, 'message' => $LNG['ov_planet_abandoned']));
 			}

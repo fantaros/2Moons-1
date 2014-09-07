@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.8.0 (2013-03-18)
+ * @version 2.0.0 (2013-03-18)
  * @info $Id: AbstractGamePage.class.php 2803 2013-10-06 22:23:27Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -123,7 +123,7 @@ abstract class AbstractGamePage extends AbstractPage
 			'shortlyNumber'		=> $themeSettings['TOPNAV_SHORTLY_NUMBER'],
 			'closed'			=> !$config->game_disable,
 			'hasBoard'			=> filter_var($config->forum_url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED),
-			'hasAdminAccess'	=> !empty(Session::load()->adminAccess),
+			'hasAdminAccess'	=> !empty(Session::get()->adminAccess),
 			'hasGate'			=> $PLANET[Vars::getElement(43)->name] > 0
 		));
 	}

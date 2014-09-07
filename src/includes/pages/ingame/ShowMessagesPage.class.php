@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.8.0 (2013-03-18)
+ * @version 2.0.0 (2013-03-18)
  * @info $Id: ShowMessagesPage.class.php 2776 2013-08-05 21:30:40Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -284,7 +284,7 @@ class ShowMessagesPage extends AbstractGamePage
 
 		$text		= makebr($text);
 
-		$session	= Session::load();
+		$session	= Session::get();
 
         if (empty($receiverID) || empty($text) || !isset($session->messageToken) || $session->messageToken != md5($USER['id'].'|'.$receiverID))
         {
@@ -325,7 +325,7 @@ class ShowMessagesPage extends AbstractGamePage
             $this->printMessage($LNG['mg_receiver_block_pm']);
         }
 
-        Session::load()->messageToken = md5($USER['id'].'|'.$receiverID);
+        Session::get()->messageToken = md5($USER['id'].'|'.$receiverID);
 
         $this->assign(array(
             'subject'		=> $Subject,

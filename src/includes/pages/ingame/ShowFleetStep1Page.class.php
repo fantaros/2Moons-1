@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.8.0 (2013-03-18)
+ * @version 2.0.0 (2013-03-18)
  * @info $Id: ShowFleetStep1Page.class.php 2803 2013-10-06 22:23:27Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -74,7 +74,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 			), 100)
 		);
 
-        $session    = Session::load();
+        $session    = Session::get();
         $token		= getRandomString();
 
         $session->{"fleet_$token"} = array(
@@ -348,6 +348,6 @@ class ShowFleetStep1Page extends AbstractGamePage
 		$planetPosition	= HTTP::_GP('planetPosition', array());
 		$fleetSpeed		= HTTP::_GP('fleetSpeed', 0);
 		$token			= HTTP::_GP('token', '');
-		$this->sendJSON($this->_calculateCost(Session::load()->{"fleet_$token"}['fleetData'], $planetPosition, $fleetSpeed));
+		$this->sendJSON($this->_calculateCost(Session::get()->{"fleet_$token"}['fleetData'], $planetPosition, $fleetSpeed));
 	}
 }
