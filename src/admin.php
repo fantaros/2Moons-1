@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.8.0 (2013-03-18)
+ * @version 2.0.0 (2013-03-18)
  * @info $Id: game.php 2776 2013-08-05 21:30:40Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -42,7 +42,7 @@ if(HTTP::_GP('s', '') !== session_id())
 	exit;
 }
 
-if(isset(Session::load()->hasAdminAccess) && Session::load()->hasAdminAccess)
+if(isset(Session::get()->hasAdminAccess) && Session::get()->hasAdminAccess)
 {
 	$page 	= HTTP::_GP('page', 'overview');
 	$page	= str_replace(array('_', '\\', '/', '.', "\0"), '', $page);

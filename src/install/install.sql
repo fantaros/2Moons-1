@@ -19,7 +19,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.8.0 (2013-03-18)
+ * @version 2.0.0 (2013-03-18)
  * @info $Id: install.sql 2794 2013-09-29 21:46:22Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -665,6 +665,16 @@ CREATE TABLE `prefix_statpoints` (
   KEY `stat_type` (`stat_type`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE `prefix_statistic` (
+  `statisticId` int(11) NOT NULL AUTO_INCREMENT,
+  `statisticCategory` varchar(16) NOT NULL,
+  `statisticValue` int(11) NOT NULL,
+  `statisticDate` int(10) unsigned NOT NULL,
+  `universe` smallint(5) unsigned NOT NULL,
+  PRIMARY KEY (`statisticId`),
+  KEY `universe` (`universe`,`statisticCategory`,`statisticValue`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `prefix_ticket` (
   `ticketID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `universe` tinyint(3) unsigned NOT NULL,
@@ -852,7 +862,7 @@ CREATE TABLE `prefix_users_valid` (
 CREATE TABLE `prefix_vars` (
   `elementID` smallint(5) unsigned NOT NULL,
   `name` varchar(32) NOT NULL,
-  `class` int(11) NOT NULL,
+  `class` int(10) unsigned NOT NULL,
   `factor` float(4,2) NOT NULL,
   `maxLevel` int(10) unsigned DEFAULT NULL,
   `queueId` int(10) unsigned DEFAULT NULL,
@@ -981,14 +991,15 @@ INSERT INTO `prefix_config` (`uni`,  `close_reason`, `OverviewNewsText`, `moduls
 (1, '', '', '', '', '', '', '');
 
 INSERT INTO `prefix_cronjobs` (`cronjobID`, `name`, `isActive`, `min`, `hours`, `dom`, `month`, `dow`, `class`, `nextTime`, `lock`) VALUES
-(1, 'referral', 1, '0,30', '*', '*', '*', '*', 'ReferralCronjob', 1381183200, NULL),
-(2, 'statistic', 1, '0,30', '*', '*', '*', '*', 'StatisticCronjob', 1380492000, 'e98b8b7ea7c25b32f15f38f204d1c3e5'),
-(3, 'daily', 1, '25', '2', '*', '*', '*', 'DailyCronjob', 1380500700, 'e98b8b7ea7c25b32f15f38f204d1c3e5'),
-(4, 'cleaner', 1, '45', '2', '*', '*', '6', 'CleanerCronjob', 1381538700, NULL),
-(5, 'inactive', 1, '30', '1', '*', '*', '0,3,6', 'InactiveMailCronjob', 1381275000, NULL),
-(6, 'teamspeak', 0, '*/3', '*', '*', '*', '*', 'TeamSpeakCronjob', 1380490920, NULL),
-(7, 'databasedump', 1, '30', '1', '*', '*', '*', 'DumpCronjob', 1381102200, NULL),
-(8, 'tracking', 1, '12', '9', '*', '*', '0', 'TrackingCronjob', 1381648320, NULL);
+(1, 'referral', 1, '0,30', '*', '*', '*', '*', 'ReferralCronjob', 0, NULL),
+(2, 'statistic', 1, '0', '0', '*', '*', '*', 'StatisticCronjob', 0, NULL),
+(3, 'daily', 1, '25', '2', '*', '*', '*', 'DailyCronjob', 0, NULL),
+(4, 'cleaner', 1, '45', '2', '*', '*', '6', 'CleanerCronjob', 0, NULL),
+(5, 'inactive', 1, '30', '1', '*', '*', '0,3,6', 'InactiveMailCronjob', 0, NULL),
+(6, 'teamspeak', 0, '*/3', '*', '*', '*', '*', 'TeamSpeakCronjob', 0, NULL),
+(7, 'databasedump', 1, '30', '1', '*', '*', '*', 'DumpCronjob', 0, NULL),
+(8, 'tracking', 1, '12', '9', '*', '*', '0', 'TrackingCronjob', 0, NULL),
+(9, 'score', 1, '0,30', '*', '*', '*', '0', 'ScoreCronjob', 0, NULL);
 
 INSERT INTO `prefix_ticket_category` (`categoryID`, `name`) VALUES
 (1, 'Support');

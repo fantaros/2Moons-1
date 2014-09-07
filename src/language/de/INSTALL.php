@@ -22,7 +22,7 @@
  * @copyright 2009 Lucky
  * @copyright 2011 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.5 (2011-07-31)
+ * @version 2.0.0 (2011-07-31)
  * @info $Id: INSTALL.php 2746 2013-05-18 11:38:36Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -69,16 +69,16 @@ $LNG['reg_writable']			= 'Beschreibbar';
 $LNG['reg_not_writable']		= 'Nicht Beschreibbar';
 $LNG['reg_file']				= 'Datei &raquo;%s&laquo; beschreibbar?';
 $LNG['reg_dir']					= 'Ordner &raquo;%s&laquo; beschreibbar?';
-$LNG['req_php_need']			= 'Installierte Version der Skriptsprache &raquo;PHP&laquo;';
-$LNG['req_php_need_desc']		= '<strong>Voraussetzung</strong> — PHP ist die Serverseitige Sprache, in der 2Moons geschrieben ist. Damit 2Moons ohne Einschränkungen funktioniert, wird die PHP Version 5.2.5 vorrausgesetzt.';
-$LNG['reg_gd_need']				= 'Installierte Version der Grafikbearbeitungs-Bibliothek &raquo;gdlib&laquo;';
+$LNG['req_php']		        	= 'Installierte Version der Skriptsprache &raquo;PHP&laquo;';
+$LNG['req_php_desc']	    	= '<strong>Voraussetzung</strong> — PHP ist die Serverseitige Sprache, in der 2Moons geschrieben ist. Damit 2Moons ohne Einschränkungen funktioniert, wird die PHP Version 5.2.5 vorrausgesetzt.';
+$LNG['reg_gd']	    			= 'Installierte Version der Grafikbearbeitungs-Bibliothek &raquo;gdlib&laquo;';
 $LNG['reg_gd_desc']				= '<strong>Voraussetzung</strong> —  Grafikbearbeitungs-Bibliothek &raquo;gdlib&laquo; ist für die dynamische Generierung von Bildern zuständig. Ohne sie werden einige Funktionalitäten der Software nicht funktionieren.';
-$LNG['reg_pdo_active']			= 'Unterstützung der &raquo;PDO&laquo; Extension';
+$LNG['reg_pdo']     			= 'Unterstützung der &raquo;PDO&laquo; Extension';
 $LNG['reg_pdo_desc']			= '<strong>Voraussetzung</strong> — Du musst Unterstützung für PDO in PHP bereitstellen.';
 $LNG['reg_json_need']			= 'Erweiterung &raquo;JSON&laquo; verfügbar?';
 $LNG['reg_iniset_need']			= 'PHP-Funktion &raquo;ini_set&laquo; vorhanden?';
-$LNG['reg_global_need']			= 'register_globals deaktiviert?';
-$LNG['reg_global_desc']			= '<strong>Voraussetzung</strong> — 2Moons wird auch funktionieren, wenn diese Einstellung aktiviert ist. Allerdings wird aus Sicherheitsgründen empfohlen, register_globals in der PHP-Installation zu deaktivieren, falls dies möglich ist.';
+$LNG['reg_global']		    	= 'register_globals deaktiviert?';
+$LNG['reg_global_desc']	        = '<strong>Voraussetzung</strong> — 2Moons wird auch funktionieren, wenn diese Einstellung aktiviert ist. Allerdings wird aus Sicherheitsgründen empfohlen, register_globals in der PHP-Installation zu deaktivieren, falls dies möglich ist.';
 $LNG['req_ftp_head']			= 'Eingabe der Zugangsdaten für FTP';
 $LNG['req_ftp_desc']			= 'Geben Sie Ihre FTP Daten ein, damit 2Moons automatisch die Probleme beheben kann. Alternativ können Sie auch manuell die Schreibrechte vergeben.';
 $LNG['req_ftp_host']			= 'Hostname';

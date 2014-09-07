@@ -5,8 +5,9 @@
 #2Moons cache files
 src/cache/*.php
 src/cache/sessions/*
-src/cache/templates/cache/*
-src/cache/templates/compile/*
+src/cache/templates/
+src/cache/templates/cache/
+src/cache/templates/compile/
 src/includes/backups/*
 src/includes/config.php
 src/includes/*.log

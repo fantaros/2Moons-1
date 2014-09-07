@@ -71,7 +71,7 @@ span > a{
 	height:24px;
 }
 
-#licence {
+#licenceWindow {
     background-color: #FFFFFF;
     color: #000000;
     height: 400px;
@@ -79,11 +79,11 @@ span > a{
     padding: 0 10px;
 }
 
-#licence a{
+#licenceWindow a{
     color: #000000;
 	text-decoration:underline;
 }
-#licence a:hover{
+#licenceWindow a:hover{
 	text-decoration:none;
 }
 
