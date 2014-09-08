@@ -22,13 +22,24 @@
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 2.0.0 (2013-03-18)
- * @info $Id: ShowLogoutPage.php 2776 2013-08-05 21:30:40Z slaver7 $
+ * @info $Id: ShowLoginPage.php 2776 2013-08-05 21:30:40Z slaver7 $
  * @link http://2moons.cc/
  */
 
- 
-function ShowLogoutPage()
+class ShowLogoutPage extends AbstractAdminPage
 {
-	unset($_SESSION['admin_login']);
+    public $requiredAuthLevel	= AUTH_MOD;
+
+    function __construct()
+    {
+        $this->setWindow('ajax');
+        parent::__construct();
+    }
+
+    function show()
+    {
+        Session::get()->hasAdminAccess	= false;
+        $this->sendJSON(true);
+    }
 }
 

@@ -740,7 +740,7 @@ class ShowAlliancePage extends AbstractGamePage
 		$methodName	= 'admin'.ucfirst($action);
 		
 		if(!is_callable(array($this, $methodName))) {
-			ShowErrorPage::printError($LNG['page_doesnt_exist']);
+			$this->printMessage($LNG['page_doesnt_exist']);
 		}
 
 		$this->{$methodName}();

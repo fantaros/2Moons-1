@@ -37,15 +37,14 @@ require 'includes/common.php';
 
 $LNG->includeData(array('ADMIN', 'CUSTOM'));
 
-if(HTTP::_GP('s', '') !== session_id())
-{
-	exit;
-}
-
-if(isset(Session::get()->hasAdminAccess) && Session::get()->hasAdminAccess)
+if(Session::get()->hasAdminAccess == 1)
 {
 	$page 	= HTTP::_GP('page', 'overview');
 	$page	= str_replace(array('_', '\\', '/', '.', "\0"), '', $page);
+    if(HTTP::_GP('s', '') !== session_id())
+    {
+        exit;
+    }
 }
 else
 {

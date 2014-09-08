@@ -1,4 +1,8 @@
 {include file="main.header.tpl" nocache}
-{include file="main.navigation.tpl"}
-{block name="content"}{/block}
+<div id="wrapper">
+    {include file="main.navigation.tpl"}
+    <div id="page-wrapper">
+        {block name="content"}{/block}
+    </div>
+</div>
 {include file="main.footer.tpl" nocache}

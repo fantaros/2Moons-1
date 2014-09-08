@@ -30,42 +30,47 @@ class ShowLoginPage extends AbstractAdminPage
 {
 	public $requiredAuthLevel	= AUTH_USR;
 
-	function __construct()
-	{
+    private $isWrongPassword    = false;
+
+	public function __construct()
+    {
+        var_dump(Session::get()->hasAdminAccess);
+        if(Session::get()->hasAdminAccess)
+        {
+            HTTP::redirectTo('admin.php?s='.session_id());
+        }
+
 		$this->setWindow('light');
 		parent::__construct();
 	}
 
-	function show()
+    public function verify()
+    {
+        global $USER;
+
+        $password	= HTTP::_GP('password', '');
+        $password	= PlayerUtil::cryptPassword($password);
+
+        if ($password == $USER['password'])
+        {
+            Session::get()->hasAdminAccess	= true;
+            HTTP::redirectTo('admin.php?s='.session_id());
+        }
+        else
+        {
+            $this->isWrongPassword = true;
+            $this->show();
+        }
+    }
+
+    public function show()
 	{
-		global $USER;
-
-		$session	= Session::create();
-		if($session->adminAccess == 1)
-		{
-			HTTP::redirectTo('admin.php');
-		}
-
-		$password	= HTTP::_GP('password', '');
-
-		if(!empty($password))
-		{
-			$password	= PlayerUtil::cryptPassword($password);
-
-			if ($password == $USER['password'])
-			{
-				$session->adminAccess	= 1;
-				HTTP::redirectTo('admin.php');
-			}
-		}
-
-		$template	= new Template();
-
-		$template->assign_vars(array(
-			'bodyclass'	=> 'standalone',
-			'username'	=> $USER['username']
+        global $USER;
+		$this->assign(array(
+			'username'	        => $USER['username'],
+			'isWrongPassword'	=> $this->isWrongPassword
 		));
 
-		$template->display('page.login.default');
+		$this->display('page.login.default');
 	}
 }

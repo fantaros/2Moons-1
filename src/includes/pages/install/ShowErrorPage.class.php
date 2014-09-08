@@ -26,16 +26,15 @@
  * @link http://2moons.cc/
  */
 
-
 class ShowErrorPage extends AbstractInstallPage
 {
 	protected $disableEcoSystem = true;
-	
-	static function printError($Message, $fullSide = true, $redirect = NULL)
-	{
-		$pageObj	= new self;
-		$pageObj->printMessage($Message, $fullSide, $redirect);
-	}
+
+    static function printError($Message, $redirect = false, $fullSide = true)
+    {
+        $pageObj	= new self;
+        $pageObj->printMessage($Message, $redirect, $fullSide);
+    }
 
     public function show()
 	{

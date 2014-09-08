@@ -29,24 +29,17 @@
 
 class ShowErrorPage extends AbstractAdminPage
 {
-	public static $requireModule = 0;
-	
-	protected $disableEcoSystem = true;
+    protected $disableEcoSystem = true;
+    public static $requireModule = 0;
 
-	function __construct() 
-	{
-		parent::__construct();
-		$this->initTemplate();
-	}
-	
-	static function printError($Message, $fullSide = true, $redirect = NULL)
-	{
-		$pageObj	= new self;
-		$pageObj->printMessage($Message, $fullSide, $redirect);
-	}
-	
-	function show() 
-	{
-		
-	}
+    static function printError($Message, $redirect = false, $fullSide = true)
+    {
+        $pageObj	= new self;
+        $pageObj->printMessage($Message, $redirect, $fullSide);
+    }
+
+    public function show()
+    {
+
+    }
 }

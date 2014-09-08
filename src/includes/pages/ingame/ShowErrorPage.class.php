@@ -29,23 +29,16 @@
 
 class ShowErrorPage extends AbstractGamePage
 {
+    protected $disableEcoSystem = true;
 
-	protected $disableEcoSystem = true;
+    static function printError($Message, $redirect = false, $fullSide = true)
+    {
+        $pageObj	= new self;
+        $pageObj->printMessage($Message, $redirect, $fullSide);
+    }
 
-	function __construct() 
-	{
-		parent::__construct();
-		$this->initTemplate();
-	}
-	
-	static function printError($Message, $fullSide = true, $redirect = NULL)
-	{
-		$pageObj	= new self;
-		$pageObj->printMessage($Message, $fullSide, $redirect);
-	}
-	
-	function show() 
-	{
-		
-	}
+    public function show()
+    {
+
+    }
 }

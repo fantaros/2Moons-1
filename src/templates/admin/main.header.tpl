@@ -8,7 +8,7 @@
     <title>{block name="title"} - {$gameName}{/block}</title>
 
     <link href="resource/lib/bootstrap/bootstrap.css" rel="stylesheet">
-    <link href="resource/lib/sb-admin/sb-admin.css" rel="stylesheet">
+    <link href="resource/lib/sb-admin/sb-admin-2.css" rel="stylesheet">
     <link href="resource/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="resource/css/base/base.css?v={$REV}">
@@ -17,4 +17,3 @@
     <script src="resource/js/admin/main.js"></script>
 </head>
 <body id="{$smarty.get.page|htmlspecialchars|default:'index'}" class="{$bodyclass}">
-<div id="wrapper">

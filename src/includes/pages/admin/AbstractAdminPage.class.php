@@ -30,7 +30,7 @@ require 'includes/classes/AbstractPage.class.php';
 
 abstract class AbstractAdminPage extends AbstractPage
 {
-	protected function getPageData() 
+	protected function assignFullPageData()
     {
 		global $USER, $THEME;
 
@@ -40,8 +40,8 @@ abstract class AbstractAdminPage extends AbstractPage
 			'authlevel'			=> $USER['authlevel'],
 			'userID'			=> $USER['id'],
 			'bodyclass'			=> $this->getWindow(),
-            'game_name'			=> $config->game_name,
-            'uni_name'			=> $config->uni_name,
+            'gameName'		    => $config->game_name,
+            'uniName'		    => $config->uni_name,
 			'debug'				=> $config->debug,
 			'VERSION'			=> $config->VERSION,
 			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
@@ -54,13 +54,12 @@ abstract class AbstractAdminPage extends AbstractPage
 
 	protected function assignBasicData()
     {
-        global $THEME, $LNG;
+        global $LNG;
 
         $this->assign(array(
             'lang'    		=> $LNG->getLanguage(),
-            'themePath'		=> $THEME->getTheme(),
             'basePath'		=> PROTOCOL.HTTP_HOST.HTTP_BASE,
-            'sessionId'		=> session_id()
+            'sessionId'		=> SID
         ));
 	}
 }
