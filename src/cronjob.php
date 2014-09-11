@@ -48,9 +48,9 @@ if(!Session::get()->isValid(false))
 	exit;
 }
 
-if(!in_array($cronJobID, Cronjob::getNeedTodoExecutedJobs()))
+if(!in_array($cronJobID, Cron::getNeedTodoExecutedJobs()))
 {
 	exit;
 }
 
-Cronjob::execute($cronJobID);
+Cron::execute($cronJobID);

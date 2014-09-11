@@ -36,7 +36,7 @@ class ShowResearchPage extends AbstractGamePage
     {
         global $USER;
         $elementId  = HTTP::_GP('elementId', 0);
-        if($_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0 && !empty($elementId))
+        if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->user->urlaubs_modus == 0 && !empty($elementId))
         {
             $elementObj = Vars::getElement($elementId);
             if($elementObj->class == Vars::CLASS_TECH)
@@ -51,7 +51,7 @@ class ShowResearchPage extends AbstractGamePage
     {
         global $USER;
         $taskId = HTTP::_GP('taskId', 0);
-        if($_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0 && !empty($taskId))
+        if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->user->urlaubs_modus == 0 && !empty($taskId))
         {
             $this->ecoObj->removeFromQueue($taskId, Vars::CLASS_TECH);
         }
@@ -60,7 +60,7 @@ class ShowResearchPage extends AbstractGamePage
 
     private function getQueueData()
     {
-        global $LNG, $USER, $PLANET;
+        global $this->lang, $USER, $PLANET;
 
         $queueData  = $this->ecoObj->getQueueObj()->getTasksByElementId(array_keys(Vars::getElements(Vars::CLASS_TECH)));
 
@@ -79,9 +79,9 @@ class ShowResearchPage extends AbstractGamePage
                 'level' 	=> $task['amount'],
                 'time' 		=> $task['buildTime'],
                 'resttime' 	=> $task['endBuildTime'] - TIMESTAMP,
-                'endtime' 	=> _date('U', $task['endBuildTime'], $USER['timezone']),
-                'display' 	=> _date($LNG['php_tdformat'], $task['endBuildTime'], $USER['timezone']),
-                'planet'	=> $task['planetId'] != $PLANET['id'] ? $USER['PLANETS'][$task['planetId']]['name'] : false,
+                'endtime' 	=> _date('U', $task['endBuildTime'], $this->user->timezone),
+                'display' 	=> _date($this->lang['php_tdformat'], $task['endBuildTime'], $this->user->timezone),
+                'planet'	=> $task['planetId'] != $PLANET['id'] ? $this->user->PLANETS[$task['planetId']]['name'] : false,
             );
 
             $elementLevel[$task['elementId']]   = $task['amount'];
@@ -98,16 +98,15 @@ class ShowResearchPage extends AbstractGamePage
 
 	public function show()
 	{
-		global $PLANET, $USER, $LNG;
-		
+
 		if ($PLANET[Vars::getElement(31)->name] == 0)
 		{
-			$this->printMessage($LNG['bd_lab_required']);
+			$this->printMessage($this->lang['bd_lab_required']);
 		}
 
-        if(!isset($USER['techNetwork']))
+        if(!isset($this->user->techNetwork))
         {
-            $USER['techNetwork']  = PlayerUtil::getLabLevelByNetwork($USER, $PLANET);
+            $this->user->techNetwork  = PlayerUtil::getLabLevelByNetwork($USER, $PLANET);
         }
 
         $busyQueues     = array();

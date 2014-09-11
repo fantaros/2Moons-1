@@ -32,7 +32,6 @@ class ShowFleetStep3Page extends AbstractGamePage
 
 	public function show()
 	{
-		global $USER, $PLANET, $LNG;
 
 		$transportResource	= HTTP::_GP('transportResource', array());
 
@@ -50,8 +49,8 @@ class ShowFleetStep3Page extends AbstractGamePage
 
 		if (!isset($session->{"fleet_$token"}))
 		{
-			$this->printMessage($LNG['invalid_action'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['invalid_action'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
@@ -61,17 +60,17 @@ class ShowFleetStep3Page extends AbstractGamePage
 
 		if ($missionData['time'] < TIMESTAMP - 180)
 		{
-			$this->printMessage($LNG['invalid_action'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['invalid_action'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
 
-		if($missionData['userId'] != $USER['id'] || $missionData['planetId'] != $PLANET['id'])
+		if($missionData['userId'] != $this->user->id || $missionData['planetId'] != $PLANET['id'])
 		{
 			unset($session->{"fleet_$token"});
-			$this->printMessage($LNG['invalid_action'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['invalid_action'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
@@ -94,16 +93,16 @@ class ShowFleetStep3Page extends AbstractGamePage
 
 		if (array_sum($consumption) + array_sum($transportResource) > $fleetStorage)
 		{
-			$this->printMessage($LNG['fl_not_enough_space'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['fl_not_enough_space'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
 
 		if (!in_array($targetMission, $availableMissions))
 		{
-			$this->printMessage($LNG['fl_invalid_mission'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['fl_invalid_mission'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleet2'
 			)));
 		}
@@ -112,8 +111,8 @@ class ShowFleetStep3Page extends AbstractGamePage
 		{
 			if(!isset($stayTimes[$holdTime]))
 			{
-				$this->printMessage($LNG['fl_hold_time_not_exists'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['fl_hold_time_not_exists'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=fleetTable'
 				)));
 			}
@@ -121,12 +120,12 @@ class ShowFleetStep3Page extends AbstractGamePage
 			$holdDuration    = round($stayTimes[$holdTime] * 3600, 0);
 		}
 
-		$usedFleetSlots	= FleetUtil::getUsedSlots($USER['id']);
+		$usedFleetSlots	= FleetUtil::getUsedSlots($this->user->id);
 
 		if (FleetUtil::GetMaxFleetSlots($USER) <= $usedFleetSlots)
 		{
-			$this->printMessage($LNG['fl_no_slots'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['fl_no_slots'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
@@ -148,8 +147,8 @@ class ShowFleetStep3Page extends AbstractGamePage
 			), 'ankunft');
 
 			if (empty($fleetGroupArrivalTime)) {
-				$this->printMessage($LNG['invalid_action'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['invalid_action'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=fleetTable'
 				)));
 			}
@@ -167,15 +166,15 @@ class ShowFleetStep3Page extends AbstractGamePage
 		if ($targetMission == 7)
 		{
 			if (!empty($targetPlanetData)) {
-				$this->printMessage($LNG['fl_target_exists'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['fl_target_exists'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=fleetTable'
 				)));
 			}
 
 			if ($targetType != 1) {
-				$this->printMessage($LNG['fl_only_planets_colonizable'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['fl_only_planets_colonizable'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=fleetTable'
 				)));
 			}
@@ -187,39 +186,39 @@ class ShowFleetStep3Page extends AbstractGamePage
 		}
 		elseif (empty($targetPlanetData) || $targetPlanetData["destroyed"] != 0)
 		{
-			$this->printMessage($LNG['fl_no_target'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['fl_no_target'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
 
 		if ($targetMission == 11)
 		{
-			$activeExpedition	= FleetUtil::getUsedSlots($USER['id'], 11);
+			$activeExpedition	= FleetUtil::getUsedSlots($this->user->id, 11);
 			$maxExpedition		= FleetUtil::getDMMissionLimit($USER);
 
 			if ($activeExpedition >= $maxExpedition) {
-				$this->printMessage($LNG['fl_no_expedition_slot'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['fl_no_expedition_slot'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=fleetTable'
 				)));
 			}
 		}
 		elseif ($targetMission == 15)
 		{
-			$activeExpedition	= FleetUtil::getUsedSlots($USER['id'], 15, true);
+			$activeExpedition	= FleetUtil::getUsedSlots($this->user->id, 15, true);
 			$maxExpedition		= FleetUtil::getExpeditionLimit($USER);
 
 			if ($activeExpedition >= $maxExpedition) {
-				$this->printMessage($LNG['fl_no_expedition_slot'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['fl_no_expedition_slot'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=fleetTable'
 				)));
 			}
 		}
 
 		$usedPlanet			= isset($targetPlanetData['id_owner']);
-		$myPlanet			= $usedPlanet && $targetPlanetData['id_owner'] == $USER['id'];
+		$myPlanet			= $usedPlanet && $targetPlanetData['id_owner'] == $this->user->id;
 
 		if($targetMission == 7 || $targetMission == 15)
 		{
@@ -251,34 +250,34 @@ class ShowFleetStep3Page extends AbstractGamePage
 
 		if(empty($targetPlayerData))
 		{
-			$this->printMessage($LNG['fl_empty_target'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['fl_empty_target'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
 
 		if ($targetMission != 8 && IsVacationMode($targetPlayerData))
 		{
-			$this->printMessage($LNG['fl_target_exists'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['fl_target_exists'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
 
 		if(($targetMission == 1 || $targetMission == 2 || $targetMission == 9) && FleetUtil::CheckBash($targetPlanetData['id'], $USER))
 		{
-			$this->printMessage($LNG['fl_bash_protection'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['fl_bash_protection'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
 
 		if($targetMission == 1 || $targetMission == 2 || $targetMission == 5 || $targetMission == 6 || $targetMission == 9)
 		{
-			if(Config::get()->adm_attack == 1 && $targetPlayerData['authattack'] > $USER['authlevel'])
+			if(Config::get()->adm_attack == 1 && $targetPlayerData['authattack'] > $this->user->authlevel)
 			{
-				$this->printMessage($LNG['fl_admin_attack'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['fl_admin_attack'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=fleetTable'
 				)));
 			}
@@ -288,7 +287,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 			WHERE id_owner = :userId AND stat_type = :statType';
 
 			$USER	+= Database::get()->selectSingle($sql, array(
-				':userId'	=> $USER['id'],
+				':userId'	=> $this->user->id,
 				':statType'	=> 1
 			));
 
@@ -296,35 +295,35 @@ class ShowFleetStep3Page extends AbstractGamePage
 
 			if ($playerStatus['NoobPlayer'])
 			{
-				$this->printMessage($LNG['fl_player_is_noob'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['fl_player_is_noob'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=fleetTable'
 				)));
 			}
 
 			if ($playerStatus['StrongPlayer'])
 			{
-				$this->printMessage($LNG['fl_player_is_strong'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['fl_player_is_strong'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=fleetTable'
 				)));
 			}
 		}
 
-		if ($targetMission == 5 && $targetPlayerData['ally_id'] != $USER['ally_id'])
+		if ($targetMission == 5 && $targetPlayerData['ally_id'] != $this->user->ally_id)
 		{
 			$sql = "SELECT COUNT(*) as state FROM %%BUDDY%%
 			WHERE id NOT IN (SELECT id FROM %%BUDDY_REQUEST%% WHERE %%BUDDY_REQUEST%%.id = %%BUDDY%%.id) AND
 			(owner = :ownerID AND sender = :userID) OR (owner = :userID AND sender = :ownerID);";
 			$buddy = $db->selectSingle($sql, array(
 				':ownerID'  => $targetPlayerData['id'],
-				':userID'   => $USER['id']
+				':userID'   => $this->user->id
 			), 'state');
 
 			if($buddy == 0)
 			{
-				$this->printMessage($LNG['fl_no_same_alliance'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['fl_no_same_alliance'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=fleetTable'
 				)));
 			}
@@ -340,8 +339,8 @@ class ShowFleetStep3Page extends AbstractGamePage
 			{
 				if($value > $_USER[$resourceElementObj->name])
 				{
-					$this->printMessage($LNG['fl_not_enough_consumption'].' '.($value - $_USER[$resourceElementObj->name]).' '.$LNG['tech'][$resourceElementId], array(array(
-						'label'	=> $LNG['sys_back'],
+					$this->printMessage($this->lang['fl_not_enough_consumption'].' '.($value - $_USER[$resourceElementObj->name]).' '.$this->lang['tech'][$resourceElementId], array(array(
+						'label'	=> $this->lang['sys_back'],
 						'url'	=> 'game.php?page=fleetTable'
 					)));
 				}
@@ -354,8 +353,8 @@ class ShowFleetStep3Page extends AbstractGamePage
 			{
 				if($value > $_PLANET[$resourceElementObj->name])
 				{
-					$this->printMessage($LNG['fl_not_enough_consumption'].' '.($value - $_PLANET[$resourceElementObj->name]).' '.$LNG['tech'][$resourceElementId], array(array(
-						'label'	=> $LNG['sys_back'],
+					$this->printMessage($this->lang['fl_not_enough_consumption'].' '.($value - $_PLANET[$resourceElementObj->name]).' '.$this->lang['tech'][$resourceElementId], array(array(
+						'label'	=> $this->lang['sys_back'],
 						'url'	=> 'game.php?page=fleetTable'
 					)));
 				}
@@ -414,8 +413,8 @@ class ShowFleetStep3Page extends AbstractGamePage
 		{
 			if ($amount > $PLANET[Vars::getElement($elementId)->name])
 			{
-				$this->printMessage($LNG['fl_not_all_ship_avalible'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['fl_not_all_ship_avalible'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=fleetTable'
 				)));
 			}
@@ -424,7 +423,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 			$this->ecoObj->saveToDatabase('PLANET', Vars::getElement($elementId)->name);
 		}
 
-		FleetUtil::sendFleet($fleetData, $targetMission, $USER['id'], $PLANET['id'], $PLANET['galaxy'],
+		FleetUtil::sendFleet($fleetData, $targetMission, $this->user->id, $PLANET['id'], $PLANET['galaxy'],
 			$PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $targetPlanetData['id_owner'],
 			$targetPlanetData['id'], $targetGalaxy, $targetSystem, $targetPlanet, $targetType, $fleetResource,
 			$fleetArrivalTime, $fleetStayTime, $fleetEndTime, $fleetGroup);
@@ -435,8 +434,8 @@ class ShowFleetStep3Page extends AbstractGamePage
 			'consumption'		=> $consumption,
 			'from'				=> $PLANET['galaxy'] .":". $PLANET['system']. ":". $PLANET['planet'],
 			'destination'		=> $targetGalaxy .":". $targetSystem .":". $targetPlanet,
-			'fleetArrivalTime'	=> _date($LNG['php_tdformat'], $fleetArrivalTime, $USER['timezone']),
-			'fleetEndTime'		=> _date($LNG['php_tdformat'], $fleetEndTime, $USER['timezone']),
+			'fleetArrivalTime'	=> _date($this->lang['php_tdformat'], $fleetArrivalTime, $this->user->timezone),
+			'fleetEndTime'		=> _date($this->lang['php_tdformat'], $fleetEndTime, $this->user->timezone),
 			'fleetSpeed'		=> $fleetSpeed,
 			'fleetList'			=> $fleetData,
 		));

@@ -40,13 +40,12 @@ class ShowNotesPage extends AbstractGamePage
 	
 	function show()
 	{
-		global $LNG, $USER;
 
         $db = Database::get();
 
         $sql = "SELECT * FROM %%NOTES%% WHERE owner = :userID ORDER BY priority DESC, time DESC;";
         $notesResult = $db->select($sql, array(
-            ':userID'   => $USER['id']
+            ':userID'   => $this->user->id
         ));
 
         $notesList		= array();
@@ -54,7 +53,7 @@ class ShowNotesPage extends AbstractGamePage
 		foreach($notesResult as $notesRow)
 		{
 			$notesList[$notesRow['id']]	= array(
-				'time'		=> _date($LNG['php_tdformat'], $notesRow['time'], $USER['timezone']),
+				'time'		=> _date($this->lang['php_tdformat'], $notesRow['time'], $this->user->timezone),
 				'title'		=> $notesRow['title'],
 				'size'		=> strlen($notesRow['text']),
 				'priority'	=> $notesRow['priority'],
@@ -70,7 +69,6 @@ class ShowNotesPage extends AbstractGamePage
 	
 	function detail()
 	{
-		global $LNG, $USER;
 
 		$noteID		= HTTP::_GP('id', 0);
 		
@@ -79,7 +77,7 @@ class ShowNotesPage extends AbstractGamePage
 
             $sql = "SELECT * FROM %%NOTES%% WHERE id = :noteID AND owner = :userID;";
             $noteDetail = $db->selectSingle($sql, array(
-                ':userID'   => $USER['id'],
+                ':userID'   => $this->user->id,
                 ':noteID'   => $noteID
             ));
 		} else {
@@ -92,7 +90,7 @@ class ShowNotesPage extends AbstractGamePage
 		}
 
 		$this->assign(array(
-			'PriorityList'	=> array(2 => $LNG['nt_important'], 1 => $LNG['nt_normal'], 0 => $LNG['nt_unimportant']),
+			'PriorityList'	=> array(2 => $this->lang['nt_important'], 1 => $this->lang['nt_normal'], 0 => $this->lang['nt_unimportant']),
 			'noteDetail'	=> $noteDetail,
 		));
 		
@@ -101,20 +99,19 @@ class ShowNotesPage extends AbstractGamePage
 	
 	public function insert()
 	{
-		global $LNG, $USER;
 		$priority 	= HTTP::_GP('priority', 1);
 		$title 		= HTTP::_GP('title', '', true);
 		$text 		= HTTP::_GP('text', '', true);
 		$id			= HTTP::_GP('id', 0);	
-		$title 		= !empty($title) ? $title : $LNG['nt_no_title'];
-		$text 		= !empty($text) ? $text : $LNG['nt_no_text'];
+		$title 		= !empty($title) ? $title : $this->lang['nt_no_title'];
+		$text 		= !empty($text) ? $text : $this->lang['nt_no_text'];
 
         $db = Database::get();
 
 		if($id == 0) {
 			$sql = "INSERT INTO %%NOTES%% SET owner = :userID, time = :time, priority = :priority, title = :title, text = :text, universe = :universe;";
             $db->insert($sql, array(
-                ':userID'   => $USER['id'],
+                ':userID'   => $this->user->id,
                 ':time'     => TIMESTAMP,
                 ':priority' => $priority,
                 ':title'    => $title,
@@ -137,7 +134,6 @@ class ShowNotesPage extends AbstractGamePage
 	
 	function delete()
 	{
-		global $USER;
 
 		$deleteIds	= HTTP::_GP('delmes', array());
 		$deleteIds	= array_keys($deleteIds);
@@ -147,7 +143,7 @@ class ShowNotesPage extends AbstractGamePage
 		{
             $sql = 'DELETE FROM %%NOTES%% WHERE id IN ('.implode(', ', $deleteIds).') AND owner = :userID;';
 			Database::get()->delete($sql, array(
-                ':userID'   => $USER['id'],
+                ':userID'   => $this->user->id,
             ));
 		}
 		$this->redirectTo('game.php?page=notes');

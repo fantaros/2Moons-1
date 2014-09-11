@@ -31,11 +31,10 @@ class ShowChangelogPage extends AbstractGamePage
 {
     public function show()
 	{
-		global $LNG;
 
-        $LNG->includeData(array('CHANGELOG'));
+        $this->lang->includeData(array('CHANGELOG'));
 		$this->assign(array(
-			'ChangelogList'	=> array_map('makebr', $LNG['changelog']),
+			'ChangelogList'	=> array_map('makebr', $this->lang['changelog']),
 		));
 		
 		$this->display('page.changelog.default');

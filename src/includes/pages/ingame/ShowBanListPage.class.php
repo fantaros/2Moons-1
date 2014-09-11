@@ -32,8 +32,6 @@ class ShowBanListPage extends AbstractGamePage
 
     function show()
 	{
-		global $USER, $LNG;
-		
 		$page  		= HTTP::_GP('side', 1);
 		$db = Database::get();
 
@@ -59,11 +57,11 @@ class ShowBanListPage extends AbstractGamePage
 			$banList[]	= array(
 				'player'	=> $banRow['who'],
 				'theme'		=> $banRow['theme'],
-				'from'		=> _date($LNG['php_tdformat'], $banRow['time'], $USER['timezone']),
-				'to'		=> _date($LNG['php_tdformat'], $banRow['longer'], $USER['timezone']),
+				'from'		=> _date($this->lang['php_tdformat'], $banRow['time'], $this->user->timezone),
+				'to'		=> _date($this->lang['php_tdformat'], $banRow['longer'], $this->user->timezone),
 				'admin'		=> $banRow['author'],
 				'mail'		=> $banRow['email'],
-				'info'		=> sprintf($LNG['bn_writemail'], $banRow['author']),
+				'info'		=> sprintf($this->lang['bn_writemail'], $banRow['author']),
 			);
 		}
 		

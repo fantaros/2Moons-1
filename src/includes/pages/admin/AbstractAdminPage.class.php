@@ -30,15 +30,21 @@ require 'includes/classes/AbstractPage.php';
 
 abstract class AbstractAdminPage extends AbstractPage
 {
+    protected $user;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->user = Session::get()->getUser();
+    }
+
 	protected function assignFullPageData()
     {
-		global $USER, $THEME;
-
 		$config	= Config::get();
 
         $this->assign(array(
-			'authlevel'			=> $USER['authlevel'],
-			'userID'			=> $USER['id'],
+			'authlevel'			=> $this->user->authlevel,
+			'userID'			=> $this->user->id,
 			'bodyclass'			=> $this->getWindow(),
             'gameName'		    => $config->game_name,
             'uniName'		    => $config->uni_name,
@@ -46,7 +52,7 @@ abstract class AbstractAdminPage extends AbstractPage
 			'VERSION'			=> $config->VERSION,
 			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
 			'REV'				=> substr($config->VERSION, -4),
-			'Offset'			=> DateUtil::getUserTimeOffset($USER['timezone']),
+			'Offset'			=> $this->user->getServerTimeDifference(),
 			'queryString'		=> $this->getQueryString(),
 			'themeSettings'		=> $THEME->getStyleSettings(),
 		));
@@ -54,10 +60,8 @@ abstract class AbstractAdminPage extends AbstractPage
 
 	protected function assignBasicData()
     {
-        global $LNG;
-
         $this->assign(array(
-            'lang'    		=> $LNG->getLanguage(),
+            'lang'    		=> Session::get()->getUser()->getLangObj(),
             'basePath'		=> PROTOCOL.HTTP_HOST.HTTP_BASE,
             'sessionId'		=> SID
         ));

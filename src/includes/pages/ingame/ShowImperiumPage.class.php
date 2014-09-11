@@ -33,11 +33,10 @@ class ShowImperiumPage extends AbstractGamePage
 
     	function show()
 	{
-		global $USER, $PLANET;
 
         $db = Database::get();
 
-		switch($USER['planet_sort'])
+		switch($this->user->planet_sort)
         {
             case 1:
                 $orderBy	= 'galaxy, system, planet, planet_type';
@@ -50,12 +49,12 @@ class ShowImperiumPage extends AbstractGamePage
             break;
 		}
 
-		$orderBy .= ' '.($USER['planet_sort_order'] == 1) ? 'DESC' : 'ASC';
+		$orderBy .= ' '.($this->user->planet_sort_order == 1) ? 'DESC' : 'ASC';
 
         $sql = "SELECT * FROM %%PLANETS%% WHERE id != :planetID AND id_owner = :userID AND destroyed = '0' ORDER BY :order;";
         $PlanetsRAW = $db->select($sql, array(
             ':planetID' => $PLANET['id'],
-            ':userID'   => $USER['id'],
+            ':userID'   => $this->user->id,
             ':order'    => $orderBy,
         ));
 

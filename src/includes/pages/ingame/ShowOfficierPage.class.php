@@ -37,7 +37,7 @@ class ShowOfficierPage extends AbstractGamePage
 
     private function formatBonusList($elementObj)
     {
-        global $LNG;
+        global $this->lang;
         $list   = array();
 
         foreach($elementObj->bonus as $bonusName => $bonusData)
@@ -46,11 +46,11 @@ class ShowOfficierPage extends AbstractGamePage
 
             if($bonusData['unit'] === 'static')
             {
-                $list[] = ($bonusData['value'] > 0 ? '+' : '').$bonusData['value'].' '.$LNG['bonus'][$bonusName];
+                $list[] = ($bonusData['value'] > 0 ? '+' : '').$bonusData['value'].' '.$this->lang['bonus'][$bonusName];
             }
             else
             {
-                $list[] = ($bonusData['value'] > 0 ? '+' : '').($bonusData['value'] * 100).'% '.$LNG['bonus'][$bonusName];
+                $list[] = ($bonusData['value'] > 0 ? '+' : '').($bonusData['value'] * 100).'% '.$this->lang['bonus'][$bonusName];
             }
         }
 
@@ -136,7 +136,6 @@ class ShowOfficierPage extends AbstractGamePage
 
 	public function show()
 	{
-		global $USER, $PLANET, $LNG;
 
 
 		$darkmatterList	= array();
@@ -197,7 +196,7 @@ class ShowOfficierPage extends AbstractGamePage
 		$this->assign(array(
 			'officierList'		=> $officierList,
 			'darkmatterList'	=> $darkmatterList,
-			'of_dm_trade'		=> sprintf($LNG['of_dm_trade'], $LNG['tech'][921]),
+			'of_dm_trade'		=> sprintf($this->lang['of_dm_trade'], $this->lang['tech'][921]),
 		));
 
 		$this->display('page.officier.default');

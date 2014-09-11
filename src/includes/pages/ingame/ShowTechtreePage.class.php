@@ -33,7 +33,6 @@ class ShowTechtreePage extends AbstractGamePage
 
     public function show()
 	{
-		global $USER, $PLANET;
 
         $techTreeList   = array();
 

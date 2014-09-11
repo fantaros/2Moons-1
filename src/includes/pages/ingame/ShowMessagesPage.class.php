@@ -32,7 +32,7 @@ class ShowMessagesPage extends AbstractGamePage
 
     function view()
     {
-        global $LNG, $USER;
+        global $this->lang, $USER;
         $MessCategory  	= HTTP::_GP('messcat', 100);
         $page  			= HTTP::_GP('site', 1);
 
@@ -48,7 +48,7 @@ class ShowMessagesPage extends AbstractGamePage
 
             $sql = "SELECT COUNT(*) as state FROM %%MESSAGES%% WHERE message_sender = :userId AND message_type != 50;";
             $MessageCount = $db->selectSingle($sql, array(
-                ':userId'   => $USER['id'],
+                ':userId'   => $this->user->id,
             ), 'state');
 
             $maxPage	= max(1, ceil($MessageCount / MESSAGES_PER_PAGE));
@@ -61,7 +61,7 @@ class ShowMessagesPage extends AbstractGamePage
 			LIMIT :offset, :limit;";
 
             $MessageResult = $db->select($sql, array(
-                ':userId'   => $USER['id'],
+                ':userId'   => $this->user->id,
                 ':offset'   => (($page - 1) * MESSAGES_PER_PAGE),
                 ':limit'    => MESSAGES_PER_PAGE
             ));
@@ -72,7 +72,7 @@ class ShowMessagesPage extends AbstractGamePage
 			{
                 $sql = "SELECT COUNT(*) as state FROM %%MESSAGES%% WHERE message_owner = :userId;";
                 $MessageCount = $db->selectSingle($sql, array(
-                    ':userId'   => $USER['id'],
+                    ':userId'   => $this->user->id,
                 ), 'state');
 
                 $maxPage	= max(1, ceil($MessageCount / MESSAGES_PER_PAGE));
@@ -85,7 +85,7 @@ class ShowMessagesPage extends AbstractGamePage
                            LIMIT :offset, :limit";
 
                 $MessageResult = $db->select($sql, array(
-                    ':userId'       => $USER['id'],
+                    ':userId'       => $this->user->id,
                     ':offset'       => (($page - 1) * MESSAGES_PER_PAGE),
                     ':limit'        => MESSAGES_PER_PAGE
                 ));
@@ -95,7 +95,7 @@ class ShowMessagesPage extends AbstractGamePage
                 $sql = "SELECT COUNT(*) as state FROM %%MESSAGES%% WHERE message_owner = :userId AND message_type = :messCategory;";
 
                 $MessageCount = $db->selectSingle($sql, array(
-                    ':userId'       => $USER['id'],
+                    ':userId'       => $this->user->id,
                     ':messCategory' => $MessCategory
                 ), 'state');
 
@@ -109,7 +109,7 @@ class ShowMessagesPage extends AbstractGamePage
                 $page		= max(1, min($page, $maxPage));
 
                 $MessageResult = $db->select($sql, array(
-                    ':userId'       => $USER['id'],
+                    ':userId'       => $this->user->id,
                     ':messCategory' => $MessCategory,
                     ':offset'       => (($page - 1) * MESSAGES_PER_PAGE),
                     ':limit'        => MESSAGES_PER_PAGE
@@ -123,7 +123,7 @@ class ShowMessagesPage extends AbstractGamePage
 
             $MessageList[]	= array(
                 'id'		=> $MessageRow['message_id'],
-                'time'		=> _date($LNG['php_tdformat'], $MessageRow['message_time'], $USER['timezone']),
+                'time'		=> _date($this->lang['php_tdformat'], $MessageRow['message_time'], $this->user->timezone),
                 'from'		=> $MessageRow['message_from'],
                 'subject'	=> $MessageRow['message_subject'],
                 'sender'	=> $MessageRow['message_sender'],
@@ -136,7 +136,7 @@ class ShowMessagesPage extends AbstractGamePage
         if(!empty($MessagesID) && $MessCategory != 999) {
             $sql = 'UPDATE %%MESSAGES%% SET message_unread = 0 WHERE message_id IN ('.implode(',', $MessagesID).') AND message_owner = :userID;';
             $db->update($sql, array(
-                ':userID'       => $USER['id'],
+                ':userID'       => $this->user->id,
             ));
         }
 
@@ -193,13 +193,13 @@ class ShowMessagesPage extends AbstractGamePage
             case 'readall':
                 $sql = "UPDATE %%MESSAGES%% SET message_unread = 0 WHERE message_owner = :userID;";
                 $db->update($sql, array(
-                    ':userID'   => $USER['id']
+                    ':userID'   => $this->user->id
                 ));
 			break;
             case 'readtypeall':
                 $sql = "UPDATE %%MESSAGES%% SET message_unread = 0 WHERE message_owner = :userID AND message_type = :messCategory;";
                 $db->update($sql, array(
-                    ':userID'       => $USER['id'],
+                    ':userID'       => $this->user->id,
                     ':messCategory' => $MessCategory
                 ));
 			break;
@@ -218,19 +218,19 @@ class ShowMessagesPage extends AbstractGamePage
 
                 $sql = 'UPDATE %%MESSAGES%% SET message_unread = 0 WHERE message_id IN ('.implode(',', array_keys($messageIDs)).') AND message_owner = :userID;';
                 $db->update($sql, array(
-                    ':userID'       => $USER['id'],
+                    ':userID'       => $this->user->id,
                 ));
 			break;
             case 'deleteall':
                 $sql = "DELETE FROM %%MESSAGES%% WHERE message_owner = :userID;";
                 $db->delete($sql, array(
-                    ':userID'       => $USER['id']
+                    ':userID'       => $this->user->id
                 ));
 			break;
             case 'deletetypeall':
                 $sql = "DELETE FROM %%MESSAGES%% WHERE message_owner = :userID AND message_type = :messCategory;";
                 $db->delete($sql, array(
-                    ':userID'       => $USER['id'],
+                    ':userID'       => $this->user->id,
                     ':messCategory' => $MessCategory
                 ));
 			break;
@@ -249,7 +249,7 @@ class ShowMessagesPage extends AbstractGamePage
 
                 $sql = 'DELETE FROM %%MESSAGES%% WHERE message_id IN ('.implode(',', array_keys($messageIDs)).') AND message_owner = :userId;';
                 $db->delete($sql, array(
-                    ':userId'       => $USER['id'],
+                    ':userId'       => $this->user->id,
                 ));
 			break;
             case 'deleteunmarked':
@@ -267,7 +267,7 @@ class ShowMessagesPage extends AbstractGamePage
 
                 $sql = 'DELETE FROM %%MESSAGES%% WHERE message_id NOT IN ('.implode(',', array_keys($messageIDs)).') AND message_owner = :userId;';
                 $db->delete($sql, array(
-                    ':userId'       => $USER['id'],
+                    ':userId'       => $this->user->id,
                 ));
 			break;
         }
@@ -276,37 +276,37 @@ class ShowMessagesPage extends AbstractGamePage
 
     function send()
     {
-        global $USER, $LNG;
+        global $USER, $this->lang;
         $receiverID	= HTTP::_GP('id', 0);
-        $subject 	= HTTP::_GP('subject', $LNG['mg_no_subject'], true);
+        $subject 	= HTTP::_GP('subject', $this->lang['mg_no_subject'], true);
 		$text		= HTTP::_GP('text', '', true);
-		$senderName	= $USER['username'].' ['.$USER['galaxy'].':'.$USER['system'].':'.$USER['planet'].']';
+		$senderName	= $this->user->username.' ['.$this->user->galaxy.':'.$this->user->system.':'.$this->user->planet.']';
 
 		$text		= makebr($text);
 
 		$session	= Session::get();
 
-        if (empty($receiverID) || empty($text) || !isset($session->messageToken) || $session->messageToken != md5($USER['id'].'|'.$receiverID))
+        if (empty($receiverID) || empty($text) || !isset($session->messageToken) || $session->messageToken != md5($this->user->id.'|'.$receiverID))
         {
-            $this->sendJSON($LNG['mg_error']);
+            $this->sendJSON($this->lang['mg_error']);
         }
 
 		$session->messageToken = NULL;
 
-		PlayerUtil::sendMessage($receiverID, $USER['id'], $senderName, 1, $subject, $text, TIMESTAMP);
-        $this->sendJSON($LNG['mg_message_send']);
+		PlayerUtil::sendMessage($receiverID, $this->user->id, $senderName, 1, $subject, $text, TIMESTAMP);
+        $this->sendJSON($this->lang['mg_message_send']);
     }
 
     function write()
     {
-        global $LNG, $USER;
+        global $this->lang, $USER;
         $this->setWindow('popup');
         $this->initTemplate();
 
         $db = Database::get();
 
         $receiverID       	= HTTP::_GP('id', 0);
-        $Subject 			= HTTP::_GP('subject', $LNG['mg_no_subject'], true);
+        $Subject 			= HTTP::_GP('subject', $this->lang['mg_no_subject'], true);
 
         $sql = "SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet, b.settings_blockPM
         FROM %%PLANETS%% as a, %%USERS%% as b WHERE b.id = :receiverId AND a.id = b.id_planet;";
@@ -317,15 +317,15 @@ class ShowMessagesPage extends AbstractGamePage
 
         if (!$receiverRecord)
         {
-            $this->printMessage($LNG['mg_error']);
+            $this->printMessage($this->lang['mg_error']);
         }
 
         if ($receiverRecord['settings_blockPM'] == 1)
         {
-            $this->printMessage($LNG['mg_receiver_block_pm']);
+            $this->printMessage($this->lang['mg_receiver_block_pm']);
         }
 
-        Session::get()->messageToken = md5($USER['id'].'|'.$receiverID);
+        Session::get()->messageToken = md5($this->user->id.'|'.$receiverID);
 
         $this->assign(array(
             'subject'		=> $Subject,
@@ -349,7 +349,7 @@ class ShowMessagesPage extends AbstractGamePage
 
         $sql = "SELECT COUNT(*) as state FROM %%MESSAGES%% WHERE message_sender = :userID AND message_type != 50;";
         $MessOut = $db->selectSingle($sql, array(
-            ':userID'   => $USER['id']
+            ':userID'   => $this->user->id
         ), 'state');
 
         $OperatorList	= array();
@@ -369,7 +369,7 @@ class ShowMessagesPage extends AbstractGamePage
 
         $sql = "SELECT message_type, SUM(message_unread) as message_unread, COUNT(*) as count FROM %%MESSAGES%% WHERE message_owner = :userID GROUP BY message_type;";
         $CategoryResult = $db->select($sql, array(
-            ':userID'   => $USER['id']
+            ':userID'   => $this->user->id
         ));
 
         foreach ($CategoryResult as $CategoryRow)

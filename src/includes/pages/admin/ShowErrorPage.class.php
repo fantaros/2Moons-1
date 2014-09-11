@@ -26,7 +26,6 @@
  * @link http://2moons.cc/
  */
 
-
 class ShowErrorPage extends AbstractAdminPage
 {
     protected $disableEcoSystem = true;

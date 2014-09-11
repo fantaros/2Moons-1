@@ -32,7 +32,6 @@ class ShowBuildingsPage extends AbstractGamePage
 
     	private function getQueueData()
 	{
-		global $LNG, $USER;
 
 		$queueData  = $this->ecoObj->getQueueObj()->getTasksByElementId(array_keys(Vars::getElements(Vars::CLASS_BUILDING)));
 
@@ -53,8 +52,8 @@ class ShowBuildingsPage extends AbstractGamePage
 				'time' 		=> $task['buildTime'],
 				'resttime' 	=> $task['endBuildTime'] - TIMESTAMP,
 				'destroy' 	=> $task['taskType'] == QueueManager::DESTROY,
-				'endtime' 	=> _date('U', $task['endBuildTime'], $USER['timezone']),
-				'display' 	=> _date($LNG['php_tdformat'], $task['endBuildTime'], $USER['timezone']),
+				'endtime' 	=> _date('U', $task['endBuildTime'], $this->user->timezone),
+				'display' 	=> _date($this->lang['php_tdformat'], $task['endBuildTime'], $this->user->timezone),
 			);
 
             $elementLevel[$task['elementId']]   = $task['amount'] - ((int) $task['taskType'] == QueueManager::DESTROY);
@@ -73,7 +72,7 @@ class ShowBuildingsPage extends AbstractGamePage
     {
         global $USER;
         $elementId  = HTTP::_GP('elementId', 0);
-        if($_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0 && !empty($elementId))
+        if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->user->urlaubs_modus == 0 && !empty($elementId))
         {
             $elementObj = Vars::getElement($elementId);
             if($elementObj->class == Vars::CLASS_BUILDING)
@@ -88,7 +87,7 @@ class ShowBuildingsPage extends AbstractGamePage
     {
         global $USER;
         $elementId  = HTTP::_GP('elementId', 0);
-        if($_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0 && !empty($elementId))
+        if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->user->urlaubs_modus == 0 && !empty($elementId))
         {
             $elementObj = Vars::getElement($elementId);
             if($elementObj->class == Vars::CLASS_BUILDING)
@@ -104,7 +103,7 @@ class ShowBuildingsPage extends AbstractGamePage
     {
         global $USER;
         $taskId = HTTP::_GP('taskId', 0);
-        if($_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0 && !empty($taskId))
+        if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->user->urlaubs_modus == 0 && !empty($taskId))
         {
             $this->ecoObj->removeFromQueue($taskId, Vars::CLASS_BUILDING);
         }
@@ -114,7 +113,6 @@ class ShowBuildingsPage extends AbstractGamePage
 
 	public function show()
 	{
-		global $LNG, $PLANET, $USER;
 		$config				= Config::get();
 
 		$queueData	 		= $this->getQueueData();
@@ -166,8 +164,8 @@ class ShowBuildingsPage extends AbstractGamePage
 				$requireEnergy	= $Prod - $Need;
 				$requireEnergy	= round($requireEnergy * $config->energySpeed);
 
-				$text       = $requireEnergy < 0 ? $LNG['bd_need_engine'] : $LNG['bd_more_engine'];
-                $infoEnergy	= sprintf($text, pretty_number(abs($requireEnergy)), $LNG['tech'][911]);
+				$text       = $requireEnergy < 0 ? $this->lang['bd_need_engine'] : $this->lang['bd_more_engine'];
+                $infoEnergy	= sprintf($text, pretty_number(abs($requireEnergy)), $this->lang['tech'][911]);
 			}
 
 			$costResources		= BuildUtil::getElementPrice($elementObj, $levelToBuild + 1);

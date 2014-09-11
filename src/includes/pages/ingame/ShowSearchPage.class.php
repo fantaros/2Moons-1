@@ -180,8 +180,7 @@ class ShowSearchPage extends AbstractGamePage
 	
 	function autocomplete()
 	{
-		global $LNG;
-		
+
 		$this->setWindow('ajax');
 		
 		$seachMode 	= HTTP::_GP('type', 'playername');
@@ -201,16 +200,16 @@ class ShowSearchPage extends AbstractGamePage
 			foreach($searchData as $data) {
 				switch($search) {
 					case 'playername':
-						$searchList[]	= array('label' => str_replace($searchText, '<b>'.$searchText.'</b>', $data['username']), 'category' => $LNG['sh_player_name'], 'type' => 'playername');
+						$searchList[]	= array('label' => str_replace($searchText, '<b>'.$searchText.'</b>', $data['username']), 'category' => $this->lang['sh_player_name'], 'type' => 'playername');
 					break;
 					case 'planetname':
-						$searchList[]	= array('label' => str_replace($searchText, '<b>'.$searchText.'</b>', $data['username']), 'category' => $LNG['sh_planet_name'], 'type' => 'planetname');
+						$searchList[]	= array('label' => str_replace($searchText, '<b>'.$searchText.'</b>', $data['username']), 'category' => $this->lang['sh_planet_name'], 'type' => 'planetname');
 					break;
 					case "allytag":
-						$searchList[]	= array('label' => str_replace($searchText, '<b>'.$searchText.'</b>', $data['allytag']), 'category' => $LNG['sh_alliance_tag'], 'type' => 'allytag');
+						$searchList[]	= array('label' => str_replace($searchText, '<b>'.$searchText.'</b>', $data['allytag']), 'category' => $this->lang['sh_alliance_tag'], 'type' => 'allytag');
 					break;
 					case "allyname":
-						$searchList[]	= array('label' => str_replace($searchText, '<b>'.$searchText.'</b>', $data['allyname']), 'category' => $LNG['sh_alliance_name'], 'type' => 'allyname');
+						$searchList[]	= array('label' => str_replace($searchText, '<b>'.$searchText.'</b>', $data['allyname']), 'category' => $this->lang['sh_alliance_name'], 'type' => 'allyname');
 					break;
 				}
 			}
@@ -221,8 +220,7 @@ class ShowSearchPage extends AbstractGamePage
 	
 	function result()
 	{
-		global $THEME;
-		
+
 		$this->initTemplate();
 		$this->setWindow('ajax');
 		
@@ -248,11 +246,10 @@ class ShowSearchPage extends AbstractGamePage
 	
 	function show()
 	{
-		global $LNG, $THEME;
-		
+
 		$seachMode 		= HTTP::_GP('type', 'playername');
 		
-		$modeSelector	= array('playername' => $LNG['sh_player_name'], 'planetname' => $LNG['sh_planet_name'], 'allytag' => $LNG['sh_alliance_tag'], 'allyname' => $LNG['sh_alliance_name']);
+		$modeSelector	= array('playername' => $this->lang['sh_player_name'], 'planetname' => $this->lang['sh_planet_name'], 'allytag' => $this->lang['sh_alliance_tag'], 'allyname' => $this->lang['sh_alliance_name']);
 		$this->tplObj->loadscript('search.js');
 		$this->assign(array(
 			'modeSelector'	=> $modeSelector,

@@ -31,28 +31,26 @@ class ShowQuestionsPage extends AbstractGamePage
 
     public function show()
 	{
-		global $LNG;
-		
-		$LNG->includeData(array('FAQ'));
+
+		$this->lang->includeData(array('FAQ'));
 		
 		$this->display('page.questions.default');
 	}
 	
 	function single()
 	{
-		global $LNG;
-		
-		$LNG->includeData(array('FAQ'));
+
+		$this->lang->includeData(array('FAQ'));
 		
 		$categoryID	= HTTP::_GP('categoryID', 0);
 		$questionID	= HTTP::_GP('questionID', 0);
 		
-		if(!isset($LNG['questions'][$categoryID][$questionID])) {
+		if(!isset($this->lang['questions'][$categoryID][$questionID])) {
 			HTTP::redirectTo('game.php?page=questions');
 		}
 		
 		$this->assign(array(
-			'questionRow'	=> $LNG['questions'][$categoryID][$questionID],
+			'questionRow'	=> $this->lang['questions'][$categoryID][$questionID],
 		));
 		$this->display('page.questions.single');
 	}

@@ -34,7 +34,6 @@ class ShowLoginPage extends AbstractAdminPage
 
 	public function __construct()
     {
-        var_dump(Session::get()->hasAdminAccess);
         if(Session::get()->hasAdminAccess)
         {
             HTTP::redirectTo('admin.php?s='.session_id());
@@ -46,12 +45,10 @@ class ShowLoginPage extends AbstractAdminPage
 
     public function verify()
     {
-        global $USER;
-
         $password	= HTTP::_GP('password', '');
-        $password	= PlayerUtil::cryptPassword($password);
+        $user       = Session::get()->getUser();
 
-        if ($password == $USER['password'])
+        if ($user->verifyPassword($password))
         {
             Session::get()->hasAdminAccess	= true;
             HTTP::redirectTo('admin.php?s='.session_id());

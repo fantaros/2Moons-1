@@ -33,7 +33,6 @@ class ShowRecordsPage extends AbstractGamePage
 
     public function show()
 	{
-		global $USER, $LNG;
 
 		$db = Database::get();
 
@@ -83,7 +82,7 @@ class ShowRecordsPage extends AbstractGamePage
             'researchList'	=> $techList,
             'fleetList'		=> $fleetList,
 			'defenseList'	=> $defenseList,
-			'update'		=> _date($LNG['php_tdformat'], Cronjob::getLastExecutionTime('statistic'), $USER['timezone']),
+			'update'		=> _date($this->lang['php_tdformat'], Cron::getLastExecutionTime('statistic'), $this->user->timezone),
 		));
 		
 		$this->display('page.records.default');

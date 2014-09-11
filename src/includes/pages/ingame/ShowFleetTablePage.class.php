@@ -33,11 +33,10 @@ class ShowFleetTablePage extends AbstractGamePage
 
     public function createACS($fleetId, $fleetData)
     {
-		global $USER;
-		
+
 		$rand 			= mt_rand(100000, 999999999);
 		$acsName	 	= 'AG'.$rand;
-		$acsCreator		= $USER['id'];
+		$acsCreator		= $this->user->id;
 
         $db = Database::get();
         $sql = "INSERT INTO %%AKS%% SET name = :acsName, ankunft = :time, target = :target;";
@@ -68,12 +67,11 @@ class ShowFleetTablePage extends AbstractGamePage
 	}
 	
 	public function loadACS($fleetData) {
-		global $USER;
-		
+
 		$db = Database::get();
         $sql = "SELECT id, name FROM %%USERS_ACS%% INNER JOIN %%AKS%% ON acsID = id WHERE userID = :userID AND acsID = :acsID;";
         $acsResult = $db->selectSingle($sql, array(
-            ':userID'   => $USER['id'],
+            ':userID'   => $this->user->id,
             ':acsID'    => $fleetData['fleet_group']
         ));
 
@@ -82,8 +80,7 @@ class ShowFleetTablePage extends AbstractGamePage
 	
 	public function getACSPageData($fleetId)
 	{
-		global $USER, $LNG;
-		
+
 		$db = Database::get();
 
         $sql = "SELECT fleet_start_time, fleet_end_id, fleet_group, fleet_mess FROM %%FLEETS%% WHERE fleetId = :fleetId;";
@@ -109,7 +106,7 @@ class ShowFleetTablePage extends AbstractGamePage
 		if(!empty($acsName)) {
 			if(PlayerUtil::isNameValid($acsName))
 			{
-				$this->sendJSON($LNG['fl_acs_newname_alphanum']);
+				$this->sendJSON($this->lang['fl_acs_newname_alphanum']);
 			}
 			
 			$sql = "UPDATE %%AKS%% SET name = acsName WHERE id = :acsID;";
@@ -143,11 +140,11 @@ class ShowFleetTablePage extends AbstractGamePage
             ), 'id');
 
             if(empty($newUserID)) {
-				$statusMessage			= $LNG['fl_player']." ".$newUser." ".$LNG['fl_dont_exist'];
+				$statusMessage			= $this->lang['fl_player']." ".$newUser." ".$this->lang['fl_dont_exist'];
 			} elseif(isset($invitedUsers[$newUserID])) {
-				$statusMessage			= $LNG['fl_player']." ".$newUser." ".$LNG['fl_already_invited'];
+				$statusMessage			= $this->lang['fl_player']." ".$newUser." ".$this->lang['fl_already_invited'];
 			} else {
-				$statusMessage			= $LNG['fl_player']." ".$newUser." ".$LNG['fl_add_to_attack'];
+				$statusMessage			= $this->lang['fl_player']." ".$newUser." ".$this->lang['fl_add_to_attack'];
 				
 				$sql = "INSERT INTO %%USERS_ACS%% SET acsID = :acsID, userID = :newUserID;";
                 $db->insert($sql, array(
@@ -157,9 +154,9 @@ class ShowFleetTablePage extends AbstractGamePage
 
                 $invitedUsers[$newUserID]	= $newUser;
 				
-				$inviteTitle			= $LNG['fl_acs_invitation_title'];
-				$inviteMessage 			= $LNG['fl_player'] . $USER['username'] . $LNG['fl_acs_invitation_message'];
-				PlayerUtil::sendMessage($newUserID, $USER['id'], TIMESTAMP, 1, $USER['username'], $inviteTitle, $inviteMessage);
+				$inviteTitle			= $this->lang['fl_acs_invitation_title'];
+				$inviteMessage 			= $this->lang['fl_player'] . $this->user->username . $this->lang['fl_acs_invitation_message'];
+				PlayerUtil::sendMessage($newUserID, $this->user->id, TIMESTAMP, 1, $this->user->username, $inviteTitle, $inviteMessage);
 			}
 		}
 		
@@ -173,8 +170,7 @@ class ShowFleetTablePage extends AbstractGamePage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $LNG;
-		
+
 		$acsData			= array();
 		$FleetID			= HTTP::_GP('fleetId', 0);
 		$GetAction			= HTTP::_GP('action', "");
@@ -195,7 +191,7 @@ class ShowFleetTablePage extends AbstractGamePage
 
 		if ($techExpedition >= 1)
 		{
-			$activeExpedition   = FleetUtil::getUsedSlots($USER['id'], 15, true);
+			$activeExpedition   = FleetUtil::getUsedSlots($this->user->id, 15, true);
 			$maxExpedition 		= floor(sqrt($techExpedition));
 		}
 		else
@@ -214,7 +210,7 @@ class ShowFleetTablePage extends AbstractGamePage
 
         $activeFleetSlots	= 0;
 
-		$currentFleets		= FleetUtil::getCurrentFleetsByUserId($USER['id']);
+		$currentFleets		= FleetUtil::getCurrentFleetsByUserId($this->user->id);
 
 		$FlyingFleetList	= array();
 		
@@ -239,11 +235,11 @@ class ShowFleetTablePage extends AbstractGamePage
 				'startGalaxy'	=> $fleetsRow['fleet_start_galaxy'],
 				'startSystem'	=> $fleetsRow['fleet_start_system'],
 				'startPlanet'	=> $fleetsRow['fleet_start_planet'],
-				'startTime'		=> _date($LNG['php_tdformat'], $fleetsRow['fleet_start_time'], $USER['timezone']),
+				'startTime'		=> _date($this->lang['php_tdformat'], $fleetsRow['fleet_start_time'], $this->user->timezone),
 				'endGalaxy'		=> $fleetsRow['fleet_end_galaxy'],
 				'endSystem'		=> $fleetsRow['fleet_end_system'],
 				'endPlanet'		=> $fleetsRow['fleet_end_planet'],
-				'endTime'		=> _date($LNG['php_tdformat'], $fleetsRow['fleet_end_time'], $USER['timezone']),
+				'endTime'		=> _date($this->lang['php_tdformat'], $fleetsRow['fleet_end_time'], $this->user->timezone),
 				'amount'		=> array_sum($fleetsRow['elements'][Vars::CLASS_FLEET]),
 				'returntime'	=> $returnTime,
 				'resttime'		=> $returnTime - TIMESTAMP,

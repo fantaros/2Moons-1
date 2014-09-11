@@ -32,9 +32,8 @@ class ShowBattleSimulatorPage extends AbstractGamePage
 
     function send()
 	{
-		global $LNG;
-		
-		if(!isset($_REQUEST['battleinput'])) {
+
+		if(empty($_REQUEST['battleinput'])) {
 			$this->sendJSON(0);
 		}
 		
@@ -71,7 +70,7 @@ class ShowBattleSimulatorPage extends AbstractGamePage
 				
 				$attacker['player']				= array(
 					'id' => (1000 + $BattleSlotID + 1),
-					'username'	=> $LNG['bs_atter'].' Nr.'.($BattleSlotID + 1),
+					'username'	=> $this->lang['bs_atter'].' Nr.'.($BattleSlotID + 1),
 					'military_tech' => $BattleSlot[0][109],
 					'defence_tech' => $BattleSlot[0][110],
 					'shield_tech' => $BattleSlot[0][111],
@@ -113,7 +112,7 @@ class ShowBattleSimulatorPage extends AbstractGamePage
 				
 				$defender['player']				= array(
 					'id' => (2000 + $BattleSlotID + 1),
-					'username'	=> $LNG['bs_deffer'].' Nr.'.($BattleSlotID + 1),
+					'username'	=> $this->lang['bs_deffer'].' Nr.'.($BattleSlotID + 1),
 					'military_tech' => $BattleSlot[1][109],
 					'defence_tech' => $BattleSlot[1][110],
 					'shield_tech' => $BattleSlot[1][111],
@@ -136,7 +135,7 @@ class ShowBattleSimulatorPage extends AbstractGamePage
 			}
 		}
 		
-		$LNG->includeData(array('FLEET'));
+		$this->lang->includeData(array('FLEET'));
 		
 		require_once 'includes/classes/missions/functions/calculateAttack.php';
 		require_once 'includes/classes/missions/functions/calculateSteal.php';
@@ -180,18 +179,18 @@ class ShowBattleSimulatorPage extends AbstractGamePage
         $shipData           = array();
         foreach($debrisShipIds as $elementId => $elementObj)
         {
-            $shipData[$LNG['tech'][$elementId]] = ceil($debrisTotal / $elementObj->capacity);
+            $shipData[$this->lang['tech'][$elementId]] = ceil($debrisTotal / $elementObj->capacity);
         }
 
-		$stealResourceInformation	= sprintf($LNG['bs_derbis_report'], Language::createHumanReadableList($shipData), $LNG['d_or']);
+		$stealResourceInformation	= sprintf($this->lang['bs_derbis_report'], Language::createHumanReadableList($shipData), $this->lang['d_or']);
 
         $stealResourceInformation	.= '<br>';
 		
-		$stealResourceInformation	.= sprintf($LNG['bs_steal_report'], Language::createHumanReadableList(array(
-			$LNG['tech'][202]	=> ceil($sumSteal / Vars::getElement(202)->capacity),
-			$LNG['tech'][203]	=> ceil($sumSteal / Vars::getElement(203)->capacity),
-			$LNG['tech'][217]	=> ceil($sumSteal / Vars::getElement(217)->capacity),
-        )), $LNG['d_or']);
+		$stealResourceInformation	.= sprintf($this->lang['bs_steal_report'], Language::createHumanReadableList(array(
+			$this->lang['tech'][202]	=> ceil($sumSteal / Vars::getElement(202)->capacity),
+			$this->lang['tech'][203]	=> ceil($sumSteal / Vars::getElement(203)->capacity),
+			$this->lang['tech'][217]	=> ceil($sumSteal / Vars::getElement(217)->capacity),
+        )), $this->lang['d_or']);
 
 		$reportInfo	= array(
 			'thisFleet'				=> array(
@@ -234,7 +233,6 @@ class ShowBattleSimulatorPage extends AbstractGamePage
 	
 	function show()
 	{
-		global $USER, $PLANET;
 
 		$Slots			= HTTP::_GP('slots', 1);
 

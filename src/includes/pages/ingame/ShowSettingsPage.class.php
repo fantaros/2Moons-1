@@ -31,13 +31,12 @@ class ShowSettingsPage extends AbstractGamePage
 
     public function show()
 	{
-		global $USER, $LNG;
-		if($USER['urlaubs_modus'] == 1)
+		if($this->user->urlaubs_modus == 1)
 		{
 			$this->assign(array(
-				'vacationUntil'			=> _date($LNG['php_tdformat'], $USER['urlaubs_until'], $USER['timezone']),
-				'delete'				=> $USER['db_deaktjava'],
-				'canVacationDisbaled'	=> $USER['urlaubs_until'] < TIMESTAMP,
+				'vacationUntil'			=> _date($this->lang['php_tdformat'], $this->user->urlaubs_until, $this->user->timezone),
+				'delete'				=> $this->user->db_deaktjava,
+				'canVacationDisbaled'	=> $this->user->urlaubs_until < TIMESTAMP,
 			));
 			
 			$this->display('page.settings.vacation');
@@ -48,38 +47,38 @@ class ShowSettingsPage extends AbstractGamePage
 				'Selectors'			=> array(
 					'timezones' => get_timezone_selector(), 
 					'Sort' => array(
-						0 => $LNG['op_sort_normal'], 
-						1 => $LNG['op_sort_koords'],
-						2 => $LNG['op_sort_abc']), 
+						0 => $this->lang['op_sort_normal'],
+						1 => $this->lang['op_sort_koords'],
+						2 => $this->lang['op_sort_abc']),
 					'SortUpDown' => array(
-						0 => $LNG['op_sort_up'], 
-						1 => $LNG['op_sort_down']
+						0 => $this->lang['op_sort_up'],
+						1 => $this->lang['op_sort_down']
 					), 
 					'Skins' => Theme::getAvailableSkins(),
-					'lang' => $LNG->getAvailableLanguages(false)
+					'lang' => $this->lang->getAvailableLanguages(false)
 					),
-				'adminProtection'	=> $USER['authattack'],	
-				'userAuthlevel'		=> $USER['authlevel'],
-				'changeNickTime'	=> ($USER['uctime'] + USERNAME_CHANGETIME) - TIMESTAMP,
-				'username'			=> $USER['username'],
-				'email'				=> $USER['email'],
-				'permaEmail'		=> $USER['email_2'],
-				'userLang'			=> $USER['lang'],
-				'theme'				=> substr($USER['dpath'], 13, -1),
-				'planetSort'		=> $USER['planet_sort'],
-				'planetOrder'		=> $USER['planet_sort_order'],
-				'spycount'			=> $USER['spio_anz'],
-				'fleetActions'		=> $USER['settings_fleetactions'],
-				'timezone'			=> $USER['timezone'],
-				'delete'			=> $USER['db_deaktjava'],
-				'queueMessages'		=> $USER['hof'],
-				'spyMessagesMode'	=> $USER['spyMessagesMode'],
-				'galaxySpy' 		=> $USER['settings_esp'],
-				'galaxyBuddyList' 	=> $USER['settings_bud'],
-				'galaxyMissle' 		=> $USER['settings_mis'],
-				'galaxyMessage' 	=> $USER['settings_wri'],
-				'blockPM' 			=> $USER['settings_blockPM'],
-				'userid'		 	=> $USER['id'],
+				'adminProtection'	=> $this->user->authattack,
+				'userAuthlevel'		=> $this->user->authlevel,
+				'changeNickTime'	=> ($this->user->uctime + USERNAME_CHANGETIME) - TIMESTAMP,
+				'username'			=> $this->user->username,
+				'email'				=> $this->user->email,
+				'permaEmail'		=> $this->user->email_2,
+				'userLang'			=> $this->user->lang,
+				'theme'				=> substr($this->user->dpath, 13, -1),
+				'planetSort'		=> $this->user->planet_sort,
+				'planetOrder'		=> $this->user->planet_sort_order,
+				'spycount'			=> $this->user->spio_anz,
+				'fleetActions'		=> $this->user->settings_fleetactions,
+				'timezone'			=> $this->user->timezone,
+				'delete'			=> $this->user->db_deaktjava,
+				'queueMessages'		=> $this->user->hof,
+				'spyMessagesMode'	=> $this->user->spyMessagesMode,
+				'galaxySpy' 		=> $this->user->settings_esp,
+				'galaxyBuddyList' 	=> $this->user->settings_bud,
+				'galaxyMissle' 		=> $this->user->settings_mis,
+				'galaxyMessage' 	=> $this->user->settings_wri,
+				'blockPM' 			=> $this->user->settings_blockPM,
+				'userid'		 	=> $this->user->id,
 				'ref_active'		=> Config::get()->ref_active,
 			));
 			
@@ -89,16 +88,15 @@ class ShowSettingsPage extends AbstractGamePage
 	
 	private function CheckVMode()
 	{
-		global $USER, $PLANET;
 
-		if(!empty($USER['b_tech']) || !empty($PLANET['b_building']) || !empty($PLANET['b_hangar']))
+		if(!empty($this->user->b_tech) || !empty($PLANET['b_building']) || !empty($PLANET['b_hangar']))
 			return false;
 
 		$db = Database::get();
 
 		$sql = "SELECT COUNT(*) as state FROM %%FLEETS%% WHERE `fleet_owner` = :userID;";
 		$fleets = $db->selectSingle($sql, array(
-			':userID'	=> $USER['id']
+			':userID'	=> $this->user->id
 		), 'state');
 
 		if($fleets != 0)
@@ -106,7 +104,7 @@ class ShowSettingsPage extends AbstractGamePage
 
 		$sql = "SELECT * FROM %%PLANETS%% WHERE id_owner = :userID AND id != :planetID AND destroyed = 0;";
 		$query = $db->select($sql, array(
-			':userID'	=> $USER['id'],
+			':userID'	=> $this->user->id,
 			':planetID'	=> $PLANET['id']
 		));
 
@@ -125,8 +123,7 @@ class ShowSettingsPage extends AbstractGamePage
 	
 	public function send()
 	{
-		global $USER;
-		if($USER['urlaubs_modus'] == 1) {
+		if($this->user->urlaubs_modus == 1) {
 			$this->sendVacation();
 		} else {
 			$this->sendDefault();
@@ -135,20 +132,19 @@ class ShowSettingsPage extends AbstractGamePage
 	
 	private function sendVacation() 
 	{
-		global $USER, $LNG;
-		
+
 		$delete		= HTTP::_GP('delete', 0);
 		$vacation	= HTTP::_GP('vacation', 0);
 		
 		$db = Database::get();
 		
-		if($vacation == 1 && $USER['urlaubs_until'] <= TIMESTAMP) {
+		if($vacation == 1 && $this->user->urlaubs_until <= TIMESTAMP) {
 			$sql = "UPDATE %%USERS%% SET
 						urlaubs_modus = '0',
 						urlaubs_until = '0'
 						WHERE id = :userID;";
 			$db->update($sql, array(
-				':userID'	=> $USER['id']
+				':userID'	=> $this->user->id
 			));
 
 			$sql = "UPDATE %%PLANETS%% SET
@@ -163,7 +159,7 @@ class ShowSettingsPage extends AbstractGamePage
 						solar_satelit_porcent = '10'
 						WHERE id_owner = :userID;";
 			$db->update($sql, array(
-				':userID'		=> $USER['id'],
+				':userID'		=> $this->user->id,
 				':timestamp'	=> TIMESTAMP
 			));
 		}
@@ -171,35 +167,34 @@ class ShowSettingsPage extends AbstractGamePage
 		if($delete == 1) {
 			$sql	= "UPDATE %%USERS%% SET db_deaktjava = :timestamp WHERE id = :userID;";
 			$db->update($sql, array(
-				':userID'		=> $USER['id'],
+				':userID'		=> $this->user->id,
 				':timestamp'	=> TIMESTAMP
 			));
 		} else {
 			$sql	= "UPDATE %%USERS%% SET db_deaktjava = 0 WHERE id = :userID;";
 			$db->update($sql, array(
-				':userID'	=> $USER['id'],
+				':userID'	=> $this->user->id,
 			));
 		}
 		
-		$this->printMessage($LNG['op_options_changed'], array(array(
-			'label'	=> $LNG['sys_forward'],
+		$this->printMessage($this->lang['op_options_changed'], array(array(
+			'label'	=> $this->lang['sys_forward'],
 			'url'	=> 'game.php?page=settings'
 		)));
 	}
 	
 	private function sendDefault()
 	{
-		global $USER, $LNG, $THEME;
-		
+
 		$adminprotection	= HTTP::_GP('adminprotection', 0);
 		
-		$username			= HTTP::_GP('username', $USER['username'], UTF8_SUPPORT);
+		$username			= HTTP::_GP('username', $this->user->username, UTF8_SUPPORT);
 		$password			= HTTP::_GP('password', '');
 		
 		$newpassword		= HTTP::_GP('newpassword', '');
 		$newpassword2		= HTTP::_GP('newpassword2', '');
 		
-		$email				= HTTP::_GP('email', $USER['email']);
+		$email				= HTTP::_GP('email', $this->user->email);
 		
 		$timezone			= HTTP::_GP('timezone', '');	
 		$language			= HTTP::_GP('language', '');	
@@ -226,29 +221,29 @@ class ShowSettingsPage extends AbstractGamePage
 		
 		// Verify
 		
-		$adminprotection	= ($adminprotection == 1 && $USER['authlevel'] != AUTH_USR) ? $USER['authlevel'] : 0;
+		$adminprotection	= ($adminprotection == 1 && $this->user->authlevel != AUTH_USR) ? $this->user->authlevel : 0;
 		
 		$spycount			= min(max(round($spycount), 1), 4294967295);
 		$fleetactions		= min(max($fleetactions, 1), 99);
 		
-		$language			= array_key_exists($language, $LNG->getAvailableLanguages(false)) ? $language : $LNG->getLanguage();
+		$language			= array_key_exists($language, $this->lang->getAvailableLanguages(false)) ? $language : $this->lang->getLanguage();
 		$theme				= array_key_exists($theme, Theme::getAvailableSkins()) ? $theme : $THEME->getThemeName();
 		
 		$db = Database::get();
 		
-		if (!empty($username) && $USER['username'] != $username)
+		if (!empty($username) && $this->user->username != $username)
 		{
 			if (PlayerUtil::isNameValid($username))
 			{
-				$this->printMessage($LNG['op_user_name_no_alphanumeric'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['op_user_name_no_alphanumeric'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=settings'
 				)));
 			}
-			elseif($USER['uctime'] >= TIMESTAMP - USERNAME_CHANGETIME)
+			elseif($this->user->uctime >= TIMESTAMP - USERNAME_CHANGETIME)
 			{
-				$this->printMessage($LNG['op_change_name_pro_week'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['op_change_name_pro_week'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=settings'
 				)));
 			}
@@ -264,15 +259,15 @@ class ShowSettingsPage extends AbstractGamePage
 				), 'count');
 
 				if (!empty($Count)) {
-					$this->printMessage(sprintf($LNG['op_change_name_exist'], $username), array(array(
-						'label'	=> $LNG['sys_back'],
+					$this->printMessage(sprintf($this->lang['op_change_name_exist'], $username), array(array(
+						'label'	=> $this->lang['sys_back'],
 						'url'	=> 'game.php?page=settings'
 					)));
 				} else {
 					$sql = "UPDATE %%USERS%% SET username = :username, uctime = :timestampt WHERE id = :userID;";
 					$db->update($sql, array(
 						':username'	=> $username,
-						':userID'	=> $USER['id'],
+						':userID'	=> $this->user->id,
 						':timestamp'=> TIMESTAMP
 					));
 
@@ -287,24 +282,24 @@ class ShowSettingsPage extends AbstractGamePage
 			$sql = "UPDATE %%USERS%% SET password = :newpass WHERE id = :userID;";
 			$db->update($sql, array(
 				':newpass'	=> $newpass,
-				':userID'	=> $USER['id']
+				':userID'	=> $this->user->id
 			));
 			Session::get()->delete();
 		}
 
-		if (!empty($email) && $email != $USER['email'])
+		if (!empty($email) && $email != $this->user->email)
 		{
-			if(PlayerUtil::cryptPassword($password) != $USER['password'])
+			if(PlayerUtil::cryptPassword($password) != $this->user->password)
 			{
-				$this->printMessage($LNG['op_need_pass_mail'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['op_need_pass_mail'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=settings'
 				)));
 			}
 			elseif(!ValidateAddress($email))
 			{
-				$this->printMessage($LNG['op_not_vaild_mail'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['op_not_vaild_mail'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=settings'
 				)));
 			}
@@ -316,13 +311,13 @@ class ShowSettingsPage extends AbstractGamePage
 						as COUNT";
 				$Count = $db->selectSingle($sql, array(
 					':universe'	=> Universe::current(),
-					':userID'	=> $USER['id'],
+					':userID'	=> $this->user->id,
 					':email'	=> $email
 				), 'count');
 
 				if (!empty($Count)) {
-					$this->printMessage(sprintf($LNG['op_change_mail_exist'], $email), array(array(
-						'label'	=> $LNG['sys_back'],
+					$this->printMessage(sprintf($this->lang['op_change_mail_exist'], $email), array(array(
+						'label'	=> $this->lang['sys_back'],
 						'url'	=> 'game.php?page=settings'
 					)));
 				} else {
@@ -330,7 +325,7 @@ class ShowSettingsPage extends AbstractGamePage
 					$db->update($sql, array(
 						':email'	=> $email,
 						':time'		=> (TIMESTAMP + 604800),
-						':userID'	=> $USER['id']
+						':userID'	=> $this->user->id
 					));
 				}
 			}
@@ -341,8 +336,8 @@ class ShowSettingsPage extends AbstractGamePage
 		{
 			if(!$this->CheckVMode())
 			{
-				$this->printMessage($LNG['op_cant_activate_vacation_mode'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['op_cant_activate_vacation_mode'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=settings'
 				)));
 			}
@@ -350,13 +345,13 @@ class ShowSettingsPage extends AbstractGamePage
 			{
 				$sql = "UPDATE %%USERS%% SET urlaubs_modus = '1', urlaubs_until = :time WHERE id = :userID";
 				$db->update($sql, array(
-					':userID'	=> $USER['id'],
+					':userID'	=> $this->user->id,
 					':time'		=> (TIMESTAMP + Config::get()->vmode_min_time),
 				));
 
 				$sql = "UPDATE %%PLANETS%% SET energy_used = '0', energy = '0', metal_mine_porcent = '0', crystal_mine_porcent = '0', deuterium_sintetizer_porcent = '0', solar_plant_porcent = '0', fusion_plant_porcent = '0', solar_satelit_porcent = '0', metal_perhour = '0', crystal_perhour = '0', deuterium_perhour = '0' WHERE id_owner = :userID;";
 				$db->update($sql, array(
-					':userID'	=> $USER['id'],
+					':userID'	=> $this->user->id,
 				));
 			}
 		}
@@ -364,13 +359,13 @@ class ShowSettingsPage extends AbstractGamePage
 		if($delete == 1) {
 			$sql	= "UPDATE %%USERS%% SET db_deaktjava = :timestamp WHERE id = :userID;";
 			$db->update($sql, array(
-				':userID'	=> $USER['id'],
+				':userID'	=> $this->user->id,
 				':timestamp'	=> TIMESTAMP
 			));
 		} else {
 			$sql	= "UPDATE %%USERS%% SET db_deaktjava = 0 WHERE id = :userID;";
 			$db->update($sql, array(
-				':userID'	=> $USER['id'],
+				':userID'	=> $this->user->id,
 			));
 		}
 
@@ -407,11 +402,11 @@ class ShowSettingsPage extends AbstractGamePage
 			':language'			=> $language,
 			':queueMessages'	=> $queueMessages,
 			':spyMessagesMode'	=> $spyMessagesMode,
-			':userID'			=> $USER['id']
+			':userID'			=> $this->user->id
 		));
 		
-		$this->printMessage($LNG['op_options_changed'], array(array(
-			'label'	=> $LNG['sys_forward'],
+		$this->printMessage($this->lang['op_options_changed'], array(array(
+			'label'	=> $this->lang['sys_forward'],
 			'url'	=> 'game.php?page=settings'
 		)));
 	}

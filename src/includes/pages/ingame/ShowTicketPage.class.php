@@ -41,7 +41,6 @@ class ShowTicketPage extends AbstractGamePage
 	
 	public function show()
 	{
-		global $USER, $LNG;
 
 		$db = Database::get();
 
@@ -51,13 +50,13 @@ class ShowTicketPage extends AbstractGamePage
 		WHERE t.ownerID = :userID GROUP BY a.ticketID ORDER BY t.ticketID DESC;";
 
 		$ticketResult = $db->select($sql, array(
-			':userID'	=> $USER['id']
+			':userID'	=> $this->user->id
 		));
 
 		$ticketList		= array();
 		
 		foreach($ticketResult as $ticketRow) {
-			$ticketRow['time']	= _date($LNG['php_tdformat'], $ticketRow['time'], $USER['timezone']);
+			$ticketRow['time']	= _date($this->lang['php_tdformat'], $ticketRow['time'], $this->user->timezone);
 
 			$ticketList[$ticketRow['ticketID']]	= $ticketRow;
 		}
@@ -82,8 +81,7 @@ class ShowTicketPage extends AbstractGamePage
 	
 	function send() 
 	{
-		global $USER, $LNG;
-				
+
 		$ticketID	= HTTP::_GP('id', 0);
 		$categoryID	= HTTP::_GP('category', 0);
 		$message	= HTTP::_GP('message', '', true);
@@ -101,13 +99,13 @@ class ShowTicketPage extends AbstractGamePage
 		{
 			if(empty($subject))
 			{
-				$this->printMessage($LNG['ti_error_no_subject'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['ti_error_no_subject'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'javascript:window.history.back()'
 				)));
 			}
 
-			$ticketID	= $this->ticketObj->createTicket($USER['id'], $categoryID, $subject);
+			$ticketID	= $this->ticketObj->createTicket($this->user->id, $categoryID, $subject);
 		} else {
 			$db = Database::get();
 
@@ -118,18 +116,17 @@ class ShowTicketPage extends AbstractGamePage
 
 			if ($ticketStatus == 2)
 			{
-				$this->printMessage($LNG['ti_error_closed']);
+				$this->printMessage($this->lang['ti_error_closed']);
 			}
 		}
 			
-		$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], $subject, $message, 0);
+		$this->ticketObj->createAnswer($ticketID, $this->user->id, $this->user->username, $subject, $message, 0);
 		$this->redirectTo('game.php?page=ticket&mode=view&id='.$ticketID);
 	}
 	
 	function view() 
 	{
-		global $USER, $LNG;
-		
+
 		require 'includes/classes/BBCode.class.php';
 
 		$db = Database::get();
@@ -144,8 +141,8 @@ class ShowTicketPage extends AbstractGamePage
 		$answerList			= array();
 
 		if(empty($answerResult)) {
-			$this->printMessage(sprintf($LNG['ti_not_exist'], $ticketID), array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage(sprintf($this->lang['ti_not_exist'], $ticketID), array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=ticket'
 			)));
 		}
@@ -153,7 +150,7 @@ class ShowTicketPage extends AbstractGamePage
 		$ticket_status = 0;
 
 		foreach($answerResult as $answerRow) {
-			$answerRow['time']		= _date($LNG['php_tdformat'], $answerRow['time'], $USER['timezone']);
+			$answerRow['time']		= _date($this->lang['php_tdformat'], $answerRow['time'], $this->user->timezone);
 			$answerRow['message']	= BBCode::parse($answerRow['message']);
 			$answerList[$answerRow['answerID']]	= $answerRow;
 			if (empty($ticket_status))

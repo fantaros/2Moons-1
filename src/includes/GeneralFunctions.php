@@ -44,43 +44,6 @@ function getTempDir()
     return sys_get_temp_dir();
 }
 
-function getPlanets($USER)
-{
-	if(isset($USER['PLANETS']))
-		return $USER['PLANETS'];
-
-	$order = $USER['planet_sort_order'] == 1 ? "DESC" : "ASC" ;
-
-	$sql = "SELECT id, name, galaxy, system, planet, planet_type, image, b_building, b_building_id
-			FROM %%PLANETS%% WHERE id_owner = :userId AND destroyed = :destroyed ORDER BY ";
-
-	switch($USER['planet_sort'])
-	{
-		case 0:
-			$sql	.= 'id '.$order;
-			break;
-		case 1:
-			$sql	.= 'galaxy, system, planet, planet_type '.$order;
-			break;
-		case 2:
-			$sql	.= 'name '.$order;
-			break;
-	}
-
-	$planetsResult = Database::get()->select($sql, array(
-		':userId'		=> $USER['id'],
-		':destroyed'	=> 0
-   	));
-	
-	$planetsList = array();
-
-	foreach($planetsResult as $planetRow) {
-		$planetsList[$planetRow['id']]	= $planetRow;
-	}
-
-	return $planetsList;
-}
-
 function get_timezone_selector() {
 	// New Timezone Selector, better support for changes in tzdata (new russian timezones, e.g.)
 	// http://www.php.net/manual/en/datetimezone.listidentifiers.php
@@ -359,18 +322,6 @@ function floattostring($Numeric, $Pro = 0, $Output = false){
 	return ($Output) ? str_replace(",",".", sprintf("%.".$Pro."f", $Numeric)) : sprintf("%.".$Pro."f", $Numeric);
 }
 
-function isModulAvalible($ID)
-{
-	$modules	= explode(', ', Config::get()->moduls);
-
-	if(!isset($modules[$ID]))
-	{
-		$modules[$ID] = 1;
-	}
-
-	return $modules[$ID] == 1 || (isset($USER['authlevel']) && $USER['authlevel'] > AUTH_USR);
-}
-
 function ClearCache()
 {
 	@set_time_limit(300)
@@ -421,19 +372,8 @@ function ClearCache()
 	
 }
 
-function allowedTo($side)
-{
-	global $USER;
-	return ($USER['authlevel'] == AUTH_ADM || (isset($USER['rights']) && $USER['rights'][$side] == 1));
-}
-
 function getRandomString() {
 	return md5(uniqid());
-}
-
-function isVacationMode($USER)
-{
-	return ($USER['urlaubs_modus'] == 1) ? true : false;
 }
 
 function clearGIF()

@@ -40,7 +40,6 @@ class ShowInformationPage extends AbstractGamePage
 
 	public function sendFleet()
 	{
-		global $PLANET, $USER, $LNG;
 
         $db = Database::get();
 
@@ -49,7 +48,7 @@ class ShowInformationPage extends AbstractGamePage
 		if (TIMESTAMP < $NextJumpTime)
 		{
 			$this->sendJSON(array(
-				'message'	=> $LNG['in_jump_gate_already_used'].' '.pretty_time($NextJumpTime - TIMESTAMP),
+				'message'	=> $this->lang['in_jump_gate_already_used'].' '.pretty_time($NextJumpTime - TIMESTAMP),
 				'error'		=> true
 			));
 		}
@@ -59,13 +58,13 @@ class ShowInformationPage extends AbstractGamePage
         $sql = "SELECT id, last_jump_time FROM %%PLANETS%% WHERE id = :targetID AND id_owner = :userID AND sprungtor > 0;";
         $TargetGate = $db->selectSingle($sql, array(
             ':targetID' => $TargetPlanet,
-            ':userID'   => $USER['id']
+            ':userID'   => $this->user->id
         ));
 
         if (!isset($TargetGate) || $TargetPlanet == $PLANET['id'])
 		{
 			$this->sendJSON(array(
-				'message' => $LNG['in_jump_gate_doesnt_have_one'],
+				'message' => $this->lang['in_jump_gate_doesnt_have_one'],
 				'error' => true
 			));
 		}
@@ -75,7 +74,7 @@ class ShowInformationPage extends AbstractGamePage
 		if (TIMESTAMP < $NextJumpTime)
 		{
 			$this->sendJSON(array(
-				'message' => $LNG['in_jump_gate_not_ready_target'].' '.pretty_time($NextJumpTime - TIMESTAMP),
+				'message' => $this->lang['in_jump_gate_not_ready_target'].' '.pretty_time($NextJumpTime - TIMESTAMP),
 				'error' => true
 			));
 		}
@@ -103,7 +102,7 @@ class ShowInformationPage extends AbstractGamePage
 		if (empty($SubQueryOri))
 		{
 			$this->sendJSON(array(
-				'message' => $LNG['in_jump_gate_error_data'],
+				'message' => $this->lang['in_jump_gate_error_data'],
 				'error' => true
 			));
 		}
@@ -117,14 +116,13 @@ class ShowInformationPage extends AbstractGamePage
 		$PLANET['last_jump_time'] 	= TIMESTAMP;
 		$NextJumpTime	= self::getNextJumpWaitTime($PLANET['last_jump_time']);
 		$this->sendJSON(array(
-			'message' => sprintf($LNG['in_jump_gate_done'], pretty_time($NextJumpTime - TIMESTAMP)),
+			'message' => sprintf($this->lang['in_jump_gate_done'], pretty_time($NextJumpTime - TIMESTAMP)),
 			'error' => false
 		));
 	}
 
 	private function getAvailableFleets()
 	{
-		global $USER, $PLANET;
 
         $fleetList  = array();
 
@@ -141,7 +139,6 @@ class ShowInformationPage extends AbstractGamePage
 
 	public function destroyMissiles()
 	{
-		global $PLANET;
 		$missileList	= HTTP::_GP('missile', array());
 
         $result         = array();
@@ -160,12 +157,11 @@ class ShowInformationPage extends AbstractGamePage
 
 	private function getTargetGates()
 	{
-		global $USER, $PLANET;
 
         $db = Database::get();
 
-		$Order = $USER['planet_sort_order'] == 1 ? "DESC" : "ASC" ;
-		$Sort  = $USER['planet_sort'];
+		$Order = $this->user->planet_sort_order == 1 ? "DESC" : "ASC" ;
+		$Sort  = $this->user->planet_sort;
 
         switch($Sort) {
             case 1:
@@ -182,7 +178,7 @@ class ShowInformationPage extends AbstractGamePage
 		$sql = "SELECT id, name, galaxy, system, planet, last_jump_time, ".Vars::getElement(43)->name." FROM %%PLANETS%% WHERE id != :planetID AND id_owner = :userID AND planet_type = '3' AND :resource43Name > 0 ORDER BY :order;";
         $moonResult = $db->select($sql, array(
             ':planetID'         => $PLANET['id'],
-            ':userID'           => $USER['id'],
+            ':userID'           => $this->user->id,
             ':order'            => $OrderBy
         ));
 
@@ -198,7 +194,6 @@ class ShowInformationPage extends AbstractGamePage
 
 	public function show()
 	{
-		global $USER, $PLANET, $LNG;
 
 		$elementId  = HTTP::_GP('id', 0);
 		$elementObj = Vars::getElement($elementId);
@@ -294,7 +289,7 @@ class ShowInformationPage extends AbstractGamePage
 			$this->tplObj->loadscript('gate.js');
 			$nextTime	= self::getNextJumpWaitTime($PLANET['last_jump_time']);
 			$gateData	= array(
-				'nextTime'	=> _date($LNG['php_tdformat'], $nextTime, $USER['timezone']),
+				'nextTime'	=> _date($this->lang['php_tdformat'], $nextTime, $this->user->timezone),
 				'restTime'	=> max(0, $nextTime - TIMESTAMP),
 				'startLink'	=> $PLANET['name'].' '.strip_tags(BuildPlanetAddressLink($PLANET)),
 				'gateList' 	=> $this->getTargetGates(),

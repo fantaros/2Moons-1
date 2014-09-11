@@ -33,7 +33,6 @@ class ShowPhalanxPage extends AbstractGamePage
 	
 	static function allowPhalanx($toGalaxy, $toSystem)
 	{
-		global $PLANET;
 
 		if ($PLANET['galaxy'] != $toGalaxy || $PLANET[Vars::getElement(42)->name] == 0)
 		{
@@ -54,7 +53,6 @@ class ShowPhalanxPage extends AbstractGamePage
 	
 	function show()
 	{
-		global $PLANET, $LNG;
 
 		$this->initTemplate();
 		$this->setWindow('popup');
@@ -66,12 +64,12 @@ class ShowPhalanxPage extends AbstractGamePage
 		
 		if(!$this->allowPhalanx($Galaxy, $System))
 		{
-			$this->printMessage($LNG['px_out_of_range']);
+			$this->printMessage($this->lang['px_out_of_range']);
 		}
 		
 		if ($PLANET[$resource[903]] < PHALANX_DEUTERIUM)
 		{
-			$this->printMessage($LNG['px_no_deuterium']);
+			$this->printMessage($this->lang['px_no_deuterium']);
 		}
 
 		$db = Database::get();
@@ -94,7 +92,7 @@ class ShowPhalanxPage extends AbstractGamePage
 
 		if(empty($TargetInfo))
 		{
-			$this->printMessage($LNG['px_out_of_range']);
+			$this->printMessage($this->lang['px_out_of_range']);
 		}
 		
 		require 'includes/classes/class.FlyingFleetsTable.php';

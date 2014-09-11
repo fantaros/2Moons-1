@@ -35,7 +35,7 @@ class ShowShipyardPage extends AbstractGamePage
     public function build()
     {
         global $USER;
-        if($_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0)
+        if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->user->urlaubs_modus == 0)
         {
             $elements  = HTTP::_GP('element', array());
             foreach($elements as $elementId => $amount)
@@ -54,7 +54,7 @@ class ShowShipyardPage extends AbstractGamePage
     public function cancel()
     {
         global $USER;
-        if($_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0)
+        if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->user->urlaubs_modus == 0)
         {
 			$taskIds  = HTTP::_GP('taskId', array());
 			foreach($taskIds as $taskId)
@@ -68,7 +68,7 @@ class ShowShipyardPage extends AbstractGamePage
 
     private function getQueueData()
     {
-        global $LNG, $USER;
+        global $this->lang, $USER;
 
         $elementIds = array_merge(
 			array_keys(Vars::getElements(Vars::CLASS_FLEET)),
@@ -92,7 +92,7 @@ class ShowShipyardPage extends AbstractGamePage
                 'elementId'		=> $task['elementId'],
                 'amount' 		=> $task['amount'],
                 'buildTime' 	=> $task['buildTime'],
-                'endBuildTime' 	=> _date('U', $task['endBuildTime'], $USER['timezone']),
+                'endBuildTime' 	=> _date('U', $task['endBuildTime'], $this->user->timezone),
             );
 
             if(!isset($elementLevel[$task['elementId']]))
@@ -114,7 +114,7 @@ class ShowShipyardPage extends AbstractGamePage
 			$lastTask	= end($queue);
 			$firstTask	= reset($queue);
 			$info['restTime']		= $firstTask['endBuildTime'] - TIMESTAMP;
-			$info['endBuildTime']	= _date($LNG['php_tdformat'], $lastTask['endBuildTime'] + $lastTask['buildTime'] * ($lastTask['amount'] - 1), $USER['timezone']);
+			$info['endBuildTime']	= _date($this->lang['php_tdformat'], $lastTask['endBuildTime'] + $lastTask['buildTime'] * ($lastTask['amount'] - 1), $this->user->timezone);
 		}
 
         return array('queue' => $queue, 'elementLevel' => $elementLevel, 'count' => $count, 'info' => $info);
@@ -122,11 +122,10 @@ class ShowShipyardPage extends AbstractGamePage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $LNG;
-		
+
 		if ($PLANET[Vars::getElement(21)->name] == 0)
 		{
-			$this->printMessage($LNG['bd_shipyard_required']);
+			$this->printMessage($this->lang['bd_shipyard_required']);
 		}
 
         $queueData		= $this->getQueueData();

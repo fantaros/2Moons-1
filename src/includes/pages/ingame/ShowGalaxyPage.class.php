@@ -34,7 +34,6 @@ class ShowGalaxyPage extends AbstractGamePage
 
     public function show()
 	{
-		global $USER, $PLANET, $LNG;
 
 		$config			= Config::get();
 
@@ -69,8 +68,8 @@ class ShowGalaxyPage extends AbstractGamePage
 		{
 			if($PLANET['deuterium'] < $config->deuterium_cost_galaxy)
 			{	
-				$this->printMessage($LNG['gl_no_deuterium_to_view_galaxy'], array(array(
-					'label'	=> $LNG['sys_back'],
+				$this->printMessage($this->lang['gl_no_deuterium_to_view_galaxy'], array(array(
+					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=galaxy'
 				)));
 			} else {
@@ -81,11 +80,11 @@ class ShowGalaxyPage extends AbstractGamePage
 		if($action == 'sendMissle')
 		{
 			$targetDefensive    = array_keys(Vars::getElements(Vars::CLASS_DEFENSE) + Vars::getElements(Vars::CLASS_MISSILE, Vars::FLAG_ATTACK_MISSILE));
-			$missileSelector[0]	= $LNG['gl_all_defenses'];
+			$missileSelector[0]	= $this->lang['gl_all_defenses'];
 
 			foreach($targetDefensive as $elementId)
 			{
-				$missileSelector[$elementId] = $LNG['tech'][$elementId];
+				$missileSelector[$elementId] = $this->lang['tech'][$elementId];
 			}
 		}
 
@@ -109,7 +108,7 @@ class ShowGalaxyPage extends AbstractGamePage
 		WHERE id_owner = :userId AND stat_type = :statType';
 
 		$USER	+= Database::get()->selectSingle($sql, array(
-			':userId'	=> $USER['id'],
+			':userId'	=> $this->user->id,
 			':statType'	=> 1
 		));
 
@@ -121,19 +120,19 @@ class ShowGalaxyPage extends AbstractGamePage
         $this->tplObj->loadscript('galaxy.js');
         $this->assign(array(
 			'GalaxyRows'				=> $Result,
-			'planetcount'				=> sprintf($LNG['gl_populed_planets'], count($Result)),
+			'planetcount'				=> sprintf($this->lang['gl_populed_planets'], count($Result)),
 			'action'					=> $action,
 			'galaxy'					=> $galaxy,
 			'system'					=> $system,
 			'planet'					=> $planet,
 			'type'						=> $type,
 			'current'					=> $current,
-			'maxfleetcount'				=> FleetUtil::getUsedSlots($USER['id']),
+			'maxfleetcount'				=> FleetUtil::getUsedSlots($this->user->id),
 			'fleetmax'					=> FleetUtil::GetMaxFleetSlots($USER),
 			'currentmip'				=> $recycleList,
 			'grecyclers'   				=> $missileList,
 			'recyclers'   				=> $spyList,
-			'settings_fleetactions'		=> $USER['settings_fleetactions'],
+			'settings_fleetactions'		=> $this->user->settings_fleetactions,
 			'current_galaxy'			=> $PLANET['galaxy'],
 			'current_system'			=> $PLANET['system'],
 			'current_planet'			=> $PLANET['planet'],
@@ -141,15 +140,15 @@ class ShowGalaxyPage extends AbstractGamePage
             'max_planets'               => $config->max_planets,
 			'missileSelector'			=> $missileSelector,
 			'ShortStatus'				=> array(
-				'vacation'					=> $LNG['gl_short_vacation'],
-				'banned'					=> $LNG['gl_short_ban'],
-				'inactive'					=> $LNG['gl_short_inactive'],
-				'longinactive'				=> $LNG['gl_short_long_inactive'],
-				'noob'						=> $LNG['gl_short_newbie'],
-				'strong'					=> $LNG['gl_short_strong'],
-				'enemy'						=> $LNG['gl_short_enemy'],
-				'friend'					=> $LNG['gl_short_friend'],
-				'member'					=> $LNG['gl_short_member'],
+				'vacation'					=> $this->lang['gl_short_vacation'],
+				'banned'					=> $this->lang['gl_short_ban'],
+				'inactive'					=> $this->lang['gl_short_inactive'],
+				'longinactive'				=> $this->lang['gl_short_long_inactive'],
+				'noob'						=> $this->lang['gl_short_newbie'],
+				'strong'					=> $this->lang['gl_short_strong'],
+				'enemy'						=> $this->lang['gl_short_enemy'],
+				'friend'					=> $this->lang['gl_short_friend'],
+				'member'					=> $this->lang['gl_short_member'],
 			),
 		));
 		

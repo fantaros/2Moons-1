@@ -31,7 +31,6 @@ class ShowOverviewPage extends AbstractGamePage
 
     private function GetTeamspeakData()
 	{
-		global $USER, $LNG;
 
 		$config = Config::get();
 
@@ -46,7 +45,7 @@ class ShowOverviewPage extends AbstractGamePage
 		if(empty($tsInfo))
 		{
 			return array(
-				'error'	=> $LNG['ov_teamspeak_not_online']
+				'error'	=> $this->lang['ov_teamspeak_not_online']
 			);
 		}
 
@@ -63,7 +62,7 @@ class ShowOverviewPage extends AbstractGamePage
 		}
 		
 		return array(
-			'url'		=> sprintf($url, $config->ts_server, $config->ts_tcpport, $USER['username'], $tsInfo['password']),
+			'url'		=> sprintf($url, $config->ts_server, $config->ts_tcpport, $this->user->username, $tsInfo['password']),
 			'current'	=> $tsInfo['current'],
 			'max'		=> $tsInfo['maxuser'],
 			'error'		=> false,
@@ -71,17 +70,15 @@ class ShowOverviewPage extends AbstractGamePage
 	}
 
 	private function GetFleets() {
-		global $USER, $PLANET;
 		require 'includes/classes/class.FlyingFleetsTable.php';
 		$fleetTableObj = new FlyingFleetsTable;
-		$fleetTableObj->setUser($USER['id']);
+		$fleetTableObj->setUser($this->user->id);
 		$fleetTableObj->setPlanet($PLANET['id']);
 		return $fleetTableObj->renderTable();
 	}
 	
 	function savePlanetAction()
 	{
-		global $USER, $PLANET, $LNG;
 		$password =	HTTP::_GP('password', '', true);
 		if (!empty($password))
 		{
@@ -90,17 +87,17 @@ class ShowOverviewPage extends AbstractGamePage
                       (fleet_owner = :userID AND (fleet_start_id = :planetID OR fleet_start_id = :lunaID)) OR
                       (fleet_target_owner = :userID AND (fleet_end_id = :planetID OR fleet_end_id = :lunaID));";
             $IfFleets = $db->selectSingle($sql, array(
-                ':userID'   => $USER['id'],
+                ':userID'   => $this->user->id,
                 ':planetID' => $PLANET['id'],
                 ':lunaID'   => $PLANET['id_luna']
             ), 'state');
 
             if ($IfFleets > 0)
-				exit(json_encode(array('message' => $LNG['ov_abandon_planet_not_possible'])));
-			elseif ($USER['id_planet'] == $PLANET['id'])
-				exit(json_encode(array('message' => $LNG['ov_principal_planet_cant_abanone'])));
-			elseif (PlayerUtil::cryptPassword($password) != $USER['password'])
-				exit(json_encode(array('message' => $LNG['ov_wrong_pass'])));
+				exit(json_encode(array('message' => $this->lang['ov_abandon_planet_not_possible'])));
+			elseif ($this->user->id_planet == $PLANET['id'])
+				exit(json_encode(array('message' => $this->lang['ov_principal_planet_cant_abanone'])));
+			elseif (PlayerUtil::cryptPassword($password) != $this->user->password)
+				exit(json_encode(array('message' => $this->lang['ov_wrong_pass'])));
 			else
 			{
 				if($PLANET['planet_type'] == 1) {
@@ -124,16 +121,15 @@ class ShowOverviewPage extends AbstractGamePage
                     ));
                 }
 				
-				$PLANET['id']	= $USER['id_planet'];
-				exit(json_encode(array('ok' => true, 'message' => $LNG['ov_planet_abandoned'])));
+				$PLANET['id']	= $this->user->id_planet;
+				exit(json_encode(array('ok' => true, 'message' => $this->lang['ov_planet_abandoned'])));
 			}
 		}
 	}
 		
 	function show()
 	{
-		global $LNG, $PLANET, $USER;
-		
+
 		$AdminsOnline 	= array();
 		$chatOnline 	= array();
 		$AllPlanets		= array();
@@ -150,7 +146,7 @@ class ShowOverviewPage extends AbstractGamePage
         }
 
 
-		foreach($USER['PLANETS'] as $planetId => $planetData)
+		foreach($this->user->PLANETS as $planetId => $planetData)
 		{		
 			if ($planetId == $PLANET['id'] || $planetData['planet_type'] == MOON) continue;
 
@@ -212,13 +208,13 @@ class ShowOverviewPage extends AbstractGamePage
 			$chatOnline[]	= $chatRow['userName'];
 		}
 
-		$Messages		= $USER['messages'];
+		$Messages		= $this->user->messages;
 		
 		// Fehler: Wenn Spieler gelöscht werden, werden sie nicht mehr in der Tabelle angezeigt.
 		$sql = "SELECT u.id, u.username, s.total_points FROM %%USERS%% as u
 		LEFT JOIN %%STATPOINTS%% as s ON s.id_owner = u.id AND s.stat_type = '1' WHERE ref_id = :userID;";
         $RefLinksRAW = $db->select($sql, array(
-            ':userID'   => $USER['id']
+            ':userID'   => $this->user->id
         ));
 
 		$config	= Config::get();
@@ -238,15 +234,15 @@ class ShowOverviewPage extends AbstractGamePage
 		WHERE id_owner = :userId AND stat_type = :statType';
 
 		$statData	= Database::get()->selectSingle($sql, array(
-			':userId'	=> $USER['id'],
+			':userId'	=> $this->user->id,
 			':statType'	=> 1
 		));
 
 		if($statData['total_rank'] == 0) {
 			$rankInfo	= "-";
 		} else {
-			$rankInfo	= sprintf($LNG['ov_userrank_info'], pretty_number($statData['total_points']), $LNG['ov_place'],
-				$statData['total_rank'], $statData['total_rank'], $LNG['ov_of'], $config->users_amount);
+			$rankInfo	= sprintf($this->lang['ov_userrank_info'], pretty_number($statData['total_points']), $this->lang['ov_place'],
+				$statData['total_rank'], $statData['total_rank'], $this->lang['ov_of'], $config->users_amount);
 		}
 		
 		$this->assign(array(
@@ -259,15 +255,15 @@ class ShowOverviewPage extends AbstractGamePage
 			'system'					=> $PLANET['system'],
 			'planet'					=> $PLANET['planet'],
 			'planet_type'				=> $PLANET['planet_type'],
-			'username'					=> $USER['username'],
-			'userid'					=> $USER['id'],
+			'username'					=> $this->user->username,
+			'userid'					=> $this->user->id,
 			'buildInfo'					=> $buildInfo,
 			'Moon'						=> $Moon,
 			'fleets'					=> $this->GetFleets(),
 			'AllPlanets'				=> $AllPlanets,
 			'AdminsOnline'				=> $AdminsOnline,
 			'teamspeakData'				=> $this->GetTeamspeakData(),
-			'messages'					=> ($Messages > 0) ? (($Messages == 1) ? $LNG['ov_have_new_message'] : sprintf($LNG['ov_have_new_messages'], pretty_number($Messages))): false,
+			'messages'					=> ($Messages > 0) ? (($Messages == 1) ? $this->lang['ov_have_new_message'] : sprintf($this->lang['ov_have_new_messages'], pretty_number($Messages))): false,
 			'planet_diameter'			=> pretty_number($PLANET['diameter']),
 			'planet_field_current' 		=> $PLANET['field_current'],
 			'planet_field_max' 			=> CalculateMaxPlanetFields($PLANET),
@@ -277,7 +273,7 @@ class ShowOverviewPage extends AbstractGamePage
 			'ref_minpoints'				=> $config->ref_minpoints,
 			'RefLinks'					=> $RefLinks,
 			'chatOnline'				=> $chatOnline,
-			'servertime'				=> _date("M D d H:i:s", TIMESTAMP, $USER['timezone']),
+			'servertime'				=> _date("M D d H:i:s", TIMESTAMP, $this->user->timezone),
 			'path'						=> HTTP_PATH,
 		));
 		
@@ -286,26 +282,24 @@ class ShowOverviewPage extends AbstractGamePage
 	
 	function actions() 
 	{
-		global $LNG, $PLANET;
 
 		$this->initTemplate();
 		$this->setWindow('popup');
 
 		$this->assign(array(
-			'ov_security_confirm'		=> sprintf($LNG['ov_security_confirm'], $PLANET['name'].' ['.$PLANET['galaxy'].':'.$PLANET['system'].':'.$PLANET['planet'].']'),
+			'ov_security_confirm'		=> sprintf($this->lang['ov_security_confirm'], $PLANET['name'].' ['.$PLANET['galaxy'].':'.$PLANET['system'].':'.$PLANET['planet'].']'),
 		));
 		$this->display('page.overview.actions');
 	}
 	
 	function rename() 
 	{
-		global $LNG, $PLANET;
 
 		$newname        = HTTP::_GP('name', '', UTF8_SUPPORT);
 		if (!empty($newname))
 		{
 			if (!PlayerUtil::isNameValid($newname)) {
-				$this->sendJSON(array('message' => $LNG['ov_newname_specialchar'], 'error' => true));
+				$this->sendJSON(array('message' => $this->lang['ov_newname_specialchar'], 'error' => true));
 			} else {
 				$db = Database::get();
                 $sql = "UPDATE %%PLANETS%% SET name = :newName WHERE id = :planetID;";
@@ -314,14 +308,13 @@ class ShowOverviewPage extends AbstractGamePage
                     ':planetID' => $PLANET['id']
                 ));
 
-                $this->sendJSON(array('message' => $LNG['ov_newname_done'], 'error' => false));
+                $this->sendJSON(array('message' => $this->lang['ov_newname_done'], 'error' => false));
 			}
 		}
 	}
 	
 	function delete() 
 	{
-		global $LNG, $PLANET, $USER;
 		$password	= HTTP::_GP('password', '', true);
 		
 		if (!empty($password))
@@ -331,17 +324,17 @@ class ShowOverviewPage extends AbstractGamePage
                       (fleet_owner = :userID AND (fleet_start_id = :planetID OR fleet_start_id = :lunaID)) OR
                       (fleet_target_owner = :userID AND (fleet_end_id = :planetID OR fleet_end_id = :lunaID));";
             $IfFleets = $db->selectSingle($sql, array(
-                ':userID'   => $USER['id'],
+                ':userID'   => $this->user->id,
                 ':planetID' => $PLANET['id'],
                 ':lunaID'   => $PLANET['id_luna']
             ), 'state');
 
 			if ($IfFleets > 0) {
-				$this->sendJSON(array('message' => $LNG['ov_abandon_planet_not_possible']));
-			} elseif ($USER['id_planet'] == $PLANET['id']) {
-				$this->sendJSON(array('message' => $LNG['ov_principal_planet_cant_abanone']));
-			} elseif (PlayerUtil::cryptPassword($password) != $USER['password']) {
-				$this->sendJSON(array('message' => $LNG['ov_wrong_pass']));
+				$this->sendJSON(array('message' => $this->lang['ov_abandon_planet_not_possible']));
+			} elseif ($this->user->id_planet == $PLANET['id']) {
+				$this->sendJSON(array('message' => $this->lang['ov_principal_planet_cant_abanone']));
+			} elseif (PlayerUtil::cryptPassword($password) != $this->user->password) {
+				$this->sendJSON(array('message' => $this->lang['ov_wrong_pass']));
 			} else {
                 if($PLANET['planet_type'] == 1) {
                     $sql = "UPDATE %%PLANETS%% SET destroyed = :time WHERE id = :planetID;";
@@ -365,8 +358,8 @@ class ShowOverviewPage extends AbstractGamePage
                 }
 
                 $session	= Session::get();
-                $session->planetId = $USER['id_planet'];
-				$this->sendJSON(array('ok' => true, 'message' => $LNG['ov_planet_abandoned']));
+                $session->planetId = $this->user->id_planet;
+				$this->sendJSON(array('ok' => true, 'message' => $this->lang['ov_planet_abandoned']));
 			}
 		}
 	}

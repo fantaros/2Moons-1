@@ -28,19 +28,6 @@
 
 class ShowIndexPage extends AbstractAdminPage
 {
-
-    public function __construct()
-    {
-        var_dump(Session::get()->hasAdminAccess);
-        if(Session::get()->hasAdminAccess)
-        {
-            HTTP::redirectTo('admin.php?s='.session_id());
-        }
-
-        $this->setWindow('light');
-        parent::__construct();
-    }
-
     public function show()
     {
         $db = Database::get();

@@ -29,10 +29,8 @@
 
 class ShowBoardPage extends AbstractGamePage
 {
-
     public function show()
 	{
-		global $LNG;
 		$boardUrl	= Config::get()->forum_url;
 		if(filter_var($boardUrl, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED))
 		{
@@ -40,7 +38,7 @@ class ShowBoardPage extends AbstractGamePage
 		}
 		else
 		{
-			$this->printMessage($LNG['bad_forum_url']);
+			$this->printMessage($this->lang['bad_forum_url']);
 		}
 	}
 }

@@ -35,8 +35,7 @@ class ShowPlayerCardPage extends AbstractGamePage
 
     public function show()
 	{
-		global $USER, $LNG;
-		
+
 		$this->setWindow('popup');
 		$this->initTemplate();
 
@@ -73,7 +72,7 @@ class ShowPlayerCardPage extends AbstractGamePage
 
 		$this->assign(array(
 			'id'			=> $PlayerID,
-			'yourid'		=> $USER['id'],
+			'yourid'		=> $this->user->id,
 			'name'			=> $query['username'],
 			'homeplanet'	=> $query['name'],
 			'galaxy'		=> $query['galaxy'],
@@ -91,7 +90,7 @@ class ShowPlayerCardPage extends AbstractGamePage
 			'total_rank'    => pretty_number($query['total_rank']),
 			'total_points'  => pretty_number($query['total_points']),
 			'allyname'		=> $query['ally_name'],
-			'playerdestory' => sprintf($LNG['pl_destroy'], $query['username']),
+			'playerdestory' => sprintf($this->lang['pl_destroy'], $query['username']),
 			'wons'          => pretty_number($query['wons']),
 			'loos'          => pretty_number($query['loos']),
 			'draws'         => pretty_number($query['draws']),

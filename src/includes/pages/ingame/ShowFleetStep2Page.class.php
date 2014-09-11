@@ -32,8 +32,7 @@ class ShowFleetStep2Page extends AbstractGamePage
 
     public function show()
 	{
-		global $USER, $PLANET, $LNG;
-		
+
 		$targetGalaxy	= HTTP::_GP('targetGalaxy', 0);
 		$targetSystem	= HTTP::_GP('targetSystem', 0);
 		$targetPlanet	= HTTP::_GP('targetPlanet', 0);
@@ -48,16 +47,16 @@ class ShowFleetStep2Page extends AbstractGamePage
 
 		if (!isset($session->{"fleet_$token"}))
 		{
-			$this->printMessage($LNG['invalid_action'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['invalid_action'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
 
         if ($PLANET['galaxy'] == $targetGalaxy && $PLANET['system'] == $targetSystem && $PLANET['planet'] == $targetPlanet && $PLANET['planet_type'] == $targetType)
         {
-            $this->printMessage($LNG['fl_error_same_planet'], array(array(
-                'label'	=> $LNG['sys_back'],
+            $this->printMessage($this->lang['fl_error_same_planet'], array(array(
+                'label'	=> $this->lang['sys_back'],
                 'url'	=> 'game.php?page=fleetTable'
             )));
         }
@@ -66,8 +65,8 @@ class ShowFleetStep2Page extends AbstractGamePage
             $targetSystem < 1 || $targetSystem > $config->max_system ||
             $targetPlanet < 1 || $targetPlanet > ($config->max_planets + 1) ||
             ($targetType !== 1 && $targetType !== 2 && $targetType !== 3)) {
-            $this->printMessage($LNG['fl_invalid_target'], array(array(
-                'label'	=> $LNG['sys_back'],
+            $this->printMessage($this->lang['fl_invalid_target'], array(array(
+                'label'	=> $this->lang['sys_back'],
                 'url'	=> 'game.php?page=fleetTable'
             )));
         }
@@ -75,19 +74,19 @@ class ShowFleetStep2Page extends AbstractGamePage
 		if(!FleetUtil::isValidCustomFleetSpeed($fleetSpeed))
 		{
 			unset($session->{"fleet_$token"});
-			$this->printMessage($LNG['invalid_action'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['invalid_action'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
 
 		$missionData	= $session->{"fleet_$token"};
 
-		if($missionData['userId'] != $USER['id'] || $missionData['planetId'] != $PLANET['id'])
+		if($missionData['userId'] != $this->user->id || $missionData['planetId'] != $PLANET['id'])
 		{
 			unset($session->{"fleet_$token"});
-			$this->printMessage($LNG['invalid_action'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['invalid_action'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
@@ -104,8 +103,8 @@ class ShowFleetStep2Page extends AbstractGamePage
         if($targetType != PLANET && $targetPlanetData === false)
 		{
 			unset($session->{"fleet_$token"});
-			$this->printMessage($LNG['fl_target_not_exists'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['fl_target_not_exists'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleet1'
 			)));
 		}
@@ -113,8 +112,8 @@ class ShowFleetStep2Page extends AbstractGamePage
         if($targetType == DEBRIS && $targetPlanetData['der_metal'] == 0 && $targetPlanetData['der_crystal'] == 0)
 		{
 			unset($session->{"fleet_$token"});
-			$this->printMessage($LNG['fl_error_empty_derbis'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['fl_error_empty_derbis'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleet1'
 			)));
 		}
@@ -124,8 +123,8 @@ class ShowFleetStep2Page extends AbstractGamePage
 		if(empty($availableMissions))
 		{
 			unset($session->{"fleet_$token"});
-			$this->printMessage($LNG['fl_empty_target'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['fl_empty_target'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
@@ -170,11 +169,11 @@ class ShowFleetStep2Page extends AbstractGamePage
 			$missingList	= array();
 			foreach($missingResources as $elementResourceId => $value)
 			{
-				$missingList[$LNG['tech'][$elementResourceId]]	= $value;
+				$missingList[$this->lang['tech'][$elementResourceId]]	= $value;
 			}
 
-			$this->printMessage($LNG['fl_not_enough_consumption'].' '.Language::createHumanReadableList($missingList), array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['fl_not_enough_consumption'].' '.Language::createHumanReadableList($missingList), array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
@@ -218,7 +217,7 @@ class ShowFleetStep2Page extends AbstractGamePage
 			'targetMission'			=> $targetMission,
 			'availableMissions' 	=> $availableMissions,
 			'StaySelector' 			=> $stayTimes,
-			'fl_dm_alert_message'	=> sprintf($LNG['fl_dm_alert_message'], $LNG['type_mission'][11], $LNG['tech'][921]),
+			'fl_dm_alert_message'	=> sprintf($this->lang['fl_dm_alert_message'], $this->lang['type_mission'][11], $this->lang['tech'][921]),
 		));
 
 		// Cache it

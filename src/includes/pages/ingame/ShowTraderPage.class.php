@@ -47,15 +47,14 @@ class ShowTraderPage extends AbstractGamePage
 	
 	public function show() 
 	{
-		global $LNG, $USER;
 
 		$darkmatter_cost_trader	= Config::get()->darkmatter_cost_trader;
 
 		$this->assign(array(
-			'tr_cost_dm_trader'		=> sprintf($LNG['tr_cost_dm_trader'], pretty_number($darkmatter_cost_trader), $LNG['tech'][921]),
+			'tr_cost_dm_trader'		=> sprintf($this->lang['tr_cost_dm_trader'], pretty_number($darkmatter_cost_trader), $this->lang['tech'][921]),
 			'charge'				=> self::$Charge,
 			'elementData'			=> $this->allowedElements,
-			'requiredDarkMatter'	=> $USER['darkmatter'] < $darkmatter_cost_trader ? sprintf($LNG['tr_not_enought'], $LNG['tech'][921]) : false,
+			'requiredDarkMatter'	=> $this->user->darkmatter < $darkmatter_cost_trader ? sprintf($this->lang['tr_not_enought'], $this->lang['tech'][921]) : false,
 		));
 		
 		$this->display("page.trader.default");
@@ -63,9 +62,8 @@ class ShowTraderPage extends AbstractGamePage
 		
 	function trade()
 	{
-		global $USER, $LNG;
-		
-		if ($USER['darkmatter'] < Config::get()->darkmatter_cost_trader)
+
+		if ($this->user->darkmatter < Config::get()->darkmatter_cost_trader)
         {
 			$this->redirectTo('game.php?page=trader');
 		}
@@ -74,8 +72,8 @@ class ShowTraderPage extends AbstractGamePage
 		
 		if(!in_array($elementId, array_keys($this->allowedElements)))
         {
-			$this->printMessage($LNG['invalid_action'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['invalid_action'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=trader'
 			)));
 		}
@@ -94,17 +92,16 @@ class ShowTraderPage extends AbstractGamePage
 	
 	function send()
 	{
-		global $USER, $PLANET, $LNG;
-		
-		if ($USER['darkmatter'] < Config::get()->darkmatter_cost_trader) {
+
+		if ($this->user->darkmatter < Config::get()->darkmatter_cost_trader) {
 			$this->redirectTo('game.php?page=trader');
 		}
 		
 		$elementId	= HTTP::_GP('resource', 0);
 		
 		if(!in_array($elementId, array_keys($this->allowedElements))) {
-			$this->printMessage($LNG['invalid_action'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['invalid_action'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=trader'
 			)));
 		}
@@ -135,8 +132,8 @@ class ShowTraderPage extends AbstractGamePage
 				
 				if($usedResources > $PLANET[$elementName])
 				{
-					$this->printMessage(sprintf($LNG['tr_not_enought'], $LNG['tech'][$elementId]), array(array(
-						'label'	=> $LNG['sys_back'],
+					$this->printMessage(sprintf($this->lang['tr_not_enought'], $this->lang['tech'][$elementId]), array(array(
+						'label'	=> $this->lang['sys_back'],
 						'url'	=> 'game.php?page=trader'
 					)));
 				}
@@ -155,8 +152,8 @@ class ShowTraderPage extends AbstractGamePage
 				
 				if($usedResources > $USER[$elementName])
 				{
-					$this->printMessage(sprintf($LNG['tr_not_enought'], $LNG['tech'][$elementId]), array(array(
-						'label'	=> $LNG['sys_back'],
+					$this->printMessage(sprintf($this->lang['tr_not_enought'], $this->lang['tech'][$elementId]), array(array(
+						'label'	=> $this->lang['sys_back'],
 						'url'	=> 'game.php?page=trader'
 					)));
 				}
@@ -195,8 +192,8 @@ class ShowTraderPage extends AbstractGamePage
 			$USER[Vars::getElement(921)->name]	-= Config::get()->darkmatter_cost_trader;
 		}
 		
-		$this->printMessage($LNG['tr_exchange_done'], array(array(
-			'label'	=> $LNG['sys_forward'],
+		$this->printMessage($this->lang['tr_exchange_done'], array(array(
+			'label'	=> $this->lang['sys_forward'],
 			'url'	=> 'game.php?page=trader'
 		)));
 	}

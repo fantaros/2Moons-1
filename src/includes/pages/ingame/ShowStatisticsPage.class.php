@@ -33,7 +33,7 @@ class ShowStatisticsPage extends AbstractGamePage
 
         function show()
     {
-        global $USER, $LNG;
+        global $USER, $this->lang;
 
         $who   	= HTTP::_GP('who', 1);
         $type  	= HTTP::_GP('type', 1);
@@ -179,8 +179,8 @@ class ShowStatisticsPage extends AbstractGamePage
             break;
         }
 
-        $Selector['who'] 	= array(1 => $LNG['st_player'], 2 => $LNG['st_alliance']);
-        $Selector['type']	= array(1 => $LNG['st_points'], 2 => $LNG['st_fleets'], 3 => $LNG['st_researh'], 4 => $LNG['st_buildings'], 5 => $LNG['st_defenses']);
+        $Selector['who'] 	= array(1 => $this->lang['st_player'], 2 => $this->lang['st_alliance']);
+        $Selector['type']	= array(1 => $this->lang['st_points'], 2 => $this->lang['st_fleets'], 3 => $this->lang['st_researh'], 4 => $this->lang['st_buildings'], 5 => $this->lang['st_defenses']);
 
 
 		require_once 'includes/classes/Cronjob.php';
@@ -191,9 +191,9 @@ class ShowStatisticsPage extends AbstractGamePage
             'type'					=> $type,
             'range'					=> floor(($range - 1) / 100) * 100 + 1,
             'RangeList'				=> $RangeList,
-            'CUser_ally'			=> $USER['ally_id'],
-            'CUser_id'				=> $USER['id'],
-            'stat_date'				=> _date($LNG['php_tdformat'], Cronjob::getLastExecutionTime('statistic'), $USER['timezone']),
+            'CUser_ally'			=> $this->user->ally_id,
+            'CUser_id'				=> $this->user->id,
+            'stat_date'				=> _date($this->lang['php_tdformat'], Cron::getLastExecutionTime('statistic'), $this->user->timezone),
         ));
 
         $this->display('page.statistics.default');

@@ -32,7 +32,6 @@ class ShowFleetMissilePage extends AbstractGamePage
 
     public function show()
 	{	
-		global $USER, $PLANET, $LNG;
 
 		$targetGalaxy 		= HTTP::_GP('galaxy', 0);
 		$targetSystem 		= HTTP::_GP('system', 0);
@@ -76,43 +75,43 @@ class ShowFleetMissilePage extends AbstractGamePage
 		
 		if (IsVacationMode($USER))
         {
-            $error = $LNG['fl_vacation_mode_active'];
+            $error = $this->lang['fl_vacation_mode_active'];
         }
 		elseif ($PLANET['silo'] < 4)
         {
-            $error = $LNG['ma_silo_level'];
+            $error = $this->lang['ma_silo_level'];
         }
-		elseif ($USER['impulse_motor_tech'] == 0)
+		elseif ($this->user->impulse_motor_tech == 0)
         {
-            $error = $LNG['ma_impulse_drive_required'];
+            $error = $this->lang['ma_impulse_drive_required'];
         }
 		elseif ($targetGalaxy != $PLANET['galaxy'] || $targetSystem < $systemMin || $targetSystem > $systemMax)
         {
-            $error = $LNG['ma_not_send_other_galaxy'];
+            $error = $this->lang['ma_not_send_other_galaxy'];
         }
 		elseif (!$target)
         {
-            $error = $LNG['ma_planet_doesnt_exists'];
+            $error = $this->lang['ma_planet_doesnt_exists'];
         }
 		elseif ($primaryTarget != 0 && !in_array($primaryTarget, $primaryElements))
         {
 
-            $error = $LNG['ma_wrong_target'];
+            $error = $this->lang['ma_wrong_target'];
         }
 		elseif ($missileCount == 0)
         {
-            $error = $LNG['ma_no_missiles'];
+            $error = $this->lang['ma_no_missiles'];
         }
 
 		$targetUser	   	= GetUserByID($target['id_owner'], array('onlinetime', 'banaday', 'urlaubs_modus', 'authattack'));
 		
-		if (Config::get()->adm_attack == 1 && $targetUser['authattack'] > $USER['authlevel'])
+		if (Config::get()->adm_attack == 1 && $targetUser['authattack'] > $this->user->authlevel)
         {
-            $error = $LNG['fl_admin_attack'];
+            $error = $this->lang['fl_admin_attack'];
         }
 		elseif($targetUser['urlaubs_modus'])
         {
-            $error = $LNG['fl_in_vacation_player'];
+            $error = $this->lang['fl_in_vacation_player'];
         }
 			
 		$sql = "SELECT total_points FROM %%STATPOINTS%% WHERE stat_type = '1' AND id_owner = :ownerId;";
@@ -125,7 +124,7 @@ class ShowFleetMissilePage extends AbstractGamePage
 		WHERE id_owner = :userId AND stat_type = :statType';
 
 		$USER	+= Database::get()->selectSingle($sql, array(
-			':userId'	=> $USER['id'],
+			':userId'	=> $this->user->id,
 			':statType'	=> 1
 		));
 
@@ -133,11 +132,11 @@ class ShowFleetMissilePage extends AbstractGamePage
 			
 		if ($IsNoobProtec['NoobPlayer'])
         {
-            $error = $LNG['fl_week_player'];
+            $error = $this->lang['fl_week_player'];
         }
 		elseif ($IsNoobProtec['StrongPlayer'])
         {
-            $error = $LNG['fl_strong_player'];
+            $error = $this->lang['fl_strong_player'];
         }
 				
 		if ($error != "")
@@ -147,7 +146,7 @@ class ShowFleetMissilePage extends AbstractGamePage
 		
 		$Duration		= FleetUtil::getMissileDuration($PLANET['system'], $targetSystem);
 
-		$DefenseLabel 	= ($primaryTarget == 0) ? $LNG['ma_all'] : $LNG['tech'][$primaryTarget];
+		$DefenseLabel 	= ($primaryTarget == 0) ? $this->lang['ma_all'] : $this->lang['tech'][$primaryTarget];
 		
 		$fleetStartTime	= TIMESTAMP + $Duration;
 		$fleetStayTime	= $fleetStartTime;
@@ -155,10 +154,10 @@ class ShowFleetMissilePage extends AbstractGamePage
 		
 		$fleetResource	= ArrayUtil::combineArrayWithSingleElement(array_keys(Vars::getElements(NULL, Vars::FLAG_TRANSPORT)), 0);
 		
-		FleetUtil::sendFleet($fleetData, 10, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'],
+		FleetUtil::sendFleet($fleetData, 10, $this->user->id, $PLANET['id'], $PLANET['galaxy'], $PLANET['system'],
 			$PLANET['planet'], $PLANET['planet_type'], $target['id_owner'], $target['id'], $targetGalaxy, $targetSystem,
 			$targetPlanet, $targetType, $fleetResource, $fleetStartTime, $fleetStayTime, $fleetEndTime, 0, $primaryTarget);
 
-		$this->printMessage("<b>".array_sum($fleetData)."</b>". $LNG['ma_missiles_sended'].$DefenseLabel);
+		$this->printMessage("<b>".array_sum($fleetData)."</b>". $this->lang['ma_missiles_sended'].$DefenseLabel);
 	}
 }

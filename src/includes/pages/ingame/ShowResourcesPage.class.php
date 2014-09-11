@@ -32,8 +32,7 @@ class ShowResourcesPage extends AbstractGamePage
 
     public function send()
 	{
-		global $USER, $PLANET;
-		if ($USER['urlaubs_modus'] == 0)
+		if ($this->user->urlaubs_modus == 0)
 		{
 			$updateSQL	= array();
 			if(!isset($_POST['prod']))
@@ -76,12 +75,11 @@ class ShowResourcesPage extends AbstractGamePage
 
 	function show()
 	{
-		global $LNG, $USER, $PLANET;
 
 		$config	                = Config::get();
         $elementResourceList    = Vars::getElements(Vars::CLASS_RESOURCE, array(Vars::FLAG_RESOURCE_PLANET , Vars::FLAG_ENERGY));
         $elementProductionList  = Vars::getElements(NULL, Vars::FLAG_PRODUCTION);
-		$planetIsOnProduction   = $USER['urlaubs_modus'] == 0 && $PLANET['planet_type'] == PLANET;
+		$planetIsOnProduction   = $this->user->urlaubs_modus == 0 && $PLANET['planet_type'] == PLANET;
 
         $basicIncome            = array();
         $production             = array();
@@ -184,7 +182,7 @@ class ShowResourcesPage extends AbstractGamePage
 		}
 		
 		$this->assign(array(
-			'header'			=> sprintf($LNG['rs_production_on_planet'], $PLANET['name']),
+			'header'			=> sprintf($this->lang['rs_production_on_planet'], $PLANET['name']),
 			'prodSelector'		=> $prodSelector,
 			'productionList'	=> $productionList,
 			'basicProduction'	=> $basicProduction,

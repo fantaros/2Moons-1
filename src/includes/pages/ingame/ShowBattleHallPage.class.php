@@ -32,10 +32,24 @@ class ShowBattleHallPage extends AbstractGamePage
 	
     function show()
 	{
-		global $USER, $LNG;
-		$order = HTTP::_GP('order', 'units');
-		$sort = HTTP::_GP('sort', 'desc');
-		$sort = strtoupper($sort);
+		$order  = HTTP::_GP('order', 'units');
+		$sort   = HTTP::_GP('sort', 'desc');
+
+        switch($order)
+        {
+            case 'date':
+                $orderBy    = 'time %s';
+                break;
+            case 'owner':
+                $orderBy    = 'attacker %s, defender %s';
+                break;
+            case 'units':
+            default:
+                $orderBy    = 'units %s';
+                break;
+        }
+
+        $orderBy    = sprintf($orderBy, strtoupper($sort));
 
         $db = Database::get();
 		$sql = "SELECT *, (
@@ -52,54 +66,29 @@ class ShowBattleHallPage extends AbstractGamePage
 			WHERE %%TOPKB_USERS%%.rid = %%TOPKB%%.`rid` AND `role` = 2
 		) as defender
 		,@rank:=@rank+1 as rank
-		FROM %%TOPKB%% WHERE universe = :universe ORDER BY units DESC LIMIT 100;";
+		FROM %%TOPKB%% WHERE universe = :universe ORDER BY ".$orderBy." LIMIT 100;";
+
         $top = $db->select($sql, array(
             ':universe' => Universe::current()
         ));
 
-        $TopKBList	= array();
-		$i = 1;
+        $reportsList    = array();
+
 		foreach($top as $data)
 		{
-			switch($order)
-			{
-				case 'date':
-					$key = $data['time'];
-				break;
-				case 'owner':
-					$key = $data['attacker'].$data['defender'];
-				break;
-				case 'units':
-				default:
-					$key = $data['units'];
-				break;
-			}
-			
-			$TopKBList[$key][$i]	= array(
+			$reportsList[]	= array(
 				'result'	=> $data['result'],
-				'date'		=> _date($LNG['php_tdformat'], $data['time'], $USER['timezone']),
+				'date'		=> _date($this->lang['php_tdformat'], $data['time'], $this->user->timezone),
 				'time'		=> TIMESTAMP - $data['time'],
 				'units'		=> $data['units'],
 				'rid'		=> $data['rid'],
 				'attacker'	=> $data['attacker'],
 				'defender'	=> $data['defender'],
 			);
-            $i++;
-		}
-		
-		ksort($TopKBList);
-
-		if($sort === "DESC")
-		{
-			$TopKBList	= array_reverse($TopKBList);
-		}
-		else
-		{	
-			$sort = "ASC";
 		}
 
 		$this->assign(array(
-			'TopKBList'		=> $TopKBList,
+			'TopKBList'		=> $reportsList,
 			'sort'			=> $sort,
 			'order'			=> $order,
 		));

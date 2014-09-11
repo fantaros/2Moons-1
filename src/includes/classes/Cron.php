@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class Cronjob
+class Cron
 {
 	function __construct()
 	{

@@ -38,6 +38,9 @@ class User extends Model
     /* @var Language */
     private $langObj;
 
+    /* @var Array */
+    private $planetList = array();
+
     public function __construct($userId = NULL, $whereData = NULL)
     {
         $this->db = Database::get();
@@ -126,4 +129,64 @@ class User extends Model
     {
         return $this->getLangObj()->$key;
     }
-} 
+
+    private function initPlanetList()
+    {
+        $sql = "SELECT id, name, galaxy, system, planet, planet_type, image
+			FROM %%PLANETS%%
+			WHERE id_owner = :userId
+			AND destroyed = :destroyed ORDER BY ";
+
+        switch($this->data['planet_sort'])
+        {
+            case 0:
+                $sql	.= 'id';
+                break;
+            case 1:
+                $sql	.= 'galaxy, system, planet, planet_type';
+                break;
+            case 2:
+                $sql	.= 'name';
+                break;
+        }
+
+        $sql    .= $this->data['planet_sort_order'] == 1 ? 'DESC' : 'ASC';
+
+        $planetsResult = Database::get()->select($sql, array(
+            ':userId'		=> $this->data['id'],
+            ':destroyed'	=> 0
+        ));
+
+        foreach($planetsResult as $planetRow)
+        {
+            $this->planetList[$planetRow['id']]	= $planetRow;
+        }
+
+        $this->planetList;
+    }
+
+    public function getPlanetList()
+    {
+        if(empty($this->planetList))
+        {
+            $this->initPlanetList();
+        }
+
+        return $this->planetList;
+    }
+
+    public function hasVacationMode()
+    {
+        return $this->data['urlaubs_modus'] == 1;
+    }
+
+    public function getServerTimeDifference()
+    {
+        return DateUtil::getUserTimeOffset($this->data['timezone']);
+    }
+
+    public function verifyPassword($password)
+    {
+        return $this->data['password'] === PlayerUtil::cryptPassword($password);
+    }
+}

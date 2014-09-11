@@ -81,9 +81,8 @@ class ShowReportPage extends AbstractGamePage
 	
 	function battlehall() 
 	{
-		global $LNG, $USER;
-		
-		$LNG->includeData(array('FLEET'));
+
+		$this->lang->includeData(array('FLEET'));
 		$this->setWindow('popup');
 
 		$db = Database::get();
@@ -113,17 +112,17 @@ class ShowReportPage extends AbstractGamePage
 		$Info		= array($reportData["attacker"], $reportData["defender"]);
 		
 		if(!isset($reportData)) {
-			$this->printMessage($LNG['sys_report_not_found']);
+			$this->printMessage($this->lang['sys_report_not_found']);
 		}
 		
 		$combatReport			= unserialize($reportData['report']);
-		$combatReport['time']	= _date($LNG['php_tdformat'], $combatReport['time'], $USER['timezone']);
+		$combatReport['time']	= _date($this->lang['php_tdformat'], $combatReport['time'], $this->user->timezone);
 		$combatReport			= $this->BCWrapperPreRev2321($combatReport);
 		
 		$this->assign(array(
 			'Report'	=> $combatReport,
 			'Info'		=> $Info,
-			'pageTitle'	=> $LNG['lm_topkb']
+			'pageTitle'	=> $this->lang['lm_topkb']
 		));
 		
 		$this->display('shared.mission.report');
@@ -131,9 +130,8 @@ class ShowReportPage extends AbstractGamePage
 	
 	function show() 
 	{
-		global $LNG, $USER;
-		
-		$LNG->includeData(array('FLEET'));		
+
+		$this->lang->includeData(array('FLEET'));
 		$this->setWindow('popup');
 
 		$db = Database::get();
@@ -146,28 +144,28 @@ class ShowReportPage extends AbstractGamePage
 		));
 
 		if(empty($reportData)) {
-			$this->printMessage($LNG['sys_report_not_found']);
+			$this->printMessage($this->lang['sys_report_not_found']);
 		}
 		
 		// empty is BC for pre r2484
-		$isAttacker = empty($reportData['attacker']) || in_array($USER['id'], explode(",", $reportData['attacker']));
-		$isDefender = empty($reportData['defender']) || in_array($USER['id'], explode(",", $reportData['defender']));
+		$isAttacker = empty($reportData['attacker']) || in_array($this->user->id, explode(",", $reportData['attacker']));
+		$isDefender = empty($reportData['defender']) || in_array($this->user->id, explode(",", $reportData['defender']));
 		
 		if(empty($reportData) || (!$isAttacker && !$isDefender)) {
-			$this->printMessage($LNG['sys_report_not_found']);
+			$this->printMessage($this->lang['sys_report_not_found']);
 		}
 
 		$combatReport			= unserialize($reportData['report']);
 		if($isAttacker && !$isDefender && $combatReport['result'] == 'r' && count($combatReport['rounds']) <= 2) {
-			$this->printMessage($LNG['sys_report_lost_contact']);
+			$this->printMessage($this->lang['sys_report_lost_contact']);
 		}
 		
-		$combatReport['time']	= _date($LNG['php_tdformat'], $combatReport['time'], $USER['timezone']);
+		$combatReport['time']	= _date($this->lang['php_tdformat'], $combatReport['time'], $this->user->timezone);
 		$combatReport			= $this->BCWrapperPreRev2321($combatReport);
 		
 		$this->assign(array(
 			'Report'	=> $combatReport,
-			'pageTitle'	=> $LNG['sys_mess_attack_report']
+			'pageTitle'	=> $this->lang['sys_mess_attack_report']
 		));
 		
 		$this->display('shared.mission.report');

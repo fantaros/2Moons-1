@@ -33,7 +33,6 @@ class ShowFleetDealerPage extends AbstractGamePage
 
     public function send()
 	{
-		global $USER, $PLANET, $LNG;
 
 		$elementId		= HTTP::_GP('shipId', 0);
 		$amount			= max(0, round(HTTP::_GP('count', 0.0)));
@@ -61,15 +60,15 @@ class ShowFleetDealerPage extends AbstractGamePage
 			$PLANET[$elementObj->name]  -= $amount;
             $this->ecoObj->saveToDatabase('PLANET', $elementObj->name);
 
-            $this->printMessage($LNG['tr_exchange_done'], array(array(
-				'label'	=> $LNG['sys_forward'],
+            $this->printMessage($this->lang['tr_exchange_done'], array(array(
+				'label'	=> $this->lang['sys_forward'],
 				'url'	=> 'game.php?page=fleetDealer'
 			)));
 		}
 		else
 		{
-			$this->printMessage($LNG['tr_exchange_error'], array(array(
-				'label'	=> $LNG['sys_back'],
+			$this->printMessage($this->lang['tr_exchange_error'], array(array(
+				'label'	=> $this->lang['sys_back'],
 				'url'	=> 'game.php?page=fleetDealer'
 			)));
 		}
@@ -77,8 +76,7 @@ class ShowFleetDealerPage extends AbstractGamePage
 	
 	function show()
 	{
-		global $PLANET, $LNG;
-		
+
 		$elementsData   = array();
 
         $allowedShipIDs = Vars::getElements(Vars::CLASS_FLEET, Vars::FLAG_TRADE) + Vars::getElements(Vars::CLASS_DEFENSE, Vars::FLAG_TRADE);
@@ -93,7 +91,7 @@ class ShowFleetDealerPage extends AbstractGamePage
 
 		if(empty($elementsData))
 		{
-			$this->printMessage($LNG['ft_empty']);
+			$this->printMessage($this->lang['ft_empty']);
 		}
 
 		$this->assign(array(
