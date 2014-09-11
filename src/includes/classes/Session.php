@@ -28,11 +28,13 @@
  * @link http://2moons.cc/
  */
 
-class Session
+class Session extends Model
 {
-	static private $obj = NULL;
+	static private $obj;
 	static private $iniSet	= false;
-	private $data = NULL;
+
+    /* @var User */
+    private $userObj;
 
 	/**
 	 * Set PHP session settings
@@ -69,12 +71,6 @@ class Session
 		session_name('2Moons');
 
 		return true;
-	}
-
-	static private function getTempPath()
-	{
-		require_once 'includes/libs/wcf/BasicFileUtil.class.php';
-		return BasicFileUtil::getTempFolder();
 	}
 
 	/**
@@ -138,43 +134,6 @@ class Session
 		self::init();
 	}
 
-	public function __sleep()
-	{
-		return array('data');
-	}
-
-	public function __wakeup()
-	{
-
-	}
-
-	public function __set($name, $value)
-	{
-		$this->data[$name]	= $value;
-	}
-
-	public function __get($name)
-	{
-		if(isset($this->data[$name]))
-		{
-			return $this->data[$name];
-		}
-		else
-		{
-			return NULL;
-		}
-	}
-
-	public function __isset($name)
-	{
-		return isset($this->data[$name]);
-	}
-
-	public function __unset($name)
-	{
-		unset($this->data[$name]);
-	}
-
 	public function save()
 	{
 		$sql	= 'REPLACE INTO %%SESSION%% SET
@@ -206,7 +165,7 @@ class Session
 
 		$this->data['lastActivity'] = TIMESTAMP;
 		$this->data['sessionId']	= session_id();
-		$this->data['userIpAdress'] = $_SERVER['REMOTE_ADDR'];
+		$this->data['userIpAddress'] = $_SERVER['REMOTE_ADDR'];
 		$this->data['requestPath']	= $this->getRequestPath();
 
 		$_SESSION['obj']	= serialize($this);
@@ -225,9 +184,9 @@ class Session
 		@session_destroy();
 	}
 
-	public function isValidSession()
+	public function isValid($checkValidUser = true)
 	{
-		if($this->compareIpAddress($this->data['userIpAdress'], $_SERVER['REMOTE_ADDR'], COMPARE_IP_BLOCKS) === false)
+		if($this->compareIpAddress($this->data['userIpAddress'], $_SERVER['REMOTE_ADDR'], COMPARE_IP_BLOCKS) === false)
 		{
 			return false;
 		}
@@ -249,10 +208,31 @@ class Session
 			return false;
 		}
 
-		return true;
+        if($checkValidUser == false)
+        {
+            return true;
+        }
+
+		return $this->getUser()->isValid();
 	}
 
-	public function selectActivePlanet()
+    private function initUserObj()
+    {
+        $this->userObj = new User($this->data['userId']);
+    }
+
+    public function getUser()
+    {
+        if(is_null($this->userObj))
+        {
+            $this->initUserObj();
+        }
+
+        return $this->userObj;
+    }
+
+
+    public function selectActivePlanet()
 	{
 		$httpData	= HTTP::_GP('cp', 0);
 

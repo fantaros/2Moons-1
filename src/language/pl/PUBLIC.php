@@ -110,8 +110,8 @@ $LNG['registerErrorMailExist']		= 'Taki email jest już używany!';
 $LNG['registerErrorRules']			= 'Musisz zaakceptować regulamin!';
 $LNG['registerErrorCaptcha']		= 'Podałeś zły kod!';
 
-$LNG['registerMailVertifyTitle']	= 'Musisz potwierdzić rejestracje: %s';
-$LNG['registerMailVertifyError']	= 'Bład przy wysyłaniu emaila: %s';
+$LNG['registerMailVerifyTitle']	= 'Musisz potwierdzić rejestracje: %s';
+$LNG['registerMailVerifyError']	= 'Bład przy wysyłaniu emaila: %s';
 
 $LNG['registerMailCompleteTitle']	= 'Witaj na %s!';
 
@@ -121,7 +121,7 @@ $LNG['registerWelcomePMSenderName']	= 'Administrator';
 $LNG['registerWelcomePMSubject']	= 'Witaj';
 $LNG['registerWelcomePMText']		= 'Witaj na %s! Jako pierwszy budnek zbuduj elektrownie słoneczną, energia jest konieczna do pracy kopalń i wydobywania zasobów!. By zbudować kliknij na zakładkę "Budynki" w Menu. Potem zbuduj 4. budynek od góry. Po zbudowaniu masz już energię, zatem czas zbudować kopalnie metalu i kryształu. Jeśli chcesz coś zbudować a nie możesz, skorzystaj z zakładki Technologia, tam dowiesz się co jest wymagane do budowy czy też badania!';
 
-//Vertify
+//Verify
 
 $LNG['vertifyNoUserFound']			= 'Niepoprawne zapytanie!';
 $LNG['vertifyAdminMessage']			= 'Użytkownik "%s" został aktywowany!';

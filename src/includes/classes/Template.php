@@ -66,7 +66,7 @@ class Template
 			'includes/classes/smarty-plugins/',
 		));
 
-		$baseCachePath	= is_writable(CACHE_PATH.'templates/') ? CACHE_PATH.'templates/' : $this->getTempPath();
+		$baseCachePath	= is_writable(CACHE_TEMPLATE_PATH) ? CACHE_TEMPLATE_PATH : $this->getTempPath();
 
 		$this->smarty->setCompileDir($baseCachePath.'compile/');
 		$this->smarty->setCacheDir($baseCachePath.'cache/');
@@ -80,18 +80,18 @@ class Template
 
 	private function getTempPath()
 	{
-		$this->smarty->force_compile 		= true;
-		return sys_get_temp_dir();
+		$this->smarty->force_compile    = true;
+		return getTempDir();
 	}
 
 	public function loadscript($script)
 	{
-		$this->jsscript[]			= substr($script, 0, -3);
+		$this->jsscript[]			    = substr($script, 0, -3);
 	}
 
 	public function execscript($script)
 	{
-		$this->script[]				= $script;
+		$this->script[]				    = $script;
 	}
 
 	public function display($file)

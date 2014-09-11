@@ -24,11 +24,11 @@
  * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 2.0.0.$Revision: 2242 $ (2012-11-31)
- * @info $Id: ShowVertifyPage.class.php 2793 2013-09-29 12:33:56Z slaver7 $
+ * @info $Id: ShowVerifyPage.class.php 2793 2013-09-29 12:33:56Z slaver7 $
  * @link http://2moons.cc/
  */
 
-class ShowVertifyPage extends AbstractIndexPage
+class ShowVerifyPage extends AbstractIndexPage
 {
 	public static $requireModule = 0;
 
@@ -73,7 +73,7 @@ class ShowVertifyPage extends AbstractIndexPage
 
 		if($config->mail_active == 1)
 		{
-			require('includes/classes/Mail.class.php');
+			require('includes/classes/Mail.php');
 			$MailSubject	= sprintf($LNG['registerMailCompleteTitle'], $config->game_name, Universe::current());
 			$MailRAW		= $LNG->getTemplate('email_reg_done');
 			$MailContent	= str_replace(array(

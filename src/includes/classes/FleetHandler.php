@@ -44,13 +44,34 @@ class FleetHandler
 		11	=> 'MissionCaseFoundDM',
 		15	=> 'MissionCaseExpedition',
 	);
-		
-	function setToken($token)
+
+
+    static public function run()
+    {
+        $token	= getRandomString();
+        $db		= Database::get();
+
+        $sql	= 'UPDATE %%FLEETS_EVENT%% SET `lockToken` = :lockToken WHERE `lockToken` IS NULL AND `time` <= :time;';
+
+        $db->update($sql, array(
+            ':time'			=> Database::formatDate(TIMESTAMP),
+            ':lockToken'	=> $token
+        ));
+
+        if($db->rowCount() !== 0)
+        {
+            $fleetObj	= new self();
+            $fleetObj->setToken($token);
+            $fleetObj->runActions();
+        }
+    }
+
+    public function setToken($token)
 	{
 		$this->token	= $token;
 	}
-	
-	function run()
+
+    public function runActions()
 	{
 		$db	= Database::get();
 

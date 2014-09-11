@@ -418,20 +418,20 @@ class MissionCaseAttack extends AbstractMission
 				// Win
 				$attackStatus	= 'wons';
 				$defendStatus	= 'loos';
-				$class			= array('raportWin', 'raportLose');
+				$class			= array('reportWin', 'reportLose');
 				break;
 			case "r":
 				// Lose
 				$attackStatus	= 'loos';
 				$defendStatus	= 'wons';
-				$class			= array('raportLose', 'raportWin');
+				$class			= array('reportLose', 'reportWin');
 				break;
 			case "w":
 			default:
 				// Draw
 				$attackStatus	= 'draws';
 				$defendStatus	= 'draws';
-				$class			= array('raportDraw', 'raportDraw');
+				$class			= array('reportDraw', 'reportDraw');
 				break;
 		}
 		
@@ -439,7 +439,7 @@ class MissionCaseAttack extends AbstractMission
 		
 		$sql	= 'INSERT INTO %%RW%% SET
 		rid 		= :reportId,
-		raport 		= :reportData,
+		report 		= :reportData,
 		time 		= :time,
 		attacker	= :attackers,
 		defender	= :defenders;';
@@ -466,7 +466,7 @@ class MissionCaseAttack extends AbstractMission
 					$thisClass[$i],
 					$LNG['sys_mess_attack_report'],
 					sprintf(
-						$LNG['sys_adress_planet'],
+						$LNG['sys_address_planet'],
 						$this->fleetData['fleet_end_galaxy'],
 						$this->fleetData['fleet_end_system'],
 						$this->fleetData['fleet_end_planet']
@@ -612,7 +612,7 @@ class MissionCaseAttack extends AbstractMission
 		$playerMessage 	= sprintf(
 			$LNG['sys_fleet_won'],
 			$userData['name'],
-			GetTargetAdressLink($this->fleetData, ''),
+			GetTargetAddressLink($this->fleetData, ''),
 			Language::createHumanReadableList($resourceList)
 		);
 

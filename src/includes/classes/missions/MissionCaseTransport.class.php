@@ -46,7 +46,7 @@ class MissionCaseTransport extends AbstractMission
 		}
 
 		$playerMessage		= sprintf($LNG['sys_tran_mess_owner'],
-			$targetUserData['name'], GetTargetAdressLink($this->fleetData, ''),
+			$targetUserData['name'], GetTargetAddressLink($this->fleetData, ''),
 			Language::createHumanReadableList($resourceList)
 		);
 
@@ -71,8 +71,8 @@ class MissionCaseTransport extends AbstractMission
 			}
 
 			$playerMessage        = sprintf($LNG['sys_tran_mess_user'],
-				$startUserData['name'], GetStartAdressLink($this->fleetData, ''),
-				$targetUserData['name'], GetTargetAdressLink($this->fleetData, ''),
+				$startUserData['name'], GetStartAddressLink($this->fleetData, ''),
+				$targetUserData['name'], GetTargetAddressLink($this->fleetData, ''),
 				Language::createHumanReadableList($resourceList)
 			);
 
@@ -95,7 +95,7 @@ class MissionCaseTransport extends AbstractMission
 
 		$LNG		= $this->getLanguage($userData['language']);
 
-		$playerMessage	= sprintf($LNG['sys_tran_mess_back'], $userData['name'], GetStartAdressLink($this->fleetData, ''));
+		$playerMessage	= sprintf($LNG['sys_tran_mess_back'], $userData['name'], GetStartAddressLink($this->fleetData, ''));
 
 		PlayerUtil::sendMessage($this->fleetData['fleet_owner'], 0, $LNG['sys_mess_tower'], 4, $LNG['sys_mess_fleetback'],
 			$playerMessage, $this->fleetData['fleet_end_time'], NULL, 1, $this->fleetData['fleet_universe']);

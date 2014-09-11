@@ -87,8 +87,8 @@ $LNG['registerErrorMailExist']		= 'La dirección de E-Mail ya esta en uso!';
 $LNG['registerErrorRules']			= 'Tienes que aceptar las Reglas!';
 $LNG['registerErrorCaptcha']		= 'El Codigo de seguridad no es correcto!';
 
-$LNG['registerMailVertifyTitle']	= 'La activación del registro en el juego: %s';
-$LNG['registerMailVertifyError']	= 'Fallo en el envio del mail: %s';
+$LNG['registerMailVerifyTitle']	= 'La activación del registro en el juego: %s';
+$LNG['registerMailVerifyError']	= 'Fallo en el envio del mail: %s';
 
 $LNG['registerMailCompleteTitle']	= 'Bienvenido a %s!';
 
@@ -98,7 +98,7 @@ $LNG['registerWelcomePMSenderName']	= 'Administrador';
 $LNG['registerWelcomePMSubject']	= 'Bienvenido';
 $LNG['registerWelcomePMText']		= 'Bienvenido a %s! En primer lugar tienes que construir una planta de energía solar, ya que es el edificio que genera la energía que se necesita para la producción de materias primas. Para crear una, haga clic izquierdo en el menú de "edificios". Entonces construya el cuarto edificio contando apartir de la parte superior. </br> Cuando tengas construida la planta de energía, podrás comenzar a construir las minas. Ir a los edificios en el menú y construir una mina de metal, seguido de una mina de cristal. </br></br>Con el fin de poder construir tus propias flotas, debes tener un Hangar. Para ver lo que se necesita para desbloquear ese edificio se puede echar un vistazo al apartado "Tecnologías" en el menú de la izquierda.</br>Si tienes más preguntas puedes mirar en la guía de principiantes, nuestro foro o abrir un ticket de soporte. </br></br> El equipo te desea mucha diversión explorando el universo!';
 
-//Vertify
+//Verify
 
 $LNG['vertifyNoUserFound']			= 'Solicitud no válida!';
 $LNG['vertifyAdminMessage']			= 'El Usuario "%s" ha sido activado!';

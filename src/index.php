@@ -30,24 +30,21 @@ define('MODE', 'LOGIN');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 set_include_path(ROOT_PATH);
 
-require 'includes/pages/login/AbstractIndexPage.class.php';
-require 'includes/pages/login/ShowErrorPage.class.php';
 require 'includes/common.php';
-/** @var $LNG Language */
+
+$LNG	= new Language();
+$LNG->getUserAgentLanguage();
+$LNG->includeData(array('INGAME', 'PUBLIC'));
 
 $page 		= HTTP::_GP('page', 'index');
 $mode 		= HTTP::_GP('mode', 'show');
 $page		= str_replace(array('_', '\\', '/', '.', "\0"), '', $page);
 $pageClass	= 'Show'.ucfirst($page).'Page';
 
-$path		= 'includes/pages/login/'.$pageClass.'.class.php';
 
 if(!file_exists($path)) {
 	ShowErrorPage::printError($LNG['page_doesnt_exist']);
 }
-
-// Added Autoload in feature Versions
-require($path);
 
 $pageObj	= new $pageClass;
 // PHP 5.2 FIX

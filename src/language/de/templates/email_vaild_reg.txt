@@ -18,7 +18,7 @@ Username : {USERNAME}
 Passwort : {PASSWORD}
 
 Sollten Sie immer noch Probleme mit der Registrierung haben, 
-kontaktieren Sie bitte den Webmaster unter dieser E-Mail-Adresse: 
+kontaktieren Sie bitte den Webmaster unter dieser E-Mail-Addresse:
 {GAMEMAIL}
 
 Mit freundlichen Grüßen

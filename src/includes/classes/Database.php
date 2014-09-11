@@ -224,4 +224,9 @@ class Database
 	{
 		return $this->dbHandle->quote($str);
 	}
+
+    public function escape($str)
+    {
+        return $this->dbHandle->quote($str);
+    }
 }

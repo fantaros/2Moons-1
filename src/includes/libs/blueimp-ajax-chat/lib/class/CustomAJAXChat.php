@@ -141,7 +141,7 @@ class CustomAJAXChat extends AJAXChat
 	{
 		$session	= Session::get();
 		// Return false if given user is a bot:
-		if(!$session->isValidSession())
+		if(!$session->isValid())
 		{
 			return false;
 		}

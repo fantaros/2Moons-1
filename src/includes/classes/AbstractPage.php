@@ -110,6 +110,7 @@ abstract class AbstractPage
             'LNG'			=> $LNG,
         ), NULL, false);
 
+        header('Content-Type: text/html; charset=UTF-8');
         $this->tplObj->display('extends:layout.'.$this->getWindow().'.tpl|'.$file.'.tpl');
         exit;
     }
@@ -162,6 +163,7 @@ abstract class AbstractPage
     protected function sendJSON($data)
     {
         $this->save();
+        header('Content-Type: application/json; charset=UTF-8');
         echo json_encode($data);
         exit;
     }

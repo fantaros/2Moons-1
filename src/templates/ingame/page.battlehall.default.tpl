@@ -18,7 +18,7 @@
 {foreach $hallCat as $rank => $hallRow}
 <tr class="day{floor($hallRow.date / 86400)} week{floor($hallRow.date / 604800)}">
     <td>{$rank}</td>
-    <td><a href="game.php?page=raport&amp;mode=battlehall&amp;raport={$hallRow.rid}" target="_blank">
+    <td><a href="game.php?page=report&amp;mode=battlehall&amp;report={$hallRow.rid}" target="_blank">
 	{if $hallRow.result == "a"}
 	<span style="color:#00FF00">{$hallRow.attacker}</span> VS <span style="color:#FF0000">{$hallRow.defender}</span>
 	{elseif $hallRow.result == "r"}

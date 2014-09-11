@@ -380,25 +380,25 @@ div#disclamer {
 	display:block;
 }
 
-.spyRaportFooter,
-.spyRaportContainer {
+.spyReportFooter,
+.spyReportContainer {
 	clear:both;
 }
 
-.spyRaportContainerRow.first {
+.spyReportContainerRow.first {
 	clear:both;
 }
 
-.spyRaportContainerHead {
+.spyReportContainerHead {
 	font-weight:700;
 	padding-top:8px;
 }
-.spyRaportContainerCell {
+.spyReportContainerCell {
 	float:left;
 	width:25%;
 }
 
-.spyRaportFooter{
+.spyReportFooter{
 	text-align:center;
 	padding-top:8px;
 }

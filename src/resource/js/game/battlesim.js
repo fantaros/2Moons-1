@@ -14,7 +14,7 @@ function check(){
 		try{ 
 			data	= $.parseJSON(data);
 			kb.focus();
-			kb.location.href = 'CombatReport.php?raport='+data;
+			kb.location.href = 'report.php?report='+data;
 		} catch(e) {
 			kb.window.close();
 			Dialog.alert(data);

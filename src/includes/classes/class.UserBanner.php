@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class StatBanner {
+class UserBanner {
 
 	private $source = "resource/images/banner.jpg";
 
@@ -46,7 +46,7 @@ class StatBanner {
 		));
 	}
 	
-	public function CreateUTF8Banner($data) {
+	public function generateBanner($data) {
 		global $LNG;
 		$image  	= imagecreatefromjpeg($this->source);
 

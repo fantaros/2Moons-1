@@ -146,7 +146,7 @@ class MissionCaseRecycling extends AbstractMission
 		$playerMessage 	= sprintf(
 			$LNG['sys_tran_mess_owner'],
 			$userData['name'],
-			GetTargetAdressLink($this->fleetData, ''),
+			GetTargetAddressLink($this->fleetData, ''),
 			Language::createHumanReadableList($resourceList)
 		);
 

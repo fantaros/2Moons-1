@@ -47,7 +47,7 @@ class MissionCaseStayAlly extends AbstractMission
 
 		$LNG		= $this->getLanguage($userData['language']);
 
-		$playerMessage	= sprintf($LNG['sys_tran_mess_back'], $userData['name'], GetStartAdressLink($this->fleetData, ''));
+		$playerMessage	= sprintf($LNG['sys_tran_mess_back'], $userData['name'], GetStartAddressLink($this->fleetData, ''));
 		PlayerUtil::sendMessage($this->fleetData['fleet_owner'], 0, $LNG['sys_mess_tower'], 4, $LNG['sys_mess_fleetback'],
 			$playerMessage, $this->fleetData['fleet_end_time'], NULL, 1, $this->fleetData['fleet_universe']);
 

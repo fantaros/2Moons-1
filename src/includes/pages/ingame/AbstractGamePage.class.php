@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-require 'includes/classes/AbstractPage.class.php';
+require 'includes/classes/AbstractPage.php';
 
 abstract class AbstractGamePage extends AbstractPage
 {
@@ -51,7 +51,7 @@ abstract class AbstractGamePage extends AbstractPage
 	
 	protected function getCronjobsTodo()
 	{
-		require_once 'includes/classes/Cronjob.class.php';
+		require_once 'includes/classes/Cronjob.php';
 		
 		$this->assign(array(
 			'cronjobs'		=> Cronjob::getNeedTodoExecutedJobs()

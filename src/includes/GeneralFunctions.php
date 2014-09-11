@@ -26,6 +26,24 @@
  * @link http://2moons.cc/
  */
 
+function __autoload($className)
+{
+    if(file_exists(ROOT_PATH.'includes/classes/'.$className.'.php'))
+    {
+        include ROOT_PATH.'includes/classes/'.$className.'.php';
+    }
+
+    if(defined('MODE') && file_exists(ROOT_PATH.'includes/pages/'.strtolower(MODE).'/'.$className.'.php'))
+    {
+        include ROOT_PATH.'includes/classes/'.$className.'.php';
+    }
+}
+
+function getTempDir()
+{
+    return sys_get_temp_dir();
+}
+
 function getPlanets($USER)
 {
 	if(isset($USER['PLANETS']))
@@ -148,7 +166,7 @@ function ValidateAddress($address) {
 
 function message($mes, $dest = "", $time = "3", $topnav = false)
 {
-	require_once('includes/classes/Template.class.php');
+	require_once('includes/classes/Template.php');
 	$template = new Template();
 	$template->message($mes, $dest, $time, !$topnav);
 	exit;
@@ -230,17 +248,17 @@ function pretty_fly_time($seconds)
 	return $time;
 }
 
-function GetStartAdressLink($FleetRow, $FleetType = '')
+function GetStartAddressLink($FleetRow, $FleetType = '')
 {
 	return '<a href="game.php?page=galaxy&amp;galaxy='.$FleetRow['fleet_start_galaxy'].'&amp;system='.$FleetRow['fleet_start_system'].'" class="'. $FleetType .'">['.$FleetRow['fleet_start_galaxy'].':'.$FleetRow['fleet_start_system'].':'.$FleetRow['fleet_start_planet'].']</a>';
 }
 
-function GetTargetAdressLink($FleetRow, $FleetType = '')
+function GetTargetAddressLink($FleetRow, $FleetType = '')
 {
 	return '<a href="game.php?page=galaxy&amp;galaxy='.$FleetRow['fleet_end_galaxy'].'&amp;system='.$FleetRow['fleet_end_system'].'" class="'. $FleetType .'">['.$FleetRow['fleet_end_galaxy'].':'.$FleetRow['fleet_end_system'].':'.$FleetRow['fleet_end_planet'].']</a>';
 }
 
-function BuildPlanetAdressLink($CurrentPlanet)
+function BuildPlanetAddressLink($CurrentPlanet)
 {
 	return '<a href="game.php?page=galaxy&amp;galaxy='.$CurrentPlanet['galaxy'].'&amp;system='.$CurrentPlanet['system'].'">['.$CurrentPlanet['galaxy'].':'.$CurrentPlanet['system'].':'.$CurrentPlanet['planet'].']</a>';
 }
@@ -368,7 +386,7 @@ function ClearCache()
 		}
 	}
 	
-	require_once 'includes/classes/Cronjob.class.php';
+	require_once 'includes/classes/Cronjob.php';
 	Cronjob::reCalculateCronjobs();
 
 	$sql	= 'UPDATE %%PLANETS%% SET eco_hash = :ecoHash;';
@@ -418,13 +436,13 @@ function isVacationMode($USER)
 	return ($USER['urlaubs_modus'] == 1) ? true : false;
 }
 
-function clearGIF() {
+function clearGIF()
+{
 	header('Cache-Control: no-cache');
 	header('Content-type: image/gif');
 	header('Content-length: 43');
 	header('Expires: 0');
 	echo("\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00\x00\x21\xF9\x04\x01\x00\x00\x00\x00\x2C\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3B");
-	exit;
 }
 
 /*
@@ -439,7 +457,7 @@ function exceptionHandler($exception)
 
 	if(!headers_sent()) {
 		if (!class_exists('HTTP', false)) {
-			require_once('includes/classes/HTTP.class.php');
+			require_once('includes/classes/HTTP.php');
 		}
 		
 		HTTP::sendHeader('HTTP/1.1 503 Service Unavailable');

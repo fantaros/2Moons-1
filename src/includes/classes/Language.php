@@ -151,6 +151,9 @@ class Language implements ArrayAccess
 
 		$path	= 'language/'.$this->getLanguage().'/';
 
+        $filePath	= $path.'L18N.php';
+        require $filePath;
+
         foreach($files as $file) {
 			$filePath	= $path.$file.'.php';
 			if(file_exists($filePath))
@@ -161,6 +164,7 @@ class Language implements ArrayAccess
 
 		$filePath	= $path.'CUSTOM.php';
 		require $filePath;
+
 		ob_end_clean();
 
 		$this->addData($LNG);

@@ -30,12 +30,8 @@ define('MODE', 'ADMIN');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 set_include_path(ROOT_PATH);
 
-require 'includes/pages/admin/AbstractAdminPage.class.php';
-require 'includes/pages/admin/ShowErrorPage.class.php';
 require 'includes/common.php';
 /** @var $LNG Language */
-
-$LNG->includeData(array('ADMIN', 'CUSTOM'));
 
 if(Session::get()->hasAdminAccess == 1)
 {
@@ -51,18 +47,18 @@ else
 	$page	= 'Login';
 }
 
+
+Session::get()
+    ->getUser()
+    ->getLangObj()
+    ->includeData(array('ADMIN'));
+
 $pageClass	= 'Show'.ucfirst($page).'Page';
-
 $mode 		= HTTP::_GP('mode', 'show');
-
-$path		= 'includes/pages/admin/'.$pageClass.'.class.php';
 
 if(!file_exists($path)) {
 	ShowErrorPage::printError($LNG['page_doesnt_exist']);
 }
-
-// Added Autoload in feature Versions
-require $path;
 
 $pageObj	= new $pageClass;
 // PHP 5.2 FIX

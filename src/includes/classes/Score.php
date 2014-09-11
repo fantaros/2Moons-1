@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class StatisticBuilder
+class Score
 {
 	private $recordData = array();
 	private $universes  = array();

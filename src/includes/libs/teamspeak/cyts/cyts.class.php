@@ -45,7 +45,7 @@ class cyts {
   * @author     Steven Barth
   * @version    2.0
   * @access		public
-  * @param      string	$sIP	  The server's IP-Adress
+  * @param      string	$sIP	  The server's IP-Address
   * @param		integer	$sTCP	  The server's TCP-Queryport
   * @param		integer $sUDP	  The subserver's UDP-Port (optional)
   * @param		integer $sTimeout Socket timeout in seconds
@@ -274,7 +274,7 @@ class cyts {
   *             [11], [cprivs] 		=> Channelflags (1 - CA, 2 - O, 4 - V, 8 - AO, 16 - AV)<br />
   *         	[12], [pprivs] 		=> Serverflags (1 - SA, 2 - Allowed To Register(AR), 4 - R, 8 - ???, 16 - Sticky) <br />
   *         	[13], [pflags] 		=> Playerflags (1 - Channel Commander(CC), 2 - Voice Request(VR), 4 - No Whisper(NW), 8 - Away(AW), 16 - Mic Muted(MM), 32 - Snd Muted(SM), 64 - Rec(RC))<br />
-  *         	[14], [ip]			=> IP-Adress (Note: This will be 0.0.0.0 for all players if you are not logged in as a server admin)<br />
+  *         	[14], [ip]			=> IP-Address (Note: This will be 0.0.0.0 for all players if you are not logged in as a server admin)<br />
   *             [15], [nick]		=> Nickname<br />
   *         	[16], [loginname]	=> Loginname (empty if user is not registered)<br />
   *
@@ -1582,7 +1582,7 @@ class cyts {
   * @author     Steven Barth
   * @version    2.0
   * @access		public
-  * @param		integer	$pIP	IP-Adress
+  * @param		integer	$pIP	IP-Address
   * @param		integer	$bTime	bantime in minutes
   * @return     boolean success
   */	

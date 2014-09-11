@@ -349,7 +349,7 @@ th a,.res_current{
 	border-color:#000;
 }
 
-.spyRaportContainerHead {
+.spyReportContainerHead {
 	background: #212428;
 	color: white;
 	font-weight: 700;
@@ -358,10 +358,10 @@ th a,.res_current{
 	padding: 3px;
 }
 
-.spyRaportContainerRow {
+.spyReportContainerRow {
 	border-top:1px solid #DDD;
 }
-.spyRaportContainerHead + .spyRaportContainerRow {
+.spyReportContainerHead + .spyReportContainerRow {
 	border-top:0 none;
 }
 

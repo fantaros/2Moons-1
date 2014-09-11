@@ -89,8 +89,8 @@ $LNG['registerErrorMailExist']		= 'O endereço de E-Mail já está registado!';
 $LNG['registerErrorRules']			= 'Tens que aceitar as regras!';
 $LNG['registerErrorCaptcha']		= 'O código de segurança está errado!';
 
-$LNG['registerMailVertifyTitle']	= 'Aktivierung der Registrierung auf der Website: %s';
-$LNG['registerMailVertifyError']	= 'Fehler beim Versenden der Mail: %s';
+$LNG['registerMailVerifyTitle']	= 'Aktivierung der Registrierung auf der Website: %s';
+$LNG['registerMailVerifyError']	= 'Fehler beim Versenden der Mail: %s';
 
 $LNG['registerMailCompleteTitle']	= 'Welcome to %s!';
 
@@ -100,7 +100,7 @@ $LNG['registerWelcomePMSenderName']	= 'Administrator';
 $LNG['registerWelcomePMSubject']	= 'Welcome';
 $LNG['registerWelcomePMText']		= 'Welcome to %s! First build a solar power plant,because energy is needed for the production of raw materials. To build one, left click in the menu on "buildings". Then build the 4th Building from the top. </br> When you have energy, you can begin to build mines. Go to buildings on the menu and build a metal mine, followed by a crystal mine. </br></br>In order to be able to build ships you need to have a shipyard. To see what is needed to unlock that building you can take a look at "Technologies" at the left menu.</br>If you more questions you can look at the beginnersguide, our forum or open a support ticket. </br></br> The team wishes you much fun exploring the universe!';
 
-//Vertify
+//Verify
 
 $LNG['vertifyNoUserFound']			= 'Invalid Request!';
 $LNG['vertifyAdminMessage']			= 'The username "%s" has enabled!';
@@ -145,5 +145,5 @@ $LNG['news_does_not_exist']			= 'No news available!';
 //Impressum
 $LNG['disclamerLabelAddress']		= 'Game Address:';
 $LNG['disclamerLabelPhone']			= 'Telephone Nr.:';
-$LNG['disclamerLabelMail']			= 'Support Adress:';
+$LNG['disclamerLabelMail']			= 'Support Address:';
 $LNG['disclamerLabelNotice']		= 'More information';

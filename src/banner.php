@@ -32,6 +32,7 @@ set_include_path(ROOT_PATH);
 
 if(!extension_loaded('gd')) {
 	clearGIF();
+    exit;
 }
 
 require 'includes/common.php';
@@ -39,18 +40,20 @@ $id = HTTP::_GP('id', 0);
 
 if(!isModulAvalible(MODULE_BANNER) || $id == 0) {
 	clearGIF();
+    exit;
 }
 
 $LNG = new Language;
 $LNG->getUserAgentLanguage();
 $LNG->includeData(array('L18N', 'BANNER', 'CUSTOM'));
 
-require 'includes/classes/class.StatBanner.php';
+require 'includes/classes/class.UserBanner.php';
 
-$banner = new StatBanner();
+$banner = new UserBanner();
 $Data	= $banner->GetData($id);
 if(!isset($Data) || !is_array($Data)) {
 	clearGIF();
+    exit;
 }
 	
 $ETag	= md5(implode('', $Data));
@@ -61,4 +64,4 @@ if(isset($_SERVER['HTTP_IF_NONE_MATCH']) && $_SERVER['HTTP_IF_NONE_MATCH'] == $E
 	exit;
 }
 
-$banner->CreateUTF8Banner($Data);
+$banner->generateBanner($Data);

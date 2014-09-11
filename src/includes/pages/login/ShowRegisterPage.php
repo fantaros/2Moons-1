@@ -320,7 +320,7 @@ class ShowRegisterPage extends AbstractIndexPage
 		}
 		else
 		{
-			require 'includes/classes/Mail.class.php';
+			require 'includes/classes/Mail.php';
 			$MailRAW		= $LNG->getTemplate('email_vaild_reg');
 			$MailContent	= str_replace(array(
 				'{USERNAME}',
@@ -336,7 +336,7 @@ class ShowRegisterPage extends AbstractIndexPage
 				$config->smtp_sendmail,
 			), $MailRAW);
 
-			$subject	= sprintf($LNG['registerMailVertifyTitle'], $config->game_name);
+			$subject	= sprintf($LNG['registerMailVerifyTitle'], $config->game_name);
 			Mail::send($mailAddress, $userName, $subject, $MailContent);
 			
 			$this->printMessage($LNG['registerSendComplete']);

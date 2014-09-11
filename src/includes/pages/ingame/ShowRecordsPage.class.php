@@ -76,7 +76,7 @@ class ShowRecordsPage extends AbstractGamePage
 			}
 		}
 
-		require_once 'includes/classes/Cronjob.class.php';
+		require_once 'includes/classes/Cronjob.php';
 		
 		$this->assign(array(
             'buildList'		=> $buildList,

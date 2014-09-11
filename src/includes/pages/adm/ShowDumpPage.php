@@ -47,7 +47,7 @@ function ShowDumpPage()
 			$fileName	= '2MoonsBackup_'.date('d_m_Y_H_i_s', TIMESTAMP).'.sql';
 			$filePath	= 'includes/backups/'.$fileName;
 		
-			require 'includes/classes/SQLDumper.class.php';
+			require 'includes/classes/SQLDumper.php';
 		
 			$dump	= new SQLDumper;
 			$dump->dumpTablesToFile($dbTables, $filePath);

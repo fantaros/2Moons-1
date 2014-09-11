@@ -51,7 +51,7 @@ class MissionCaseACS extends AbstractMission
 		$playerMessage 	= sprintf(
 			$LNG['sys_fleet_won'],
 			$userData['name'],
-			GetTargetAdressLink($this->fleetData, ''),
+			GetTargetAddressLink($this->fleetData, ''),
 			Language::createHumanReadableList($resourceList)
 		);
 

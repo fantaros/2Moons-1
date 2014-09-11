@@ -13,7 +13,7 @@ $LNG['changelog']   = array(
 'v1.7' => 'Jan 28.03.2012
 [<a href="http://tracker.2moons.cc/browse/TMOONS-22">TMOONS-22</a>] - In admin panel issue
 [<a href="http://tracker.2moons.cc/browse/TMOONS-106">TMOONS-106</a>] - Werte des Atomkraftwerks bei Bonus kopiert (Deuterium)
-[<a href="http://tracker.2moons.cc/browse/TMOONS-137">TMOONS-137</a>] - Kein Login nach Update von Ref 2091 auf 2104 mehr möglich
+[<a href="http://tracker.2moons.cc/browse/TMOONS-137">TMOONS-137</a>] - Kein Login nach Update von Ref 2091 auf 2104 mehr mï¿½glich
 [<a href="http://tracker.2moons.cc/browse/TMOONS-154">TMOONS-154</a>] - Login doesn&#39;t work
 [<a href="http://tracker.2moons.cc/browse/TMOONS-157">TMOONS-157</a>] - Versatz und Fehler meldung bei Spionage
 [<a href="http://tracker.2moons.cc/browse/TMOONS-159">TMOONS-159</a>] - Regestrierung geht nicht!!
@@ -28,87 +28,87 @@ $LNG['changelog']   = array(
 [<a href="http://tracker.2moons.cc/browse/TMOONS-176">TMOONS-176</a>] - Undefined index: shipsNeed at game.php?page=galaxy
 [<a href="http://tracker.2moons.cc/browse/TMOONS-181">TMOONS-181</a>] - Kristall Fehlt :)
 [<a href="http://tracker.2moons.cc/browse/TMOONS-188">TMOONS-188</a>] - Statistik
-[<a href="http://tracker.2moons.cc/browse/TMOONS-189">TMOONS-189</a>] - Händler fehler
+[<a href="http://tracker.2moons.cc/browse/TMOONS-189">TMOONS-189</a>] - Hï¿½ndler fehler
 [<a href="http://tracker.2moons.cc/browse/TMOONS-190">TMOONS-190</a>] - Die Aufgerufene Seite existiert nicht
 [<a href="http://tracker.2moons.cc/browse/TMOONS-191">TMOONS-191</a>] - System 500 error
 [<a href="http://tracker.2moons.cc/browse/TMOONS-196">TMOONS-196</a>] - Reports of failed construction
 [<a href="http://tracker.2moons.cc/browse/TMOONS-198">TMOONS-198</a>] - Rohstoffe Produktion einstellen
-[<a href="http://tracker.2moons.cc/browse/TMOONS-199">TMOONS-199</a>] - Händler 
+[<a href="http://tracker.2moons.cc/browse/TMOONS-199">TMOONS-199</a>] - Hï¿½ndler 
 [<a href="http://tracker.2moons.cc/browse/TMOONS-205">TMOONS-205</a>] - Die Aufgerufene Seite existiert nicht
 [<a href="http://tracker.2moons.cc/browse/TMOONS-206">TMOONS-206</a>] - Technologie
-[<a href="http://tracker.2moons.cc/browse/TMOONS-207">TMOONS-207</a>] - User über Admin erstellen
+[<a href="http://tracker.2moons.cc/browse/TMOONS-207">TMOONS-207</a>] - User ï¿½ber Admin erstellen
 [<a href="http://tracker.2moons.cc/browse/TMOONS-208">TMOONS-208</a>] - Flotte verschicken
 [<a href="http://tracker.2moons.cc/browse/TMOONS-209">TMOONS-209</a>] - install Fehler
-[<a href="http://tracker.2moons.cc/browse/TMOONS-211">TMOONS-211</a>] - Gebäude Timer Overview
+[<a href="http://tracker.2moons.cc/browse/TMOONS-211">TMOONS-211</a>] - Gebï¿½ude Timer Overview
 [<a href="http://tracker.2moons.cc/browse/TMOONS-216">TMOONS-216</a>] - Error beim Flottenversand
-[<a href="http://tracker.2moons.cc/browse/TMOONS-218">TMOONS-218</a>] - Infos von Offizieren können nicht aufgerufen werden
+[<a href="http://tracker.2moons.cc/browse/TMOONS-218">TMOONS-218</a>] - Infos von Offizieren kï¿½nnen nicht aufgerufen werden
 [<a href="http://tracker.2moons.cc/browse/TMOONS-219">TMOONS-219</a>] - Error Account-Information aus ACP
 [<a href="http://tracker.2moons.cc/browse/TMOONS-223">TMOONS-223</a>] - Fleet vanished
 [<a href="http://tracker.2moons.cc/browse/TMOONS-228">TMOONS-228</a>] - Error log #2
 [<a href="http://tracker.2moons.cc/browse/TMOONS-235">TMOONS-235</a>] - Date of block
 [<a href="http://tracker.2moons.cc/browse/TMOONS-236">TMOONS-236</a>] - Vacation and flying fleet
-[<a href="http://tracker.2moons.cc/browse/TMOONS-238">TMOONS-238</a>] - Error beim Aufruf der Galaxie über Koordinaten in Playercard / Siehe sceenshot 
+[<a href="http://tracker.2moons.cc/browse/TMOONS-238">TMOONS-238</a>] - Error beim Aufruf der Galaxie ï¿½ber Koordinaten in Playercard / Siehe sceenshot 
 [<a href="http://tracker.2moons.cc/browse/TMOONS-239">TMOONS-239</a>] - Keine Flottendaten beim Versand / NUR IE8 !
 [<a href="http://tracker.2moons.cc/browse/TMOONS-240">TMOONS-240</a>] - Error in Flotten bei Mission Angriff 
-[<a href="http://tracker.2moons.cc/browse/TMOONS-245">TMOONS-245</a>] - Händler kann nicht gerufen werden
-[<a href="http://tracker.2moons.cc/browse/TMOONS-246">TMOONS-246</a>] - Support-Ticket kann weder gelöscht noch geschlossen werden.
+[<a href="http://tracker.2moons.cc/browse/TMOONS-245">TMOONS-245</a>] - Hï¿½ndler kann nicht gerufen werden
+[<a href="http://tracker.2moons.cc/browse/TMOONS-246">TMOONS-246</a>] - Support-Ticket kann weder gelï¿½scht noch geschlossen werden.
 [<a href="http://tracker.2moons.cc/browse/TMOONS-247">TMOONS-247</a>] - Error in Flotten bei Mission Transport und maximalen Rohstoffen
 [<a href="http://tracker.2moons.cc/browse/TMOONS-248">TMOONS-248</a>] - Planetenauswahl zeigt immer ersten Planeten
 [<a href="http://tracker.2moons.cc/browse/TMOONS-249">TMOONS-249</a>] - Hall of Fame wird nicht angezeigt
-[<a href="http://tracker.2moons.cc/browse/TMOONS-250">TMOONS-250</a>] - Lösch-Icon /styles/images/r1.png nicht vorhanden
+[<a href="http://tracker.2moons.cc/browse/TMOONS-250">TMOONS-250</a>] - Lï¿½sch-Icon /styles/images/r1.png nicht vorhanden
 [<a href="http://tracker.2moons.cc/browse/TMOONS-251">TMOONS-251</a>] - Double key
-[<a href="http://tracker.2moons.cc/browse/TMOONS-254">TMOONS-254</a>] - anflug auf Mond nicht möglich
+[<a href="http://tracker.2moons.cc/browse/TMOONS-254">TMOONS-254</a>] - anflug auf Mond nicht mï¿½glich
 [<a href="http://tracker.2moons.cc/browse/TMOONS-256">TMOONS-256</a>] - User erstellen im Admin
 [<a href="http://tracker.2moons.cc/browse/TMOONS-257">TMOONS-257</a>] - Planetmenu (PlanetAction)
 [<a href="http://tracker.2moons.cc/browse/TMOONS-258">TMOONS-258</a>] - Error Allianz Rundmail
 [<a href="http://tracker.2moons.cc/browse/TMOONS-259">TMOONS-259</a>] - Errormeldung Login Versuch wenn Game gesperrt 
-[<a href="http://tracker.2moons.cc/browse/TMOONS-260">TMOONS-260</a>] - Schrotthändler, Schiffe werden nicht abgezogen, Ressourcenanzeige beim Schrotthändler falsch
-[<a href="http://tracker.2moons.cc/browse/TMOONS-261">TMOONS-261</a>] - Error bei Abbruch einer Bauschleife im Baumenü bei mehr als einen Eintrag
+[<a href="http://tracker.2moons.cc/browse/TMOONS-260">TMOONS-260</a>] - Schrotthï¿½ndler, Schiffe werden nicht abgezogen, Ressourcenanzeige beim Schrotthï¿½ndler falsch
+[<a href="http://tracker.2moons.cc/browse/TMOONS-261">TMOONS-261</a>] - Error bei Abbruch einer Bauschleife im Baumenï¿½ bei mehr als einen Eintrag
 [<a href="http://tracker.2moons.cc/browse/TMOONS-263">TMOONS-263</a>] - Error nach Sprachumstellung auf Russisch
 [<a href="http://tracker.2moons.cc/browse/TMOONS-264">TMOONS-264</a>] - The doubling of the fleet
-[<a href="http://tracker.2moons.cc/browse/TMOONS-265">TMOONS-265</a>] - Zeitzone kann im ACP nicht gespeicher/geändert werden
+[<a href="http://tracker.2moons.cc/browse/TMOONS-265">TMOONS-265</a>] - Zeitzone kann im ACP nicht gespeicher/geï¿½ndert werden
 [<a href="http://tracker.2moons.cc/browse/TMOONS-266">TMOONS-266</a>] - Error Allianz-Chat
-[<a href="http://tracker.2moons.cc/browse/TMOONS-267">TMOONS-267</a>] - Fleet-Points haben sich gigantisch vergrößert!
+[<a href="http://tracker.2moons.cc/browse/TMOONS-267">TMOONS-267</a>] - Fleet-Points haben sich gigantisch vergrï¿½ï¿½ert!
 [<a href="http://tracker.2moons.cc/browse/TMOONS-268">TMOONS-268</a>] - Aktuelle 1.7. Version - Fehler bei der Installation
-[<a href="http://tracker.2moons.cc/browse/TMOONS-269">TMOONS-269</a>] - Technologie trotz Erfüllung der Voraussetzungen, Farbanzeige rot
+[<a href="http://tracker.2moons.cc/browse/TMOONS-269">TMOONS-269</a>] - Technologie trotz Erfï¿½llung der Voraussetzungen, Farbanzeige rot
 [<a href="http://tracker.2moons.cc/browse/TMOONS-271">TMOONS-271</a>] - Gamespeed wirkt sich nicht auf Enegie-Produktion aus
-[<a href="http://tracker.2moons.cc/browse/TMOONS-272">TMOONS-272</a>] - Gebäude Produzieren nichts und lassen sich nicht ausbauen.
+[<a href="http://tracker.2moons.cc/browse/TMOONS-272">TMOONS-272</a>] - Gebï¿½ude Produzieren nichts und lassen sich nicht ausbauen.
 [<a href="http://tracker.2moons.cc/browse/TMOONS-273">TMOONS-273</a>] - Spionageberichte unformatiert 
-[<a href="http://tracker.2moons.cc/browse/TMOONS-274">TMOONS-274</a>] - Ban-Panel Einträge werden nicht mehr gelöscht und Spielername und Adminname sind vertauscht
+[<a href="http://tracker.2moons.cc/browse/TMOONS-274">TMOONS-274</a>] - Ban-Panel Eintrï¿½ge werden nicht mehr gelï¿½scht und Spielername und Adminname sind vertauscht
 [<a href="http://tracker.2moons.cc/browse/TMOONS-275">TMOONS-275</a>] - Error bei Changelog-Anzeige !
 [<a href="http://tracker.2moons.cc/browse/TMOONS-276">TMOONS-276</a>] - Doppelte Texte in Forschung
-[<a href="http://tracker.2moons.cc/browse/TMOONS-278">TMOONS-278</a>] - Schrotthändler, Kristall und Deuterium wird nicht richtig verbucht
-[<a href="http://tracker.2moons.cc/browse/TMOONS-281">TMOONS-281</a>] - Händler, Beträge werden falsch verbucht
+[<a href="http://tracker.2moons.cc/browse/TMOONS-278">TMOONS-278</a>] - Schrotthï¿½ndler, Kristall und Deuterium wird nicht richtig verbucht
+[<a href="http://tracker.2moons.cc/browse/TMOONS-281">TMOONS-281</a>] - Hï¿½ndler, Betrï¿½ge werden falsch verbucht
 [<a href="http://tracker.2moons.cc/browse/TMOONS-282">TMOONS-282</a>] - Error in Error.log
 [<a href="http://tracker.2moons.cc/browse/TMOONS-283">TMOONS-283</a>] - Flotten, Verband, Error  - Die Aufgerufene Seite existiert nicht
-[<a href="http://tracker.2moons.cc/browse/TMOONS-284">TMOONS-284</a>] - Spielername ändern in Einstellungen
-[<a href="http://tracker.2moons.cc/browse/TMOONS-285">TMOONS-285</a>] - Error Planeten löschen im ACP
-[<a href="http://tracker.2moons.cc/browse/TMOONS-286">TMOONS-286</a>] - Error bei Abbruch von aktiver Forschung bei mehreren Einträgen
-[<a href="http://tracker.2moons.cc/browse/TMOONS-287">TMOONS-287</a>] - Error beim Auflösen einer Allianz
+[<a href="http://tracker.2moons.cc/browse/TMOONS-284">TMOONS-284</a>] - Spielername ï¿½ndern in Einstellungen
+[<a href="http://tracker.2moons.cc/browse/TMOONS-285">TMOONS-285</a>] - Error Planeten lï¿½schen im ACP
+[<a href="http://tracker.2moons.cc/browse/TMOONS-286">TMOONS-286</a>] - Error bei Abbruch von aktiver Forschung bei mehreren Eintrï¿½gen
+[<a href="http://tracker.2moons.cc/browse/TMOONS-287">TMOONS-287</a>] - Error beim Auflï¿½sen einer Allianz
 [<a href="http://tracker.2moons.cc/browse/TMOONS-289">TMOONS-289</a>] - Allianz, Bewerbungen -&gt; Die Bewerbung existiert nicht.
-[<a href="http://tracker.2moons.cc/browse/TMOONS-291">TMOONS-291</a>] - Error bei Löschen einer Bauphase in Schiffswerft oder Verteidigung ohne Markierung eines Eintrags
+[<a href="http://tracker.2moons.cc/browse/TMOONS-291">TMOONS-291</a>] - Error bei Lï¿½schen einer Bauphase in Schiffswerft oder Verteidigung ohne Markierung eines Eintrags
 [<a href="http://tracker.2moons.cc/browse/TMOONS-292">TMOONS-292</a>] - Manually update
 [<a href="http://tracker.2moons.cc/browse/TMOONS-294">TMOONS-294</a>] - Lang keys change places
 [<a href="http://tracker.2moons.cc/browse/TMOONS-295">TMOONS-295</a>] - Lang key in page.notes.default.tpl
 [<a href="http://tracker.2moons.cc/browse/TMOONS-296">TMOONS-296</a>] - Shortcut name
 [<a href="http://tracker.2moons.cc/browse/TMOONS-299">TMOONS-299</a>] - Error bei laufender Forschung wenn Wechsel auf Planeten wo diese Art der Forschung noch nicht vorhanden
-[<a href="http://tracker.2moons.cc/browse/TMOONS-300">TMOONS-300</a>] - Schrotthändler Meldung immer &quot;erfolgreich umgetauscht&quot;
-[<a href="http://tracker.2moons.cc/browse/TMOONS-303">TMOONS-303</a>] - Passwortänderung wird nicht gespeichert
-[<a href="http://tracker.2moons.cc/browse/TMOONS-304">TMOONS-304</a>] - Gebäude Infos
+[<a href="http://tracker.2moons.cc/browse/TMOONS-300">TMOONS-300</a>] - Schrotthï¿½ndler Meldung immer &quot;erfolgreich umgetauscht&quot;
+[<a href="http://tracker.2moons.cc/browse/TMOONS-303">TMOONS-303</a>] - Passwortï¿½nderung wird nicht gespeichert
+[<a href="http://tracker.2moons.cc/browse/TMOONS-304">TMOONS-304</a>] - Gebï¿½ude Infos
 [<a href="http://tracker.2moons.cc/browse/TMOONS-305">TMOONS-305</a>] - Flotten, Schiffe werden bei Angriff nicht verschickt
 [<a href="http://tracker.2moons.cc/browse/TMOONS-306">TMOONS-306</a>] - Lang key in page.galaxy.default.tpl
 [<a href="http://tracker.2moons.cc/browse/TMOONS-307">TMOONS-307</a>] - ExtraDM description
 [<a href="http://tracker.2moons.cc/browse/TMOONS-309">TMOONS-309</a>] - Error.log in alpha 3
 [<a href="http://tracker.2moons.cc/browse/TMOONS-310">TMOONS-310</a>] - Page does not exist
-[<a href="http://tracker.2moons.cc/browse/TMOONS-313">TMOONS-313</a>] - Benötigte Ressourcen für Solarkraftwerk viel zu hoch.
+[<a href="http://tracker.2moons.cc/browse/TMOONS-313">TMOONS-313</a>] - Benï¿½tigte Ressourcen fï¿½r Solarkraftwerk viel zu hoch.
 [<a href="http://tracker.2moons.cc/browse/TMOONS-314">TMOONS-314</a>] - Error Undefined variable: RPLANET 
-[<a href="http://tracker.2moons.cc/browse/TMOONS-315">TMOONS-315</a>] - Error.log gesammelte Einträge
+[<a href="http://tracker.2moons.cc/browse/TMOONS-315">TMOONS-315</a>] - Error.log gesammelte Eintrï¿½ge
 [<a href="http://tracker.2moons.cc/browse/TMOONS-316">TMOONS-316</a>] - Im ACP bei &quot;Fliegende Flotten&quot; fehlerhafte Stationszeit
 [<a href="http://tracker.2moons.cc/browse/TMOONS-318">TMOONS-318</a>] - topkb error
 [<a href="http://tracker.2moons.cc/browse/TMOONS-320">TMOONS-320</a>] - Statistik update fehler
 [<a href="http://tracker.2moons.cc/browse/TMOONS-321">TMOONS-321</a>] - Die unendlichen Weiten des Universums reisen
 [<a href="http://tracker.2moons.cc/browse/TMOONS-322">TMOONS-322</a>] - Create Planet
-[<a href="http://tracker.2moons.cc/browse/TMOONS-323">TMOONS-323</a>] - Angriff nicht möglich bei Revision 100
+[<a href="http://tracker.2moons.cc/browse/TMOONS-323">TMOONS-323</a>] - Angriff nicht mï¿½glich bei Revision 100
 [<a href="http://tracker.2moons.cc/browse/TMOONS-324">TMOONS-324</a>] - Expedition
 [<a href="http://tracker.2moons.cc/browse/TMOONS-325">TMOONS-325</a>] - Nach Angriff Metallmine auf Stufe 255
 [<a href="http://tracker.2moons.cc/browse/TMOONS-329">TMOONS-329</a>] - Installation Fehler neuste Version
@@ -119,13 +119,13 @@ $LNG['changelog']   = array(
 [<a href="http://tracker.2moons.cc/browse/TMOONS-339">TMOONS-339</a>] - Error, Reflink, HTML und BBCode, Undefined index
 [<a href="http://tracker.2moons.cc/browse/TMOONS-340">TMOONS-340</a>] - Nach der Installation kommt ein fehler
 [<a href="http://tracker.2moons.cc/browse/TMOONS-341">TMOONS-341</a>] - Fehler Useranmeldung
-[<a href="http://tracker.2moons.cc/browse/TMOONS-343">TMOONS-343</a>] - Allianz auflösen geht nicht; Rev 128
+[<a href="http://tracker.2moons.cc/browse/TMOONS-343">TMOONS-343</a>] - Allianz auflï¿½sen geht nicht; Rev 128
 [<a href="http://tracker.2moons.cc/browse/TMOONS-345">TMOONS-345</a>] - Cheat on the speed of the ships
 [<a href="http://tracker.2moons.cc/browse/TMOONS-348">TMOONS-348</a>] - Error.log nach login
 [<a href="http://tracker.2moons.cc/browse/TMOONS-349">TMOONS-349</a>] - SQL injection
 [<a href="http://tracker.2moons.cc/browse/TMOONS-352">TMOONS-352</a>] - SQL Error: Unknown column &#39;s.user_id&#39; in &#39;on clause&#39;
-[<a href="http://tracker.2moons.cc/browse/TMOONS-353">TMOONS-353</a>] - In Statistik ... /styles/theme/gow/img/m.gif  für Private Nachrichten nicht vorhanden
-[<a href="http://tracker.2moons.cc/browse/TMOONS-359">TMOONS-359</a>] - Plane namen ändern
+[<a href="http://tracker.2moons.cc/browse/TMOONS-353">TMOONS-353</a>] - In Statistik ... /styles/theme/gow/img/m.gif  fï¿½r Private Nachrichten nicht vorhanden
+[<a href="http://tracker.2moons.cc/browse/TMOONS-359">TMOONS-359</a>] - Plane namen ï¿½ndern
 [<a href="http://tracker.2moons.cc/browse/TMOONS-360">TMOONS-360</a>] - ENABLE_INSTALL_TOOL
 [<a href="http://tracker.2moons.cc/browse/TMOONS-361">TMOONS-361</a>] - Colorful background in ACP
 [<a href="http://tracker.2moons.cc/browse/TMOONS-363">TMOONS-363</a>] - Installation Fehler
@@ -147,12 +147,12 @@ $LNG['changelog']   = array(
 [<a href="http://tracker.2moons.cc/browse/TMOONS-387">TMOONS-387</a>] - Advanced search in the ACP
 [<a href="http://tracker.2moons.cc/browse/TMOONS-388">TMOONS-388</a>] - List of universes
 [<a href="http://tracker.2moons.cc/browse/TMOONS-389">TMOONS-389</a>] - Resetting the universe
-[<a href="http://tracker.2moons.cc/browse/TMOONS-396">TMOONS-396</a>] - Spieler löschen im Admin
+[<a href="http://tracker.2moons.cc/browse/TMOONS-396">TMOONS-396</a>] - Spieler lï¿½schen im Admin
 [<a href="http://tracker.2moons.cc/browse/TMOONS-401">TMOONS-401</a>] - Produkltionsmaxiemierung (Forschung) funktioniert nicht
 [<a href="http://tracker.2moons.cc/browse/TMOONS-403">TMOONS-403</a>] - Can&#39;t destroy buildings
 [<a href="http://tracker.2moons.cc/browse/TMOONS-404">TMOONS-404</a>] - Fleet in overview page
 [<a href="http://tracker.2moons.cc/browse/TMOONS-405">TMOONS-405</a>] - search page
-[<a href="http://tracker.2moons.cc/browse/TMOONS-406">TMOONS-406</a>] - Problem beim rechte von Spieler ändern
+[<a href="http://tracker.2moons.cc/browse/TMOONS-406">TMOONS-406</a>] - Problem beim rechte von Spieler ï¿½ndern
 [<a href="http://tracker.2moons.cc/browse/TMOONS-407">TMOONS-407</a>] - Return time the mission Leave[<a href="http://tracker.2moons.cc/browse/TMOONS-193">TMOONS-193</a>] - Removing log_fleets
 [<a href="http://tracker.2moons.cc/browse/TMOONS-224">TMOONS-224</a>] - Page multiips
 [<a href="http://tracker.2moons.cc/browse/TMOONS-230">TMOONS-230</a>] - The intersection of the fleets
@@ -166,7 +166,7 @@ $LNG['changelog']   = array(
 [<a href="http://tracker.2moons.cc/browse/TMOONS-354">TMOONS-354</a>] - AKS module in ACP
 [<a href="http://tracker.2moons.cc/browse/TMOONS-356">TMOONS-356</a>] - Information about the storage capacity
 [<a href="http://tracker.2moons.cc/browse/TMOONS-381">TMOONS-381</a>] - ID sender message in the ACP
-[<a href="http://tracker.2moons.cc/browse/TMOONS-398">TMOONS-398</a>] - Engine of ships[<a href="http://tracker.2moons.cc/browse/TMOONS-301">TMOONS-301</a>] - Bei &quot;Passwort vergessen&quot; keine Info dass eMail-Versand durchgeführt worden ist.
+[<a href="http://tracker.2moons.cc/browse/TMOONS-398">TMOONS-398</a>] - Engine of ships[<a href="http://tracker.2moons.cc/browse/TMOONS-301">TMOONS-301</a>] - Bei &quot;Passwort vergessen&quot; keine Info dass eMail-Versand durchgefï¿½hrt worden ist.
 [<a href="http://tracker.2moons.cc/browse/TMOONS-346">TMOONS-346</a>] - The doubling of the fleet',
 'v1.6.1' => 'Jan 19.11.11
 - 0000027: [Core] Phalanx (Slaver) - resolved.
@@ -188,7 +188,7 @@ $LNG['changelog']   = array(
 - 0000065: [Core] Attacks and a holiday mode (Slaver) - resolved.
 - 0000067: [Core] Rev. 2062 Reset universum (Slaver) - resolved.
 - 0000061: [Time (offset errors)] progresbar moves only 100 pixels (1% - 1 pixel) in the construction and research (Slaver) - resolved.
-- 0000058: [Design] Fortschrittsbalken bei Forschung und Gebäude wird nur noch zu ca. 40% aufgebaut. (Slaver) - resolved.
+- 0000058: [Design] Fortschrittsbalken bei Forschung und Gebï¿½ude wird nur noch zu ca. 40% aufgebaut. (Slaver) - resolved.
 - 0000064: [Login] Install doesn\'t work in 2060 SVN Version: FIX (Slaver) - resolved.
 - 0000057: [Fleets (Missions)] Nobody can send one ship (Slaver) - resolved.
 - 0000031: [Core] Search limit (Slaver) - resolved.
@@ -216,23 +216,23 @@ $LNG['changelog']   = array(
 - FIX: clear planets after spy
 - FIX: little template iusses
 - FIX: SQL Error on FleetBack, if fleet is on a acs
-- FIX: JS Error on Combat Raports
-- FIX: Cron on statbuilder, who deletes raports
+- FIX: JS Error on Combat Reports
+- FIX: Cron on statbuilder, who deletes reports
 - FIX: Cross universe glitch on acs invations (StoNelHa) 
 . FIX: Case 6 on Expedition 
-- DIV: Sicherheit im Game erhöht
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: rootID now in constants
 - DIV: Added Suhosin detection 
 - DIV: Updated Smarty & TS Libs
 - DIV: Diverse Anpassungen am Game
-- 0000024: [Login] On email activation users cann´t register (Slaver) - resolved.
+- 0000024: [Login] On email activation users cannï¿½t register (Slaver) - resolved.
 - 0000046: [Core] referals in overview (Slaver) - resolved.
 - 0000042: [Core] referrals name (Slaver) - resolved.
 - 0000034: [Design] IE8 / IE9 changelog and menu-top.png not shown (Slaver) - resolved.
 - 0000030: [Core] Phalanx not work after update, says error (Slaver) - resolved.
 - 0000025: [Time (offset errors)] Timezone [not resolved 2030] (Slaver) - resolved.
 - 0000035: [Core] after last update to 2043 (Slaver) - resolved.
-- 0000037: [Fleets (Missions)] Flotten Hängen sich auf!! (Slaver) - resolved.
+- 0000037: [Fleets (Missions)] Flotten Hï¿½ngen sich auf!! (Slaver) - resolved.
 - 0000003: [EcoSystem] Time of building of the ships (Slaver) - resolved.
 - 0000033: [Design] Rules werden auch in Deutsch nicht angezeigt (Slaver) - resolved.
 - 0000013: [EcoSystem] Rev. 2033 (Slaver) - resolved.
@@ -248,7 +248,7 @@ $LNG['changelog']   = array(
 - 0000007: [Core] Free fields again (Slaver) - resolved.
 - 0000015: [Core] Rev. 2033 Silo (Slaver) - resolved.
 - 0000014: [Design] Anzeige von Energie bei IE8 defekt (Slaver) - resolved.
-- 0000011: [Chat] Portuguese chat don´t work (Slaver) - resolved.
+- 0000011: [Chat] Portuguese chat donï¿½t work (Slaver) - resolved.
 - 0000010: [EcoSystem] Demolish a level (Slaver) - closed.
 ',
 'v1.4' => 'Jan 10.07.11
@@ -285,7 +285,7 @@ $LNG['changelog']   = array(
 - DIV: Refresh database design
 - DIV: Old Popups for Playercard &amp; Messages
 - DIV: Includes Smarty
-- DIV: Sicherheit im Game erhöht
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Diverse Anpassungen am Game
 ',
 'v1.3.5' => 'Jan 11.06.11
@@ -322,7 +322,7 @@ $LNG['changelog']   = array(
 - DIV: Rewrite Connect wit Facebook
 - DIV: Update Smarty and jQuery
 - DIV: Remove Soundmanager and overLIB Liberary
-- DIV: Sicherheit im Game erhöht
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Diverse Anpassungen am Game
 ',
 'v1.3' => 'Jan 05.03.11
@@ -366,7 +366,7 @@ $LNG['changelog']   = array(
 - DIV: Get Language via HTTP Header on Index
 - DIV: Use Facebooks new Graph API now.
 - DIV: Set new location for error.log
-- DIV: Update TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty and jQuery (UI)
+- DIV: Update TSï¿½ Lib, Soundmanager, reCAPTCHA Lib, Smarty and jQuery (UI)
 ',
 'v1.2' => 'Jan 04.10.10
 - ADD: Set Max Fleets on ACS (Default: 16)
@@ -389,22 +389,22 @@ $LNG['changelog']   = array(
 - FIX: Linebreaks on Alliance Rundmails
 - FIX: UMode
 - DIV: Update Langauges
-- DIV: Sicherheit im Game erhöht
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Diverse Anpassungen am Game
 ',
 'v1.1' => 'Jan 31.08.10
 - ADD: GoW Skin
 - ADD: Mod Versions Control
-- ADD: Cronjoboption für Banner
+- ADD: Cronjoboption fï¿½r Banner
 - ADD: Options for Loginmusic
-- FIX: Anzeigefehler in Raports
+- FIX: Anzeigefehler in Reports
 - FIX: Ressoucre Hack
 - FIX: Fleet Bugs
 - DEL: Unused Pictures
 - DIV: Optimized CSS
 - DIV: Changed HTML Tree (Changed td.c to th / th to td)
 - DIV: Update to HTML 5
-- DIV: Sicherheit im Game erhöht
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Diverse Anpassungen am Game
 ',
 'v1.0' => 'Jan 07.08.10
@@ -425,7 +425,7 @@ $LNG['changelog']   = array(
 - DIV: Limited Random on Dm Mission
 - DIV: Changed System of Rapidfire
 - DIV: Solved Problems with BattleSimulator
-- DIV: Sicherheit im Game erhöht
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Diverse Anpassungen am Game
 ',
 'RC6' => 'Jan 28.07.10
@@ -436,10 +436,10 @@ $LNG['changelog']   = array(
 - FIX: Messages Notify
 - FIX: Phalanx
 - FIX: Installer
-- FIX: Trümmerfeld bei Mondangriffen
-- FIX: Trümmerfeldabbau
+- FIX: Trï¿½mmerfeld bei Mondangriffen
+- FIX: Trï¿½mmerfeldabbau
 - FIX: Ressourcenberechnung bei Angriffen
-- FIX: Mondzerstörung
+- FIX: Mondzerstï¿½rung
 - DIV: Neue Loginmusik
 - DIV: Removeold Settings
 - DIV: Recoding ACP
@@ -447,13 +447,13 @@ $LNG['changelog']   = array(
 - DIV: zlib.output_compression wird statt ob_gzhandler genutzt
 - DIV: Change Path for reCAPTCHA AJAX
 - DIV: Remove old UGamla Functions
-- DIV: Sicherheit im Game erhöht
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Include New Version of Soundmanager (2.96a.20100624)
 - DIV: Update Smarty Engine
 - DIV: Diverse Anpassungen am Game
 ',
 'RC5.1' => 'Jan 23.06.10
-- ADD: Für Halten muss man in der Ally/Buddy sein
+- ADD: Fï¿½r Halten muss man in der Ally/Buddy sein
 - ADD: Name des HP bei der Reg.
 - ADD: Passwort Abfrage bei Authlevel/Reset
 - FIX: Flottenverluste
@@ -465,7 +465,7 @@ $LNG['changelog']   = array(
 - FIX: Koloniename
 - FIX: UMode
 - FIX: Admin Hack via Facebook
-- FIX: Flottenrückkehr
+- FIX: Flottenrï¿½ckkehr
 - FIX: Nachrichten Transport
 - FIX: Forschung
 - FIX: Phalax
@@ -475,14 +475,14 @@ $LNG['changelog']   = array(
 - FIX: Forschungen
 - DIV: Mienen auf 100% nach UMode
 - DIV: Full MultiLangauge Support
-- DIV: Sicherheit im Game erhöht
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Diverse Anpassungen am Game
 ',
 'RC5.0' => 'Jan 30.05.10
 - ADD: Neue Schiffe
 - ADD: Support Planet in System != 15
-- ADD: Cookie für LoginMusik
-- ADD: Check für verfügbare Missions in Fleet3
+- ADD: Cookie fï¿½r LoginMusik
+- ADD: Check fï¿½r verfï¿½gbare Missions in Fleet3
 - ADD: Multi-Lang Installer
 - ADD: Kampfsimulator
 - ADD: bcmath for JS
@@ -491,47 +491,47 @@ $LNG['changelog']   = array(
 - FIX: Dublicate Ressis Bug
 - FIX: Bewerbungstext
 - FIX: Support
-- FIX: Mondzerstörung
+- FIX: Mondzerstï¿½rung
 - FIX: Flotten
-- FIX: Gebäude Cheat
+- FIX: Gebï¿½ude Cheat
 - FIX: Resource Bug
 - FIX: Shipyard supports now Trillion \'Build per Row\'
 - FIX: Darmatter Kosten bei Verteidigung
-- FIX: Mood Löschung
+- FIX: Mood Lï¿½schung
 - FIX: Intergal. Netzwerk
 - FIX: class.FlyingFleetMissions.php on 1183:SQL Error (Duplicate entry \'Key\' for key \'rid\')
-- FIX: Bauzeiten, wenn Gebäude nicht baubar war
-- FIX: Gebäude mit 0 Sekunden Bauzeit
+- FIX: Bauzeiten, wenn Gebï¿½ude nicht baubar war
+- FIX: Gebï¿½ude mit 0 Sekunden Bauzeit
 - FIX: Allianzstatistik
 - FIX: SQL Injection in Notizen, Nachrichten un Fleet Shoutcuts
-- FIX: Große TF`s
+- FIX: Groï¿½e TF`s
 - FIX: Evo Trans. &amp; Gigarec.
-- FIX: Große HoF KBs
-- FIX: GebäudeCheat
+- FIX: Groï¿½e HoF KBs
+- FIX: Gebï¿½udeCheat
 - FIX: Statistiken Fehler bei neuen Spielern
 - DIV: Use IE7-js for IE CSS Fixs
 - DIV: Use Googles Host for jQuery JS
 - DIV: Updatet TS 3 Lib
 - DIV: Flottenquery vereinfacht
-- DIV: Sicherheit im Game erhöht
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Leftmenu
 - DIV: Diverse Anpassungen am Game
 ',
 
 'RC5.0b8' => 'Jan 20.04.10
 - FIX: Bann
-- FIX: Unmarkierte Nachrichten Löschen
+- FIX: Unmarkierte Nachrichten Lï¿½schen
 - FIX: Query log
 - FIX: Steal
-- FIX: Aktivitätstern
+- FIX: Aktivitï¿½tstern
 - FIX: Planetenerstellung im ACP
 - FIX: Sprungtor
 - FIX: Ress up to 9e132
 - FIX: BBCodes
 - FIX: Lost Ressis
 - FIX: Install
-- DIV: AddBuildingToQueue überarbeitet
-- DIV: Sicherheit im Game erhöht
+- DIV: AddBuildingToQueue ï¿½berarbeitet
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: min. Requieres PHP 5.2.6
 - DIV: Diverse Anpassungen am Game
 ',
@@ -539,9 +539,9 @@ $LNG['changelog']   = array(
 'RC5.0b7' => 'Jan 16.04.10
 - ADD: Google Analytics Mod
 - FIX: max Button, if thousend Sep is not "."
-- FIX: Große Transporte
+- FIX: Groï¿½e Transporte
 - FIX: Globale Nachrichten
-- DIV: Sicherheit im Game erhöht
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Diverse Anpassungen am Game
 ',
 
@@ -550,47 +550,47 @@ $LNG['changelog']   = array(
 - ADD: Facebook Connector Alpha
 - ADD: Diplomatie-System
 - ADD: Gigarecyler on Galaxy
-- ADD: Ori. Platform, Spalteinreißer, Bahamut
-- ADD: Händlergebühren
-- ADD: Universität
-- ADD: Konstanten für Mondentstehung
+- ADD: Ori. Platform, Spalteinreiï¿½er, Bahamut
+- ADD: Hï¿½ndlergebï¿½hren
+- ADD: Universitï¿½t
+- ADD: Konstanten fï¿½r Mondentstehung
 - ADD: Download Patch Files in ACP
 - ADD: Locale Settings in Language File
 - FIX: Trader
 - FIX: Ressverlust bei hohen Zahlen.
 - FIX: Galaxy
 - FIX: Spioangeabwehr
-- FIX: Aliianz Übergeben
-- FIX: Minus-Werte bei NPC`s in Expeditions Kämpfen
+- FIX: Aliianz ï¿½bergeben
+- FIX: Minus-Werte bei NPC`s in Expeditions Kï¿½mpfen
 - FIX: Allianz Hack
 - FIX: UMode
 - FIX: Sprungtor
 - FIX: BuildQuere
-- FIX: Aktivitäts Stern
+- FIX: Aktivitï¿½ts Stern
 - FIX: Playercard
 - FIX: General
 - FIX: AKS-Stealberechnung
-- FIX: Negative Rückflugzeit bei AKS-Einheiten
+- FIX: Negative Rï¿½ckflugzeit bei AKS-Einheiten
 - FIX: Rohstoffberechnung
 - FIX: Zeit von Spionageberichten
 - FIX: Allianzstatistiken
 - FIX: Font-FIX in overLIB
 - DIV: Updated ACP
 - DIV: Update Smarty to 3.0b8
-- DIV: Change Buildsystem für Gebäude/Flotten
-- DIV: Sicherheit im Game erhöht
+- DIV: Change Buildsystem fï¿½r Gebï¿½ude/Flotten
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Diverse Anpassungen am Game
 ',
 'RC5.0b5' => 'Jan 06.03.10
 - FIX: Attack
-- DIV: Sicherheit im Game erhöht
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Diverse Anpassungen am Game
 ',
 'RC5.0b4' => 'Jan 01.03.10
 - ADD: Plugin-System v0.4 (Green @ XG Proyecto)
 - ADD: Neu StatBuilder
 - FIX: AKS
-- DIV: Sicherheit im Game erhöht
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Diverse Anpassungen am Game
 ',
 
@@ -603,26 +603,26 @@ $LNG['changelog']   = array(
 - ADD: Neue Expedition
 - FIX: Phalax &amp; Interplanetarrakten Reichweiten
 - FIX: Urlaubsmodus fixed
-- FIX: Haltende Flotten werden im Spiobericht dazugezählt.
-- FIX: Anzeige der Canche der Mondzerstörung
+- FIX: Haltende Flotten werden im Spiobericht dazugezï¿½hlt.
+- FIX: Anzeige der Canche der Mondzerstï¿½rung
 - FIX: Admins in Rekorden
 - FIX: Planetensuche
-- FIX: Neues Kampfscript für Interplanetarraketeneinschläge
+- FIX: Neues Kampfscript fï¿½r Interplanetarraketeneinschlï¿½ge
 - DIV: Set DB Connection to UTF-8
 - DIV: Userbanner wird nurnoch einmal ein Tag aktualisiert.
 - DIV: Webseitenoptimierung(YSlow Grande: A/Score: 91)
-- DIV: Add Headers für Browsercaching 
-- DIV: Sicherheit im Game erhöht
+- DIV: Add Headers fï¿½r Browsercaching 
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Diverse Anpassungen am Game
 - DIV: Update jQuery to 1.4.2
 ',
 'RC5.0b2' => 'Jan 20.02.10
-- ADD: Accountlöschung w&auml;hrend des U-Modes
+- ADD: Accountlï¿½schung w&auml;hrend des U-Modes
 - ADD: UTF-8 Support for Names
 - ADD: Kosten Dunkle Materie
 - ADD: Some langs (not complete)
 - FIX: Quere
-- FIX: Gebäude Abreißen
+- FIX: Gebï¿½ude Abreiï¿½en
 - FIX: Allianzerstellung
 - FIX: AKS in der Overview
 - FIX: AKS-Hack
@@ -634,7 +634,7 @@ $LNG['changelog']   = array(
 - DIV: UserStats Mod an AKS angepasst.
 - DIV: Optimized Game Messages
 - DIV: Rechtschreibfehler korrigiert
-- DIV: Sicherheit im Game erhöht
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Diverse Anpassungen am Game
 ',
 'RC5.0b1' => 'Jan 02.02.10
@@ -645,7 +645,7 @@ $LNG['changelog']   = array(
 - ADD: Forschungsmaximum in vars.php einstellbar
 - ADD: fb-share
 - ADD: Planetenliste
-- ADD: Teampseak-Addon: Support für Teamspeak 3
+- ADD: Teampseak-Addon: Support fï¿½r Teamspeak 3
 - ADD: Max. Auftr&auml;ge in Fleet/Def einstellbar (Standart: 10)
 - ADD: Cache for Records
 - ADD: Realtime-Ressanzeige
@@ -668,23 +668,23 @@ $LNG['changelog']   = array(
 - FIX: DeleteSelectedUser
 - FIX: Moon TF
 - FIX: Intergal. Forschungsnetzwerk
-- FIX: Werte für den Verbrauch
+- FIX: Werte fï¿½r den Verbrauch
 - FIX: Error-Handler
 - FIX: U-Mode &amp; Adminschutz - Iraks
 - FIX: AKS-BUG in der SendFleetBack Funktion
 - FIX: Flottenflugzeit
 - FIX: CAPTCHA
-- FIX: Bug bei Mond- und Planetzerstörung
-- FIX: Reyclerrückkehr
+- FIX: Bug bei Mond- und Planetzerstï¿½rung
+- FIX: Reyclerrï¿½ckkehr
 - FIX: Kolonisierung: Mitgebrachte Ressis werden nun gutschreiben
 - FIX: Flottenverbrauch
-- FIX: SQL-Lücke in FleetAjax.php
+- FIX: SQL-Lï¿½cke in FleetAjax.php
 - FIX: Planetenentfernung
 - FIX: Diverse Flottencheats entfernt
 - FIX: Magic TF`s
 - FIX: ACP-fopen Error
 - FIX: Opera Style Fix
-- FIX: Mondzerstörung
+- FIX: Mondzerstï¿½rung
 - FIX: Module-Addon
 - FIX: Support-Ticket
 - FIX: DM Untersuchungs Mission
@@ -700,12 +700,12 @@ $LNG['changelog']   = array(
 - FIX: Umlaute in den Beschreibungen
 - DIV: Neue Methode zum Aufruf von Fleethandler
 - DIV: Neue Plantenbilder
-- DIV: Flexibilit&auml;t für einfügen neue Geb&auml;ude erhöht
-- DIV: Neue Formel für Speicherberechung
+- DIV: Flexibilit&auml;t fï¿½r einfï¿½gen neue Geb&auml;ude erhï¿½ht
+- DIV: Neue Formel fï¿½r Speicherberechung
 - DIV: Info im ACP, wenn FlyingFleetHandler einen Fehler hatte
 - DIV: Useraktivierung per ACP
-- DIV: Neue Formel für Solarsats, Deuterium, Planettemp und Felderanzahl
-- DIV: Sicherheit im Game erhöht
+- DIV: Neue Formel fï¿½r Solarsats, Deuterium, Planettemp und Felderanzahl
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Diverse Anpassungen am Game
 - DIV: Update jQuery to 1.4.1
 ',
@@ -719,7 +719,7 @@ $LNG['changelog']   = array(
 - FIX: Vaild-Maillink
 - FIX: Retrun-Subject in Messages
 - FIX: Global Adminmessage
-- FIX: SQL Lücken in Notes
+- FIX: SQL Lï¿½cken in Notes
 - FIX: NEWS
 - FIX: Flotten Geschwindigkeit
 - FIX: BeuteMath (by WOT-Game)
@@ -729,37 +729,37 @@ $LNG['changelog']   = array(
 - FIX: LostPassword
 - FIX: Allianzr&auml;nge
 - FIX: max. Expiditionen / max. Haltezeit
-- FIX: Usernamenüberprüfung bei der Registration
+- FIX: Usernamenï¿½berprï¿½fung bei der Registration
 - FIX: Registration close &amp; Game Close
 - FIX: AdminChatPage
 - FIX: Speicheranzeige in Rohstoffe korrigiert
 - FIX: Galaxy Allyname Crash
 - FIX: Statfunctions.php
-- DIV: Mails über SMTP-Auth
+- DIV: Mails ï¿½ber SMTP-Auth
 - DIV: Chat-Class
-- DIV: überarbeitung Installer
+- DIV: ï¿½berarbeitung Installer
 - DIV: Notes-Class
 - DIV: Chat-Interval auf 10 Sekunden gesetzt
-- DIV: Sicherheit im Game erhöht
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Diverse Anpassungen am Game
 ',
 
 'RC4.1' => 'Jan 23.11.09
 - FIX: Moderration-ACP
-- FIX: Userlöschung
+- FIX: Userlï¿½schung
 - FIX: cronjob.php
 - FIX: Mail-Funktion
 - FIX: ACP-Topnav - Error
 - FIX: UTF-8 im ACP
-- FIX: Kleinere SQL-Lücken
-- DIV: Sicherheit im Game erhöht
+- FIX: Kleinere SQL-Lï¿½cken
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Diverse Anpassungen am Game
 ',
 
 'RC4' => 'Jan 13.11.09
 - ADD: Fleet/Def ins TF einstellbar
 - ADD: Neue Funktion request_var, set_var und msg_handler
-- ADD: Komplett überarbeitetes ACP (XGP 2.9.1)
+- ADD: Komplett ï¿½berarbeitetes ACP (XGP 2.9.1)
 - ADD: FlyingFleetHandler wird nicht mehr im Login aufgerufen
 - ADD: FlyingFleetHandler wird nun nicht mehr 2x aufgerufen
 - ADD: Neue Cronjob - "Engine"
@@ -774,19 +774,19 @@ $LNG['changelog']   = array(
 - MOD: Neue EMail-Klasse
 - MOD: Bauzeit der aktuellen Forschung/des aktuellen Geb&auml;udes in der Titelleiste
 - MOD: autoload - Funktion
-- FIX: Zeilenumbrüche in Allianztexten
+- FIX: Zeilenumbrï¿½che in Allianztexten
 - FIX: Buddyliste
-- FIX: Statistiken: Punkte up to 18.446.744.073.709.551.616 (Ja wei&szlig;, unnütz)
+- FIX: Statistiken: Punkte up to 18.446.744.073.709.551.616 (Ja wei&szlig;, unnï¿½tz)
 - FIX: Universumreset
 - FIX: Spionageangriff
-- FIX: SQL-Lücke in MissilesAjax.php
-- FIX: Anonyme User können nicht ins Spiel kommen
-- FIX: Planetenlöschung
+- FIX: SQL-Lï¿½cke in MissilesAjax.php
+- FIX: Anonyme User kï¿½nnen nicht ins Spiel kommen
+- FIX: Planetenlï¿½schung
 - FIX: Ressourcen bei Forschungsabbruch
-- FIX: Keine 10 Deu für eigene Gala mehr
+- FIX: Keine 10 Deu fï¿½r eigene Gala mehr
 - FIX: Planiliste im ACP
 - FIX: (ID:01)-Bauen
-- FIX: Geb&auml;ude mit Vorrausetztungen können nicht mehr ohne Vorraussetztung gebaut werden
+- FIX: Geb&auml;ude mit Vorrausetztungen kï¿½nnen nicht mehr ohne Vorraussetztung gebaut werden
 - FIX: Hauptplanet hei&szlig;t nun standartm&auml;&szlig;ig Hauptplanet
 - FIX: Attacklink bei Mondspionageberichten
 - FIX: DM-Forschungsmission
@@ -794,19 +794,19 @@ $LNG['changelog']   = array(
 - DIV: Komplett UTF-8 umgestellt
 - DIV: Koords-Verliunkung zur Galaxie in Fleets
 - DIV: Skinoptimierungen
-- DIV: DB-Speichertyp für Geb&auml;ude und Forschung von int(11) auf TINYINT(3) unsigned ge&auml;ndert
+- DIV: DB-Speichertyp fï¿½r Geb&auml;ude und Forschung von int(11) auf TINYINT(3) unsigned ge&auml;ndert
 - DIV: Anpassung an Internet Explorer (IE8) &amp; Opera
-- DIV: Unnötige SQL-Abfragen(SELECT * FROM) ge&auml;ndert
+- DIV: Unnï¿½tige SQL-Abfragen(SELECT * FROM) ge&auml;ndert
 - DIV: register_globals standartm&auml;ssig aus
 - DIV: Alle Tabellen werden nun 1x pro Tag Aufger&auml;mt (OPTIMIZE TABLE)
 - DIV: Seiten werden komprimiert an Client versendet
 - DIV: Allianzpage nun mit switches gesteuert
-- DIV: Performance Ingal. Netzwerk erhöht
+- DIV: Performance Ingal. Netzwerk erhï¿½ht
 - DIV: formatCR und calculateAttack in der FlyingFleetHandler nun integriert
 - DIV: Neue Registration (XNova-Reloaded 0.1)
 - DIV: Neue Nachrichtenverwaltung (XNova-Reloaded 0.1)
 - DIV: Neue Baulisten (XNova-Reloaded 0.1)
-- DIV: Sicherheit im Game erhöht
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Diverse Anpassungen am Game
 ',
 'RC3' => 'Jan 18.10.09
@@ -821,12 +821,12 @@ $LNG['changelog']   = array(
 - FIX: Aliianztag &auml;ndern
 - FIX: Mehr als 2.147.483.647 Einheiten transportierbar
 - FIX: statbuilder.php
-- FIX: Userlöschung
+- FIX: Userlï¿½schung
 - FIX: Beute beim Angriff
 - FIX: DM Fund bei Expedition
-- DIV: Alte Steal und Wirtschaftsysteme wieder eingefügt
-- DIV: Neuer EMail-Text fü vergessendes Passwort
-- DIV: Sicherheit im Game erhöht
+- DIV: Alte Steal und Wirtschaftsysteme wieder eingefï¿½gt
+- DIV: Neuer EMail-Text fï¿½ vergessendes Passwort
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: W3C Vaild (Login)
 - DIV: Diverse Anpassungen am Game
 ',
@@ -838,20 +838,20 @@ $LNG['changelog']   = array(
 - MOD: News in der Overview/auf der Startseite
 - MOD: Hall of Fame + Allianzstatistik + Playercard
 - MOD: Neue Planeten-, Mond- und Spielerlisten im ACP
-- MOD: 4 Neue Schiffe(Evolution Transporter, Gigarecyler, Intergal. Materiensammler, Sternenzerstörer)
+- MOD: 4 Neue Schiffe(Evolution Transporter, Gigarecyler, Intergal. Materiensammler, Sternenzerstï¿½rer)
 - MOD: Neue Def (Gravitationskannone)
 - MOD: Neue Mission zur DM-Bergung
 - MOD: Neues Wirtschaftssystem
 - MOD: Module
 - MOD: Supportsystem
 - MOD: Rekorde
-- FIX: Mondgrö&szlig;e wird richtig berechnet
+- FIX: Mondgrï¿½&szlig;e wird richtig berechnet
 - FIX: Korrekte Stealberechnung beim Angriff
-- FIX: Sichheitslücke in der Allianzseite
-- FIX: Flotten kommen bei zerstörten Mond auf den Planet wieder
+- FIX: Sichheitslï¿½cke in der Allianzseite
+- FIX: Flotten kommen bei zerstï¿½rten Mond auf den Planet wieder
 - DIV: Neuer Standartskin: Darkness&sup2;
-- DIV: Game zu 100% in Deutsche übersetzt (danke an Sycrog für das übersetzte ACP)
-- DIV: Sicherheit im Game erhöht
+- DIV: Game zu 100% in Deutsche ï¿½bersetzt (danke an Sycrog fï¿½r das ï¿½bersetzte ACP)
+- DIV: Sicherheit im Game erhï¿½ht
 - DIV: Diverse Anpassungen am Game
 - DIV: Anzeige der Admins, die zurzeit online sind
 

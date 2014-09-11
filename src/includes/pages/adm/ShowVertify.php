@@ -23,13 +23,13 @@
  * @copyright 2011 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 2.0.0 (2011-12-10)
- * @info $Id: ShowVertify.php 2803 2013-10-06 22:23:27Z slaver7 $
+ * @info $Id: ShowVerify.php 2803 2013-10-06 22:23:27Z slaver7 $
  * @link http://2moons.cc/
  */
 
 if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
 
-function ShowVertify() 
+function ShowVerify()
 {
 	$EXT		= explode("|", HTTP::_GP("ext", ""));
 	$action 	= HTTP::_GP("action", "");
@@ -73,7 +73,7 @@ function ShowVertify()
 		break;
 		case 'vertify':
 			$template->loadscript('vertify.js');
-			$template->show("VertifyPageResult");
+			$template->show("VerifyPageResult");
 			exit;
 		break;
 		case 'getFileList':
@@ -90,7 +90,7 @@ function ShowVertify()
 		break;
 	}
 	
-	$template->show("VertifyPage");
+	$template->show("VerifyPage");
 }
 
 function dir_tree($dir, $EXT, $subDir = true) {

@@ -89,8 +89,8 @@ $LNG['registerErrorMailExist']       	= 'Questa email &egrave; gi&agrave; stata 
 $LNG['registerErrorRules']	            = 'Devi accettare il regolamento!';
 $LNG['registerErrorCaptcha']	        = 'Il codice di sicurezza &egrave; sbagliato!';
 
-$LNG['registerMailVertifyTitle']	    = 'Attivazione della registrazione al gioco: %s';
-$LNG['registerMailVertifyError']	    = 'Invio dell\'email fallito: %s';
+$LNG['registerMailVerifyTitle']	    = 'Attivazione della registrazione al gioco: %s';
+$LNG['registerMailVerifyError']	    = 'Invio dell\'email fallito: %s';
 
 $LNG['registerMailCompleteTitle']	    = 'Benvenuto su %s!';
 
@@ -100,7 +100,7 @@ $LNG['registerWelcomePMSenderName']	    = 'Amministratore';
 $LNG['registerWelcomePMSubject']	    = 'Benvenuto';
 $LNG['registerWelcomePMText']	        = 'Benvenuto su %s! Per prima cosa costruisci una centrale solare, poich&egrave; l\'energia &egrave; fondamentale per la produzione delle altre risorse. Per costruirla, clicca nel menu su "Costruzioni". Poi clicca su "Costruisci" affianco alla centrale solare. </br> Quando avrai abbastanza energia, puoi cominciare a costruire le miniere. Vai sempre su costruzioni e clicca su costruisci la miniera di metallo seguita poi da quella di cristallo. </br></br>Dopo ti consigliamo di ampliare la fabbrica di robot al livello 2 per poter costruire l\'hangar. Per sapere quali sono i requisiti di ciascun edifico e/o ricerca clicca su "Tecnologie" nel menu laterale.</br>Se hai altre domande puoi consultare le nostre guide o contattare lo staff aprendo un nuovo ticket. </br></br> Il team di augura tantissimo divertimento in qusto bellissimo universo!';
 
-//Vertify
+//Verify
 
 $LNG['vertifyNoUserFound']	            = 'Richiesta non valida!';
 $LNG['vertifyAdminMessage']	            = 'L\'username "%s" &egrave; attivo!';

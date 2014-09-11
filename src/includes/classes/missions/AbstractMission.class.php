@@ -143,7 +143,7 @@ class AbstractMission
 
 	protected function getTplObj(Language $LNG)
 	{
-		require_once 'includes/classes/Template.class.php';
+		require_once 'includes/classes/Template.php';
 
 		$tplObj	= new Template;
 		$tplObj->getSmartyObj()->compile_id	= $LNG->getLanguage();

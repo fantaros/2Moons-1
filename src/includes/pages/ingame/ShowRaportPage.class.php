@@ -22,11 +22,11 @@
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 2.0.0 (2013-03-18)
- * @info $Id: ShowRaportPage.class.php 2776 2013-08-05 21:30:40Z slaver7 $
+ * @info $Id: ShowReportPage.class.php 2776 2013-08-05 21:30:40Z slaver7 $
  * @link http://2moons.cc/
  */
 
-class ShowRaportPage extends AbstractGamePage
+class ShowReportPage extends AbstractGamePage
 {
 
 	protected $disableEcoSystem = true;
@@ -88,10 +88,10 @@ class ShowRaportPage extends AbstractGamePage
 
 		$db = Database::get();
 
-		$RID		= HTTP::_GP('raport', '');
+		$RID		= HTTP::_GP('report', '');
 
 		$sql = "SELECT 
-			raport, time,
+			report, time,
 			(
 				SELECT
 				GROUP_CONCAT(username SEPARATOR ' & ') as attacker
@@ -113,20 +113,20 @@ class ShowRaportPage extends AbstractGamePage
 		$Info		= array($reportData["attacker"], $reportData["defender"]);
 		
 		if(!isset($reportData)) {
-			$this->printMessage($LNG['sys_raport_not_found']);
+			$this->printMessage($LNG['sys_report_not_found']);
 		}
 		
-		$combatReport			= unserialize($reportData['raport']);
+		$combatReport			= unserialize($reportData['report']);
 		$combatReport['time']	= _date($LNG['php_tdformat'], $combatReport['time'], $USER['timezone']);
 		$combatReport			= $this->BCWrapperPreRev2321($combatReport);
 		
 		$this->assign(array(
-			'Raport'	=> $combatReport,
+			'Report'	=> $combatReport,
 			'Info'		=> $Info,
 			'pageTitle'	=> $LNG['lm_topkb']
 		));
 		
-		$this->display('shared.mission.raport');
+		$this->display('shared.mission.report');
 	}
 	
 	function show() 
@@ -138,15 +138,15 @@ class ShowRaportPage extends AbstractGamePage
 
 		$db = Database::get();
 
-		$RID		= HTTP::_GP('raport', '');
+		$RID		= HTTP::_GP('report', '');
 
-		$sql = "SELECT raport,attacker,defender FROM %%RW%% WHERE rid = :reportID;";
+		$sql = "SELECT report,attacker,defender FROM %%RW%% WHERE rid = :reportID;";
 		$reportData = $db->selectSingle($sql, array(
 			':reportID'	=> $RID
 		));
 
 		if(empty($reportData)) {
-			$this->printMessage($LNG['sys_raport_not_found']);
+			$this->printMessage($LNG['sys_report_not_found']);
 		}
 		
 		// empty is BC for pre r2484
@@ -154,22 +154,22 @@ class ShowRaportPage extends AbstractGamePage
 		$isDefender = empty($reportData['defender']) || in_array($USER['id'], explode(",", $reportData['defender']));
 		
 		if(empty($reportData) || (!$isAttacker && !$isDefender)) {
-			$this->printMessage($LNG['sys_raport_not_found']);
+			$this->printMessage($LNG['sys_report_not_found']);
 		}
 
-		$combatReport			= unserialize($reportData['raport']);
+		$combatReport			= unserialize($reportData['report']);
 		if($isAttacker && !$isDefender && $combatReport['result'] == 'r' && count($combatReport['rounds']) <= 2) {
-			$this->printMessage($LNG['sys_raport_lost_contact']);
+			$this->printMessage($LNG['sys_report_lost_contact']);
 		}
 		
 		$combatReport['time']	= _date($LNG['php_tdformat'], $combatReport['time'], $USER['timezone']);
 		$combatReport			= $this->BCWrapperPreRev2321($combatReport);
 		
 		$this->assign(array(
-			'Raport'	=> $combatReport,
+			'Report'	=> $combatReport,
 			'pageTitle'	=> $LNG['sys_mess_attack_report']
 		));
 		
-		$this->display('shared.mission.raport');
+		$this->display('shared.mission.report');
 	}
 }

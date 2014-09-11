@@ -83,9 +83,9 @@ $LNG['registerPasswordDesc']		= 'Das Passwort muss mindestens 8 Zeichen lang sei
 $LNG['registerPasswordReplay']		= 'Passwort widerhohlen';
 $LNG['registerPasswordReplayDesc']	= 'Bitte wiederhole zur Sicherheit die Eingabe deines Paswortes!';
 $LNG['registerEmail']				= 'E-Mail';
-$LNG['registerEmailDesc']			= 'Bitte geben deine E-Mail-Adresse ein!';
+$LNG['registerEmailDesc']			= 'Bitte geben deine E-Mail-Addresse ein!';
 $LNG['registerEmailReplay']			= 'E-Mail wiederhohlen';
-$LNG['registerEmailReplayDesc']		= 'Bitte wiederhole zur Sicherheit die Eingabe deiner E-Mail-Adresse!';
+$LNG['registerEmailReplayDesc']		= 'Bitte wiederhole zur Sicherheit die Eingabe deiner E-Mail-Addresse!';
 $LNG['registerLanguage']			= 'Sprache';
 $LNG['registerReferral']			= 'Geworben von:';
 $LNG['registerCaptcha']				= 'Sicherheitscode';
@@ -103,15 +103,15 @@ $LNG['registerErrorUsernameChar']	= 'Im Nickname sind nur Zahlen, Buchstaben, Le
 $LNG['registerErrorUsernameExist']	= 'Der Nickname ist bereits vergeben!';
 $LNG['registerErrorPasswordLength']	= 'Das Passwort muss mindestens 6 Zeichen lang sein!';
 $LNG['registerErrorPasswordSame']	= 'Sie haben 2 unterschiedliche Passwörter eingegeben!';
-$LNG['registerErrorMailEmpty']		= 'Du musst eine E-Mail-Adresse angeben!';
-$LNG['registerErrorMailInvalid']	= 'Ungültige E-Mail-Adresse!';
-$LNG['registerErrorMailSame']		= 'Sie haben 2 unterschiedliche E-Mail-Adressen angegeben!';
-$LNG['registerErrorMailExist']		= 'Die E-Mail-Adresse ist bereits registriert!';
+$LNG['registerErrorMailEmpty']		= 'Du musst eine E-Mail-Addresse angeben!';
+$LNG['registerErrorMailInvalid']	= 'Ungültige E-Mail-Addresse!';
+$LNG['registerErrorMailSame']		= 'Sie haben 2 unterschiedliche E-Mail-Addressen angegeben!';
+$LNG['registerErrorMailExist']		= 'Die E-Mail-Addresse ist bereits registriert!';
 $LNG['registerErrorRules']			= 'Du musst die Regeln akzeptieren!';
 $LNG['registerErrorCaptcha']		= 'Der Sicherheitscode ist falsch!';
 
-$LNG['registerMailVertifyTitle']	= 'Aktivierung der Registrierung auf der Website: %s';
-$LNG['registerMailVertifyError']	= 'Fehler beim Versenden der Mail: %s';
+$LNG['registerMailVerifyTitle']	= 'Aktivierung der Registrierung auf der Website: %s';
+$LNG['registerMailVerifyError']	= 'Fehler beim Versenden der Mail: %s';
 
 $LNG['registerMailCompleteTitle']	= 'Willkommen bei %s!';
 
@@ -121,20 +121,20 @@ $LNG['registerWelcomePMSenderName']	= 'Administrator';
 $LNG['registerWelcomePMSubject']	= 'Willkommen';
 $LNG['registerWelcomePMText']		= 'Willkommen bei %s! Baue zuerst ein Solarkraftwerk, denn Energie wird für die spätere Rohstoffproduktion benötigt. Um diese zu bauen, klicke links im Menu auf "Gebäude". Danach baue das 4. Gebäude von oben. Da du nun Energie hast, kannst du anfangen Minen zu bauen. Gehe dazu wieder im Menü auf Gebäude und baue eine Metallmine, danach wieder eine Kristallmine. Um Schiffe bauen zu können musst du zuerst eine Raumschiffswerft gebaut haben. Was dafür benötigt wird findest du links im Menüpunkt Technologie. Das Team wünscht dir viel Spaß beim Erkunden des Universums!';
 
-//Vertify
+//Verify
 
 $LNG['vertifyNoUserFound']			= 'Ungültiger Anfrage!';
 $LNG['vertifyAdminMessage']			= 'Der Username "%s" wurder aktiviert!';
 
 
 //lostpassword
-$LNG['passwordInfo']				= 'Wenn du dein Kennwort vergessen hast, musst du den Benutzernamen und die E-Mail-Adresse angeben, die du in deinem Profil hinterlegt hast. Wenn du die Daten nicht mehr weißt, wende dich an den Gameadministrator.';
+$LNG['passwordInfo']				= 'Wenn du dein Kennwort vergessen hast, musst du den Benutzernamen und die E-Mail-Addresse angeben, die du in deinem Profil hinterlegt hast. Wenn du die Daten nicht mehr weißt, wende dich an den Gameadministrator.';
 $LNG['passwordUsername']			= 'Benutzernamen';
 $LNG['passwordMail']				= 'E-Mail';
 $LNG['passwordCaptcha']				= 'Sicherheitscode';
 $LNG['passwordSubmit']				= 'Absenden';
 $LNG['passwordErrorUsernameEmpty']	= 'Du hast keinen Benuternamen angegeben!';
-$LNG['passwordErrorMailEmpty']		= 'Du hast keine E-Mail-Adresse angegeben!';
+$LNG['passwordErrorMailEmpty']		= 'Du hast keine E-Mail-Addresse angegeben!';
 $LNG['passwordErrorUnknown']		= 'Es könnte kein Benutzterkonto mit den Daten gefunden werden.';
 $LNG['passwordErrorOnePerDay']		= 'Das Kennwort für dieses Benutzerkonto wurde in den letzten 24 Stunden bereits einmal angefordert. Aus Sicherheitsgründen kann das Kennwort eines Benutzers nur einmal pro Tag angefordert werden. Sie können das Kennwort für dieses Benutzerkonto in 24 Stunde(n) erneut anfordern. ';
 
@@ -164,7 +164,7 @@ $LNG['news_from']					= 'Am %s von %s';
 $LNG['news_does_not_exist']			= 'Keine News vorhanden!';
 
 //Impressum
-$LNG['disclamerLabelAddress']		= 'Adresse:';
+$LNG['disclamerLabelAddress']		= 'Addresse:';
 $LNG['disclamerLabelPhone']			= 'Telefon Nr.:';
-$LNG['disclamerLabelMail']			= 'E-Mail Adresse:';
+$LNG['disclamerLabelMail']			= 'E-Mail Addresse:';
 $LNG['disclamerLabelNotice']		= 'Weitere Informationen';

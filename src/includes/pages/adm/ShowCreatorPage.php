@@ -60,7 +60,7 @@ function ShowCreatorPage()
 				$config	= Config::get(Universe::getEmulated());
 
 				if (!PlayerUtil::isMailValid($UserMail))
-					$errors .= $LNG['invalid_mail_adress'];
+					$errors .= $LNG['invalid_mail_address'];
 					
 				if (empty($UserName))
 					$errors .= $LNG['empty_user_field'];

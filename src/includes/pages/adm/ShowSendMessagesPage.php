@@ -73,7 +73,7 @@ function ShowSendMessagesPage() {
 			}
 
 			if($Mode == 1 || $Mode == 2) {
-				require 'includes/classes/Mail.class.php';
+				require 'includes/classes/Mail.php';
 				$userList	= array();
 				
 				$USERS		= $GLOBALS['DATABASE']->query("SELECT `email`, `username` FROM ".USERS." WHERE `universe` = '".Universe::getEmulated()."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->sql_escape($Lang)."'": "").";");

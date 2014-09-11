@@ -366,7 +366,7 @@ class MissionCaseExpedition extends AbstractMission
 
 				$sql		= "INSERT INTO %%RW%% SET
 				rid			= :reportId,
-				raport		= :reportData,
+				report		= :reportData,
 				time		= :time,
 				attacker	= :attacker;";
 

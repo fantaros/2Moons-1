@@ -100,7 +100,7 @@ class ShowLostPasswordPage extends AbstractIndexPage
 			':newPassword'	=> PlayerUtil::cryptPassword($newPassword)
 		));
 
-		require 'includes/classes/Mail.class.php';
+		require 'includes/classes/Mail.php';
 
 		$subject	= sprintf($LNG['passwordChangedMailTitle'], $config->game_name);
 		Mail::send($userData['mail'], $userData['username'], $subject, $MailContent);
@@ -205,7 +205,7 @@ class ShowLostPasswordPage extends AbstractIndexPage
 			HTTP_PATH.'index.php?page=lostPassword&mode=newPassword&u='.$userID.'&k='.$validationKey,
 		), $MailRAW);
 		
-		require 'includes/classes/Mail.class.php';
+		require 'includes/classes/Mail.php';
 
 		$subject	= sprintf($LNG['passwordValidMailTitle'], $config->game_name);
 

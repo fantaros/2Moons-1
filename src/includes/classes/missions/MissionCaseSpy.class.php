@@ -173,10 +173,10 @@ class MissionCaseSpy extends AbstractMission
 		}
 
 		$targetMessage .= implode(' ',
-			GetStartAdressLink($this->fleetData),
+			GetStartAddressLink($this->fleetData),
 			$LNG['sys_mess_spy_seen_at'],
 			$targetPlanet['name'],
-			GetTargetAdressLink($this->fleetData),
+			GetTargetAddressLink($this->fleetData),
 			$LNG['sys_mess_spy_seen_at2']
 		);
 

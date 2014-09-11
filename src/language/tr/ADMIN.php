@@ -241,9 +241,9 @@ $LNG['se_smtp']                         ='<font color="yellow"> SMTP Ayarlari</f
 $LNG['se_smtp_info']					='SMTP server ayarlarini girerek AuGame server ile oyuncular arasinda haberlesme SMTP Mail sunucusu tarafindan saglanir.';
 $LNG['se_mail_active']                 ='Emaili aktif et?';
 $LNG['se_mail_use']						='Email versiyonu:';
-$LNG['se_mail_sel'][0]					='Function PHP mail()';
-$LNG['se_mail_sel'][1]					='Sendmail / Qmail';
-$LNG['se_mail_sel'][2]					='SMTP Auth';
+$LNG['se_mail_sel.0']					='Function PHP mail()';
+$LNG['se_mail_sel.1']					='Sendmail / Qmail';
+$LNG['se_mail_sel.2']					='SMTP Auth';
 $LNG['se_smail_path']					='Dosya dizini';
 $LNG['se_smtp_host']					='Sending Email:';
 $LNG['se_smtp_host']                    ='SMTP Host:';
@@ -327,9 +327,9 @@ $LNG['se_debris_moon_info']             ='Ay olustugu zaman harabe kabolsun mu';
 $LNG['se_buildlist']                    ='Insa/Uretim/Arastirma Listesi';
 $LNG['se_timzone']                      ='Zaman Dilimi';
 $LNG['se_dst_mode']                     ='Yaz/Kis Saati uygulamasi aktif?';
-$LNG['se_dst_sel'][0]                                   ='Evet';
-$LNG['se_dst_sel'][1]                                   ='Hayir';
-$LNG['se_dst_sel'][2]                                   ='Otomatik';
+$LNG['se_dst_sel.0']                                   ='Evet';
+$LNG['se_dst_sel.1']                                   ='Hayir';
+$LNG['se_dst_sel.2']                                   ='Otomatik';
 $LNG['se_max_dm_missions']				='Ayni anda yapilabilecek KM Arastirma Gorevi';
 $LNG['se_alliance_create_min_points']   = 'Ittifak kurmak icin gereken min. Puan';
 $LNG['se_disclamerAddress']				= 'Adres';
@@ -391,49 +391,49 @@ $LNG['fb_curl_no']                                              = '<span style="
 //---------------------MODULLER------------------------------------------------//
 //GameModule.php
 
-$LNG['modul'][0]                                        = 'Ittifak';
-$LNG['modul'][39]                                       = 'Savas Simulatoru';
-$LNG['modul'][2]                                        = 'Binalar';
-$LNG['modul'][3]                                        = 'Arastirma ';
-$LNG['modul'][4]                                        = 'Uretim - Filo';
-$LNG['modul'][5]                                        = 'Bina - Savunma';
-$LNG['modul'][6]                                        = 'Arkadas Listesi';
-$LNG['modul'][7]                                        = 'Chat';
-$LNG['modul'][8]                                        = 'KM Bank';
-$LNG['modul'][9]                                        = 'Filo';
-$LNG['modul'][10]                                       = 'Filo Hareketleri';
-$LNG['modul'][40]                                       = 'Filo Kisayollari';
-$LNG['modul'][11]                                       = 'Galaksi';
-$LNG['modul'][12]                                       = 'Top 100 Savas';
-$LNG['modul'][13]                                       = 'Tuccar';
-$LNG['modul'][14]                                       = 'Bilgiler';
-$LNG['modul'][15]                                       = 'Imparatorluk';
-$LNG['modul'][32]                                       = 'Harabe Toplama';
-$LNG['modul'][1]                                        = 'Saldiri';
-$LNG['modul'][31]                                       = 'KM Arastirma';
-$LNG['modul'][30]                                       = 'Kesif Ucusu';
-$LNG['modul'][33]                                       = 'Durmak';
-$LNG['modul'][35]                                       = 'Kolonilestirmek';
-$LNG['modul'][24]                                       = 'Casusluk';
-$LNG['modul'][36]                                       = 'Konuslanmak';
-$LNG['modul'][34]                                       = 'Nakliye';
-$LNG['modul'][29]                                       = 'Yoketmek';
-$LNG['modul'][42]										= 'Ittifak Saldirisi';
-$LNG['modul'][16]                                       = 'Duyurular';
-$LNG['modul'][17]                                       = 'Notlar';
-$LNG['modul'][18]                                       = 'Subaylar';
-$LNG['modul'][19]                                       = 'Radar';
-$LNG['modul'][20]                                       = 'Oyuncu Profili';
-$LNG['modul'][21]                                       = 'Banlilar';
-$LNG['modul'][22]                                       = 'Rekorlar';
-$LNG['modul'][23]                                       = 'Hammadde';
-$LNG['modul'][38]                                       = 'Hurdaci';
-$LNG['modul'][25]                                       = 'Istatistikler';
-$LNG['modul'][37]                                       = 'Istatistik banneri';
-$LNG['modul'][26]                                       = 'Ara';
-$LNG['modul'][27]                                       = 'Destek/Ticket';
-$LNG['modul'][28]                                       = 'Teknoloji';
-$LNG['modul'][41]                          				= 'Facebook';
+$LNG['modul.0']                                        = 'Ittifak';
+$LNG['modul.39']                                       = 'Savas Simulatoru';
+$LNG['modul.2']                                        = 'Binalar';
+$LNG['modul.3']                                        = 'Arastirma ';
+$LNG['modul.4']                                        = 'Uretim - Filo';
+$LNG['modul.5']                                        = 'Bina - Savunma';
+$LNG['modul.6']                                        = 'Arkadas Listesi';
+$LNG['modul.7']                                        = 'Chat';
+$LNG['modul.8']                                        = 'KM Bank';
+$LNG['modul.9']                                        = 'Filo';
+$LNG['modul.10']                                       = 'Filo Hareketleri';
+$LNG['modul.40']                                       = 'Filo Kisayollari';
+$LNG['modul.11']                                       = 'Galaksi';
+$LNG['modul.12']                                       = 'Top 100 Savas';
+$LNG['modul.13']                                       = 'Tuccar';
+$LNG['modul.14']                                       = 'Bilgiler';
+$LNG['modul.15']                                       = 'Imparatorluk';
+$LNG['modul.32']                                       = 'Harabe Toplama';
+$LNG['modul.1']                                        = 'Saldiri';
+$LNG['modul.31']                                       = 'KM Arastirma';
+$LNG['modul.30']                                       = 'Kesif Ucusu';
+$LNG['modul.33']                                       = 'Durmak';
+$LNG['modul.35']                                       = 'Kolonilestirmek';
+$LNG['modul.24']                                       = 'Casusluk';
+$LNG['modul.36']                                       = 'Konuslanmak';
+$LNG['modul.34']                                       = 'Nakliye';
+$LNG['modul.29']                                       = 'Yoketmek';
+$LNG['modul.42']										= 'Ittifak Saldirisi';
+$LNG['modul.16']                                       = 'Duyurular';
+$LNG['modul.17']                                       = 'Notlar';
+$LNG['modul.18']                                       = 'Subaylar';
+$LNG['modul.19']                                       = 'Radar';
+$LNG['modul.20']                                       = 'Oyuncu Profili';
+$LNG['modul.21']                                       = 'Banlilar';
+$LNG['modul.22']                                       = 'Rekorlar';
+$LNG['modul.23']                                       = 'Hammadde';
+$LNG['modul.38']                                       = 'Hurdaci';
+$LNG['modul.25']                                       = 'Istatistikler';
+$LNG['modul.37']                                       = 'Istatistik banneri';
+$LNG['modul.26']                                       = 'Ara';
+$LNG['modul.27']                                       = 'Destek/Ticket';
+$LNG['modul.28']                                       = 'Teknoloji';
+$LNG['modul.41']                          				= 'Facebook';
 $LNG['mod_module']                                      = 'Moduller';
 $LNG['mod_info']                                        = 'Oyundaki Moduller';
 $LNG['mod_active']                                      = 'Su an Aktif';
@@ -475,14 +475,14 @@ $LNG['vt_loadfile']					='Dosya listesi yukleniyor';
 
 //----------------------------------------------------------------------------//
 //Zamanlanmis Gorevler
-$LNG['cronName']['referral']		= 'Referans Bonusu';
-$LNG['cronName']['statistic']		= 'Istatistikler';
-$LNG['cronName']['daily']			= 'Gunluk Gorevler';
-$LNG['cronName']['cleaner']			= 'Eski Veriyi Sil';
-$LNG['cronName']['inactive']		= 'Inaktifleri Sil';
-$LNG['cronName']['teamspeak']		= 'Teamspeak guncelleme';
-$LNG['cronName']['tracking']		= 'Global Server Istatistik Guncellemesi';
-$LNG['cronName']['databasedump']	= 'Database backup';
+$LNG['cronName.referral']		= 'Referans Bonusu';
+$LNG['cronName.statistic']		= 'Istatistikler';
+$LNG['cronName.daily']			= 'Gunluk Gorevler';
+$LNG['cronName.cleaner']			= 'Eski Veriyi Sil';
+$LNG['cronName.inactive']		= 'Inaktifleri Sil';
+$LNG['cronName.teamspeak']		= 'Teamspeak guncelleme';
+$LNG['cronName.tracking']		= 'Global Server Istatistik Guncellemesi';
+$LNG['cronName.databasedump']	= 'Database backup';
 
 $LNG['cronjob_id']					= 'ID';
 $LNG['cronjob_name']				= 'Isim';
@@ -1074,8 +1074,8 @@ $LNG['ac_minimize_maximize']            ='Minimize/Maximize';
 $LNG['ac_account_data']                 ='Hesap Bilgileri';
 $LNG['ac_name']                         ='Isim';
 $LNG['ac_checkip_title']                ='IP adresini kontrol et';
-$LNG['ac_checkip'][1]                   ='<font color=aqua>Aktive Edilmis</font>';
-$LNG['ac_checkip'][0]                   ='<font color=#FF6600>Aktif Degil</font>';
+$LNG['ac_checkip.1']                   ='<font color=aqua>Aktive Edilmis</font>';
+$LNG['ac_checkip.0']                   ='<font color=#FF6600>Aktif Degil</font>';
 $LNG['ac_mail']                         ='Email';
 $LNG['ac_perm_mail']                    ='Kalici Email';
 $LNG['ac_auth_level']                   ='Seviye';
@@ -1146,41 +1146,41 @@ $LNG['ac_no_rank_level']                ='Bilgiyi gormek icin yeterli yetkiniz y
 //###########################################################//
 //-----------------------------------------------------------------------------//
 // Kullanici Tablosu
-$LNG['se_search_users'][0]				=	'ID';
-$LNG['se_search_users'][1]				=	'Isim';
-$LNG['se_search_users'][2]				=	'E-mail';
-$LNG['se_search_users'][3]				=	'Son Aktivite';
-$LNG['se_search_users'][4]				=	'Kayit Tarihi';
-$LNG['se_search_users'][5]				=	'Ultimate IP';
-$LNG['se_search_users'][6]				=	'Yetki';
-$LNG['se_search_users'][7]				=	'Ceza?';
-$LNG['se_search_users'][8]				=	'Tatil?';
+$LNG['se_search_users.0']				=	'ID';
+$LNG['se_search_users.1']				=	'Isim';
+$LNG['se_search_users.2']				=	'E-mail';
+$LNG['se_search_users.3']				=	'Son Aktivite';
+$LNG['se_search_users.4']				=	'Kayit Tarihi';
+$LNG['se_search_users.5']				=	'Ultimate IP';
+$LNG['se_search_users.6']				=	'Yetki';
+$LNG['se_search_users.7']				=	'Ceza?';
+$LNG['se_search_users.8']				=	'Tatil?';
 
 // Gezegen tablosu
-$LNG['se_search_planets'][0]			=	'ID';
-$LNG['se_search_planets'][1]			=	'Isim';
-$LNG['se_search_planets'][2]			=	"Gezegen";
-$LNG['se_search_planets'][3]			=	"Son aktivite";
-$LNG['se_search_planets'][4]			=	"Galaksi";
-$LNG['se_search_planets'][5]			=	"Sistem";
-$LNG['se_search_planets'][6]			=	"Gezegen";
-$LNG['se_search_planets'][7]			=	"Ay?";
+$LNG['se_search_planets.0']			=	'ID';
+$LNG['se_search_planets.1']			=	'Isim';
+$LNG['se_search_planets.2']			=	"Gezegen";
+$LNG['se_search_planets.3']			=	"Son aktivite";
+$LNG['se_search_planets.4']			=	"Galaksi";
+$LNG['se_search_planets.5']			=	"Sistem";
+$LNG['se_search_planets.6']			=	"Gezegen";
+$LNG['se_search_planets.7']			=	"Ay?";
 
 // Ban/Ceza Tablosu
-$LNG['se_search_banned'][0]				=	'ID';
-$LNG['se_search_banned'][1]				=	'Isim';
-$LNG['se_search_banned'][2]				=	"Baslangic";
-$LNG['se_search_banned'][3]				=	"Bitis";
-$LNG['se_search_banned'][4]				=	"Sebep";
-$LNG['se_search_banned'][5]				=	"Cezayi Veren";
+$LNG['se_search_banned.0']				=	'ID';
+$LNG['se_search_banned.1']				=	'Isim';
+$LNG['se_search_banned.2']				=	"Baslangic";
+$LNG['se_search_banned.3']				=	"Bitis";
+$LNG['se_search_banned.4']				=	"Sebep";
+$LNG['se_search_banned.5']				=	"Cezayi Veren";
 
 // Ittifak Tablosu
-$LNG['se_search_alliance'][0]			=	'ID';
-$LNG['se_search_alliance'][1]			=	'Isim';
-$LNG['se_search_alliance'][2]			=	"TAG";
-$LNG['se_search_alliance'][3]			=	"Administrator";
-$LNG['se_search_alliance'][4]			=	"Olusturma Tarihi";
-$LNG['se_search_alliance'][5]			=	"Uye Sayisi";
+$LNG['se_search_alliance.0']			=	'ID';
+$LNG['se_search_alliance.1']			=	'Isim';
+$LNG['se_search_alliance.2']			=	"TAG";
+$LNG['se_search_alliance.3']			=	"Administrator";
+$LNG['se_search_alliance.4']			=	"Olusturma Tarihi";
+$LNG['se_search_alliance.5']			=	"Uye Sayisi";
 //###########################################################//
 
 

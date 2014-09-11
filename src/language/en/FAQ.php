@@ -9,9 +9,9 @@
 $LNG['faq_overview']	= "FAQ";
  
 $LNG['questions']					= array();
-$LNG['questions'][1]['category']	= 'Tips for beginners';
-$LNG['questions'][1][1]['title']	= 'Step 1';
-$LNG['questions'][1][1]['body']		= <<<BODY
+$LNG['questions.1']['category']	= 'Tips for beginners';
+$LNG['questions.1'][1]['title']	= 'Step 1';
+$LNG['questions.1'][1]['body']		= <<<BODY
 <p>In this part of the Tutorial, it is described the main buildings of the game. This explains how they should be built in the beginning and what is required to build a successful Empire.</p>
 <h3>Solar plant:</h3>
 <p>In order to produce accurate, precise resources that build the Solar plant, that is required for a positive manufacturing resource, so that the production does not get negative or you have the resources produced by complete</p>
@@ -20,8 +20,8 @@ $LNG['questions'][1][1]['body']		= <<<BODY
 <h3>Crystal mine and DeutÃ © rio: synthesizer</h3>
 <p>The Crystal is an important resource for buildings, ships, and research. It is produced to a lesser extent than metal, which makes it more expensive.In the course of the game, you will see the how the Crystal is required. The deutÃ © is a source of energy, is the basis of fuel resources and an important research (research lab).</p>
 BODY;
-$LNG['questions'][1][2]['title']	= 'Step 2';
-$LNG['questions'][1][2]['body']		= <<<BODY
+$LNG['questions.1'][2]['title']	= 'Step 2';
+$LNG['questions.1'][2]['body']		= <<<BODY
 <p>To expand your Empire and compete with other players or you need to interact with other buildings. Through the research and construction of a Hangar to begin construction of your fleet and the dwarf Planetary Defense. Details can be found here:</p>
 <h3>The Hangar:</h3>
 <p>Here are all the ships that you have available in this game. Some ships will required a high amount of requirements so that they can be built. An overview of the ships or defence which has technical requirements can be found under the title "technology" in the menu. The higher the Hangar, faster can be constructed.</p>
@@ -30,8 +30,8 @@ $LNG['questions'][1][2]['body']		= <<<BODY
 <h3>Factory of Robots:</h3>
 <p>The factory of robots is an essential component. Through its expansion, the time of production of probes can be reduced, as well as the construction of buildings.</p>
 BODY;
-$LNG['questions'][1][3]['title']	= 'Step 3';
-$LNG['questions'][1][3]['body']		= <<<BODY
+$LNG['questions.1'][3]['title']	= 'Step 3';
+$LNG['questions.1'][3]['body']		= <<<BODY
 <p>This part of the tutorial is dedicated to defending the planet, as the first actions with your own fleet.</p>
 <h3>The Heartthrob's xia:</h3>
 <p>It is used to find other players. You will find s detailed information on other planets, and can also send a little of your fleet directly from this point of view. Besides, you can check at this point of view also, the contact with other players, or spy on another planet, if Espionage probes possuires</p>
@@ -41,9 +41,9 @@ $LNG['questions'][1][3]['body']		= <<<BODY
 <p>To be able to protect your own planet with the construction of Hangar, is also the construction of defence. These offer some protection against the enemies with your own fleet at the moment of attack of your adervesÃ. In contrast to the fleet, 70% of existing on the planet defense continues</p>
 BODY;
 
-$LNG['questions'][2]['category']	= 'The information advanced';
-$LNG['questions'][2][1]['title']	= 'Raid';
-$LNG['questions'][2][1]['body']		= <<<BODY
+$LNG['questions.2']['category']	= 'The information advanced';
+$LNG['questions.2'][1]['title']	= 'Raid';
+$LNG['questions.2'][1]['body']		= <<<BODY
 <h3>Raid:</h3>
 <p>It is the attack against other players for taking possession of them. There are several types of attacks such as:</p>
 <ul>
@@ -64,8 +64,8 @@ With the development of the destruction to "defeated" and how nobody can keep th
 
 BODY;
 
-$LNG['questions'][2][2]['title']	= 'Fleetsave';
-$LNG['questions'][2][2]['body']		= <<<BODY
+$LNG['questions.2'][2]['title']	= 'Fleetsave';
+$LNG['questions.2'][2]['body']		= <<<BODY
 <h3>How can I protect myself</h3>
 <p>A large number of weapons of Defense scares some players already unfortunately, and are lured by others. As a result, you lose a lot of features, once defenses, nothing goes to the field of destruction, when they are destroyed. The only exception is the so-called destruction of defences, in which the attacker when te attacks, creates the destruction defenses on destruction (7% loss of defence not destruction account, account is the total loss of the defense in combat).</p>
 <p>Additionally, there is the InterplanetÃ Missile, whose only aim is to destroy the defense. In contrast with the normal attack, the missiles are not again built. A well-planned attack, with several interplanetÃ missile reduces the danger at your own fleet considerably.</p>
@@ -77,8 +77,8 @@ $LNG['questions'][2][2]['body']		= <<<BODY
 <p>Another method of making fleet easily, is to make the Moon fleetsave Moon, in which enemies can't make phalanx the moons (Because these is that have the sensor!)</p>
 BODY;
 
-$LNG['questions'][2][3]['title']	= 'Moons';
-$LNG['questions'][2][3]['body']		= <<<BODY
+$LNG['questions.2'][3]['title']	= 'Moons';
+$LNG['questions.2'][3]['body']		= <<<BODY
 <p>A moon can occur when a field of destoÃ § os has at least some 100,000 units, which is then a 1% chance opportunity moon. High: is only 20% chance no matter how big is the moon.</p>
 <h3>General</h3>
 <p>The moons may have names like Planets but normally the default name is "Moon". You can have more than one moon, but a Moon by planet. The Satan © lites have the advantage that one of them invisible for the Fleetsave. On the Moon, you can build Warehouses, tank of DeutÃ © River, Fabrica de Robots or Nanites, Moonbase, Sensor Phalanx and the Portal Leap Quantico</p>
@@ -104,8 +104,8 @@ This order is only suggested if you are newbie, because of course the more exper
 <p>Destruction of 100000 units can render a 1% probability. The maximum probability is 20%.<p>
 BODY;
 
-$LNG['questions'][2][4]['title']	= 'Alliance';
-$LNG['questions'][2][4]['body']		= <<<BODY
+$LNG['questions.2'][4]['title']	= 'Alliance';
+$LNG['questions.2'][4]['body']		= <<<BODY
 <h3>How do I form an Alliance</h3>
 <p>Go to the menu "Alliance" and select "Create Alliance". In this page the TAG (Acronym) of the Alliance and the name of this. After these steps, run a fundaste Alliance</p>
 <p>Below you will find the following links:<br>"Members": Here you can see the list of all members<br>"Your rank": Here encontarÃ to your "patent" or rank of the Alliance if this is s administrator, next will find the menu Administration<br>"Global Message": This function you can send a general message to s all the existing players in the Alliance</p>

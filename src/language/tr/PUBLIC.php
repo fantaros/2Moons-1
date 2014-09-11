@@ -89,8 +89,8 @@ $LNG['registerErrorMailExist']		= 'Bu email zaten kayitli!';
 $LNG['registerErrorRules']			= 'Oyuna baslamadan once kurallari kabul etmelisiniz!';
 $LNG['registerErrorCaptcha']		= 'Guvenlik kodu dogru degil!';
 
-$LNG['registerMailVertifyTitle']	= 'Activation of registration on the game: %s';
-$LNG['registerMailVertifyError']	= 'Email gondermede basarisiz oldu: %s';
+$LNG['registerMailVerifyTitle']	= 'Activation of registration on the game: %s';
+$LNG['registerMailVerifyError']	= 'Email gondermede basarisiz oldu: %s';
 
 $LNG['registerMailCompleteTitle']	= ' %s dunyasina hosgeldiniz!';
 
@@ -100,7 +100,7 @@ $LNG['registerWelcomePMSenderName']	= 'Admin';
 $LNG['registerWelcomePMSubject']	= 'Hosgeldiniz';
 $LNG['registerWelcomePMText']		= ' %s dunyasina hosgeldin! Oncelikle solar enerji santrali yapmalisin, cunku hammadde uretimi icin enerjiye ihtiyacin vars. Insa etmek icin soldaki menuden binlara tiklayip,  acilan pencerede yukaridan 4. bina (solar enerji ) binasini insa et demen lazim </br> Enerjiden sonra madenleri insa etmeye baslayabilirsin. </br></br> Gemi uretmek icinse tersane yapmalisin. Onun icin de Robot Fabrikasini 2. kademeye getirmelisin.  Hangi binanin hangisini, yada hangi geminin uretilmesi icin nelere ihtiyacin var gormek icin soldaki menuden teknoloji butonuna tiklayip gorebilirsin. </br> Eger sorularin varsa, yeni baslayanlar menusune girebilirsin yada destek bileti gonderebilirsin.  </br></br> Hos ve guzel vakit gecirmen dilegiyle!';
 
-//Vertify
+//Verify
 
 $LNG['vertifyNoUserFound']			= 'Hata!';
 $LNG['vertifyAdminMessage']			= 'Kullanici adi "%s" aktif!';

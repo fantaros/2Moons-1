@@ -64,7 +64,7 @@ class TrackingCronjob implements CronjobTask
 
 		$serverData['version']		= Config::get(ROOT_UNI)->VERSION;
 
-        require_once 'includes/classes/HTTPRequest.class.php';
+        require_once 'includes/classes/HTTPRequest.php';
         $httpRequest = new HTTPRequest();
         $httpRequest->postData($serverData);
         $httpRequest->send();

@@ -38,9 +38,8 @@ date_default_timezone_set(@date_default_timezone_get());
 
 ini_set('display_errors', 1);
 ini_set('log_errors', 'On');
-ini_set('error_log', 'includes/error.log');
+ini_set('error_log', ROOT_PATH.'includes/error.log');
 
-header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	time());
 
 require 'includes/constants.php';
@@ -48,30 +47,9 @@ require 'includes/GeneralFunctions.php';
 set_exception_handler('exceptionHandler');
 set_error_handler('errorHandler');
 
-require 'includes/classes/ArrayUtil.class.php';
-require 'includes/classes/Cache.class.php';
-require 'includes/classes/Database.class.php';
-require 'includes/classes/Config.class.php';
-require 'includes/classes/DateUtil.class.php';
-require 'includes/classes/FleetUtil.class.php';
-require 'includes/classes/GameLink.class.php';
-require 'includes/classes/HTTP.class.php';
-require 'includes/classes/Language.class.php';
-require 'includes/classes/PlayerUtil.class.php';
-require 'includes/classes/Session.class.php';
-require 'includes/classes/Universe.class.php';
-
-require 'includes/classes/class.theme.php';
-require 'includes/classes/Template.class.php';
-
-require 'includes/classes/Element.class.php';
-require 'includes/classes/Vars.class.php';
-
 // Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
 HTTP::sendHeader('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 define('AJAX_REQUEST', HTTP::_GP('ajax', 0));
-
-$THEME		= new Theme();
 
 if (MODE === 'INSTALL')
 {
@@ -86,123 +64,32 @@ if(!file_exists('includes/config.php'))
 $config = Config::get();
 date_default_timezone_set($config->timezone);
 
-if (MODE === 'INGAME' || MODE === 'ADMIN')
+
+if (MODE !== 'INGAME' && MODE !== 'ADMIN')
 {
-	$session	= Session::get();
-
-	if(!$session->isValidSession())
-	{
-		HTTP::redirectTo('index.php?code=3');
-	}
-
-	require 'includes/classes/BuildUtil.class.php';
-	require 'includes/classes/QueueManager.class.php';
-	require 'includes/classes/Economy.class.php';
-
-    Vars::init();
-
-	if(!AJAX_REQUEST && MODE === 'INGAME' && isModulAvalible(MODULE_FLEET_EVENTS))
-    {
-		$token	= getRandomString();
-		$db		= Database::get();
-
-		$sql	= 'UPDATE %%FLEETS_EVENT%% SET `lockToken` = :lockToken WHERE `lockToken` IS NULL AND `time` <= :time;';
-
-		$db->update($sql, array(
-			':time'			=> Database::formatDate(TIMESTAMP),
-			':lockToken'	=> $token
-		));
-
-		if($db->rowCount() !== 0)
-		{
-			require 'includes/classes/FleetHandler.class.php';
-
-			$fleetObj	= new FleetHandler();
-			$fleetObj->setToken($token);
-			$fleetObj->run();
-
-			$fleetObj = NULL;
-		}
-	}
-	
-	$db		= Database::get();
-
-	$sql	= "SELECT 
-	user.*,
-	COUNT(message.message_id) as messages
-	FROM %%USERS%% as user
-	LEFT JOIN %%MESSAGES%% as message ON message.message_owner = user.id AND message.message_unread = :unread
-	WHERE user.id = :userId
-	GROUP BY message.message_owner;";
-	
-	$USER	= $db->selectSingle($sql, array(
-		':unread'	=> 1,
-		':userId'	=> $session->userId
-	));
-	
-	if(empty($USER))
-	{
-		HTTP::redirectTo('index.php?code=3');
-	}
-
-	$LNG	= new Language($USER['lang']);
-	$LNG->includeData(array('L18N', 'INGAME', 'TECH', 'CUSTOM'));
-	$THEME->setUserTheme($USER['dpath']);
-	
-	if($config->game_disable == 0 && $USER['authlevel'] == AUTH_USR) {
-		ShowErrorPage::printError($LNG['sys_closed_game'].'<br><br>'.$config->close_reason, false);
-	}
-
-	if($USER['bana'] == 1) {
-		ShowErrorPage::printError("<font size=\"6px\">".$LNG['css_account_banned_message']."</font><br><br>".sprintf($LNG['css_account_banned_expire'], _date($LNG['php_tdformat'], $USER['banaday'], $USER['timezone']))."<br><br>".$LNG['css_goto_homeside'], false);
-	}
-	
-	if (MODE === 'INGAME')
-	{
-		$universeAmount	= count(Universe::availableUniverses());
-		if(Universe::current() != $USER['universe'] && $universeAmount > 1)
-		{
-			HTTP::redirectToUniverse($USER['universe']);
-		}
-
-        $session	= Session::get();
-		$session->selectActivePlanet();
-
-		$sql	= "SELECT * FROM %%PLANETS%% WHERE id = :planetId;";
-		$PLANET	= $db->selectSingle($sql, array(
-			':planetId'	=> $session->planetId,
-		));
-
-		if(empty($PLANET))
-		{
-			$sql	= "SELECT * FROM %%PLANETS%% WHERE id = :planetId;";
-			$PLANET	= $db->selectSingle($sql, array(
-				':planetId'	=> $USER['id_planet'],
-			));
-			
-			if(empty($PLANET))
-			{
-				throw new Exception("Main Planet does not exist!");
-			}
-			else
-			{
-				$session->planetId = $USER['id_planet'];
-			}
-		}
-		
-		$USER['factor']		= PlayerUtil::getFactors($USER);
-		$USER['PLANETS']	= getPlanets($USER);
-	}
-	elseif (MODE === 'ADMIN')
-	{
-		$LNG->includeData(array('ADMIN', 'CUSTOM'));
-	}
-}
-elseif(MODE === 'LOGIN')
-{
-	$LNG	= new Language();
-	$LNG->getUserAgentLanguage();
-	$LNG->includeData(array('L18N', 'INGAME', 'PUBLIC', 'CUSTOM'));
+    return;
 }
 
-unset($db, $config, $universeAmount, $sql, $fleetObj);
+$session	= Session::get();
+if(!$session->isValid())
+{
+    HTTP::redirectTo('index.php?code=3');
+}
+
+Vars::init();
+
+$user = $session->getUser();
+
+if($config->game_disable == 0 && $user->can(ACL_CAN_ENTER_CLOSED_GAME)) {
+    ShowErrorPage::printError(sprintf('%s<br><br>%s', $user->translate('sys_closed_game'), $config->close_reason), false);
+}
+
+if($user->bana == 1) {
+    ShowErrorPage::printError(
+        sprintf('<font size="6px">%s</font><br><br>', $user->translate('css_account_banned_message')).
+        sprintf($LNG['css_account_banned_expire'], _date($user->translate('php_tdformat'), $user->banaday, $user->timezone)).
+        "<br><br>".$LNG['css_goto_homeside']
+        , false);
+}
+
+unset($user, $config, $universeAmount);

@@ -19,5 +19,5 @@
 
 function smarty_modifiercompiler_htmlPlanetPosition($params, $compiler)
 {
-	return BuildPlanetAdressLink($params[0]);
+	return BuildPlanetAddressLink($params[0]);
 }

@@ -52,7 +52,7 @@ $LNG['sys_mess_spy_ennemyfleet'] 			= "Yabanci gezegeninden";
 $LNG['sys_mess_spy_seen_at'] 				= "ait filo su gezegeninin Yakinlarinda ";
 $LNG['sys_mess_spy_seen_at2'] 				= 'goruldu';
 $LNG['sys_mess_spy_destroyed'] 				= '<font color="red">Casus sondaniz ile baglanti kurulamiyor! </font>';
-$LNG['sys_adress_planet'] 					= '[%s:%s:%s]';
+$LNG['sys_address_planet'] 					= '[%s:%s:%s]';
 
 $LNG['sys_stat_mess_stay']           		= 'Filo Konuslandirma';
 $LNG['sys_stat_mess'] 		         		= 'Filolariniz gezegene ulasti %s ve aktariliyor %s %s, %s %s ve %s %s.';
@@ -166,9 +166,9 @@ $LNG['sys_lost'] 							= 'Kayiplar';
 $LNG['sys_debris'] 							= 'Harabe Alani';
 $LNG['sys_destruc_title']       		   	= 'Asagidaki filolar Ay Yoketme Savasinda karsilastilar';
 $LNG['sys_mess_destruc_report']  		  	= 'Ay Yoketme Raporu';
-$LNG['sys_raport_not_found']				= 'Yanlis rapor kodu';
+$LNG['sys_report_not_found']				= 'Yanlis rapor kodu';
 
-$LNG['sys_raport_lost_contact']				= 'Saldiriya gonderdigin filo ile tum baglanti kesildi (bunun anlami filon ilk atesle yokedildi)';
+$LNG['sys_report_lost_contact']				= 'Saldiriya gonderdigin filo ile tum baglanti kesildi (bunun anlami filon ilk atesle yokedildi)';
 $LNG['sys_destruc_lune']          		 	= 'Ayin yok olma yuzdesi : %d%% ';
 $LNG['sys_destruc_rip']          			= 'Filonun imha olma yuzdesi : %d%%';
 $LNG['sys_destruc_stop']      			 	= 'Olum yildizlarin ay yok etme saldirisi sirasinda hesaba katilmayan bir sorun cikti. <br> SAVUNMA GUCLERI <br> Filolarin ay uzerindeki savunma filosu tarafindan yok edildiler...';
@@ -181,22 +181,22 @@ $LNG['sys_destruc_null']        		   	= 'Ay Yok etme Basarisizlikla Sonuclaniyor
 $LNG['fcp_colony']							= 'Koloni';
 $LNG['fl_simulate']							= 'Simulasyon';
 
-$LNG['type_mission'][1]  					= 'Saldir';
-$LNG['type_mission'][2]  					= 'Ittifak Saldirisi';
-$LNG['type_mission'][3]  					= 'Nakliye';
-$LNG['type_mission'][4]  					= 'Konuslanmak';
-$LNG['type_mission'][5]  					= 'Durmak';
-$LNG['type_mission'][6]  					= 'Casusluk';
-$LNG['type_mission'][7]  					= 'Kolonilestirmek';
-$LNG['type_mission'][8]  					= 'Sokmek';
-$LNG['type_mission'][9]  					= 'Yoketmek';
-$LNG['type_mission'][11]  					= 'KM Arastirma';
-$LNG['type_mission'][15] 					= 'Kesif Ucusu';
+$LNG['type_mission.1']  					= 'Saldir';
+$LNG['type_mission.2']  					= 'Ittifak Saldirisi';
+$LNG['type_mission.3']  					= 'Nakliye';
+$LNG['type_mission.4']  					= 'Konuslanmak';
+$LNG['type_mission.5']  					= 'Durmak';
+$LNG['type_mission.6']  					= 'Casusluk';
+$LNG['type_mission.7']  					= 'Kolonilestirmek';
+$LNG['type_mission.8']  					= 'Sokmek';
+$LNG['type_mission.9']  					= 'Yoketmek';
+$LNG['type_mission.11']  					= 'KM Arastirma';
+$LNG['type_mission.15'] 					= 'Kesif Ucusu';
 
-$LNG['type_planet_short'][1]  				= 'G';
-$LNG['type_planet_short'][2]  				= 'HA';
-$LNG['type_planet_short'][3]  				= 'A';
+$LNG['type_planet_short.1']  				= 'G';
+$LNG['type_planet_short.2']  				= 'HA';
+$LNG['type_planet_short.3']  				= 'A';
 
-$LNG['type_planet'][1]  					= 'Gezegen';
-$LNG['type_planet'][2]  					= 'Harabe';
-$LNG['type_planet'][3]  					= 'Ay';
+$LNG['type_planet.1']  					= 'Gezegen';
+$LNG['type_planet.2']  					= 'Harabe';
+$LNG['type_planet.3']  					= 'Ay';

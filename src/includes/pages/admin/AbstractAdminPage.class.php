@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-require 'includes/classes/AbstractPage.class.php';
+require 'includes/classes/AbstractPage.php';
 
 abstract class AbstractAdminPage extends AbstractPage
 {

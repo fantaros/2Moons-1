@@ -47,14 +47,14 @@ class MissionCaseColonisation extends AbstractMission
 
 		if (!$isPositionFree)
 		{
-			$message = sprintf($LNG['sys_colo_notfree'], GetTargetAdressLink($this->fleetData, ''));
+			$message = sprintf($LNG['sys_colo_notfree'], GetTargetAddressLink($this->fleetData, ''));
 		}
 		else
 		{
 			$allowPlanetPosition	= PlayerUtil::allowPlanetPosition($this->fleetData['fleet_end_planet'], $senderUser);
 			if(!$allowPlanetPosition)
 			{
-				$message = sprintf($LNG['sys_colo_notech'] , GetTargetAdressLink($this->fleetData, ''));
+				$message = sprintf($LNG['sys_colo_notech'] , GetTargetAddressLink($this->fleetData, ''));
 			}
 			else
 			{
@@ -74,7 +74,7 @@ class MissionCaseColonisation extends AbstractMission
 
 				if($currentPlanetCount >= $maxPlanetCount)
 				{
-					$message = sprintf($LNG['sys_colo_maxcolo'], GetTargetAdressLink($this->fleetData, ''), $maxPlanetCount);
+					$message = sprintf($LNG['sys_colo_maxcolo'], GetTargetAddressLink($this->fleetData, ''), $maxPlanetCount);
 				}
 				else
 				{
@@ -84,11 +84,11 @@ class MissionCaseColonisation extends AbstractMission
 
 					if($newPlanetId === false)
 					{
-						$message = sprintf($LNG['sys_colo_badpos'], GetTargetAdressLink($this->fleetData, ''));
+						$message = sprintf($LNG['sys_colo_badpos'], GetTargetAddressLink($this->fleetData, ''));
 					}
 					else
 					{
-						$message = sprintf($LNG['sys_colo_allisok'], GetTargetAdressLink($this->fleetData, ''));
+						$message = sprintf($LNG['sys_colo_allisok'], GetTargetAddressLink($this->fleetData, ''));
 						if (array_sum($this->fleetData['elements'][Vars::CLASS_FLEET]) == 1)
 						{
 							$this->killFleet();
@@ -141,7 +141,7 @@ class MissionCaseColonisation extends AbstractMission
 		}
 
 		$playerMessage	= sprintf($LNG['sys_stat_mess'],
-			GetStartAdressLink($this->fleetData, ''),
+			GetStartAddressLink($this->fleetData, ''),
 			Language::createHumanReadableList($resourceList)
 		);
 

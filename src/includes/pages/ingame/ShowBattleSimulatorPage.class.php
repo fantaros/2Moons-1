@@ -183,11 +183,11 @@ class ShowBattleSimulatorPage extends AbstractGamePage
             $shipData[$LNG['tech'][$elementId]] = ceil($debrisTotal / $elementObj->capacity);
         }
 
-		$stealResourceInformation	= sprintf($LNG['bs_derbis_raport'], Language::createHumanReadableList($shipData), $LNG['d_or']);
+		$stealResourceInformation	= sprintf($LNG['bs_derbis_report'], Language::createHumanReadableList($shipData), $LNG['d_or']);
 
         $stealResourceInformation	.= '<br>';
 		
-		$stealResourceInformation	.= sprintf($LNG['bs_steal_raport'], Language::createHumanReadableList(array(
+		$stealResourceInformation	.= sprintf($LNG['bs_steal_report'], Language::createHumanReadableList(array(
 			$LNG['tech'][202]	=> ceil($sumSteal / Vars::getElement(202)->capacity),
 			$LNG['tech'][203]	=> ceil($sumSteal / Vars::getElement(203)->capacity),
 			$LNG['tech'][217]	=> ceil($sumSteal / Vars::getElement(217)->capacity),
@@ -222,7 +222,7 @@ class ShowBattleSimulatorPage extends AbstractGamePage
 
         $db = Database::get();
 
-        $sql = "INSERT INTO %%RW%% SET rid = :reportID, raport = :reportData, time = :time;";
+        $sql = "INSERT INTO %%RW%% SET rid = :reportID, report = :reportData, time = :time;";
         $db->insert($sql,array(
             ':reportID'     => $reportID,
             ':reportData'   => serialize($reportData),

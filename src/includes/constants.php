@@ -47,16 +47,13 @@ define('HTTP_FILE'					, basename($_SERVER['SCRIPT_NAME']));
 define('HTTP_HOST'					, $_SERVER['HTTP_HOST']);
 define('HTTP_PATH'					, PROTOCOL.HTTP_HOST.HTTP_ROOT);
 
-if(!defined('AJAX_CHAT_PATH')) {
-	define('AJAX_CHAT_PATH', ROOT_PATH.'includes/libs/blueimp-ajax-chat/');
-}
+define('AJAX_CHAT_PATH'             , ROOT_PATH.'includes/libs/blueimp-ajax-chat/');
 
-if(!defined('CACHE_PATH')) {
-	define('CACHE_PATH', ROOT_PATH.'cache/');
-}
+define('CACHE_PATH'                 , ROOT_PATH.'cache/');
+define('CACHE_TEMPLATE_PATH'        , CACHE_PATH.'templates/');
 
-define('THEME_PATH', ROOT_PATH.'resource/theme/');
-define('TEMPLATE_PATH', ROOT_PATH.'templates/');
+define('THEME_PATH'                 , ROOT_PATH.'resource/theme/');
+define('TEMPLATE_PATH'              , ROOT_PATH.'templates/');
 
 define('BATTLE_ENGINE'				, 'xnova');
 
@@ -109,7 +106,7 @@ define('COMPARE_IP_BLOCKS'			, 2);
 // Max Round on Combats
 define('MAX_ATTACK_ROUNDS'			, 6);
 
-// Enable the one-Click SImulation on Spy-Raports
+// Enable the one-Click SImulation on Spy-Reports
 define('ENABLE_SIMULATOR_LINK'		, true);
 
 // Max. User Session in Seconds
@@ -219,3 +216,7 @@ define('FLEET_HOLD'					, 2);
 define('PLANET'                     , 1);
 define('DEBRIS'                     , 2);
 define('MOON'                       , 3);
+
+//ACL
+
+define('ACL_CAN_ENTER_CLOSED_GAME'  , 1);

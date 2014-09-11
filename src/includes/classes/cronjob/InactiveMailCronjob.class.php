@@ -39,7 +39,7 @@ class InactiveMailCronjob
 			/** @var $langObjects Language[] */
 			$langObjects	= array();
 		
-			require 'includes/classes/Mail.class.php';
+			require 'includes/classes/Mail.php';
 
 			$sql	= 'SELECT `id`, `username`, `lang`, `email`, `onlinetime`, `timezone`, `universe`
 			FROM %%USERS%% WHERE `inactive_mail` = 0 AND `onlinetime` < :time;';

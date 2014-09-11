@@ -31,8 +31,8 @@ class ScoreCronjob implements CronjobTask
 {
     function run()
     {
-        require 'includes/classes/StatisticBuilder.class.php';
-        $stat	= new StatisticBuilder();
+        require 'includes/classes/Score.php';
+        $stat	= new Score();
         $stat->MakeStats();
     }
 }

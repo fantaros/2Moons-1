@@ -65,7 +65,7 @@ class MissionCaseStay extends AbstractMission
 		}
 
 		$playerMessage	= sprintf($LNG['sys_stat_mess'],
-			GetTargetAdressLink($this->fleetData, ''),
+			GetTargetAddressLink($this->fleetData, ''),
 			Language::createHumanReadableList($resourceList)
 		);
 
@@ -92,7 +92,7 @@ class MissionCaseStay extends AbstractMission
 		}
 
 		$playerMessage	= sprintf($LNG['sys_stat_mess'],
-			GetStartAdressLink($this->fleetData, ''),
+			GetStartAddressLink($this->fleetData, ''),
 			Language::createHumanReadableList($resourceList)
 		);
 

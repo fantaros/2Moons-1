@@ -54,10 +54,10 @@ class MissionCaseDestruction extends AbstractMission
 		$debrisResource	= array(901, 902);
 
 		$messageHTML	= <<<HTML
-<div class="raportMessage">
+<div class="reportMessage">
 	<table>
 		<tr>
-			<td colspan="2"><a href="game.php?page=raport&raport=%s" target="_blank"><span class="%s">%s %s (%s)</span></a></td>
+			<td colspan="2"><a href="game.php?page=report&report=%s" target="_blank"><span class="%s">%s %s (%s)</span></a></td>
 		</tr>
 		<tr>
 			<td>%s</td><td><span class="%s">%s: %s</span>&nbsp;<span class="%s">%s: %s</span></td>
@@ -428,20 +428,20 @@ HTML;
 				// Win
 				$attackStatus	= 'wons';
 				$defendStatus	= 'loos';
-				$class			= array('raportWin', 'raportLose');
+				$class			= array('reportWin', 'reportLose');
 				break;
 			case "r":
 				// Lose
 				$attackStatus	= 'loos';
 				$defendStatus	= 'wons';
-				$class			= array('raportLose', 'raportWin');
+				$class			= array('reportLose', 'reportWin');
 				$reportInfo['moonDestroySuccess'] = -1;
 				break;
 			default:
 				// Draw
 				$attackStatus	= 'draws';
 				$defendStatus	= 'draws';
-				$class			= array('raportDraw', 'raportDraw');
+				$class			= array('reportDraw', 'reportDraw');
 				$reportInfo['moonDestroySuccess'] = -1;
 				break;
 		}
@@ -453,7 +453,7 @@ HTML;
 
 		$sql	= 'INSERT INTO %%RW%% SET
 		rid 		= :reportId,
-		raport 		= :reportData,
+		report 		= :reportData,
 		time 		= :time,
 		attacker	= :attackers,
 		defender	= :defenders;';
@@ -481,7 +481,7 @@ HTML;
 					$thisClass[$i],
 					$LNG['sys_mess_attack_report'],
 					sprintf(
-						$LNG['sys_adress_planet'],
+						$LNG['sys_address_planet'],
 						$this->fleetData['fleet_end_galaxy'],
 						$this->fleetData['fleet_end_system'],
 						$this->fleetData['fleet_end_planet']
@@ -627,7 +627,7 @@ HTML;
 		$playerMessage 	= sprintf(
 			$LNG['sys_fleet_won'],
 			$userData['name'],
-			GetTargetAdressLink($this->fleetData, ''),
+			GetTargetAddressLink($this->fleetData, ''),
 			Language::createHumanReadableList($resourceList)
 		);
 

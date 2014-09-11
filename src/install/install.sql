@@ -598,9 +598,9 @@ CREATE TABLE `prefix_queue` (
   KEY `userId` (`userId`,`planetId`,`endBuildTime`,`queueId`,`taskType`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE `prefix_raports` (
+CREATE TABLE `prefix_reports` (
   `rid` varchar(32) NOT NULL,
-  `raport` text NOT NULL,
+  `report` text NOT NULL,
   `time` int(11) NOT NULL,
   `attacker` varchar(255) NOT NULL DEFAULT '',
   `defender` varchar(255) NOT NULL DEFAULT '',

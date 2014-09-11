@@ -113,12 +113,12 @@ $LNG['step3_desc']				= 'Die von 2Moons genutzten Datenbank-Tabellen wurden nun 
 $LNG['step3_db_error']			= 'Fehler beim Erstellen der Datenbank-Tabellen:';
 
 $LNG['step4_head']				= 'Administrator erstellen';
-$LNG['step4_desc']				= 'Der Installationsassistent erstellt nun ein Administrator-Konto für Sie. Bitte geben Sie dazu einen Benutzernamen, eine E-Mail-Adresse und ein Kennwort ein.';
+$LNG['step4_desc']				= 'Der Installationsassistent erstellt nun ein Administrator-Konto für Sie. Bitte geben Sie dazu einen Benutzernamen, eine E-Mail-Addresse und ein Kennwort ein.';
 $LNG['step4_admin_name']		= 'Benutzername des Administrators:';
 $LNG['step4_admin_name_desc']	= 'Bitte gib einen Benutzernamen mit einer Länge von 3 bis 20 Zeichen ein.';
 $LNG['step4_admin_pass']		= 'Administrator-Passwort:';
 $LNG['step4_admin_pass_desc']	= 'Bitte gib ein Passwort mit einer Länge von 6 bis 30 Zeichen ein.';
-$LNG['step4_admin_mail']		= 'Kontakt-E-Mail-Adresse:';
+$LNG['step4_admin_mail']		= 'Kontakt-E-Mail-Addresse:';
 
 $LNG['step6_head']				= 'Herzlichen Glückwunsch!';
 $LNG['step6_desc']				= 'Du hast 2Moons erfolgreich installiert.';

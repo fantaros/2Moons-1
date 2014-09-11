@@ -30,13 +30,9 @@ define('MODE', 'CHAT');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 set_include_path(ROOT_PATH);
 
-require 'includes/pages/login/AbstractIndexPage.class.php';
-require 'includes/pages/login/ShowErrorPage.class.php';
 require 'includes/common.php';
 
-$session	= Session::get();
-
-if(!$session->isValidSession())
+if(!Session::get()->isValid(false))
 {
     HTTP::redirectTo('index.php?code=3');
 }

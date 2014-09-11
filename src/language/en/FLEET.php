@@ -50,7 +50,7 @@ $LNG['sys_mess_spy_ennemyfleet'] 			= "A hostile fleet of the planet";
 $LNG['sys_mess_spy_seen_at'] 				= "was sighted near your planet";
 $LNG['sys_mess_spy_seen_at2'] 				= 'sighted';
 $LNG['sys_mess_spy_destroyed'] 				= '<font color="red">Your spy probes were destroyed! </font>';
-$LNG['sys_adress_planet'] 					= '[%s:%s:%s]';
+$LNG['sys_address_planet'] 					= '[%s:%s:%s]';
 
 $LNG['sys_stat_mess_stay']           		= 'Located fleet';
 $LNG['sys_stat_mess'] 		         		= 'Your fleet reaches the planet %s and delivers %s %s, %s %s and %s %s.';
@@ -164,9 +164,9 @@ $LNG['sys_lost'] 							= 'Losses';
 $LNG['sys_debris'] 							= 'Rubblefield';
 $LNG['sys_destruc_title']       		   	= 'The following fleets face each other for a moon destruction:';
 $LNG['sys_mess_destruc_report']  		  	= 'Report: Moon destruction';
-$LNG['sys_raport_not_found']				= 'Invalid Battle Report ID';
+$LNG['sys_report_not_found']				= 'Invalid Battle Report ID';
 
-$LNG['sys_raport_lost_contact']				= 'The contact to the attacking fleet was lost (that is, it was shot down in the first round.)';
+$LNG['sys_report_lost_contact']				= 'The contact to the attacking fleet was lost (that is, it was shot down in the first round.)';
 $LNG['sys_destruc_lune']          		 	= 'The probability of a moon destruction is: %d%% ';
 $LNG['sys_destruc_rip']          			= 'The probability of a self-destruction of the fleet is: %d%%';
 $LNG['sys_destruc_stop']      			 	= 'The defender has blocked the moon destruction successfully.';
@@ -179,22 +179,22 @@ $LNG['sys_destruc_null']        		   	= 'The deathstars could not charge fully b
 $LNG['fcp_colony']							= 'Colony';
 $LNG['fl_simulate']							= 'Simulate';
 
-$LNG['type_mission'][1]  					= 'Attack';
-$LNG['type_mission'][2]  					= 'Alliance Attack';
-$LNG['type_mission'][3]  					= 'Transport';
-$LNG['type_mission'][4]  					= 'Station';
-$LNG['type_mission'][5]  					= 'Hold';
-$LNG['type_mission'][6]  					= 'Spy';
-$LNG['type_mission'][7]  					= 'Colonisation';
-$LNG['type_mission'][8]  					= 'Recycle';
-$LNG['type_mission'][9]  					= 'Destroy';
-$LNG['type_mission'][11]  					= 'DM Investigation';
-$LNG['type_mission'][15] 					= 'Expedition';
+$LNG['type_mission.1']  					= 'Attack';
+$LNG['type_mission.2']  					= 'Alliance Attack';
+$LNG['type_mission.3']  					= 'Transport';
+$LNG['type_mission.4']  					= 'Station';
+$LNG['type_mission.5']  					= 'Hold';
+$LNG['type_mission.6']  					= 'Spy';
+$LNG['type_mission.7']  					= 'Colonisation';
+$LNG['type_mission.8']  					= 'Recycle';
+$LNG['type_mission.9']  					= 'Destroy';
+$LNG['type_mission.11']  					= 'DM Investigation';
+$LNG['type_mission.15'] 					= 'Expedition';
 
-$LNG['type_planet_short'][1]  				= 'P';
-$LNG['type_planet_short'][2]  				= 'D';
-$LNG['type_planet_short'][3]  				= 'M';
+$LNG['type_planet_short.1']  				= 'P';
+$LNG['type_planet_short.2']  				= 'D';
+$LNG['type_planet_short.3']  				= 'M';
 
-$LNG['type_planet'][1]  					= 'Planet';
-$LNG['type_planet'][2]  					= 'Debris';
-$LNG['type_planet'][3]  					= 'Moon';
+$LNG['type_planet.1']  					= 'Planet';
+$LNG['type_planet.2']  					= 'Debris';
+$LNG['type_planet.3']  					= 'Moon';

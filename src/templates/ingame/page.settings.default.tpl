@@ -33,11 +33,11 @@
 			<td><input name="newpassword2" size="20" maxlength="40" type="password" class="autocomplete"></td>
 		</tr>
 		<tr>
-			<td><a title="{$LNG.op_email_adress_descrip}">{$LNG.op_email_adress}</a></td>
+			<td><a title="{$LNG.op_email_address_descrip}">{$LNG.op_email_address}</a></td>
 			<td><input name="email" maxlength="64" size="20" value="{$email}" type="text"></td>
 		</tr>
 		<tr>
-			<td style="height:22px;">{$LNG.op_permanent_email_adress}</td>
+			<td style="height:22px;">{$LNG.op_permanent_email_address}</td>
 			<td>{$permaEmail}</td>
 		</tr>
 		<tr>

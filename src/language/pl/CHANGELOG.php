@@ -337,8 +337,8 @@ TMOONS-346 - The doubling of the fleet',
 - FIX: clear planets after spy
 - FIX: little template iusses
 - FIX: SQL Error on FleetBack, if fleet is on a acs
-- FIX: JS Error on Combat Raports
-- FIX: Cron on statbuilder, who deletes raports
+- FIX: JS Error on Combat Reports
+- FIX: Cron on statbuilder, who deletes reports
 - FIX: Cross universe glitch on acs invations (StoNelHa) 
 . FIX: Case 6 on Expedition 
 - DIV: Sicherheit im Game erhöht
@@ -518,7 +518,7 @@ TMOONS-346 - The doubling of the fleet',
 - ADD: Mod Versions Control
 - ADD: Cronjoboption für Banner
 - ADD: Options for Loginmusic
-- FIX: Anzeigefehler in Raports
+- FIX: Anzeigefehler in Reports
 - FIX: Ressoucre Hack
 - FIX: Fleet Bugs
 - DEL: Unused Pictures

@@ -186,8 +186,8 @@ class MissionCaseMIP extends AbstractMission
 			':planetId'	=> $this->fleetData['fleet_start_id'],
 		), 'name');
 
-		$ownerLink			= $planetName." ".GetStartAdressLink($this->fleetData);
-		$targetLink 		= $targetData['name']." ".GetTargetAdressLink($this->fleetData);
+		$ownerLink			= $planetName." ".GetStartAddressLink($this->fleetData);
+		$targetLink 		= $targetData['name']." ".GetTargetAddressLink($this->fleetData);
 		$message			= sprintf($LNG['sys_irak_mess'], $missileAmount, $ownerLink, $targetLink).$message;
 
 		PlayerUtil::sendMessage($this->fleetData['fleet_target_owner'], 0, $LNG['sys_mess_tower'], 3,
