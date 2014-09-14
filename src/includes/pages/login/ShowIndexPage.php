@@ -23,7 +23,7 @@
  * @copyright 2008 Chlorel (XNova)
  * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0.$Revision: 2242 $ (2012-11-31)
+ * @version 2.0.0 (2012-11-31)
  * @info $Id: ShowIndexPage.class.php 2771 2013-08-01 21:04:28Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -51,7 +51,7 @@ class ShowIndexPage extends AbstractIndexPage
 		foreach(Universe::availableUniverses() as $uniId)
 		{
 			$config = Config::get($uniId);
-			$universeSelect[$uniId]	= $config->uni_name.($config->game_disable == 0 ? $LNG['uni_closed'] : '');
+			$universeSelect[$uniId]	= $config->uni_name.($config->game_disable == 0 ? $this->lang->uni_closed : '');
 		}
 		
 		$Code	= HTTP::_GP('code', 0);
@@ -66,9 +66,9 @@ class ShowIndexPage extends AbstractIndexPage
 		$this->assign(array(
 			'universeSelect'		=> $universeSelect,
 			'code'					=> $loginCode,
-			'descHeader'			=> sprintf($LNG['loginWelcome'], $config->game_name),
-			'descText'				=> sprintf($LNG['loginServerDesc'], $config->game_name),
-			'loginInfo'				=> sprintf($LNG['loginInfo'], '<a href="index.php?page=rules">'.$LNG['menu_rules'].'</a>')
+			'descHeader'			=> sprintf($this->lang->loginWelcome, $config->game_name),
+			'descText'				=> sprintf($this->lang->loginServerDesc, $config->game_name),
+			'loginInfo'				=> sprintf($this->lang->loginInfo, '<a href="index.php?page=rules">'.$this->lang->menu_rules.'</a>')
 		));
 		
 		$this->display('page.index.default');

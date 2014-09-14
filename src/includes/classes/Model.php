@@ -30,11 +30,17 @@
 
 class Model
 {
-    /* @var $db array */
+    /* @var $data array */
     protected $data;
+
+    /* @var $changed array */
+    protected $changed;
 
     /* @var $db Database */
     protected $db;
+
+    /* @var $table String */
+    protected $table;
 
     protected function __construct()
     {
@@ -54,6 +60,7 @@ class Model
     public function __set($name, $value)
     {
         $this->data[$name]	= $value;
+        $changed[$name]     = true;
     }
 
     public function __get($name)

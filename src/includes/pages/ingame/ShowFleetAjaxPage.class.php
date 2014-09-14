@@ -47,8 +47,6 @@ class ShowFleetAjaxPage extends AbstractGamePage
 	
 	public function show()
 	{
-		$UserDeuterium  = $PLANET['deuterium'];
-		
 		$planetID 		= HTTP::_GP('planetID', 0);
 		$targetMission	= HTTP::_GP('mission', 0);
 		
@@ -57,7 +55,7 @@ class ShowFleetAjaxPage extends AbstractGamePage
 		
 		$this->returnData['slots']		= $activeSlots;
 		
-		if ($this->user->hasVacationMode())
+		if ($this->user->onVacation())
         {
 			$this->sendData(620, $this->lang['fa_vacation_mode_current']);
 		}
@@ -151,39 +149,45 @@ class ShowFleetAjaxPage extends AbstractGamePage
 			$this->sendData(610, $this->lang['fa_not_enough_probes']);
 		}
 
-        $sql = "SELECT planet.id_owner as id_owner,
-		planet.galaxy as galaxy,
-		planet.system as system,
-		planet.planet as planet,
-		planet.planet_type as planet_type,
-		total_points, onlinetime, urlaubs_modus, banaday, authattack
-		FROM %%PLANETS%% planet
-		INNER JOIN %%USERS%% user ON planet.id_owner = user.id
-		LEFT JOIN %%STATPOINTS%% as stat ON stat.id_owner = user.id AND stat.stat_type = '1'
-		WHERE planet.id = :planetID;";
 
-        $targetData = $db->selectSingle($sql, array(
-            ':planetID' => $planetID
-        ));
+        if(!in_array($planetID, array_keys($this->user->getPlanetList())))
+        {
+            $targetPlanet   = new Planet($planetID);
+            if (!$targetPlanet)
+            {
+                $this->sendData(601, $this->lang['fa_planet_not_exist']);
+            }
 
-        if (empty($targetData)) {
-			$this->sendData(601, $this->lang['fa_planet_not_exist']);
-		}
+            $targetUser     = new User($this->planet->id_owner);
+        }
+        else
+        {
+            $targetPlanet   = $this->planet;
+            $targetUser     = $this->user;
+        }
 		
 		if($targetMission == 6)
 		{
-			if(Config::get()->adm_attack == 1 && $targetData['authattack'] > $this->user->authlevel) {
+            if ($this->user->id == $targetUser->id)
+            {
+                $this->sendData(618, $this->lang['fa_not_spy_yourself']);
+            }
+
+			if(Config::get()->adm_attack == 1 && $targetUser->authattack > $this->user->authlevel)
+            {
 				$this->sendData(619, $this->lang['fa_action_not_allowed']);
 			}
 			
-			if (IsVacationMode($targetData)) {
+			if ($targetUser->onVacation())
+            {
 				$this->sendData(605, $this->lang['fa_vacation_mode']);
 			}
+
 			$sql	= 'SELECT total_points
 			FROM %%STATPOINTS%%
 			WHERE id_owner = :userId AND stat_type = :statType';
 
-			$USER	+= Database::get()->selectSingle($sql, array(
+			$userStats = Database::get()->selectSingle($sql, array(
 				':userId'	=> $this->user->id,
 				':statType'	=> 1
 			));
@@ -197,21 +201,17 @@ class ShowFleetAjaxPage extends AbstractGamePage
 			if ($IsNoobProtec['StrongPlayer']) {
 				$this->sendData(604, $this->lang['fa_strong_player']);
 			}
-
-			if ($this->user->id == $targetData['id_owner']) {
-				$this->sendData(618, $this->lang['fa_not_spy_yourself']);
-			}
 		}
 		
 		$SpeedFactor    	= FleetUtil::GetGameSpeedFactor();
-		$Distance    		= FleetUtil::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($targetData['galaxy'], $targetData['system'], $targetData['planet']));
-		$SpeedAllMin		= FleetUtil::GetFleetMaxSpeed($fleetArray, $USER);
-		$Duration			= FleetUtil::GetMissionDuration(10, $SpeedAllMin, $Distance, $SpeedFactor, $USER);
-		$consumption		= FleetUtil::GetFleetConsumption($fleetArray, $Duration, $Distance, $USER, $SpeedFactor);
+		$Distance    		= FleetUtil::GetTargetDistance($this->planet, $targetPlanet);
+		$SpeedAllMin		= FleetUtil::GetFleetMaxSpeed($fleetArray, $this->user);
+		$Duration			= FleetUtil::GetMissionDuration(10, $SpeedAllMin, $Distance, $SpeedFactor, $this->user);
+		$consumption		= FleetUtil::GetFleetConsumption($fleetArray, $Duration, $Distance, $this->user, $SpeedFactor);
 
-		$UserDeuterium   	-= $consumption;
+		$$this->planet->deuterium   	-= $consumption;
 
-		if($UserDeuterium < 0) {
+		if($$this->planet->deuterium < 0) {
 			$this->sendData(613, $this->lang['fa_not_enough_fuel']);
 		}
 		
@@ -223,12 +223,10 @@ class ShowFleetAjaxPage extends AbstractGamePage
 			exit;
 			
 		$this->returnData['slots']++;
-		
-		$fleetResource	= array(
-			901	=> 0,
-			902	=> 0,
-			903	=> 0,
-		);
+
+        $fleetResource	= ArrayUtil::combineArrayWithSingleElement(
+            array_keys(Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_TRANSPORT))
+        , 0);
 
 		$fleetStartTime		= $Duration + TIMESTAMP;
 		$fleetStayTime		= $fleetStartTime;
@@ -236,11 +234,19 @@ class ShowFleetAjaxPage extends AbstractGamePage
 		
 		$shipID				= array_keys($fleetArray);
 		
-		FleetUtil::sendFleet($fleetArray, $targetMission, $this->user->id, $PLANET['id'], $PLANET['galaxy'],
-			$PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $targetData['id_owner'], $planetID,
+		FleetUtil::sendFleet($fleetArray, $targetMission, $this->user->id, $this->planet->id, $this->planet->galaxy,
+			$this->planet->system, $this->planet->planet, $this->planet->planet_type, $targetData['id_owner'], $planetID,
 			$targetData['galaxy'], $targetData['system'], $targetData['planet'], $targetData['planet_type'],
 			$fleetResource, $fleetStartTime, $fleetStayTime, $fleetEndTime);
 
-		$this->sendData(600, $this->lang['fa_sending']." ".array_sum($fleetArray)." ". $this->lang['tech'][$shipID[0]] ." ".$this->lang['gl_to']." ".$targetData['galaxy'].":".$targetData['system'].":".$targetData['planet']." ...");
+		$this->sendData(600, sprintf('%s %s %s %s [%s:%s:%s]',
+            $this->lang['fa_sending'],
+            array_sum($fleetArray),
+            $this->lang['tech.'.$shipID[0]],
+            $this->lang['gl_to'],
+            $targetData['galaxy'],
+            $targetData['system'],
+            $targetData['planet']
+        ));
 	}
 }

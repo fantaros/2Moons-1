@@ -195,7 +195,7 @@ function ShowLogSettingsList() {
 		2 => $LNG['log_statsettings'],
 		3 => $LNG['log_chatsettings'],
 		4 => $LNG['log_tssettings'],
-		5 => $LNG['log_disclamersettings']
+		5 => $LNG['log_disclaimersettings']
 	);
 	
 	while ($LogRow = $GLOBALS['DATABASE']->fetch_array($result))

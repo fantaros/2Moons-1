@@ -23,31 +23,24 @@
  * @copyright 2008 Chlorel (XNova)
  * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0.$Revision: 2242 $ (2012-11-31)
- * @info $Id: ShowDisclamerPage.class.php 2771 2013-08-01 21:04:28Z slaver7 $
+ * @version 2.0.0 (2012-11-31)
+ * @info $Id: ShowDisclaimerPage.class.php 2771 2013-08-01 21:04:28Z slaver7 $
  * @link http://2moons.cc/
  */
 
 
-class ShowDisclamerPage extends AbstractIndexPage
+class ShowDisclaimerPage extends AbstractIndexPage
 {
-	public static $requireModule = 0;
-
-	function __construct() 
-	{
-		parent::__construct();
-	}
-	
 	function show() 
 	{
 		$config	= Config::get();
 		$this->assign(array(
-			'disclamerAddress'	=> makebr($config->disclamerAddress),
-			'disclamerPhone'	=> $config->disclamerPhone,
-			'disclamerMail'		=> $config->disclamerMail,
-			'disclamerNotice'	=> $config->disclamerNotice,
+			'disclaimerAddress'	=> makebr($config->disclaimerAddress),
+			'disclaimerPhone'	=> $config->disclaimerPhone,
+			'disclaimerMail'		=> $config->disclaimerMail,
+			'disclaimerNotice'	=> $config->disclaimerNotice,
 		));
 		
-		$this->display('page.disclamer.default');
+		$this->display('page.disclaimer.default');
 	}
 }

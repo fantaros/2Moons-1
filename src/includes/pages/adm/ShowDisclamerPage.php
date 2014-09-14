@@ -22,13 +22,13 @@
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 2.0.0 (2013-03-18)
- * @info $Id: ShowDisclamerPage.php 2803 2013-10-06 22:23:27Z slaver7 $
+ * @info $Id: ShowDisclaimerPage.php 2803 2013-10-06 22:23:27Z slaver7 $
  * @link http://2moons.cc/
  */
 
 if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
 
-function ShowDisclamerPage()
+function ShowDisclaimerPage()
 {
 	global $LNG;
 
@@ -38,10 +38,10 @@ function ShowDisclamerPage()
 	if (!empty($_POST))
 	{
 		$config_before = array(	
-			'disclamerAddress'	=> $config->disclamerAddress,
-			'disclamerPhone'	=> $config->disclamerPhone,
-			'disclamerMail'	=> $config->disclamerMail,
-			'disclamerNotice'	=> $config->disclamerNotice,
+			'disclaimerAddress'	=> $config->disclaimerAddress,
+			'disclaimerPhone'	=> $config->disclaimerPhone,
+			'disclaimerMail'	=> $config->disclaimerMail,
+			'disclaimerNotice'	=> $config->disclaimerNotice,
 		);
 		
 		$disclaimerAddress	= HTTP::_GP('disclaimerAddress', '', true);
@@ -50,10 +50,10 @@ function ShowDisclamerPage()
 		$disclaimerNotice	= HTTP::_GP('disclaimerNotice', '', true);
 		
 		$config_after = array(	
-			'disclamerAddress'	=> $disclaimerAddress,
-			'disclamerPhone'	=> $disclaimerPhone,
-			'disclamerMail'		=> $disclaimerMail,
-			'disclamerNotice'	=> $disclaimerNotice,
+			'disclaimerAddress'	=> $disclaimerAddress,
+			'disclaimerPhone'	=> $disclaimerPhone,
+			'disclaimerMail'		=> $disclaimerMail,
+			'disclaimerNotice'	=> $disclaimerNotice,
 		);
 
 		foreach($config_after as $key => $value)
@@ -74,10 +74,10 @@ function ShowDisclamerPage()
     $template->execscript('$(\'textarea\').autosize();');
 
 	$template->assign_vars(array(
-		'disclaimerAddress'		=> $config->disclamerAddress,
-		'disclaimerPhone'		=> $config->disclamerPhone,
-		'disclaimerMail'		=> $config->disclamerMail,
-		'disclaimerNotice'		=> $config->disclamerNotice,
+		'disclaimerAddress'		=> $config->disclaimerAddress,
+		'disclaimerPhone'		=> $config->disclaimerPhone,
+		'disclaimerMail'		=> $config->disclaimerMail,
+		'disclaimerNotice'		=> $config->disclaimerNotice,
 		'se_server_parameters'	=> $LNG['mu_disclaimer'],
 		'se_save_parameters'	=> $LNG['se_save_parameters'],
 		'se_disclaimerAddress'	=> $LNG['se_disclaimerAddress'],
@@ -86,5 +86,5 @@ function ShowDisclamerPage()
 		'se_disclaimerNotice'	=> $LNG['se_disclaimerNotice'],
 	));
 	
-	$template->show('DisclamerConfigBody');
+	$template->show('DisclaimerConfigBody');
 }

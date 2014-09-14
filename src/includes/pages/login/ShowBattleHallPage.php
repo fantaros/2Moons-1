@@ -23,23 +23,15 @@
  * @copyright 2008 Chlorel (XNova)
  * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0.$Revision: 2242 $ (2012-11-31)
+ * @version 2.0.0 (2012-11-31)
  * @info $Id: ShowBattleHallPage.class.php 2771 2013-08-01 21:04:28Z slaver7 $
  * @link http://2moons.cc/
  */
 
 class ShowBattleHallPage extends AbstractIndexPage
 {
-	public static $requireModule = 0;
-
-	function __construct() 
-	{
-		parent::__construct();
-	}
-	
 	function show() 
 	{
-		global $LNG;
 		$db = Database::get();
 
 		$sql = "SELECT *, (
@@ -65,7 +57,7 @@ class ShowBattleHallPage extends AbstractIndexPage
 		foreach($hallRaw as $hallRow) {
 			$hallList[]	= array(
 				'result'	=> $hallRow['result'],
-				'time'		=> _date($LNG['php_tdformat'], $hallRow['time']),
+				'time'		=> _date($this->lang->php_tdformat, $hallRow['time']),
 				'units'		=> $hallRow['units'],
 				'rid'		=> $hallRow['rid'],
 				'attacker'	=> $hallRow['attacker'],

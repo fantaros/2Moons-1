@@ -23,7 +23,7 @@
  * @copyright 2008 Chlorel (XNova)
  * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0.$Revision: 2242 $ (2012-11-31)
+ * @version 2.0.0 (2012-11-31)
  * @info $Id: ShowNewsPage.class.php 2771 2013-08-01 21:04:28Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -50,7 +50,7 @@ class ShowNewsPage extends AbstractIndexPage
 		{
 			$newsList[]	= array(
 				'title' => $newsRow['title'],
-				'from' 	=> sprintf($LNG['news_from'], _date($LNG['php_tdformat'], $newsRow['date']), $newsRow['user']),
+				'from' 	=> sprintf($this->lang->news_from, _date($this->lang->php_tdformat, $newsRow['date']), $newsRow['user']),
 				'text' 	=> makebr($newsRow['text']),
 			);
 		}

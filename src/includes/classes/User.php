@@ -32,6 +32,9 @@ class User extends Model
 {
     private $data = false;
 
+    private $userId;
+    private $whereData;
+
     /* @var Planet */
     private $currentPlanet;
 
@@ -41,24 +44,47 @@ class User extends Model
     /* @var Array */
     private $planetList = array();
 
-    public function __construct($userId = NULL, $whereData = NULL)
+    public function __construct($userId = NULL, $whereData = NULL, $selectData = '*')
     {
-        $this->db = Database::get();
+        $this->db           = Database::get();
+        $this->userId       = $userId;
+        $this->whereData    = $whereData;
+
+
+        if(!isset($this->userId))
+        {
+            if(empty($selectData))
+            {
+                $selectData = 'id';
+            }
+            elseif($selectData != '*' && !in_array('id', $selectData))
+            {
+                array_push($selectData, 'id');
+            }
+        }
+
+        if(is_array($selectData))
+        {
+            $selectData = implode(',', $selectData);
+        }
 
         if(is_numeric($userId))
         {
-            $this->userData = $this->db->selectSingle("SELECT * FROM %USERS% WHERE id = :userId;", array(
+            $this->data = $this->db->selectSingle("SELECT ".$selectData." FROM %USERS% WHERE id = :userId;", array(
                 ':userId'   => $userId
             ));
 
-            if(empty($userData))
+            if(empty($this->data))
             {
                 $this->data = false;
             }
         }
         elseif(!empty($whereData) && is_array($whereData))
         {
-            $whereSql   = array();
+            $whereSql   = array(
+                ':universe' => Universe::current()
+            );
+
             $whereData  = array();
 
             foreach($whereData as $colum => $value)
@@ -67,9 +93,9 @@ class User extends Model
                 $whereSql[':'.$colum] = $this->db->escape($value);
             }
 
-            $this->data = $this->db->selectSingle("SELECT * FROM %USERS% WHERE ".implode(',', $whereData), $whereSql);
+            $this->data = $this->db->selectSingle("SELECT ".$selectData." FROM %USERS% WHERE universe = :universe AND ".implode(',', $whereData), $whereSql);
 
-            if(empty($this->userData))
+            if(empty($this->data))
             {
                 $this->data = false;
             }
@@ -88,7 +114,7 @@ class User extends Model
             WHERE message_owner = :userID
             AND message.message_unread = :unread'
         , array(
-            ':userID'   => $this->userData['id'],
+            ':userID'   => $this->userId,
             ':unread'   => 1
         ));
     }
@@ -175,7 +201,7 @@ class User extends Model
         return $this->planetList;
     }
 
-    public function hasVacationMode()
+    public function onVacation()
     {
         return $this->data['urlaubs_modus'] == 1;
     }
@@ -188,5 +214,25 @@ class User extends Model
     public function verifyPassword($password)
     {
         return $this->data['password'] === PlayerUtil::cryptPassword($password);
+    }
+
+    public function save()
+    {
+        if(empty($this->changed)) return;
+
+        $sql = "UPDATE TABLE %USERS% SET %s WHERE id = :userId;";
+
+        $sqlWhere   = array();
+        $sqlData    = array(
+            ':userId' => $this->userId
+        );
+
+        foreach($this->changed as $key => $value)
+        {
+            $sqlData[':'.$key]  = $value;
+            $sqlWhere[]         = ':'.$key.' = '.$key;
+        }
+
+        $this->db->update(sprintf($sql, implode(',', $sqlWhere)), $sqlData);
     }
 }

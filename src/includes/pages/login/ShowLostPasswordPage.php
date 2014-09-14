@@ -23,7 +23,7 @@
  * @copyright 2008 Chlorel (XNova)
  * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0.$Revision: 2242 $ (2012-11-31)
+ * @version 2.0.0 (2012-11-31)
  * @info $Id: ShowLostPasswordPage.class.php 2771 2013-08-01 21:04:28Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -66,8 +66,8 @@ class ShowLostPasswordPage extends AbstractIndexPage
 
 		if(empty($isValid))
 		{
-			$this->printMessage($LNG['passwordValidInValid'], array(array(
-				'label'	=> $LNG['passwordBack'],
+			$this->printMessage($this->lang->passwordValidInValid, array(array(
+				'label'	=> $this->lang->passwordBack,
 				'url'	=> 'index.php',
 			)));
 		}
@@ -102,7 +102,7 @@ class ShowLostPasswordPage extends AbstractIndexPage
 
 		require 'includes/classes/Mail.php';
 
-		$subject	= sprintf($LNG['passwordChangedMailTitle'], $config->game_name);
+		$subject	= sprintf($this->lang->passwordChangedMailTitle, $config->game_name);
 		Mail::send($userData['mail'], $userData['username'], $subject, $MailContent);
 
 		$sql = "UPDATE %%LOSTPASSWORD%% SET hasChanged = 1 WHERE userID = :userID AND `key` = :validationKey;";
@@ -111,8 +111,8 @@ class ShowLostPasswordPage extends AbstractIndexPage
 			':validationKey'	=> $validationKey
 		));
 
-		$this->printMessage($LNG['passwordChangedMailSend'], array(array(
-			'label'	=> $LNG['passwordNext'],
+		$this->printMessage($this->lang->passwordChangedMailSend, array(array(
+			'label'	=> $this->lang->passwordNext,
 			'url'	=> 'index.php',
 		)));
 	}
@@ -127,12 +127,12 @@ class ShowLostPasswordPage extends AbstractIndexPage
 		
 		if(empty($username))
 		{
-			$errorMessages[]	= $LNG['passwordUsernameEmpty'];
+			$errorMessages[]	= $this->lang->passwordUsernameEmpty;
 		}
 		
 		if(empty($mail))
 		{
-			$errorMessages[]	= $LNG['passwordErrorMailEmpty'];
+			$errorMessages[]	= $this->lang->passwordErrorMailEmpty;
 		}
 
 		$config	= Config::get();
@@ -147,7 +147,7 @@ class ShowLostPasswordPage extends AbstractIndexPage
 		
 			if (!$resp->is_valid)
 			{
-				$errorMessages[]	=  $LNG['registerErrorCaptcha'];
+				$errorMessages[]	=  $this->lang->registerErrorCaptcha;
 			}
 		}
 		
@@ -155,7 +155,7 @@ class ShowLostPasswordPage extends AbstractIndexPage
 		{
 			$message	= implode("<br>\r\n", $errorMessages);
 			$this->printMessage($message, array(array(
-				'label'	=> $LNG['passwordBack'],
+				'label'	=> $this->lang->passwordBack,
 				'url'	=> 'index.php?page=lostPassword',
 			)));
 		}
@@ -171,8 +171,8 @@ class ShowLostPasswordPage extends AbstractIndexPage
 
 		if(empty($userID))
 		{
-			$this->printMessage($LNG['passwordErrorUnknown'], array(array(
-				'label'	=> $LNG['passwordBack'],
+			$this->printMessage($this->lang->passwordErrorUnknown, array(array(
+				'label'	=> $this->lang->passwordBack,
 				'url'	=> 'index.php?page=lostPassword',
 			)));
 		}
@@ -185,8 +185,8 @@ class ShowLostPasswordPage extends AbstractIndexPage
 
 		if(!empty($hasChanged))
 		{
-			$this->printMessage($LNG['passwordErrorOnePerDay'], array(array(
-				'label'	=> $LNG['passwordBack'],
+			$this->printMessage($this->lang->passwordErrorOnePerDay, array(array(
+				'label'	=> $this->lang->passwordBack,
 				'url'	=> 'index.php?page=lostPassword',
 			)));
 		}
@@ -207,7 +207,7 @@ class ShowLostPasswordPage extends AbstractIndexPage
 		
 		require 'includes/classes/Mail.php';
 
-		$subject	= sprintf($LNG['passwordValidMailTitle'], $config->game_name);
+		$subject	= sprintf($this->lang->passwordValidMailTitle, $config->game_name);
 
 		Mail::send($mail, $username, $subject, $MailContent);
 
@@ -219,8 +219,8 @@ class ShowLostPasswordPage extends AbstractIndexPage
 			':remoteAddr'	=> $_SERVER['REMOTE_ADDR']
 		));
 
-		$this->printMessage($LNG['passwordValidMailSend'], array(array(
-			'label'	=> $LNG['passwordNext'],
+		$this->printMessage($this->lang->passwordValidMailSend, array(array(
+			'label'	=> $this->lang->passwordNext,
 			'url'	=> 'index.php',
 		)));
 	}

@@ -23,7 +23,7 @@
  * @copyright 2008 Chlorel (XNova)
  * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0.$Revision: 2242 $ (2012-11-31)
+ * @version 2.0.0 (2012-11-31)
  * @info $Id: ShowVerifyPage.class.php 2793 2013-09-29 12:33:56Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -59,7 +59,7 @@ class ShowVerifyPage extends AbstractIndexPage
 
 		if(empty($userData))
 		{
-			$this->printMessage($LNG['vertifyNoUserFound']);
+			$this->printMessage($this->lang->vertifyNoUserFound);
 		}
 
 		$config	= Config::get();
@@ -74,7 +74,7 @@ class ShowVerifyPage extends AbstractIndexPage
 		if($config->mail_active == 1)
 		{
 			require('includes/classes/Mail.php');
-			$MailSubject	= sprintf($LNG['registerMailCompleteTitle'], $config->game_name, Universe::current());
+			$MailSubject	= sprintf($this->lang->registerMailCompleteTitle, $config->game_name, Universe::current());
 			$MailRAW		= $LNG->getTemplate('email_reg_done');
 			$MailContent	= str_replace(array(
 				'{USERNAME}',
@@ -122,9 +122,9 @@ class ShowVerifyPage extends AbstractIndexPage
 			));
 		}
 
-		$senderName = $LNG['registerWelcomePMSenderName'];
-		$subject 	= $LNG['registerWelcomePMSubject'];
-		$message 	= sprintf($LNG['registerWelcomePMText'], $config->game_name, $userData['universe']);
+		$senderName = $this->lang->registerWelcomePMSenderName;
+		$subject 	= $this->lang->registerWelcomePMSubject;
+		$message 	= sprintf($this->lang->registerWelcomePMText, $config->game_name, $userData['universe']);
 
 		PlayerUtil::sendMessage($userID, 1, $senderName, 1, $subject, $message, TIMESTAMP);
 		
@@ -150,6 +150,6 @@ class ShowVerifyPage extends AbstractIndexPage
 	{
 		global $LNG;
 		$userData	= $this->_activeUser();
-		$this->sendJSON(sprintf($LNG['vertifyAdminMessage'], $userData['userName']));
+		$this->sendJSON(sprintf($this->lang->vertifyAdminMessage, $userData['userName']));
 	}
 }

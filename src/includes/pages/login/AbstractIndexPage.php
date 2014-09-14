@@ -30,6 +30,15 @@ require 'includes/classes/AbstractPage.php';
 
 abstract class AbstractIndexPage extends AbstractPage
 {
+    /* @var $lang Language */
+    protected $lang;
+
+    function __construct()
+    {
+        parent::__construct();
+        $this->lang = new Language();
+    }
+
 	protected function getUniverseSelector()
 	{
 		$universeSelect	= array();
@@ -43,11 +52,9 @@ abstract class AbstractIndexPage extends AbstractPage
 
     protected function assignBasicData()
     {
-        global $LNG;
-
         $config	= Config::get();
         $this->assign(array(
-            'lang'    			    => $LNG->getLanguage(),
+            'lang'    			    => $this->lang->getLanguage(),
             'basePath'			    => PROTOCOL.HTTP_HOST.HTTP_BASE,
             'isMultiUniverse'	    => count(Universe::availableUniverses()) > 1,
             'recaptchaEnable'		=> $config->capaktiv,

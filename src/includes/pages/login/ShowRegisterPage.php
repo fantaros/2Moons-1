@@ -23,21 +23,15 @@
  * @copyright 2008 Chlorel (XNova)
  * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0.$Revision: 2242 $ (2012-11-31)
+ * @version 2.0.0 (2012-11-31)
  * @info $Id: ShowRegisterPage.class.php 2771 2013-08-01 21:04:28Z slaver7 $
  * @link http://2moons.cc/
  */
 
 class ShowRegisterPage extends AbstractIndexPage
 {
-	function __construct() 
-	{
-		parent::__construct();
-	}
-	
 	function show()
 	{
-		global $LNG;
 		$universeSelect	= array();	
 		$referralData	= array('id' => 0, 'name' => '');
 		$accountName	= "";
@@ -48,7 +42,7 @@ class ShowRegisterPage extends AbstractIndexPage
 		foreach(Universe::availableUniverses() as $uniId)
 		{
 			$config = Config::get($uniId);
-			$universeSelect[$uniId]	= $config->uni_name.($config->game_disable == 0 || $config->reg_closed == 1 ? $LNG['uni_closed'] : '');
+			$universeSelect[$uniId]	= $config->uni_name.($config->game_disable == 0 || $config->reg_closed == 1 ? $this->lang->uni_closed : '');
 		}
 		
 		if(!isset($externalAuth['account'], $externalAuth['method']))
@@ -86,17 +80,14 @@ class ShowRegisterPage extends AbstractIndexPage
 		$config			= Config::get();
 		if($config->ref_active == 1 && !empty($referralID))
 		{
-			$db = Database::get();
+            $referralUser   = new User(null, array(
+                'id'	    => $referralID,
+                'universe'	=> Universe::current()
+            ), 'username');
 
-			$sql = "SELECT username FROM %%USERS%% WHERE id = :referralID AND universe = :universe;";
-			$referralAccountName = $db->selectSingle($sql, array(
-				':referralID'	=> $referralID,
-				':universe'		=> Universe::current()
-			), 'username');
-
-			if(!empty($referralAccountName))
+			if(!empty($referralUser->username))
 			{
-				$referralData	= array('id' => $referralID, 'name' => $referralAccountName);
+				$referralData	= array('id' => $referralID, 'name' => $referralUser->username);
 			}
 		}
 		
@@ -105,7 +96,7 @@ class ShowRegisterPage extends AbstractIndexPage
 			'accountName'		=> $accountName,
 			'externalAuth'		=> $externalAuth,
 			'universeSelect'	=> $universeSelect,
-			'registerRulesDesc'	=> sprintf($LNG['registerRulesDesc'], '<a href="index.php?page=rules">'.$LNG['menu_rules'].'</a>')
+			'registerRulesDesc'	=> sprintf($this->lang->registerRulesDesc, '<a href="index.php?page=rules">'.$this->lang->menu_rules.'</a>')
 		));
 		
 		$this->display('page.register.default');
@@ -118,8 +109,8 @@ class ShowRegisterPage extends AbstractIndexPage
 
 		if($config->game_disable == 0 || $config->reg_closed == 1)
 		{
-			$this->printMessage($LNG['registerErrorUniClosed'], array(array(
-				'label'	=> $LNG['registerBack'],
+			$this->printMessage($this->lang->registerErrorUniClosed, array(array(
+				'label'	=> $this->lang->registerBack,
 				'url'	=> 'javascript:window.history.back()',
 			)));
 		}
@@ -149,35 +140,35 @@ class ShowRegisterPage extends AbstractIndexPage
 		$errors 	= array();
 		
 		if(empty($userName)) {
-			$errors[]	= $LNG['registerErrorUsernameEmpty'];
+			$errors[]	= $this->lang->registerErrorUsernameEmpty;
 		}
 		
 		if(!PlayerUtil::isNameValid($userName)) {
-			$errors[]	= $LNG['registerErrorUsernameChar'];
+			$errors[]	= $this->lang->registerErrorUsernameChar;
 		}
 		
 		if(strlen($password) < 6) {
-			$errors[]	= $LNG['registerErrorPasswordLength'];
+			$errors[]	= $this->lang->registerErrorPasswordLength;
 		}
 			
 		if($password != $password2) {
-			$errors[]	= $LNG['registerErrorPasswordSame'];
+			$errors[]	= $this->lang->registerErrorPasswordSame;
 		}
 			
 		if(!PlayerUtil::isMailValid($mailAddress)) {
-			$errors[]	= $LNG['registerErrorMailInvalid'];
+			$errors[]	= $this->lang->registerErrorMailInvalid;
 		}
 			
 		if(empty($mailAddress)) {
-			$errors[]	= $LNG['registerErrorMailEmpty'];
+			$errors[]	= $this->lang->registerErrorMailEmpty;
 		}
 		
 		if($mailAddress != $mailAddress2) {
-			$errors[]	= $LNG['registerErrorMailSame'];
+			$errors[]	= $this->lang->registerErrorMailSame;
 		}
 		
 		if($rulesChecked != 1) {
-			$errors[]	= $LNG['registerErrorRules'];
+			$errors[]	= $this->lang->registerErrorRules;
 		}
 		
 		$db = Database::get();
@@ -220,11 +211,11 @@ class ShowRegisterPage extends AbstractIndexPage
 		), 'count');
 		
 		if($countUsername!= 0) {
-			$errors[]	= $LNG['registerErrorUsernameExist'];
+			$errors[]	= $this->lang->registerErrorUsernameExist;
 		}
 			
 		if($countMail != 0) {
-			$errors[]	= $LNG['registerErrorMailExist'];
+			$errors[]	= $this->lang->registerErrorMailExist;
 		}
 		
 		if ($config->capaktiv === '1') {
@@ -237,13 +228,13 @@ class ShowRegisterPage extends AbstractIndexPage
 		
 			if (!$resp->is_valid)
 			{
-				$errors[]	= $LNG['registerErrorCaptcha'];
+				$errors[]	= $this->lang->registerErrorCaptcha;
 			}
 		}
 						
 		if (!empty($errors)) {
 			$this->printMessage(implode("<br>\r\n", $errors), array(array(
-				'label'	=> $LNG['registerBack'],
+				'label'	=> $this->lang->registerBack,
 				'url'	=> 'javascript:window.history.back()',
 			)));
 		}
@@ -336,10 +327,10 @@ class ShowRegisterPage extends AbstractIndexPage
 				$config->smtp_sendmail,
 			), $MailRAW);
 
-			$subject	= sprintf($LNG['registerMailVerifyTitle'], $config->game_name);
+			$subject	= sprintf($this->lang->registerMailVerifyTitle, $config->game_name);
 			Mail::send($mailAddress, $userName, $subject, $MailContent);
 			
-			$this->printMessage($LNG['registerSendComplete']);
+			$this->printMessage($this->lang->registerSendComplete);
 		}
 	}
 }

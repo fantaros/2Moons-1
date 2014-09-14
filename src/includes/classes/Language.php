@@ -103,6 +103,11 @@ class Language implements ArrayAccess
 	
     public function __construct($language = NULL)
 	{
+        if(is_null($language))
+        {
+            $language = $this->getUserAgentLanguage();
+        }
+
 		$this->setLanguage($language);
     }
 	
@@ -197,9 +202,13 @@ class Language implements ArrayAccess
 
         return $string;
     }
-	
+
+    public function __get($offset)
+    {
+        return isset($this->container[$offset]) ? $this->container[$offset] : $offset;
+    }
+
 	/** ArrayAccess Functions **/
-	
     public function offsetSet($offset, $value) {
         if (is_null($offset)) {
             $this->container[] = $value;

@@ -23,21 +23,15 @@
  * @copyright 2008 Chlorel (XNova)
  * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0.$Revision: 2242 $ (2012-11-31)
+ * @version 2.0.0 (2012-11-31)
  * @info $Id: ShowBoardPage.class.php 2771 2013-08-01 21:04:28Z slaver7 $
  * @link http://2moons.cc/
  */
 
 class ShowBoardPage extends AbstractIndexPage
 {
-	function __construct() 
-	{
-		parent::__construct();
-	}
-
 	function show()
 	{
-		global $LNG;
 		$boardUrl	= Config::get()->forum_url;
 		if(filter_var($boardUrl, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED))
 		{
@@ -45,7 +39,7 @@ class ShowBoardPage extends AbstractIndexPage
 		}
 		else
 		{
-			$this->printMessage($LNG['bad_forum_url']);
+			$this->printMessage($this->lang->bad_forum_url);
 		}
 	}
 }

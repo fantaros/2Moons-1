@@ -90,7 +90,7 @@ abstract class AbstractGamePage extends AbstractPage
                 {
                     $resourceTable[$elementId]['current']		= $this->planet->$elementName;
                     $resourceTable[$elementId]['max']			= $this->planet->{$elementName.'_max'};
-                    if($this->user->hasVacationMode() || $this->planet->planet_type != PLANET)
+                    if($this->user->onVacation() || $this->planet->planet_type != PLANET)
                     {
                         $resourceTable[$elementId]['production']	= 0;
                     }
@@ -105,7 +105,7 @@ abstract class AbstractGamePage extends AbstractPage
         $vacation        = false;
         $deleteAccount   = false;
 
-        if($this->user->hasVacationMode())
+        if($this->user->onVacation())
         {
             $vacation       = _date($this->lang['php_tdformat'], $this->user->urlaubs_until, $this->user->timezone);
         }
