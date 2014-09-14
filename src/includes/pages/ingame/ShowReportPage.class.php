@@ -21,15 +21,21 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowReportPage.class.php 2776 2013-08-05 21:30:40Z slaver7 $
  * @link http://2moons.cc/
  */
 
 class ShowReportPage extends AbstractGamePage
 {
-
 	protected $disableEcoSystem = true;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->lang->includeData(array('FLEET'));
+        $this->setWindow('popup');
+    }
 
     private function BCWrapperPreRev2321($combatReport)
 	{
@@ -81,13 +87,8 @@ class ShowReportPage extends AbstractGamePage
 	
 	function battlehall() 
 	{
-
-		$this->lang->includeData(array('FLEET'));
-		$this->setWindow('popup');
-
-		$db = Database::get();
-
-		$RID		= HTTP::_GP('report', '');
+		$db         = Database::get();
+		$reportId   = HTTP::_GP('report', '');
 
 		$sql = "SELECT 
 			report, time,
@@ -105,8 +106,9 @@ class ShowReportPage extends AbstractGamePage
 			) as defender
 			FROM %%RW%%
 			WHERE rid = :reportID;";
+
 		$reportData = $db->selectSingle($sql, array(
-			':reportID'	=> $RID
+			':reportID'	=> $reportId
 		));
 
 		$Info		= array($reportData["attacker"], $reportData["defender"]);
@@ -130,17 +132,12 @@ class ShowReportPage extends AbstractGamePage
 	
 	function show() 
 	{
-
-		$this->lang->includeData(array('FLEET'));
-		$this->setWindow('popup');
-
-		$db = Database::get();
-
-		$RID		= HTTP::_GP('report', '');
+		$db         = Database::get();
+        $reportId   = HTTP::_GP('report', '');
 
 		$sql = "SELECT report,attacker,defender FROM %%RW%% WHERE rid = :reportID;";
 		$reportData = $db->selectSingle($sql, array(
-			':reportID'	=> $RID
+			':reportID'	=> $reportId
 		));
 
 		if(empty($reportData)) {
@@ -151,12 +148,14 @@ class ShowReportPage extends AbstractGamePage
 		$isAttacker = empty($reportData['attacker']) || in_array($this->user->id, explode(",", $reportData['attacker']));
 		$isDefender = empty($reportData['defender']) || in_array($this->user->id, explode(",", $reportData['defender']));
 		
-		if(empty($reportData) || (!$isAttacker && !$isDefender)) {
+		if(empty($reportData) || (!$isAttacker && !$isDefender))
+        {
 			$this->printMessage($this->lang['sys_report_not_found']);
 		}
 
 		$combatReport			= unserialize($reportData['report']);
-		if($isAttacker && !$isDefender && $combatReport['result'] == 'r' && count($combatReport['rounds']) <= 2) {
+		if($isAttacker && !$isDefender && $combatReport['result'] == 'r' && count($combatReport['rounds']) <= 2)
+        {
 			$this->printMessage($this->lang['sys_report_lost_contact']);
 		}
 		

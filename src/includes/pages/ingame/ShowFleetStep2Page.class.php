@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowFleetStep2Page.class.php 2801 2013-10-05 23:55:41Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -53,7 +53,7 @@ class ShowFleetStep2Page extends AbstractGamePage
 			)));
 		}
 
-        if ($PLANET['galaxy'] == $targetGalaxy && $PLANET['system'] == $targetSystem && $PLANET['planet'] == $targetPlanet && $PLANET['planet_type'] == $targetType)
+        if ($this->planet->galaxy == $targetGalaxy && $this->planet->system == $targetSystem && $this->planet->planet == $targetPlanet && $this->planet->planet_type == $targetType)
         {
             $this->printMessage($this->lang['fl_error_same_planet'], array(array(
                 'label'	=> $this->lang['sys_back'],
@@ -82,7 +82,7 @@ class ShowFleetStep2Page extends AbstractGamePage
 
 		$missionData	= $session->{"fleet_$token"};
 
-		if($missionData['userId'] != $this->user->id || $missionData['planetId'] != $PLANET['id'])
+		if($missionData['userId'] != $this->user->id || $missionData['planetId'] != $this->planet->id)
 		{
 			unset($session->{"fleet_$token"});
 			$this->printMessage($this->lang['invalid_action'], array(array(
@@ -133,7 +133,7 @@ class ShowFleetStep2Page extends AbstractGamePage
 		$MaxFleetSpeed 		= FleetUtil::GetFleetMaxSpeed($missionData['fleetData'], $USER);
 
 		$distance			= FleetUtil::GetTargetDistance(
-			array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']),
+			array($this->planet->galaxy, $this->planet->system, $this->planet->planet),
 			array($targetGalaxy, $targetSystem, $targetPlanet)
 		);
 
@@ -208,10 +208,10 @@ class ShowFleetStep2Page extends AbstractGamePage
 		$this->assign(array(
 			'token' 				=> $token,
 			'ownPlanet'			 	=> array(
-				'galaxy'	=> $PLANET['galaxy'],
-				'system'	=> $PLANET['system'],
-				'planet'	=> $PLANET['planet'],
-				'type'		=> $PLANET['planet_type']
+				'galaxy'	=> $this->planet->galaxy,
+				'system'	=> $this->planet->system,
+				'planet'	=> $this->planet->planet,
+				'type'		=> $this->planet->planet_type
 			),
 			'fleetData'				=> $fleetData,
 			'targetMission'			=> $targetMission,

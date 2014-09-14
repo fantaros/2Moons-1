@@ -22,7 +22,7 @@
  * @copyright 2009 Lucky
  * @copyright 2011 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2011-07-31)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: dbtables.php 2787 2013-08-13 20:30:56Z slaver7 $
  * @link http://2moons.cc/
  */

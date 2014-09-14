@@ -21,12 +21,11 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowNotesPage.class.php 2800 2013-10-04 22:07:04Z slaver7 $
  * @link http://2moons.cc/
  */
 
- 
 class ShowNotesPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_NOTICE;
@@ -40,7 +39,6 @@ class ShowNotesPage extends AbstractGamePage
 	
 	function show()
 	{
-
         $db = Database::get();
 
         $sql = "SELECT * FROM %%NOTES%% WHERE owner = :userID ORDER BY priority DESC, time DESC;";
@@ -69,7 +67,6 @@ class ShowNotesPage extends AbstractGamePage
 	
 	function detail()
 	{
-
 		$noteID		= HTTP::_GP('id', 0);
 		
 		if(!empty($noteID)) {
@@ -134,12 +131,11 @@ class ShowNotesPage extends AbstractGamePage
 	
 	function delete()
 	{
-
 		$deleteIds	= HTTP::_GP('delmes', array());
 		$deleteIds	= array_keys($deleteIds);
 		$deleteIds	= array_filter($deleteIds, 'is_numeric');
 
-		if(empty($deleteIds))
+		if(!empty($deleteIds))
 		{
             $sql = 'DELETE FROM %%NOTES%% WHERE id IN ('.implode(', ', $deleteIds).') AND owner = :userID;';
 			Database::get()->delete($sql, array(

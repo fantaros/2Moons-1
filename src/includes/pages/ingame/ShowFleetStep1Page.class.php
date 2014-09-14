@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowFleetStep1Page.class.php 2803 2013-10-06 22:23:27Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -33,10 +33,10 @@ class ShowFleetStep1Page extends AbstractGamePage
     public function show()
 	{
 
-		$targetGalaxy 	= HTTP::_GP('galaxy', (int) $PLANET['galaxy']);
-		$targetSystem 	= HTTP::_GP('system', (int) $PLANET['system']);
-		$targetPlanet	= HTTP::_GP('planet', (int) $PLANET['planet']);
-		$targetType 	= HTTP::_GP('type', (int) $PLANET['planet_type']);
+		$targetGalaxy 	= HTTP::_GP('galaxy', (int) $this->planet->galaxy);
+		$targetSystem 	= HTTP::_GP('system', (int) $this->planet->system);
+		$targetPlanet	= HTTP::_GP('planet', (int) $this->planet->planet);
+		$targetType 	= HTTP::_GP('type', (int) $this->planet->planet_type);
 		
 		$targetMission	= HTTP::_GP('target_mission', 0);
 
@@ -66,10 +66,10 @@ class ShowFleetStep1Page extends AbstractGamePage
 		$missionData	= array(
 			'fleetRoom'	=> floattostring($fleetRoom),
 			'data'		=> $this->_calculateCost($fleetData, array(
-				'galaxy' 	=> $PLANET['galaxy'],
-				'system' 	=> $PLANET['system'],
-				'planet' 	=> $PLANET['planet'],
-				'type' 		=> $PLANET['planet_type']
+				'galaxy' 	=> $this->planet->galaxy,
+				'system' 	=> $this->planet->system,
+				'planet' 	=> $this->planet->planet,
+				'type' 		=> $this->planet->planet_type
 			), 100)
 		);
 
@@ -78,7 +78,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 
         $session->{"fleet_$token"} = array(
 			'userId'		=> $this->user->id,
-			'planetId'		=> $PLANET['id'],
+			'planetId'		=> $this->planet->id,
 			'time'			=> TIMESTAMP,
 			'fleetData'		=> $fleetData,
 			'fleetRoom'	    => $fleetRoom,
@@ -170,7 +170,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 		
 		foreach($this->user->PLANETS as $planet)
 		{
-			if ($PLANET['id'] == $planet['id'])
+			if ($this->planet->id == $planet['id'])
 				continue;
 			
 			$ColonyList[] = array(
@@ -234,7 +234,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 		$targetPlanet		= HTTP::_GP('planet', 0);
 		$targetType			= HTTP::_GP('type', 1);
 	
-		if($targetGalaxy == $PLANET['galaxy'] && $targetSystem == $PLANET['system'] && $targetPlanet == $PLANET['planet'] && $targetType == $PLANET['planet_type'])
+		if($targetGalaxy == $this->planet->galaxy && $targetSystem == $this->planet->system && $targetPlanet == $this->planet->planet && $targetType == $this->planet->planet_type)
 		{
 			$this->sendJSON($this->lang['fl_error_same_planet']);
 		}
@@ -303,7 +303,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 		}
 		else
 		{
-			if ($USER[Vars::getElement(124)->name] == 0)
+			if ($this->user->getElement(124) == 0)
 			{
 				$this->sendJSON($this->lang['fl_target_not_exists']);
 			}
@@ -322,7 +322,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 	private function _calculateCost($fleetData, $planetPosition, $fleetSpeed)
 	{
 
-		$distance   	= FleetUtil::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array_values($planetPosition));
+		$distance   	= FleetUtil::GetTargetDistance(array($this->planet->galaxy, $this->planet->system, $this->planet->planet), array_values($planetPosition));
 		$fleetMaxSpeed 	= FleetUtil::GetFleetMaxSpeed($fleetData, $USER);
 		$SpeedFactor    = FleetUtil::GetGameSpeedFactor();
 		$duration      	= FleetUtil::GetMissionDuration($fleetSpeed, $fleetMaxSpeed, $distance, $SpeedFactor, $USER);

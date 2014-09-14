@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: FleetUtil.class.php 2801 2013-10-05 23:55:41Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -30,9 +30,9 @@ class FleetUtil
 {
 	static $allowedSpeed	= array(100, 90, 80, 70, 60, 50, 40, 30, 20, 10);
 	
-	private static function GetShipConsumption(Element $elementObj, $USER)
+	private static function GetShipConsumption(Element $elementObj, $user)
 	{
-        $techLevel      = self::getShipTechLevel($elementObj, $USER);
+        $techLevel      = self::getShipTechLevel($elementObj, $user);
 
         $consumption    = array();
         foreach(array_keys(Vars::getElements(NULL, array(Vars::FLAG_RESOURCE_PLANET, Vars::FLAG_RESOURCE_USER))) as $elementId)
@@ -43,7 +43,7 @@ class FleetUtil
 		return $consumption;
 	}
 
-	public static function getShipTechLevel(Element $elementObj, $USER)
+	public static function getShipTechLevel(Element $elementObj, $user)
 	{
         if(is_null($elementObj->speed2Tech))
         {
@@ -52,7 +52,7 @@ class FleetUtil
 
         $tech2ElementObj    = Vars::getElement($elementObj->speed2Tech);
 
-        if($USER[$tech2ElementObj->name] < $elementObj->speed2onLevel)
+        if($user[$tech2ElementObj->name] < $elementObj->speed2onLevel)
         {
             return 1;
         }
@@ -64,7 +64,7 @@ class FleetUtil
 
         $tech3ElementObj    = Vars::getElement($elementObj->speed3Tech);
 
-        if($USER[$tech3ElementObj->name] < $elementObj->speed3onLevel)
+        if($user[$tech3ElementObj->name] < $elementObj->speed3onLevel)
         {
             return 2;
         }
@@ -72,9 +72,9 @@ class FleetUtil
         return 3;
 	}
 
-	private static function GetShipSpeed(Element $elementObj, $USER)
+	private static function GetShipSpeed(Element $elementObj, $user)
 	{
-        $techLevel  = self::getShipTechLevel($elementObj, $USER);
+        $techLevel  = self::getShipTechLevel($elementObj, $user);
 
         $techElementObj = $elementObj->{'speed'.$techLevel.'Tech'};
 
@@ -83,32 +83,32 @@ class FleetUtil
 		switch($elementObj->{'speed'.$techLevel.'Tech'})
 		{
 			case 115:
-				$speed	*= 1 + (0.1 * $USER[$techElementObj->name]);
+				$speed	*= 1 + (0.1 * $user[$techElementObj->name]);
 			break;
 			case 117:
-				$speed	*= 1 + (0.2 * $USER[$techElementObj->name]);
+				$speed	*= 1 + (0.2 * $user[$techElementObj->name]);
 			break;
 			case 118:
-				$speed	*= 1 + (0.3 * $USER[$techElementObj->name]);
+				$speed	*= 1 + (0.3 * $user[$techElementObj->name]);
 			break;
 		}
 
 		return $speed;
 	}
 	
-	public static function getExpeditionLimit($USER)
+	public static function getExpeditionLimit(User $user)
 	{
-		return floor(sqrt($USER[Vars::getElement(124)->name]));
+		return floor(sqrt($user->getElement(124)));
 	}
 	
-	public static function getDMMissionLimit($USER)
+	public static function getDMMissionLimit(User $user)
 	{
-		return Config::get($USER['universe'])->max_dm_missions;
+		return Config::get($user->universe)->max_dm_missions;
 	}
 	
-	public static function getMissileRange($USER)
+	public static function getMissileRange(User $user)
 	{
-		return max(($USER[Vars::getElement(117)->name] * 5) - 1, 0);
+		return max(($user->getElement(117) * 5) - 1, 0);
 	}
 	
 	public static function isValidCustomFleetSpeed($speed)
@@ -130,11 +130,11 @@ class FleetUtil
 		return 5;
 	}
 
-	public static function GetMissionDuration($SpeedFactor, $MaxFleetSpeed, $Distance, $GameSpeed, $USER)
+	public static function GetMissionDuration($SpeedFactor, $MaxFleetSpeed, $Distance, $GameSpeed, $user)
 	{
 		$duration	= (3500 / ($SpeedFactor / 100)) * pow($Distance * 10 / $MaxFleetSpeed, 0.5) + 10;
 		$duration	/= $GameSpeed;
-		$duration	+= PlayerUtil::getBonusValue($SpeedFactor, 'FlyTime', $USER);
+		$duration	+= PlayerUtil::getBonusValue($SpeedFactor, 'FlyTime', $user);
 
 		return max(round($duration), MIN_FLEET_TIME);
 	}
@@ -152,9 +152,9 @@ class FleetUtil
 		return Config::get()->fleet_speed / 2500;
 	}
 	
-	public static function GetMaxFleetSlots($USER)
+	public static function GetMaxFleetSlots($user)
 	{
-		return 1 + PlayerUtil::getBonusValue(1, 'FleetSlots', $USER);
+		return 1 + PlayerUtil::getBonusValue(1, 'FleetSlots', $user);
 	}
 
 	public static function GetFleetRoom($fleetData)
@@ -168,20 +168,20 @@ class FleetUtil
 		return $FleetRoom;
 	}
 	
-	public static function GetFleetMaxSpeed($fleetData, $USER)
+	public static function GetFleetMaxSpeed($fleetData, $user)
 	{
         $fleetData = !is_array($fleetData) ? array($fleetData) : array_keys($fleetData);
 		$shipSpeeds = array();
 		
 		foreach ($fleetData as $elementId)
         {
-            $shipSpeeds[$elementId] = self::GetShipSpeed(Vars::getElement($elementId), $USER);
+            $shipSpeeds[$elementId] = self::GetShipSpeed(Vars::getElement($elementId), $user);
 		}
 		
 		return min($shipSpeeds);
 	}
 
-	public static function GetFleetConsumption($fleetData, $MissionDuration, $MissionDistance, $USER, $GameSpeed)
+	public static function GetFleetConsumption($fleetData, $MissionDuration, $MissionDistance, $user, $GameSpeed)
 	{
 		$elementResourceIds	= array_keys(Vars::getElements(Vars::CLASS_RESOURCE, array(Vars::FLAG_RESOURCE_PLANET, Vars::FLAG_RESOURCE_USER)));
 		$missionConsumption = ArrayUtil::combineArrayWithSingleElement($elementResourceIds, 0);
@@ -189,8 +189,8 @@ class FleetUtil
 		foreach ($fleetData as $elementId => $shipAmount)
 		{
             $elementObj         = Vars::getElement($elementId);
-			$shipSpeed          = self::GetShipSpeed($elementObj, $USER);
-			$shipConsumption    = self::GetShipConsumption($elementObj, $USER);
+			$shipSpeed          = self::GetShipSpeed($elementObj, $user);
+			$shipConsumption    = self::GetShipConsumption($elementObj, $user);
 
 			$basicValue			= 35000 / (round($MissionDuration, 0) * $GameSpeed - 10) * sqrt($MissionDistance * 10 / $shipSpeed);
 
@@ -203,17 +203,17 @@ class FleetUtil
 		return $missionConsumption;
 	}
 
-	public static function getStayTimes($USER, $availableMissions)
+	public static function getStayTimes(User $user, $availableMissions)
 	{
 		$stayTimes	= array();
 
-		$haltSpeed	= Config::get($USER['universe'])->halt_speed;
+		$haltSpeed	= Config::get($user['universe'])->halt_speed;
 
 		$availableMissions	= array_keys($availableMissions);
 
 		if (isset($availableMissions[15]))
 		{
-			$level = $USER[Vars::getElement(124)->name];
+			$level = $user->getElement(124);
 
 			for($i = 1;$i <= $level;$i++)
 			{
@@ -277,7 +277,7 @@ class FleetUtil
         return true;
 	}
 
-	public static function getUsedSlots($userId, $fleetMission = 10, $thisMission = false)
+	public static function getUsedSlots(User $user, $fleetMission = 10, $thisMission = false)
 	{
 		if($thisMission)
 		{
@@ -295,13 +295,14 @@ class FleetUtil
 		}
 
 		$ActualFleets = Database::get()->selectSingle($sql, array(
-			':userId'		=> $userId,
+			':userId'		=> $user->id,
 			':fleetMission'	=> $fleetMission,
 		));
+
 		return $ActualFleets['state'];
 	}	
 	
-	public static function SendFleetBack($USER, $FleetID)
+	public static function SendFleetBack(User $user, $FleetID)
 	{
 		$db				= Database::get();
 
@@ -310,7 +311,7 @@ class FleetUtil
 			':fleetId'	=> $FleetID,
 		));
 
-		if ($fleetResult['fleet_owner'] != $USER['id'] || $fleetResult['fleet_mess'] == 1)
+		if ($fleetResult['fleet_owner'] != $user->id || $fleetResult['fleet_mess'] == 1)
 		{
 			return false;
 		}
@@ -377,15 +378,15 @@ class FleetUtil
 		return true;
 	}
 	
-	public static function GetFleetShipInfo($fleetData, $USER)
+	public static function GetFleetShipInfo($fleetData, $user)
 	{
 		$FleetInfo	= array();
 		foreach ($fleetData as $elementId => $Amount)
         {
 
 			$FleetInfo[$elementId]	= array(
-                'consumption'   => self::GetShipConsumption(Vars::getElement($elementId), $USER),
-                'speed'         => self::GetFleetMaxSpeed($elementId, $USER),
+                'consumption'   => self::GetShipConsumption(Vars::getElement($elementId), $user),
+                'speed'         => self::GetFleetMaxSpeed($elementId, $user),
                 'amount'        => floattostring($Amount)
             );
 		}
@@ -405,13 +406,13 @@ class FleetUtil
         return $structure;
 	}
 
-	public static function getAvailableMissions($USER, $fleetData, $targetPlanet, $isFleetGroup)
+	public static function getAvailableMissions(User $user, $fleetData, $targetPlanet, $isFleetGroup)
 	{	
-		$ownPlanet				= !empty($targetPlanet['id_owner']) && $targetPlanet['id_owner'] == $USER['id'] ? true : false;
+		$ownPlanet				= !empty($targetPlanet['id_owner']) && $targetPlanet['id_owner'] == $user['id'] ? true : false;
 		$usedPlanet				= !!$targetPlanet;
 		$availableMissions		= array();
 		
-		if ($targetPlanet['planet'] == (Config::get($USER['universe'])->max_planets + 1) && isModulAvalible(MODULE_MISSION_EXPEDITION))
+		if ($targetPlanet['planet'] == (Config::get($user['universe'])->max_planets + 1) && $user->can(MODULE_MISSION_EXPEDITION))
 		{
 			$availableMissions[]	= 15;
 		}
@@ -419,7 +420,7 @@ class FleetUtil
 		{
 			if (($targetPlanet['der_metal'] != 0 || $targetPlanet['der_crystal'] != 0)
                 && ArrayUtil::checkIfOneKeyExists($fleetData, array_keys(Vars::getElements(Vars::CLASS_FLEET, Vars::FLAG_COLLECT)))
-				&& isModulAvalible(MODULE_MISSION_RECYCLE))
+				&& $user->can(MODULE_MISSION_RECYCLE))
 			{
 				$availableMissions[]	= 8;
 			}
@@ -429,35 +430,35 @@ class FleetUtil
 			if (!$usedPlanet)
 			{
 				if (ArrayUtil::checkIfOneKeyExists($fleetData, array_keys(Vars::getElements(Vars::CLASS_FLEET, Vars::FLAG_COLONIZE)))
-					&& isModulAvalible(MODULE_MISSION_COLONY))
+					&& $user->can(MODULE_MISSION_COLONY))
 				{
 					$availableMissions[]	= 7;
 				}
 			}
 			else
 			{
-				if(isModulAvalible(MODULE_MISSION_TRANSPORT))
+				if($user->can(MODULE_MISSION_TRANSPORT))
 					$availableMissions[]	= 3;
 					
-				if (!$ownPlanet && ArrayUtil::hasOnlyAllowedKeys(array_keys(Vars::getElements(Vars::CLASS_FLEET, Vars::FLAG_SPY)), $fleetData) && isModulAvalible(MODULE_MISSION_SPY))
+				if (!$ownPlanet && ArrayUtil::hasOnlyAllowedKeys(array_keys(Vars::getElements(Vars::CLASS_FLEET, Vars::FLAG_SPY)), $fleetData) && $user->can(MODULE_MISSION_SPY))
 					$availableMissions[]	= 6;
 
 				if (!$ownPlanet) {
-					if(isModulAvalible(MODULE_MISSION_ATTACK))
+					if($user->can(MODULE_MISSION_ATTACK))
 						$availableMissions[]	= 1;
-					if(isModulAvalible(MODULE_MISSION_HOLD))
+					if($user->can(MODULE_MISSION_HOLD))
 						$availableMissions[]	= 5;}
 						
-				elseif(isModulAvalible(MODULE_MISSION_STATION)) {
+				elseif($user->can(MODULE_MISSION_STATION)) {
 					$availableMissions[]	= 4;}
 					
-				if ($isFleetGroup && !$ownPlanet && isModulAvalible(MODULE_MISSION_ATTACK) && isModulAvalible(MODULE_MISSION_ACS))
+				if ($isFleetGroup && !$ownPlanet && $user->can(MODULE_MISSION_ATTACK) && $user->can(MODULE_MISSION_ACS))
 					$availableMissions[]	= 2;
 
-				if (!$ownPlanet && $targetPlanet['planet_type'] == 3 && isset($fleetData[214]) && isModulAvalible(MODULE_MISSION_DESTROY))
+				if (!$ownPlanet && $targetPlanet['planet_type'] == 3 && isset($fleetData[214]) && $user->can(MODULE_MISSION_DESTROY))
 					$availableMissions[]	= 9;
 
-				if ($ownPlanet && $targetPlanet['planet_type'] == 3 && ArrayUtil::hasOnlyAllowedKeys(array(220), $fleetData) && isModulAvalible(MODULE_MISSION_DARKMATTER))
+				if ($ownPlanet && $targetPlanet['planet_type'] == 3 && ArrayUtil::hasOnlyAllowedKeys(array(220), $fleetData) && $user->can(MODULE_MISSION_DARKMATTER))
 					$availableMissions[]	= 11;
 			}
 		}
@@ -465,7 +466,7 @@ class FleetUtil
 		return $availableMissions;
 	}
 	
-	public static function CheckBash($Target, $USER)
+	public static function CheckBash($Target, $user)
 	{
 		if(!BASH_ON)
 		{
@@ -481,7 +482,7 @@ class FleetUtil
 		AND fleet_mission IN (1,2,9);';
 
 		$Count	= Database::get()->selectSingle($sql, array(
-			':fleetOwner'		=> $USER['id'],
+			':fleetOwner'		=> $user['id'],
 			':fleetEndId'		=> $Target,
 			':fleetState'		=> 2,
 			':fleetStartTime'	=> TIMESTAMP - BASH_TIME,

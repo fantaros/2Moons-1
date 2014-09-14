@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowBuildingsPage.class.php 2786 2013-08-13 18:52:18Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -30,15 +30,13 @@ class ShowBuildingsPage extends AbstractGamePage
 {	
 	public static $requireModule = MODULE_BUILDING;
 
-    	private function getQueueData()
+    private function getQueueData()
 	{
-
 		$queueData  = $this->ecoObj->getQueueObj()->getTasksByElementId(array_keys(Vars::getElements(Vars::CLASS_BUILDING)));
 
         $queue          = array();
         $elementLevel   = array();
         $count          = array();
-
 
 		foreach($queueData as $task)
         {
@@ -70,7 +68,6 @@ class ShowBuildingsPage extends AbstractGamePage
 
     public function build()
     {
-        global $USER;
         $elementId  = HTTP::_GP('elementId', 0);
         if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->user->urlaubs_modus == 0 && !empty($elementId))
         {
@@ -85,7 +82,6 @@ class ShowBuildingsPage extends AbstractGamePage
 
     public function destroy()
     {
-        global $USER;
         $elementId  = HTTP::_GP('elementId', 0);
         if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->user->urlaubs_modus == 0 && !empty($elementId))
         {
@@ -101,7 +97,6 @@ class ShowBuildingsPage extends AbstractGamePage
 
     public function cancel()
     {
-        global $USER;
         $taskId = HTTP::_GP('taskId', 0);
         if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->user->urlaubs_modus == 0 && !empty($taskId))
         {
@@ -120,15 +115,15 @@ class ShowBuildingsPage extends AbstractGamePage
         $QueueCount			= array_sum($queueData['count']);
 		$planetMaxFields    = CalculateMaxPlanetFields($PLANET);
 		
-		$isPlanetFull 		= ($planetMaxFields - $QueueCount - $PLANET['field_current']) <= 0;
+		$isPlanetFull 		= ($planetMaxFields - $QueueCount - $this->planet->field_current) <= 0;
 
-		$BuildEnergy		= $USER[Vars::getElement(113)->name];
+		$BuildEnergy		= $this->user->getElement(113);
 		$BuildLevelFactor   = 10;
-		$BuildTemp          = $PLANET['temp_max'];
+		$BuildTemp          = $this->planet->temp_max;
 
         $BuildInfoList      = array();
 
-        $flag               = $PLANET['planet_type'] == PLANET ? Vars::FLAG_BUILD_ON_PLANET : Vars::FLAG_BUILD_ON_MOON;
+        $flag               = $this->planet->planet_type == PLANET ? Vars::FLAG_BUILD_ON_PLANET : Vars::FLAG_BUILD_ON_MOON;
 
         $busyBuildings      = array();
 

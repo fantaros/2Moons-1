@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowGalaxyPage.class.php 2796 2013-09-29 23:10:14Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -42,9 +42,9 @@ class ShowGalaxyPage extends AbstractGamePage
 		$galaxyRight	= HTTP::_GP('galaxyRight', '');
 		$systemLeft		= HTTP::_GP('systemLeft', '');
 		$systemRight	= HTTP::_GP('systemRight', '');
-		$galaxy			= min(max(HTTP::_GP('galaxy', (int) $PLANET['galaxy']), 1), $config->max_galaxy);
-		$system			= min(max(HTTP::_GP('system', (int) $PLANET['system']), 1), $config->max_system);
-		$planet			= min(max(HTTP::_GP('planet', (int) $PLANET['planet']), 1), $config->max_planets);
+		$galaxy			= min(max(HTTP::_GP('galaxy', (int) $this->planet->galaxy), 1), $config->max_galaxy);
+		$system			= min(max(HTTP::_GP('system', (int) $this->planet->system), 1), $config->max_system);
+		$planet			= min(max(HTTP::_GP('planet', (int) $this->planet->planet), 1), $config->max_planets);
 		$type			= HTTP::_GP('type', 1);
 		$current		= HTTP::_GP('current', 0);
 
@@ -64,16 +64,16 @@ class ShowGalaxyPage extends AbstractGamePage
         elseif (!empty($systemRight))
             $system	= min($system + 1, $config->max_system);
 
-		if ($galaxy != $PLANET['galaxy'] || $system != $PLANET['system'])
+		if ($galaxy != $this->planet->galaxy || $system != $this->planet->system)
 		{
-			if($PLANET['deuterium'] < $config->deuterium_cost_galaxy)
+			if($this->planet->deuterium < $config->deuterium_cost_galaxy)
 			{	
 				$this->printMessage($this->lang['gl_no_deuterium_to_view_galaxy'], array(array(
 					'label'	=> $this->lang['sys_back'],
 					'url'	=> 'game.php?page=galaxy'
 				)));
 			} else {
-				$PLANET['deuterium']	-= $config->deuterium_cost_galaxy;
+				$this->planet->deuterium	-= $config->deuterium_cost_galaxy;
             }
 		}
 
@@ -133,10 +133,10 @@ class ShowGalaxyPage extends AbstractGamePage
 			'grecyclers'   				=> $missileList,
 			'recyclers'   				=> $spyList,
 			'settings_fleetactions'		=> $this->user->settings_fleetactions,
-			'current_galaxy'			=> $PLANET['galaxy'],
-			'current_system'			=> $PLANET['system'],
-			'current_planet'			=> $PLANET['planet'],
-			'planet_type' 				=> $PLANET['planet_type'],
+			'current_galaxy'			=> $this->planet->galaxy,
+			'current_system'			=> $this->planet->system,
+			'current_planet'			=> $this->planet->planet,
+			'planet_type' 				=> $this->planet->planet_type,
             'max_planets'               => $config->max_planets,
 			'missileSelector'			=> $missileSelector,
 			'ShortStatus'				=> array(

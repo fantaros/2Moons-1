@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: PlayerUtil.class.php 2800 2013-10-04 22:07:04Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -41,24 +41,24 @@ class PlayerUtil
 		}
 	}
 
-    static public function getBonusValue($baseValue, $bonusName, $USER)
+    static public function getBonusValue($baseValue, $bonusName, $user)
     {
         return 0;
     }
 
-    public static function getLabLevelByNetwork($USER, $PLANET)
+    public static function getLabLevelByNetwork(User $user, Planet $planet)
     {
         $techLabElementName = Vars::getElement(31)->name;
-        $researchLevelList  = array($PLANET[$techLabElementName]);
-        $networkLevel       = $USER[Vars::getElement(123)->name];
+        $researchLevelList  = array($planet[$techLabElementName]);
+        $networkLevel       = $user->getElement(123);
 
         if($networkLevel > 0)
         {
             $sql = 'SELECT '.$techLabElementName.' FROM %%PLANETS%% WHERE id != :planetId AND id_owner = :userId AND destroyed = 0 ORDER BY '.$techLabElementName.' DESC LIMIT :limit;';
             $researchResult = Database::get()->select($sql, array(
                 ':limit'	=> (int) $networkLevel,
-                ':planetId'	=> $PLANET['id'],
-                ':userId'	=> $USER['id']
+                ':planetId'	=> $planet['id'],
+                ':userId'	=> $user['id']
             ));
 
             foreach($researchResult as $researchRow)
@@ -72,24 +72,15 @@ class PlayerUtil
 
 	static public function isPositionFree($universe, $galaxy, $system, $position, $type = 1)
 	{
-		$db = Database::get();
-		$sql = "SELECT COUNT(*) as record
-		FROM %%PLANETS%%
-		WHERE universe = :universe
-		AND galaxy = :galaxy
-		AND system = :system
-		AND planet = :position
-		AND planet_type = :type;";
+        $planet = new Planet(null, array(
+            'universe' 	=> $universe,
+            'galaxy' 	=> $galaxy,
+            'system' 	=> $system,
+            'position'	=> $position,
+            'type'		=> $type,
+        ), 'id');
 
-		$count = $db->selectSingle($sql, array(
-			':universe' => $universe,
-			':galaxy' 	=> $galaxy,
-			':system' 	=> $system,
-			':position'	=> $position,
-			':type'		=> $type,
-		), 'record');
-
-		return $count == 0;
+		return isset($planet->id);
 	}
 
 	static public function isNameValid($name)
@@ -439,7 +430,21 @@ class PlayerUtil
 
 		return $moonId;
 	}
- 
+
+    static function allowPhalanx(Planet $planet, $toGalaxy, $toSystem)
+    {
+        if ($planet->galaxy != $toGalaxy || $planet->getElement(42) == 0)
+        {
+            return false;
+        }
+
+        $PhRange	= self::GetPhalanxRange($planet->getElement(42));
+        $systemMin  = max(1, $planet->system - $PhRange);
+        $systemMax  = $planet->system + $PhRange;
+
+        return $toSystem >= $systemMin && $toSystem <= $systemMax;
+    }
+
 	static public function deletePlayer($userId)
 	{
 		if(ROOT_USER == $userId) {
@@ -599,10 +604,10 @@ class PlayerUtil
 		return true;
 	}
 	
-	static public function maxPlanetCount($USER)
+	static public function maxPlanetCount($user)
 	{
 		global $resource;
-		$config	= Config::get($USER['universe']);
+		$config	= Config::get($user['universe']);
 
 		$planetPerTech	= $config->planets_tech;
 		$planetPerBonus	= $config->planets_officier;
@@ -618,31 +623,31 @@ class PlayerUtil
 		}
 		
 		// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
-		return (int) ceil($config->min_player_planets + min($planetPerTech, $USER[$resource[124]] * $config->planets_per_tech) + min($planetPerBonus, $USER['factor']['Planets']));
+		return (int) ceil($config->min_player_planets + min($planetPerTech, $user[$resource[124]] * $config->planets_per_tech) + min($planetPerBonus, $user['factor']['Planets']));
 	}
 
-	static public function allowPlanetPosition($position, $USER)
+	static public function allowPlanetPosition($position, $user)
 	{
 		// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
 
 		global $resource;
-		$config	= Config::get($USER['universe']);
+		$config	= Config::get($user['universe']);
 
 		switch($position) {
 			case 1:
 			case ($config->max_planets):
-				return $USER[$resource[124]] >= 8;
+				return $user[$resource[124]] >= 8;
 			break;
 			case 2:
 			case ($config->max_planets-1):
-				return $USER[$resource[124]] >= 6;
+				return $user[$resource[124]] >= 6;
 			break;
 			case 3:
 			case ($config->max_planets-2):
-				return $USER[$resource[124]] >= 4;
+				return $user[$resource[124]] >= 4;
 			break;
 			default:
-				return $USER[$resource[124]] >= 1;
+				return $user[$resource[124]] >= 1;
 			break;
 		}
 	}
@@ -680,7 +685,7 @@ class PlayerUtil
 		));
 	}
 
-    static function getFactors($USER, $timestamp = NULL)
+    static function getFactors($user, $timestamp = NULL)
     {
         if(empty($timestamp))
         {
@@ -697,10 +702,10 @@ class PlayerUtil
             $elementName    = $elementObj->name;
             $elementBonus   = $elementObj->bonus;
 
-            if (isset($PLANET[$elementName])) {
-                $elementLevel = $PLANET[$elementName];
-            } elseif (isset($USER[$elementName])) {
-                $elementLevel = $USER[$elementName];
+            if (isset($planet[$elementName])) {
+                $elementLevel = $planet[$elementName];
+            } elseif (isset($user[$elementName])) {
+                $elementLevel = $user[$elementName];
             } else {
                 continue;
             }

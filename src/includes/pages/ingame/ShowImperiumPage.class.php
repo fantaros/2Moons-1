@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowImperiumPage.class.php 2794 2013-09-29 21:46:22Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -53,7 +53,7 @@ class ShowImperiumPage extends AbstractGamePage
 
         $sql = "SELECT * FROM %%PLANETS%% WHERE id != :planetID AND id_owner = :userID AND destroyed = '0' ORDER BY :order;";
         $PlanetsRAW = $db->select($sql, array(
-            ':planetID' => $PLANET['id'],
+            ':planetID' => $this->planet->id,
             ':userID'   => $this->user->id,
             ':order'    => $orderBy,
         ));

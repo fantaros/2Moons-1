@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowTechtreePage.class.php 2776 2013-08-05 21:30:40Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -33,7 +33,6 @@ class ShowTechtreePage extends AbstractGamePage
 
     public function show()
 	{
-
         $techTreeList   = array();
 
         $elementList    = array(
@@ -57,9 +56,9 @@ class ShowTechtreePage extends AbstractGamePage
                 {
                     $requireElementName = Vars::getElement($requireElementId)->name;
 
-                    $requirements[$requireElementId]	= array(
+                    $requirements[$requireElementId] = array(
                         'count' => $requiredLevel,
-                        'own'   => isset($PLANET[$requireElementName]) ? $PLANET[$requireElementName] : $USER[$requireElementName]
+                        'own'   => isset($this->planet->$requireElementName) ? $this->planet->$requireElementName : $this->user->$requireElementName
                     );
                 }
 				
@@ -68,7 +67,7 @@ class ShowTechtreePage extends AbstractGamePage
 		}
 		
 		$this->assign(array(
-			'TechTreeList'		=> $techTreeList,
+			'TechTreeList'  => $techTreeList,
 		));
 
 		$this->display('page.techtree.default');

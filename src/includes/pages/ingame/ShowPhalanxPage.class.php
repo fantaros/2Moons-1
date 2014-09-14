@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowPhalanxPage.class.php 2786 2013-08-13 18:52:18Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -30,21 +30,6 @@
 class ShowPhalanxPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_PHALANX;
-	
-	static function allowPhalanx($toGalaxy, $toSystem)
-	{
-
-		if ($PLANET['galaxy'] != $toGalaxy || $PLANET[Vars::getElement(42)->name] == 0)
-		{
-			return false;
-		}
-		
-		$PhRange	= self::GetPhalanxRange($PLANET[Vars::getElement(42)->name]);
-		$systemMin  = max(1, $PLANET['system'] - $PhRange);
-		$systemMax  = $PLANET['system'] + $PhRange;
-		
-		return $toSystem >= $systemMin && $toSystem <= $systemMax;
-	}
 
 	static function GetPhalanxRange($PhalanxLevel)
 	{
@@ -53,7 +38,6 @@ class ShowPhalanxPage extends AbstractGamePage
 	
 	function show()
 	{
-
 		$this->initTemplate();
 		$this->setWindow('popup');
 		$this->tplObj->loadscript('phalanx.js');
@@ -62,12 +46,12 @@ class ShowPhalanxPage extends AbstractGamePage
 		$System 			= HTTP::_GP('system', 0);
 		$Planet 			= HTTP::_GP('planet', 0);
 		
-		if(!$this->allowPhalanx($Galaxy, $System))
+		if(!PlayerUtil::allowPhalanx($this->planet, $Galaxy, $System))
 		{
 			$this->printMessage($this->lang['px_out_of_range']);
 		}
 		
-		if ($PLANET[$resource[903]] < PHALANX_DEUTERIUM)
+		if ($this->planet->getElement(903) < PHALANX_DEUTERIUM)
 		{
 			$this->printMessage($this->lang['px_no_deuterium']);
 		}
@@ -76,7 +60,7 @@ class ShowPhalanxPage extends AbstractGamePage
 		$sql = "UPDATE %%PLANETS%% SET deuterium = deuterium - :phalanxDeuterium WHERE id = :planetID;";
 		$db->update($sql, array(
 			':phalanxDeuterium'	=> PHALANX_DEUTERIUM,
-			':planetID'			=> $PLANET['id']
+			':planetID'			=> $this->planet->id
 		));
 
 		$sql = "SELECT id, name, id_owner FROM %%PLANETS%% WHERE universe = :universe

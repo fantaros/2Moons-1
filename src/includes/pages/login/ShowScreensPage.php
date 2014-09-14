@@ -23,25 +23,17 @@
  * @copyright 2008 Chlorel (XNova)
  * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2012-11-31)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowScreensPage.class.php 2803 2013-10-06 22:23:27Z slaver7 $
  * @link http://2moons.cc/
  */
 
-
 class ShowScreensPage extends AbstractIndexPage
 {
-	public static $requireModule = 0;
-
-	function __construct() 
-	{
-		parent::__construct();
-	}
-	
 	function show() 
 	{
 		$images	= array();
-		$directoryIterator = new DirectoryIterator('styles/resource/images/login/screens/');
+		$directoryIterator = new DirectoryIterator('resource/images/login/screens/');
         foreach ($directoryIterator as $fileInfo)
 		{
 			/** @var $fileInfo DirectoryIterator */
@@ -52,14 +44,14 @@ class ShowScreensPage extends AbstractIndexPage
 
 			$fileName	= $fileInfo->getFilename();
 
-			$thumbnail	= 'styles/resource/images/login/screens/'.$fileName;
-			if(file_exists('styles/resource/images/login/screens/thumbnails/'.$fileName))
+			$thumbnail	= 'resource/images/login/screens/'.$fileName;
+			if(file_exists('resource/images/login/screens/thumbnails/'.$fileName))
 			{
-				$thumbnail = 'styles/resource/images/login/screens/thumbnails/'.$fileName;
+				$thumbnail = 'resource/images/login/screens/thumbnails/'.$fileName;
 			}
 			
 			$images[]	= array(
-				'path' 		=> 'styles/resource/images/login/screens/'.$fileName,
+				'path' 		=> 'resource/images/login/screens/'.$fileName,
 				'thumbnail' => $thumbnail,
 			);
 		}

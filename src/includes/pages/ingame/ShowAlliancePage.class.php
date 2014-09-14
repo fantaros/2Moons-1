@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowAlliancePage.class.php 2776 2013-08-05 21:30:40Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -122,7 +122,7 @@ class ShowAlliancePage extends AbstractGamePage
 		
 		if ($this->allianceData['ally_diplo'] == 1)
 		{
-			$diplomaticData	= $this->getDiplomatic();
+			$diplomaticData	= $this->getDiplomacy();
 		}
 		
 		if ($this->allianceData['ally_stats'] == 1)
@@ -472,24 +472,34 @@ class ShowAlliancePage extends AbstractGamePage
 		)));
 	}
 
-	private function getDiplomatic()
+	private function getDiplomacy()
 	{
 		$Return	= array();
 		$db     = Database::get();
 
-        $sql	= "SELECT d.level, d.accept, d.accept_text, d.id, a.id as ally_id, a.ally_name, a.ally_tag, d.owner_1, d.owner_2 FROM %%DIPLO%% as d INNER JOIN %%ALLIANCE%% as a ON IF(:allianceId = d.owner_1, a.id = d.owner_2, a.id = d.owner_1) WHERE :allianceId = d.owner_1 OR :allianceId = d.owner_2;";
-        $DiploResult	= $db->select($sql, array(
-            ':allianceId'		=> $this->allianceData['id'],
-         ));
+        $sql	= "SELECT d.level, d.accept, d.accept_text, d.id, a.id as ally_id, a.ally_name, a.ally_tag, d.owner_1, d.owner_2
+            FROM %%DIPLO%% as d
+            INNER JOIN %%ALLIANCE%% as a ON IF(:allianceId = d.owner_1, a.id = d.owner_2, a.id = d.owner_1)
+            WHERE :allianceId = d.owner_1 OR :allianceId = d.owner_2;";
 
-        foreach($DiploResult as $CurDiplo)
+        $diplomacyResult	= $db->select($sql, array(
+            ':allianceId'		=> $this->allianceData['id'],
+        ));
+
+        foreach($diplomacyResult as $diplomacy)
         {
-            if($CurDiplo['accept'] == 0 && $CurDiplo['owner_2'] == $this->allianceData['id'])
-                $Return[5][$CurDiplo['id']] = array($CurDiplo['ally_name'], $CurDiplo['ally_id'], $CurDiplo['level'], $CurDiplo['accept_text'], $CurDiplo['ally_tag']);
-            elseif($CurDiplo['accept'] == 0 && $CurDiplo['owner_1'] == $this->allianceData['id'])
-                $Return[6][$CurDiplo['id']] = array($CurDiplo['ally_name'], $CurDiplo['ally_id'], $CurDiplo['level'], $CurDiplo['accept_text'], $CurDiplo['ally_tag']);
+            if($diplomacy['accept'] == 0 && $diplomacy['owner_2'] == $this->allianceData['id'])
+            {
+                $Return[5][$diplomacy['id']] = array($diplomacy['ally_name'], $diplomacy['ally_id'], $diplomacy['level'], $diplomacy['accept_text'], $diplomacy['ally_tag']);
+            }
+            elseif($diplomacy['accept'] == 0 && $diplomacy['owner_1'] == $this->allianceData['id'])
+            {
+                $Return[6][$diplomacy['id']] = array($diplomacy['ally_name'], $diplomacy['ally_id'], $diplomacy['level'], $diplomacy['accept_text'], $diplomacy['ally_tag']);
+            }
             else
-                $Return[$CurDiplo['level']][$CurDiplo['id']] = array($CurDiplo['ally_name'], $CurDiplo['ally_id'], $CurDiplo['owner_1'], $CurDiplo['ally_tag']);
+            {
+                $Return[$diplomacy['level']][$diplomacy['id']] = array($diplomacy['ally_name'], $diplomacy['ally_id'], $diplomacy['owner_1'], $diplomacy['ally_tag']);
+            }
         }
         return $Return;
 	}
@@ -549,7 +559,7 @@ class ShowAlliancePage extends AbstractGamePage
 		}
 		
 		$this->assign(array(
-			'DiploInfo'					=> $this->getDiplomatic(),
+			'diplomacyInfo'					=> $this->getDiplomacy(),
 			'ally_web'					=> $this->allianceData['ally_web'],
 			'ally_tag'	 				=> $this->allianceData['ally_tag'],
 			'ally_members'	 			=> $this->allianceData['ally_members'],
@@ -825,7 +835,7 @@ class ShowAlliancePage extends AbstractGamePage
 			ally_max_members = :AllianceRequestNotallow,
 			ally_request_min_points = :AllianceRequestMinpoints,
 			ally_stats = :AllianceStats,
-			ally_diplo = :AllianceDiplo,
+			ally_diplo = :Alliancediplomacy,
 			ally_events = :AllianceEvents
 			WHERE id = :AllianceID;";
 
@@ -838,7 +848,7 @@ class ShowAlliancePage extends AbstractGamePage
                 ':AllianceRequestNotallow'	=> $this->allianceData['ally_request_notallow'],
                 ':AllianceRequestMinpoints'	=> $this->allianceData['ally_request_min_points'],
                 ':AllianceStats'			=> $this->allianceData['ally_stats'],
-                ':AllianceDiplo'			=> $this->allianceData['ally_diplo'],
+                ':Alliancediplomacy'			=> $this->allianceData['ally_diplo'],
                 ':AllianceEvents'			=> $this->allianceData['ally_events'],
                 ':AllianceID'				=> $this->allianceData['id'],
                 ':text'						=> $text
@@ -1440,7 +1450,7 @@ class ShowAlliancePage extends AbstractGamePage
         $this->redirectTo('game.php?page=alliance&mode=admin&action=members');
 	}
 
-	protected function adminDiplomacy()
+	protected function admindiplomacymacy()
 	{
 		if (!$this->rights['DIPLOMATIC']) {
 			$this->redirectToHome();
@@ -1500,7 +1510,7 @@ class ShowAlliancePage extends AbstractGamePage
 		$this->display('page.alliance.admin.diplomacy.default');
 	}
 
-	protected function adminDiplomacyAccept()
+	protected function admindiplomacymacyAccept()
 	{
 		if (!$this->rights['DIPLOMATIC']) {
 			$this->redirectToHome();
@@ -1517,7 +1527,7 @@ class ShowAlliancePage extends AbstractGamePage
         $this->redirectTo('game.php?page=alliance&mode=admin&action=diplomacy');
 	}
 
-	protected function adminDiplomacyDelete()
+	protected function admindiplomacymacyDelete()
 	{
 		if (!$this->rights['DIPLOMATIC']) {
 			$this->redirectToHome();
@@ -1534,7 +1544,7 @@ class ShowAlliancePage extends AbstractGamePage
         $this->redirectTo('game.php?page=alliance&mode=admin&action=diplomacy');
 	}
 
-	protected function adminDiplomacyCreate()
+	protected function admindiplomacymacyCreate()
 	{
 		if (!$this->rights['DIPLOMATIC']) {
 			$this->redirectToHome();
@@ -1568,7 +1578,7 @@ class ShowAlliancePage extends AbstractGamePage
 		$this->display('page.alliance.admin.diplomacy.create');
 	}
 
-	protected function adminDiplomacyCreateProcessor()
+	protected function admindiplomacymacyCreateProcessor()
 	{
 		if (!$this->rights['DIPLOMATIC']) {
 			$this->redirectToHome();

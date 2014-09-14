@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowBattleSimulatorPage.class.php 2801 2013-10-05 23:55:41Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -240,9 +240,9 @@ class ShowBattleSimulatorPage extends AbstractGamePage
         $defendElements    = Vars::getElements(Vars::CLASS_DEFENSE);
         $resourceElements  = Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_STEAL);
 
-		$BattleArray[0][0][109]	= $USER[Vars::getElement(109)->name];
-		$BattleArray[0][0][110]	= $USER[Vars::getElement(110)->name];
-		$BattleArray[0][0][111]	= $USER[Vars::getElement(111)->name];
+		$BattleArray[0][0][109]	= $this->user->getElement(109);
+		$BattleArray[0][0][110]	= $this->user->getElement(110);
+		$BattleArray[0][0][111]	= $this->user->getElement(111);
 		
 		if(empty($_REQUEST['battleinput']))
 		{

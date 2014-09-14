@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowShipyardPage.class.php 2793 2013-09-29 12:33:56Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -34,7 +34,6 @@ class ShowShipyardPage extends AbstractGamePage
 
     public function build()
     {
-        global $USER;
         if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->user->urlaubs_modus == 0)
         {
             $elements  = HTTP::_GP('element', array());
@@ -53,7 +52,6 @@ class ShowShipyardPage extends AbstractGamePage
 
     public function cancel()
     {
-        global $USER;
         if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->user->urlaubs_modus == 0)
         {
 			$taskIds  = HTTP::_GP('taskId', array());
@@ -68,8 +66,6 @@ class ShowShipyardPage extends AbstractGamePage
 
     private function getQueueData()
     {
-        global $this->lang, $USER;
-
         $elementIds = array_merge(
 			array_keys(Vars::getElements(Vars::CLASS_FLEET)),
 			array_keys(Vars::getElements(Vars::CLASS_DEFENSE)),
@@ -85,8 +81,7 @@ class ShowShipyardPage extends AbstractGamePage
 
         foreach($queueData as $task)
         {
-            if (($task['endBuildTime'] + $task['buildTime'] * ($task['amount'] - 1)) < TIMESTAMP)
-                continue;
+            if (($task['endBuildTime'] + $task['buildTime'] * ($task['amount'] - 1)) < TIMESTAMP) continue;
 
             $queue[$task['taskId']] = array(
                 'elementId'		=> $task['elementId'],
@@ -122,8 +117,7 @@ class ShowShipyardPage extends AbstractGamePage
 	
 	public function show()
 	{
-
-		if ($PLANET[Vars::getElement(21)->name] == 0)
+		if ($this->planet->getElement(21) == 0)
 		{
 			$this->printMessage($this->lang['bd_shipyard_required']);
 		}
@@ -146,28 +140,26 @@ class ShowShipyardPage extends AbstractGamePage
 			$elementShipyardList	= Vars::getElements(Vars::CLASS_FLEET);
 		}
 
-        $tempPlanet = $PLANET;
+        $maxMissiles    = BuildUtil::maxBuildableMissiles($this->user, $this->planet, $this->ecoObj->getQueueObj());
 
         foreach($queueData['elementLevel'] as $elementId => $value)
         {
-            $tempPlanet[Vars::getElement($elementId)->name]  += $value;
+            $maxMissiles[$elementId]  = max(0, $maxMissiles[$elementId] - $value);
         }
-
-        $maxMissiles    = BuildUtil::maxBuildableMissiles($USER, $tempPlanet, $this->ecoObj->getQueueObj());
 		
 		foreach($elementShipyardList as $elementId => $elementObj)
 		{
-			if(!BuildUtil::requirementsAvailable($USER, $PLANET, $elementObj))
+			if(!BuildUtil::requirementsAvailable($this->user, $this->planet, $elementObj))
 				continue;
 			
 			$costResources		= BuildUtil::getElementPrice($elementObj, 1);
-			$elementTime    	= BuildUtil::getBuildingTime($USER, $PLANET, $elementObj, $costResources);
+			$elementTime    	= BuildUtil::getBuildingTime($this->user, $this->planet, $elementObj, $costResources);
 
-            $maxBuildable		= BuildUtil::maxBuildableElements($USER, $PLANET, $elementObj, $costResources);
+            $maxBuildable		= BuildUtil::maxBuildableElements($this->user, $this->planet, $elementObj, $costResources);
 
             // zero cost resource do not need to display
             $costResources		= array_filter($costResources);
-            $costOverflow		= BuildUtil::getRestPrice($USER, $PLANET, $elementObj, $costResources);
+            $costOverflow		= BuildUtil::getRestPrice($this->user, $this->planet, $elementObj, $costResources);
 
 			if(isset($maxMissiles[$elementId]))
             {
@@ -197,11 +189,11 @@ class ShowShipyardPage extends AbstractGamePage
             }
             else
             {
-                $buyable    = BuildUtil::isElementBuyable($USER, $PLANET, $elementObj, $costResources);
+                $buyable    = BuildUtil::isElementBuyable($this->user, $this->planet, $elementObj, $costResources);
             }
 			
 			$elementList[$elementId]	= array(
-				'available'			=> $PLANET[$elementObj->name],
+				'available'			=> $this->planet->{$elementObj->name},
                 'maxLevel'			=> $elementObj->maxLevel,
 				'isBusy'			=> $isBusy,
 				'costResources'		=> $costResources,

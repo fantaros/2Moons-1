@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: AbstractGamePage.class.php 2803 2013-10-06 22:23:27Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -31,13 +31,21 @@ require 'includes/classes/AbstractPage.php';
 abstract class AbstractGamePage extends AbstractPage
 {
 	/**
-	 * reference of the template object
-	 * @var Economy
+	 * @var User
 	 */
 	protected $user;
+
+    /**
+     * @var Planet
+     */
 	protected $planet;
-	protected $lang;
-	protected $disableEcoSystem = false;
+
+    /**
+     * @var Language
+     */
+    protected $lang;
+
+    protected $disableEcoSystem = false;
 
     public static $requireModule = 0;
 	

@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowTicketPage.class.php 2776 2013-08-05 21:30:40Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -35,13 +35,11 @@ class ShowTicketPage extends AbstractGamePage
 	function __construct() 
 	{
 		parent::__construct();
-		require('includes/classes/class.SupportTickets.php');
 		$this->ticketObj	= new SupportTickets;
 	}
 	
 	public function show()
 	{
-
 		$db = Database::get();
 
 		$sql = "SELECT t.*, COUNT(a.ticketID) as answer
@@ -81,7 +79,6 @@ class ShowTicketPage extends AbstractGamePage
 	
 	function send() 
 	{
-
 		$ticketID	= HTTP::_GP('id', 0);
 		$categoryID	= HTTP::_GP('category', 0);
 		$message	= HTTP::_GP('message', '', true);
@@ -126,12 +123,8 @@ class ShowTicketPage extends AbstractGamePage
 	
 	function view() 
 	{
-
-		require 'includes/classes/BBCode.class.php';
-
-		$db = Database::get();
-
-		$ticketID			= HTTP::_GP('id', 0);
+		$db         = Database::get();
+		$ticketID   = HTTP::_GP('id', 0);
 
 		$sql = "SELECT a.*, t.categoryID, t.status FROM %%TICKETS_ANSWER%% a INNER JOIN %%TICKETS%% t USING(ticketID) WHERE a.ticketID = :ticketID ORDER BY a.answerID;";
 		$answerResult = $db->select($sql, array(

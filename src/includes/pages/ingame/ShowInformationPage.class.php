@@ -21,17 +21,16 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowInformationPage.class.php 2780 2013-08-08 13:54:08Z slaver7 $
  * @link http://2moons.cc/
  */
 
-
 class ShowInformationPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_INFORMATION;
-	
-	protected $disableEcoSystem = true;
+
+    protected $disableEcoSystem = true;
 
     static function getNextJumpWaitTime($lastTime)
 	{
@@ -43,7 +42,7 @@ class ShowInformationPage extends AbstractGamePage
 
         $db = Database::get();
 
-		$NextJumpTime = self::getNextJumpWaitTime($PLANET['last_jump_time']);
+		$NextJumpTime = self::getNextJumpWaitTime($this->planet->last_jump_time);
 		
 		if (TIMESTAMP < $NextJumpTime)
 		{
@@ -53,7 +52,7 @@ class ShowInformationPage extends AbstractGamePage
 			));
 		}
 		
-		$TargetPlanet = HTTP::_GP('jmpto', (int) $PLANET['id']);
+		$TargetPlanet = HTTP::_GP('jmpto', (int) $this->planet->id);
 
         $sql = "SELECT id, last_jump_time FROM %%PLANETS%% WHERE id = :targetID AND id_owner = :userID AND sprungtor > 0;";
         $TargetGate = $db->selectSingle($sql, array(
@@ -61,7 +60,7 @@ class ShowInformationPage extends AbstractGamePage
             ':userID'   => $this->user->id
         ));
 
-        if (!isset($TargetGate) || $TargetPlanet == $PLANET['id'])
+        if (!isset($TargetGate) || $TargetPlanet == $this->planet->id)
 		{
 			$this->sendJSON(array(
 				'message' => $this->lang['in_jump_gate_doesnt_have_one'],
@@ -113,8 +112,8 @@ class ShowInformationPage extends AbstractGamePage
             ':jumptime' => TIMESTAMP,
         ), $SubQueryParams));
 
-		$PLANET['last_jump_time'] 	= TIMESTAMP;
-		$NextJumpTime	= self::getNextJumpWaitTime($PLANET['last_jump_time']);
+		$this->planet->last_jump_time 	= TIMESTAMP;
+		$NextJumpTime	= self::getNextJumpWaitTime($this->planet->last_jump_time);
 		$this->sendJSON(array(
 			'message' => sprintf($this->lang['in_jump_gate_done'], pretty_time($NextJumpTime - TIMESTAMP)),
 			'error' => false
@@ -177,7 +176,7 @@ class ShowInformationPage extends AbstractGamePage
 				
 		$sql = "SELECT id, name, galaxy, system, planet, last_jump_time, ".Vars::getElement(43)->name." FROM %%PLANETS%% WHERE id != :planetID AND id_owner = :userID AND planet_type = '3' AND :resource43Name > 0 ORDER BY :order;";
         $moonResult = $db->select($sql, array(
-            ':planetID'         => $PLANET['id'],
+            ':planetID'         => $this->planet->id,
             ':userID'           => $this->user->id,
             ':order'            => $OrderBy
         ));
@@ -211,8 +210,8 @@ class ShowInformationPage extends AbstractGamePage
 		if($elementObj->class == Vars::CLASS_BUILDING && $elementObj->hasFlag(Vars::FLAG_PRODUCTION))
 		{
 			/* Data for eval */
-			$BuildEnergy		= $USER[Vars::getElement(113)->name];
-			$BuildTemp          = $PLANET['temp_max'];
+			$BuildEnergy		= $this->user->getElement(113);
+			$BuildTemp          = $this->planet->temp_max;
 			$BuildLevelFactor	= $PLANET[$elementObj->name.'_porcent'];
 
 			$startLevel   	    = max($PLANET[$elementObj->name] - 2, 0);
@@ -287,11 +286,11 @@ class ShowInformationPage extends AbstractGamePage
 		if($elementId == 43 && $PLANET[$elementObj->name] > 0)
 		{
 			$this->tplObj->loadscript('gate.js');
-			$nextTime	= self::getNextJumpWaitTime($PLANET['last_jump_time']);
+			$nextTime	= self::getNextJumpWaitTime($this->planet->last_jump_time);
 			$gateData	= array(
 				'nextTime'	=> _date($this->lang['php_tdformat'], $nextTime, $this->user->timezone),
 				'restTime'	=> max(0, $nextTime - TIMESTAMP),
-				'startLink'	=> $PLANET['name'].' '.strip_tags(BuildPlanetAddressLink($PLANET)),
+				'startLink'	=> $this->planet->name.' '.strip_tags(BuildPlanetAddressLink($PLANET)),
 				'gateList' 	=> $this->getTargetGates(),
 				'fleetList'	=> $this->getAvailableFleets(),
 			);

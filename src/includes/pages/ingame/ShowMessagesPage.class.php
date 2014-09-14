@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowMessagesPage.class.php 2776 2013-08-05 21:30:40Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -32,7 +32,6 @@ class ShowMessagesPage extends AbstractGamePage
 
     function view()
     {
-        global $this->lang, $USER;
         $MessCategory  	= HTTP::_GP('messcat', 100);
         $page  			= HTTP::_GP('site', 1);
 
@@ -154,8 +153,6 @@ class ShowMessagesPage extends AbstractGamePage
 
     function action()
     {
-        global $USER;
-
         $db = Database::get();
 
         $MessCategory  	= HTTP::_GP('messcat', 100);
@@ -276,7 +273,6 @@ class ShowMessagesPage extends AbstractGamePage
 
     function send()
     {
-        global $USER, $this->lang;
         $receiverID	= HTTP::_GP('id', 0);
         $subject 	= HTTP::_GP('subject', $this->lang['mg_no_subject'], true);
 		$text		= HTTP::_GP('text', '', true);
@@ -299,7 +295,6 @@ class ShowMessagesPage extends AbstractGamePage
 
     function write()
     {
-        global $this->lang, $USER;
         $this->setWindow('popup');
         $this->initTemplate();
 

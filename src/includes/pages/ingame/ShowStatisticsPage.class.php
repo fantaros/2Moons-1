@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowStatisticsPage.class.php 2776 2013-08-05 21:30:40Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -31,10 +31,8 @@ class ShowStatisticsPage extends AbstractGamePage
 {
     public static $requireModule = MODULE_STATISTICS;
 
-        function show()
+    function show()
     {
-        global $USER, $this->lang;
-
         $who   	= HTTP::_GP('who', 1);
         $type  	= HTTP::_GP('type', 1);
         $range 	= HTTP::_GP('range', 1);
@@ -77,6 +75,20 @@ class ShowStatisticsPage extends AbstractGamePage
 
 		$db 	= Database::get();
 		$config	= Config::get();
+
+        $Selector = array(
+            'who'   => array(
+                $this->lang['st_player'],
+                $this->lang['st_alliance']
+            ),
+            'type'  => array(
+                $this->lang['st_points'],
+                $this->lang['st_fleets'],
+                $this->lang['st_researh'],
+                $this->lang['st_buildings'],
+                $this->lang['st_defenses']
+            )
+        );
 
         switch($who)
         {
@@ -178,12 +190,6 @@ class ShowStatisticsPage extends AbstractGamePage
 
             break;
         }
-
-        $Selector['who'] 	= array(1 => $this->lang['st_player'], 2 => $this->lang['st_alliance']);
-        $Selector['type']	= array(1 => $this->lang['st_points'], 2 => $this->lang['st_fleets'], 3 => $this->lang['st_researh'], 4 => $this->lang['st_buildings'], 5 => $this->lang['st_defenses']);
-
-
-		require_once 'includes/classes/Cronjob.php';
 
         $this->assign(array(
             'Selectors'				=> $Selector,

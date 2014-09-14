@@ -24,7 +24,7 @@
  * @copyright 2009 Lucky (XGProyecto)
  * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2012-11-31)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ArrayUtil.class.php 2793 2013-09-29 12:33:56Z slaver7 $
  * @link http://code.google.com/p/2moons/
  */

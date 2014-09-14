@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowFleetAjaxPage.class.php 2796 2013-09-29 23:10:14Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -209,7 +209,7 @@ class ShowFleetAjaxPage extends AbstractGamePage
 		$Duration			= FleetUtil::GetMissionDuration(10, $SpeedAllMin, $Distance, $SpeedFactor, $this->user);
 		$consumption		= FleetUtil::GetFleetConsumption($fleetArray, $Duration, $Distance, $this->user, $SpeedFactor);
 
-		$$this->planet->deuterium   	-= $consumption;
+		$this->planet->deuterium   	-= $consumption;
 
 		if($$this->planet->deuterium < 0) {
 			$this->sendData(613, $this->lang['fa_not_enough_fuel']);
@@ -235,8 +235,8 @@ class ShowFleetAjaxPage extends AbstractGamePage
 		$shipID				= array_keys($fleetArray);
 		
 		FleetUtil::sendFleet($fleetArray, $targetMission, $this->user->id, $this->planet->id, $this->planet->galaxy,
-			$this->planet->system, $this->planet->planet, $this->planet->planet_type, $targetData['id_owner'], $planetID,
-			$targetData['galaxy'], $targetData['system'], $targetData['planet'], $targetData['planet_type'],
+			$this->planet->system, $this->planet->planet, $this->planet->planet_type, $targetUser->id, $planetID,
+            $targetPlanet->galaxy, $targetPlanet->system, $targetPlanet->planet, $targetPlanet->planet_type,
 			$fleetResource, $fleetStartTime, $fleetStayTime, $fleetEndTime);
 
 		$this->sendData(600, sprintf('%s %s %s %s [%s:%s:%s]',
@@ -244,9 +244,9 @@ class ShowFleetAjaxPage extends AbstractGamePage
             array_sum($fleetArray),
             $this->lang['tech.'.$shipID[0]],
             $this->lang['gl_to'],
-            $targetData['galaxy'],
-            $targetData['system'],
-            $targetData['planet']
+            $targetPlanet->galaxy,
+            $targetPlanet->system,
+            $targetPlanet->planet
         ));
 	}
 }

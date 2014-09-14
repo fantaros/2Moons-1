@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowPlayerCardPage.class.php 2776 2013-08-05 21:30:40Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -58,16 +58,16 @@ class ShowPlayerCardPage extends AbstractGamePage
 			':playerID'	=> $PlayerID
 		));
 
-		$totalfights = $query['wons'] + $query['loos'] + $query['draws'];
+		$totalCombats = $query['wons'] + $query['loos'] + $query['draws'];
 		
-		if ($totalfights == 0) {
-			$siegprozent                = 0;
-			$loosprozent                = 0;
-			$drawsprozent               = 0;
+		if ($totalCombats == 0) {
+			$percentWins    = 0;
+			$percentLoses   = 0;
+			$percentDraws   = 0;
 		} else {
-			$siegprozent                = 100 / $totalfights * $query['wons'];
-			$loosprozent                = 100 / $totalfights * $query['loos'];
-			$drawsprozent               = 100 / $totalfights * $query['draws'];
+			$percentWins    = 100 / $totalCombats * $query['wons'];
+			$percentLoses   = 100 / $totalCombats * $query['loos'];
+			$percentDraws   = 100 / $totalCombats * $query['draws'];
 		}
 
 		$this->assign(array(
@@ -98,10 +98,10 @@ class ShowPlayerCardPage extends AbstractGamePage
 			'kbcrystal'     => pretty_number($query['kbcrystal']),
 			'lostunits'     => pretty_number($query['lostunits']),
 			'desunits'      => pretty_number($query['desunits']),
-			'totalfights'   => pretty_number($totalfights),
-			'siegprozent'   => round($siegprozent, 2),
-			'loosprozent'   => round($loosprozent, 2),
-			'drawsprozent'  => round($drawsprozent, 2),
+			'totalCombats'  => pretty_number($totalCombats),
+			'percentWins'   => round($percentWins, 2),
+			'percentLoses'  => round($percentLoses, 2),
+			'percentDraws'  => round($percentDraws, 2),
 		));
 		
 		$this->display('page.playerCard.default');

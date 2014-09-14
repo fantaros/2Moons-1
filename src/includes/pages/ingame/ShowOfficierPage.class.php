@@ -21,23 +21,15 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowOfficierPage.class.php 2786 2013-08-13 18:52:18Z slaver7 $
  * @link http://2moons.cc/
  */
 
-
 class ShowOfficierPage extends AbstractGamePage
 {
-
-	function __construct()
-	{
-		parent::__construct();
-	}
-
     private function formatBonusList($elementObj)
     {
-        global $this->lang;
         $list   = array();
 
         foreach($elementObj->bonus as $bonusName => $bonusData)
@@ -59,26 +51,25 @@ class ShowOfficierPage extends AbstractGamePage
 
     public function upgrade()
     {
-        global $USER, $PLANET;
         $elementId = HTTP::_GP('elementId', 0);
 
         $elementObj = Vars::getElement($elementId);
 
-        if(isModulAvalible(MODULE_OFFICIER) && $elementObj->class == Vars::CLASS_PERM_BONUS)
+        if($elementObj->class == Vars::CLASS_PERM_BONUS && $this->user->can(MODULE_OFFICIER))
         {
-            if($elementObj->maxLevel <= $USER[$elementObj->name])
+            if($elementObj->maxLevel <= $this->user->{$elementObj->name})
             {
 				$this->redirectTo('game.php?page=officier');
             }
 
-            if(!BuildUtil::requirementsAvailable($USER, $PLANET, $elementObj))
+            if(!BuildUtil::requirementsAvailable($this->user, $this->planet, $elementObj))
             {
 				$this->redirectTo('game.php?page=officier');
             }
 
-            $costResources		= BuildUtil::getElementPrice($elementObj, $USER[$elementObj->name] + 1);
+            $costResources		= BuildUtil::getElementPrice($elementObj, $this->user->{$elementObj->name} + 1);
 
-            if (!BuildUtil::isElementBuyable($USER, $PLANET, $elementObj, $costResources))
+            if (!BuildUtil::isElementBuyable($this->user, $this->planet, $elementObj, $costResources))
             {
 				$this->redirectTo('game.php?page=officier');
             }
@@ -88,28 +79,27 @@ class ShowOfficierPage extends AbstractGamePage
                 $resourceElementObj    = Vars::getElement($resourceElementId);
                 if($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_PLANET))
                 {
-                    $PLANET[$resourceElementObj->name]	-= $costResources[$resourceElementId];
+                    $this->planet->{$resourceElementObj->name}	-= $costResources[$resourceElementId];
                 }
                 elseif($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
                 {
-                    $USER[$resourceElementObj->name]    -= $costResources[$resourceElementId];
+                    $this->user->{$resourceElementObj->name}    -= $costResources[$resourceElementId];
                 }
             }
 
-            $USER[$elementObj->name]	+= 1;
-            $this->ecoObj->saveToDatabase('USER', $elementObj->name);
+            $this->user->{$elementObj->name}	+= 1;
 
         }
-		elseif(isModulAvalible(MODULE_DMEXTRAS) && $elementObj->class == Vars::CLASS_TEMP_BONUS)
+		elseif($elementObj->class == Vars::CLASS_TEMP_BONUS && $this->user->can(MODULE_DMEXTRAS))
         {
-            if(!BuildUtil::requirementsAvailable($USER, $PLANET, $elementObj))
+            if(!BuildUtil::requirementsAvailable($this->user, $this->planet, $elementObj))
             {
 				$this->redirectTo('game.php?page=officier');
             }
 
             $costResources		= BuildUtil::getElementPrice($elementObj, 1);
 
-            if (!BuildUtil::isElementBuyable($USER, $PLANET, $elementObj, $costResources))
+            if (!BuildUtil::isElementBuyable($this->user, $this->planet, $elementObj, $costResources))
             {
 				$this->redirectTo('game.php?page=officier');
             }
@@ -119,16 +109,15 @@ class ShowOfficierPage extends AbstractGamePage
                 $resourceElementObj    = Vars::getElement($resourceElementId);
                 if($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_PLANET))
                 {
-                    $PLANET[$resourceElementObj->name]	-= $costResources[$resourceElementId];
+                    $this->planet->{$resourceElementObj->name}	-= $costResources[$resourceElementId];
                 }
                 elseif($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
                 {
-                    $USER[$resourceElementObj->name]    -= $costResources[$resourceElementId];
+                    $this->user->{$resourceElementObj->name}    -= $costResources[$resourceElementId];
                 }
             }
 
-            $USER[$elementObj->name]	= max($USER[$elementObj->name], TIMESTAMP) + $elementObj->timeBonus;
-            $this->ecoObj->saveToDatabase('USER', $elementObj->name);
+            $this->user->{$elementObj->name}	= max($this->user->{$elementObj->name}, TIMESTAMP) + $elementObj->timeBonus;
         }
 
 		$this->redirectTo('game.php?page=officier');
@@ -136,28 +125,25 @@ class ShowOfficierPage extends AbstractGamePage
 
 	public function show()
 	{
-
-
 		$darkmatterList	= array();
 		$officierList	= array();
 
-		if(isModulAvalible(MODULE_DMEXTRAS))
+		if($this->user->can(MODULE_DMEXTRAS))
 		{
 			foreach(Vars::getElements(Vars::CLASS_TEMP_BONUS) as $elementId => $elementObj)
 			{
-                if (!BuildUtil::requirementsAvailable($USER, $PLANET, $elementObj))
-                    continue;
+                if (!BuildUtil::requirementsAvailable($this->user, $this->planet, $elementObj)) continue;
 
 				$costResources		= BuildUtil::getElementPrice($elementObj, 1);
-				$buyable			= BuildUtil::isElementBuyable($USER, $PLANET, $elementObj, $costResources);
+				$buyable			= BuildUtil::isElementBuyable($this->user, $this->planet, $elementObj, $costResources);
 
                 // zero cost resource do not need to display
                 $costResources		= array_filter($costResources);
 
-				$costOverflow		= BuildUtil::getRestPrice($USER, $PLANET, $elementObj, $costResources);
+				$costOverflow		= BuildUtil::getRestPrice($this->user, $this->planet, $elementObj, $costResources);
 
 				$darkmatterList[$elementId]	= array(
-					'timeLeft'		=> max($USER[$elementObj->name] - TIMESTAMP, 0),
+					'timeLeft'		=> max($this->user->{$elementObj->name} - TIMESTAMP, 0),
 					'costResources'	=> $costResources,
 					'buyable'		=> $buyable,
 					'time'			=> $elementObj->timeBonus,
@@ -167,23 +153,22 @@ class ShowOfficierPage extends AbstractGamePage
 			}
 		}
 
-		if(isModulAvalible(MODULE_OFFICIER))
+		if($this->user->can(MODULE_OFFICIER))
 		{
             foreach(Vars::getElements(Vars::CLASS_PERM_BONUS) as $elementId => $elementObj)
 			{
-				if (!BuildUtil::requirementsAvailable($USER, $PLANET, $elementObj))
-					continue;
+				if (!BuildUtil::requirementsAvailable($this->user, $this->planet, $elementObj)) continue;
 
-                $costResources		= BuildUtil::getElementPrice($elementObj, $USER[$elementObj->name] + 1);
-				$buyable			= BuildUtil::isElementBuyable($USER, $PLANET, $elementObj, $costResources);
+                $costResources		= BuildUtil::getElementPrice($elementObj, $this->user->{$elementObj->name} + 1);
+				$buyable			= BuildUtil::isElementBuyable($this->user, $this->planet, $elementObj, $costResources);
 
                 // zero cost resource do not need to display
                 $costResources		= array_filter($costResources);
 
-				$costOverflow		= BuildUtil::getRestPrice($USER, $PLANET, $elementObj, $costResources);
+				$costOverflow		= BuildUtil::getRestPrice($this->user, $this->planet, $elementObj, $costResources);
 
 				$officierList[$elementId]	= array(
-					'level'			=> $USER[$elementObj->name],
+					'level'			=> $this->user->{$elementObj->name},
 					'maxLevel'		=> $elementObj->maxLevel,
 					'costResources' => $costResources,
 					'buyable'		=> $buyable,

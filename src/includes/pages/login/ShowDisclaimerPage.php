@@ -23,7 +23,7 @@
  * @copyright 2008 Chlorel (XNova)
  * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2012-11-31)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowDisclaimerPage.class.php 2771 2013-08-01 21:04:28Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -37,7 +37,7 @@ class ShowDisclaimerPage extends AbstractIndexPage
 		$this->assign(array(
 			'disclaimerAddress'	=> makebr($config->disclaimerAddress),
 			'disclaimerPhone'	=> $config->disclaimerPhone,
-			'disclaimerMail'		=> $config->disclaimerMail,
+			'disclaimerMail'	=> $config->disclaimerMail,
 			'disclaimerNotice'	=> $config->disclaimerNotice,
 		));
 		

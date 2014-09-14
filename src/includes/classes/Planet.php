@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowBanListPage.class.php 2776 2013-08-05 21:30:40Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -32,9 +32,61 @@ class Planet extends Model
 
     private $planetId;
 
-    public function __construct($planetId, $selectData = '*')
+    public function __construct($planetId = null, $whereData = null, $selectData = '*')
     {
-        $this->db       = Database::get();
+        $this->db           = Database::get();
+        $this->planetId     = $planetId;
+        $this->whereData    = $whereData;
+
+        if(!isset($this->planetId))
+        {
+            if(empty($selectData))
+            {
+                $selectData = 'id';
+            }
+            elseif($selectData != '*' && !in_array('id', $selectData))
+            {
+                array_push($selectData, 'id');
+            }
+        }
+
+        if(is_array($selectData))
+        {
+            $selectData = implode(',', $selectData);
+        }
+
+        if(is_numeric($this->planetId))
+        {
+            $this->data = $this->db->selectSingle("SELECT ".$selectData." FROM %PLANETS% WHERE id = :userId;", array(
+                ':userId'   => $this->planetId
+            ));
+
+            if(empty($this->data))
+            {
+                $this->data = false;
+            }
+        }
+        elseif(!empty($whereData) && is_array($whereData))
+        {
+            $whereSql   = array(
+                ':universe' => Universe::current()
+            );
+
+            $whereData  = array();
+
+            foreach($whereData as $colum => $value)
+            {
+                $whereData[] = '`'.$colum.'` = :'.$colum;
+                $whereSql[':'.$colum] = $this->db->escape($value);
+            }
+
+            $this->data = $this->db->selectSingle("SELECT ".$selectData." FROM %PLANETS% WHERE ".implode(',', $whereData), $whereSql);
+
+            if(empty($this->data))
+            {
+                $this->data = false;
+            }
+        }
 
         if(!is_numeric($planetId))
         {
@@ -58,6 +110,12 @@ class Planet extends Model
         {
             $this->data = false;
         }
+    }
+
+    public function getElement($elementId)
+    {
+        $elementName = Vars::getElement($elementId)->name;
+        return $this->__get($elementName);
     }
 
     public function save()

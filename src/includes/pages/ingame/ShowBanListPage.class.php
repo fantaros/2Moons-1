@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowBanListPage.class.php 2776 2013-08-05 21:30:40Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -32,8 +32,8 @@ class ShowBanListPage extends AbstractGamePage
 
     function show()
 	{
-		$page  		= HTTP::_GP('side', 1);
-		$db = Database::get();
+		$page   = HTTP::_GP('side', 1);
+		$db     = Database::get();
 
 		$sql = "SELECT COUNT(*) as count FROM %%BANNED%% WHERE universe = :universe ORDER BY time DESC;";
         $banCount = $db->selectSingle($sql, array(

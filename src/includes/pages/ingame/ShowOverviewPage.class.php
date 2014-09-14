@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowOverviewPage.class.php 2794 2013-09-29 21:46:22Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -73,7 +73,7 @@ class ShowOverviewPage extends AbstractGamePage
 		require 'includes/classes/class.FlyingFleetsTable.php';
 		$fleetTableObj = new FlyingFleetsTable;
 		$fleetTableObj->setUser($this->user->id);
-		$fleetTableObj->setPlanet($PLANET['id']);
+		$fleetTableObj->setPlanet($this->planet->id);
 		return $fleetTableObj->renderTable();
 	}
 	
@@ -88,40 +88,40 @@ class ShowOverviewPage extends AbstractGamePage
                       (fleet_target_owner = :userID AND (fleet_end_id = :planetID OR fleet_end_id = :lunaID));";
             $IfFleets = $db->selectSingle($sql, array(
                 ':userID'   => $this->user->id,
-                ':planetID' => $PLANET['id'],
-                ':lunaID'   => $PLANET['id_luna']
+                ':planetID' => $this->planet->id,
+                ':lunaID'   => $this->planet->id_luna
             ), 'state');
 
             if ($IfFleets > 0)
 				exit(json_encode(array('message' => $this->lang['ov_abandon_planet_not_possible'])));
-			elseif ($this->user->id_planet == $PLANET['id'])
+			elseif ($this->user->id_planet == $this->planet->id)
 				exit(json_encode(array('message' => $this->lang['ov_principal_planet_cant_abanone'])));
 			elseif (PlayerUtil::cryptPassword($password) != $this->user->password)
 				exit(json_encode(array('message' => $this->lang['ov_wrong_pass'])));
 			else
 			{
-				if($PLANET['planet_type'] == 1) {
+				if($this->planet->planet_type == 1) {
 					$sql = "UPDATE %%PLANETS%% SET destroyed = :time WHERE id = :planetID;";
                     $db->update($sql, array(
                         ':time'   => TIMESTAMP + 86400,
-                        ':planetID' => $PLANET['id'],
+                        ':planetID' => $this->planet->id,
                     ));
                     $sql = "DELETE FROM %%PLANETS%% WHERE id = :lunaID;";
                     $db->delete($sql, array(
-                        ':lunaID' => $PLANET['id_luna']
+                        ':lunaID' => $this->planet->id_luna
                     ));
                 } else {
                     $sql = "UPDATE %%PLANETS%% SET id_luna = 0 WHERE id_luna = :planetID;";
                     $db->update($sql, array(
-                        ':planetID' => $PLANET['id'],
+                        ':planetID' => $this->planet->id,
                     ));
                     $sql = "DELETE FROM %%PLANETS%% WHERE id = :planetID;";
                     $db->delete($sql, array(
-                        ':planetID' => $PLANET['id'],
+                        ':planetID' => $this->planet->id,
                     ));
                 }
 				
-				$PLANET['id']	= $this->user->id_planet;
+				$this->planet->id	= $this->user->id_planet;
 				exit(json_encode(array('ok' => true, 'message' => $this->lang['ov_planet_abandoned'])));
 			}
 		}
@@ -148,7 +148,7 @@ class ShowOverviewPage extends AbstractGamePage
 
 		foreach($this->user->PLANETS as $planetId => $planetData)
 		{		
-			if ($planetId == $PLANET['id'] || $planetData['planet_type'] == MOON) continue;
+			if ($planetId == $this->planet->id || $planetData['planet_type'] == MOON) continue;
 
             if(!isset($currentTasks[$planetId]) || $currentTasks[$planetId]['endBuildTime'] <= TIMESTAMP)
             {
@@ -167,20 +167,20 @@ class ShowOverviewPage extends AbstractGamePage
 			);
 		}
 		
-		if ($PLANET['id_luna'] != 0) {
+		if ($this->planet->id_luna != 0) {
 			$sql = "SELECT id, name FROM %%PLANETS%% WHERE id = :lunaID;";
             $Moon = $db->selectSingle($sql, array(
-                ':lunaID'   => $PLANET['id_luna']
+                ':lunaID'   => $this->planet->id_luna
             ));
         }
 
-        if(!isset($currentTasks[$PLANET['id']]) || $currentTasks[$PLANET['id']]['endBuildTime'] <= TIMESTAMP)
+        if(!isset($currentTasks[$this->planet->id]) || $currentTasks[$this->planet->id]['endBuildTime'] <= TIMESTAMP)
         {
             $buildInfo['buildings']	= false;
         }
         else
         {
-            $task   = $currentTasks[$PLANET['id']];
+            $task   = $currentTasks[$this->planet->id];
 			$buildInfo['buildings']	= array(
 				'id'		=> $task['elementId'],
 				'level'		=> $task['amount'],
@@ -249,12 +249,12 @@ class ShowOverviewPage extends AbstractGamePage
 			'rankInfo'					=> $rankInfo,
 			'is_news'					=> $config->OverviewNewsFrame,
 			'news'						=> makebr($config->OverviewNewsText),
-			'planetname'				=> $PLANET['name'],
-			'planetimage'				=> $PLANET['image'],
-			'galaxy'					=> $PLANET['galaxy'],
-			'system'					=> $PLANET['system'],
-			'planet'					=> $PLANET['planet'],
-			'planet_type'				=> $PLANET['planet_type'],
+			'planetname'				=> $this->planet->name,
+			'planetimage'				=> $this->planet->image,
+			'galaxy'					=> $this->planet->galaxy,
+			'system'					=> $this->planet->system,
+			'planet'					=> $this->planet->planet,
+			'planet_type'				=> $this->planet->planet_type,
 			'username'					=> $this->user->username,
 			'userid'					=> $this->user->id,
 			'buildInfo'					=> $buildInfo,
@@ -264,11 +264,11 @@ class ShowOverviewPage extends AbstractGamePage
 			'AdminsOnline'				=> $AdminsOnline,
 			'teamspeakData'				=> $this->GetTeamspeakData(),
 			'messages'					=> ($Messages > 0) ? (($Messages == 1) ? $this->lang['ov_have_new_message'] : sprintf($this->lang['ov_have_new_messages'], pretty_number($Messages))): false,
-			'planet_diameter'			=> pretty_number($PLANET['diameter']),
-			'planet_field_current' 		=> $PLANET['field_current'],
+			'planet_diameter'			=> pretty_number($this->planet->diameter),
+			'planet_field_current' 		=> $this->planet->field_current,
 			'planet_field_max' 			=> CalculateMaxPlanetFields($PLANET),
-			'planet_temp_min' 			=> $PLANET['temp_min'],
-			'planet_temp_max' 			=> $PLANET['temp_max'],
+			'planet_temp_min' 			=> $this->planet->temp_min,
+			'planet_temp_max' 			=> $this->planet->temp_max,
 			'ref_active'				=> $config->ref_active,
 			'ref_minpoints'				=> $config->ref_minpoints,
 			'RefLinks'					=> $RefLinks,
@@ -287,7 +287,7 @@ class ShowOverviewPage extends AbstractGamePage
 		$this->setWindow('popup');
 
 		$this->assign(array(
-			'ov_security_confirm'		=> sprintf($this->lang['ov_security_confirm'], $PLANET['name'].' ['.$PLANET['galaxy'].':'.$PLANET['system'].':'.$PLANET['planet'].']'),
+			'ov_security_confirm'		=> sprintf($this->lang['ov_security_confirm'], $this->planet->name.' ['.$this->planet->galaxy.':'.$this->planet->system.':'.$this->planet->planet.']'),
 		));
 		$this->display('page.overview.actions');
 	}
@@ -305,7 +305,7 @@ class ShowOverviewPage extends AbstractGamePage
                 $sql = "UPDATE %%PLANETS%% SET name = :newName WHERE id = :planetID;";
                 $db->update($sql, array(
                     ':newName'  => $newname,
-                    ':planetID' => $PLANET['id']
+                    ':planetID' => $this->planet->id
                 ));
 
                 $this->sendJSON(array('message' => $this->lang['ov_newname_done'], 'error' => false));
@@ -325,35 +325,35 @@ class ShowOverviewPage extends AbstractGamePage
                       (fleet_target_owner = :userID AND (fleet_end_id = :planetID OR fleet_end_id = :lunaID));";
             $IfFleets = $db->selectSingle($sql, array(
                 ':userID'   => $this->user->id,
-                ':planetID' => $PLANET['id'],
-                ':lunaID'   => $PLANET['id_luna']
+                ':planetID' => $this->planet->id,
+                ':lunaID'   => $this->planet->id_luna
             ), 'state');
 
 			if ($IfFleets > 0) {
 				$this->sendJSON(array('message' => $this->lang['ov_abandon_planet_not_possible']));
-			} elseif ($this->user->id_planet == $PLANET['id']) {
+			} elseif ($this->user->id_planet == $this->planet->id) {
 				$this->sendJSON(array('message' => $this->lang['ov_principal_planet_cant_abanone']));
 			} elseif (PlayerUtil::cryptPassword($password) != $this->user->password) {
 				$this->sendJSON(array('message' => $this->lang['ov_wrong_pass']));
 			} else {
-                if($PLANET['planet_type'] == 1) {
+                if($this->planet->planet_type == 1) {
                     $sql = "UPDATE %%PLANETS%% SET destroyed = :time WHERE id = :planetID;";
                     $db->update($sql, array(
                         ':time'   => TIMESTAMP+ 86400,
-                        ':planetID' => $PLANET['id'],
+                        ':planetID' => $this->planet->id,
                     ));
                     $sql = "DELETE FROM %%PLANETS%% WHERE id = :lunaID;";
                     $db->delete($sql, array(
-                        ':lunaID' => $PLANET['id_luna']
+                        ':lunaID' => $this->planet->id_luna
                     ));
                 } else {
                     $sql = "UPDATE %%PLANETS%% SET id_luna = 0 WHERE id_luna = :planetID;";
                     $db->update($sql, array(
-                        ':planetID' => $PLANET['id'],
+                        ':planetID' => $this->planet->id,
                     ));
                     $sql = "DELETE FROM %%PLANETS%% WHERE id = :planetID;";
                     $db->delete($sql, array(
-                        ':planetID' => $PLANET['id'],
+                        ':planetID' => $this->planet->id,
                     ));
                 }
 

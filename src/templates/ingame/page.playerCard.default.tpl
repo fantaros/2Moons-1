@@ -57,21 +57,21 @@
 	<tr>
 		<td>{$LNG.pl_fightwon}</td>
 		<td>{$wons}</td>
-		<td>{$siegprozent} %</td>
+		<td>{$percentWins} %</td>
 	</tr>
 	<tr>
 		<td>{$LNG.pl_fightdraw}</td>
 		<td>{$draws}</td>
-		<td>{$drawsprozent} %</td>
+		<td>{$percentDraws} %</td>
 	</tr>
 	<tr>
 		<td>{$LNG.pl_fightlose}</td>
 		<td>{$loos}</td>
-		<td>{$loosprozent} %</td>
+		<td>{$percentLoses} %</td>
 	</tr>
 	<tr>
 		<td>{$LNG.pl_totalfight}</td>
-		<td>{$totalfights}</td>
+		<td>{$totalCombats}</td>
 		<td>100 %</td>
 	</tr>
 	<tr>

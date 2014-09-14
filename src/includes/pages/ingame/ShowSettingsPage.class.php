@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowSettingsPage.class.php 2801 2013-10-05 23:55:41Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -89,7 +89,7 @@ class ShowSettingsPage extends AbstractGamePage
 	private function CheckVMode()
 	{
 
-		if(!empty($this->user->b_tech) || !empty($PLANET['b_building']) || !empty($PLANET['b_hangar']))
+		if(!empty($this->user->b_tech) || !empty($this->planet->b_building) || !empty($this->planet->b_hangar))
 			return false;
 
 		$db = Database::get();
@@ -105,7 +105,7 @@ class ShowSettingsPage extends AbstractGamePage
 		$sql = "SELECT * FROM %%PLANETS%% WHERE id_owner = :userID AND id != :planetID AND destroyed = 0;";
 		$query = $db->select($sql, array(
 			':userID'	=> $this->user->id,
-			':planetID'	=> $PLANET['id']
+			':planetID'	=> $this->planet->id
 		));
 
 		foreach($query as $CPLANET)

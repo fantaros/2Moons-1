@@ -22,7 +22,7 @@
  * @copyright 2009 Lucky
  * @copyright 2011 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2011-12-10)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: CleanerCronjob.class.php 2800 2013-10-04 22:07:04Z slaver7 $
  * @link http://code.google.com/p/2moons/
  */

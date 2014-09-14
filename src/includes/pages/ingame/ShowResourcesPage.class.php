@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $elementResourceId: ShowResourcesPage.class.php 2746 2013-05-18 11:38:36Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -39,7 +39,7 @@ class ShowResourcesPage extends AbstractGamePage
 				$_POST['prod'] = array();
 
 
-			$param	                = array(':planetId' => $PLANET['id']);
+			$param	                = array(':planetId' => $this->planet->id);
             $productionLevel        = HTTP::_GP('prod', array());
             $elementProductionList    = Vars::getElements(NULL, Vars::FLAG_PRODUCTION);
 
@@ -66,7 +66,7 @@ class ShowResourcesPage extends AbstractGamePage
 				$this->ecoObj->ReBuildCache();
 				list($USER, $PLANET)	= $this->ecoObj->getData();
 
-				$PLANET['eco_hash'] = $this->ecoObj->CreateHash();
+				$this->planet->eco_hash = $this->ecoObj->CreateHash();
 			}
 		}
 
@@ -79,7 +79,7 @@ class ShowResourcesPage extends AbstractGamePage
 		$config	                = Config::get();
         $elementResourceList    = Vars::getElements(Vars::CLASS_RESOURCE, array(Vars::FLAG_RESOURCE_PLANET , Vars::FLAG_ENERGY));
         $elementProductionList  = Vars::getElements(NULL, Vars::FLAG_PRODUCTION);
-		$planetIsOnProduction   = $this->user->urlaubs_modus == 0 && $PLANET['planet_type'] == PLANET;
+		$planetIsOnProduction   = $this->user->urlaubs_modus == 0 && $this->planet->planet_type == PLANET;
 
         $basicIncome            = array();
         $production             = array();
@@ -122,15 +122,15 @@ class ShowResourcesPage extends AbstractGamePage
 
 		$productionList	= array();
 
-		if($PLANET['energy_used'] != 0) {
-			$prodLevel	= min(1, $PLANET['energy'] / abs($PLANET['energy_used']));
+		if($this->planet->energy_used != 0) {
+			$prodLevel	= min(1, $this->planet->energy / abs($this->planet->energy_used));
 		} else {
 			$prodLevel	= 0;
 		}
 
 		/* Data for eval */
-		$BuildEnergy		= $USER[Vars::getElement(113)->name];
-		$BuildTemp          = $PLANET['temp_max'];
+		$BuildEnergy		= $this->user->getElement(113);
+		$BuildTemp          = $this->planet->temp_max;
 
 		foreach($elementProductionList as $elementProductionId => $elementProductionObj)
 		{
@@ -182,7 +182,7 @@ class ShowResourcesPage extends AbstractGamePage
 		}
 		
 		$this->assign(array(
-			'header'			=> sprintf($this->lang['rs_production_on_planet'], $PLANET['name']),
+			'header'			=> sprintf($this->lang['rs_production_on_planet'], $this->planet->name),
 			'prodSelector'		=> $prodSelector,
 			'productionList'	=> $productionList,
 			'basicProduction'	=> $basicProduction,

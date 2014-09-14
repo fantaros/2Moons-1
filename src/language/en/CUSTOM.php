@@ -22,7 +22,7 @@
  * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2011-07-31)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: CUSTOM.php 2253 2012-06-19 21:39:38Z slaver7 $
  * @link http://code.google.com/p/2moons/
  */

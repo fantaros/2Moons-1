@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowResearchPage.class.php 2786 2013-08-13 18:52:18Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -49,7 +49,6 @@ class ShowResearchPage extends AbstractGamePage
 
     public function cancel()
     {
-        global $USER;
         $taskId = HTTP::_GP('taskId', 0);
         if($_SERVER['REQUEST_METHOD'] === 'POST' && $this->user->urlaubs_modus == 0 && !empty($taskId))
         {
@@ -60,8 +59,6 @@ class ShowResearchPage extends AbstractGamePage
 
     private function getQueueData()
     {
-        global $this->lang, $USER, $PLANET;
-
         $queueData  = $this->ecoObj->getQueueObj()->getTasksByElementId(array_keys(Vars::getElements(Vars::CLASS_TECH)));
 
         $queue          = array();
@@ -81,7 +78,7 @@ class ShowResearchPage extends AbstractGamePage
                 'resttime' 	=> $task['endBuildTime'] - TIMESTAMP,
                 'endtime' 	=> _date('U', $task['endBuildTime'], $this->user->timezone),
                 'display' 	=> _date($this->lang['php_tdformat'], $task['endBuildTime'], $this->user->timezone),
-                'planet'	=> $task['planetId'] != $PLANET['id'] ? $this->user->PLANETS[$task['planetId']]['name'] : false,
+                'planet'	=> $task['planetId'] != $this->planet->id ? $this->user->PLANETS[$task['planetId']]['name'] : false,
             );
 
             $elementLevel[$task['elementId']]   = $task['amount'];
@@ -98,8 +95,7 @@ class ShowResearchPage extends AbstractGamePage
 
 	public function show()
 	{
-
-		if ($PLANET[Vars::getElement(31)->name] == 0)
+		if ($this->planet->getElement(31) == 0)
 		{
 			$this->printMessage($this->lang['bd_lab_required']);
 		}

@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowChangelogPage.class.php 2776 2013-08-05 21:30:40Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -31,7 +31,6 @@ class ShowChangelogPage extends AbstractGamePage
 {
     public function show()
 	{
-
         $this->lang->includeData(array('CHANGELOG'));
 		$this->assign(array(
 			'ChangelogList'	=> array_map('makebr', $this->lang['changelog']),

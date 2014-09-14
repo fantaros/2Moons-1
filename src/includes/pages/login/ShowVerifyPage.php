@@ -23,24 +23,15 @@
  * @copyright 2008 Chlorel (XNova)
  * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2012-11-31)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowVerifyPage.class.php 2793 2013-09-29 12:33:56Z slaver7 $
  * @link http://2moons.cc/
  */
 
 class ShowVerifyPage extends AbstractIndexPage
 {
-	public static $requireModule = 0;
-
-	function __construct()
-	{
-		parent::__construct();
-	}
-
 	private function _activeUser()
 	{
-		global $LNG;
-
 		$validationID	= HTTP::_GP('i', 0);
 		$validationKey	= HTTP::_GP('k', '');
 
@@ -75,7 +66,7 @@ class ShowVerifyPage extends AbstractIndexPage
 		{
 			require('includes/classes/Mail.php');
 			$MailSubject	= sprintf($this->lang->registerMailCompleteTitle, $config->game_name, Universe::current());
-			$MailRAW		= $LNG->getTemplate('email_reg_done');
+			$MailRAW		= $this->lang->getTemplate('email_reg_done');
 			$MailContent	= str_replace(array(
 				'{USERNAME}',
 				'{GAMENAME}',
@@ -97,24 +88,19 @@ class ShowVerifyPage extends AbstractIndexPage
 
 		if(!empty($userData['referralID']))
 		{
-			$sql = "UPDATE %%USERS%% SET
-			`ref_id`	= :referralId,
-			`ref_bonus`	= 1
-			WHERE
-			`id`		= :userID;";
-
-			$db->update($sql, array(
-				':referralId'	=> $userData['referralID'],
-				':userID'		=> $userID
-			));
+            $referralUser = new User($userID);
+            $referralUser->ref_bonus = 1;
+            $referralUser->ref_id    = $userData['referralID'];
+            $referralUser->save();
 		}
 
 		if(!empty($userData['externalAuthUID']))
 		{
-			$sql ="INSERT INTO %%USERS_AUTH%% SET
+			$sql = "INSERT INTO %%USERS_AUTH%% SET
 			`id`		= :userID,
 			`account`	= :externalAuthUID,
 			`mode`		= :externalAuthMethod;";
+
 			$db->insert($sql, array(
 				':userID'				=> $userID,
 				':externalAuthUID'		=> $userData['externalAuthUID'],
@@ -139,7 +125,7 @@ class ShowVerifyPage extends AbstractIndexPage
 	{
 		$userData	= $this->_activeUser();
 
-		$session	= Session::create();
+		$session	            = Session::create();
 		$session->userId		= (int) $userData['userID'];
 		$session->adminAccess	= 0;
 
@@ -148,7 +134,6 @@ class ShowVerifyPage extends AbstractIndexPage
 
 	function json()
 	{
-		global $LNG;
 		$userData	= $this->_activeUser();
 		$this->sendJSON(sprintf($this->lang->vertifyAdminMessage, $userData['userName']));
 	}

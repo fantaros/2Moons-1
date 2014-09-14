@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: BuildUtil.class.php 2803 2013-10-06 22:23:27Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -63,11 +63,11 @@ class BuildUtil
 		return self::$bonusList;
 	}
 
-	public static function getRestPrice($USER, $PLANET, Element $elementObj, $costResources = NULL)
+	public static function getRestPrice(User $user, Planet $planet, Element $elementObj, $costResources = NULL)
 	{
 		if(!isset($costResources))
 		{
-			$costResources	= self::getElementPrice($USER, $PLANET, $elementObj);
+			$costResources	= self::getElementPrice($user, $planet, $elementObj);
 		}
 		
 		$overflow	= array();
@@ -77,11 +77,11 @@ class BuildUtil
 			$resourceElementObj	= Vars::getElement($resourceElementId);
 			if($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
 			{
-				$available  = $USER[$resourceElementObj->name];
+				$available  = $user->{$resourceElementObj->name};
 			}
 			else
 			{
-				$available  = $PLANET[$resourceElementObj->name];
+				$available  = $planet->{$resourceElementObj->name};
 			}
 
 			$overflow[$resourceElementId] = max($value - $available, 0);
@@ -119,7 +119,7 @@ class BuildUtil
 		return $price; 
 	}
 	
-	public static function requirementsAvailable($USER, $PLANET, Element $elementObj)
+	public static function requirementsAvailable(User $user, Planet $planet, Element $elementObj)
 	{
 		if(!count($elementObj->requirements)) return true;
 
@@ -129,21 +129,20 @@ class BuildUtil
 
 			if($requireElementObj->isUserResource())
 			{
-				if ($USER[$requireElementObj->name] < $requireElementLevel) return false;
+				if ($user->{$requireElementObj->name} < $requireElementLevel) return false;
 			}
 			else
 			{
-				if ($PLANET[$requireElementObj->name] < $requireElementLevel) return false;
+				if ($planet->{$requireElementObj->name} < $requireElementLevel) return false;
 			}
-
 		}
 
 		return true;
 	}
 	
-	public static function getBuildingTime($USER, $PLANET, Element $elementObj, $costResources = NULL, $forLevel = NULL, $forDestroy = false)
+	public static function getBuildingTime(User $user, Planet $planet, Element $elementObj, $costResources = NULL, $forLevel = NULL, $forDestroy = false)
 	{
-		$config	= Config::get($USER['universe']);
+		$config	= Config::get($user->universe);
 
 		$time   = 0;
 
@@ -161,31 +160,31 @@ class BuildUtil
 		switch($elementObj->class)
 		{
 			case Vars::CLASS_BUILDING:
-				$time = $elementCost / ($config->game_speed * (1 + $PLANET[Vars::getElement(14)->name]));
-				$time *= pow(0.5, $PLANET[Vars::getElement(15)->name]);
-				$time += PlayerUtil::getBonusValue($time, 'BuildTime', $USER);
+				$time = $elementCost / ($config->game_speed * (1 + $planet->{Vars::getElement(14)->name}));
+				$time *= pow(0.5, $planet->{Vars::getElement(15)->name});
+				$time += PlayerUtil::getBonusValue($time, 'BuildTime', $user);
 			break;
 			case Vars::CLASS_FLEET:
 				$time = $elementCost / $config->game_speed;
-				$time *= 1 + $PLANET[Vars::getElement(21)->name];
-				$time *= pow(0.5, $PLANET[Vars::getElement(15)->name]);
-				$time += PlayerUtil::getBonusValue($time, 'ShipTime', $USER);
+				$time *= 1 + $planet->{Vars::getElement(21)->name};
+				$time *= pow(0.5, $planet->{Vars::getElement(15)->name});
+				$time += PlayerUtil::getBonusValue($time, 'ShipTime', $user);
 			break;
 			case Vars::CLASS_DEFENSE:
 				$time = $elementCost / $config->game_speed;
-				$time *= 1 + $PLANET[Vars::getElement(21)->name];
-				$time *= pow(0.5, $PLANET[Vars::getElement(15)->name]);
-				$time += PlayerUtil::getBonusValue($time, 'DefensiveTime', $USER);
+				$time *= 1 + $planet->{Vars::getElement(21)->name};
+				$time *= pow(0.5, $planet->{Vars::getElement(15)->name});
+				$time += PlayerUtil::getBonusValue($time, 'DefensiveTime', $user);
 			break;
 			case Vars::CLASS_TECH:
-				if(!isset($USER['techNetwork']))
+				if(!isset($user->techNetwork))
 				{
-					$USER['techNetwork']  = PlayerUtil::getLabLevelByNetwork($USER, $PLANET);
+					$user->techNetwork  = PlayerUtil::getLabLevelByNetwork($user, $planet);
 				}
 
 				$techLabLevel = 0;
 
-				foreach($USER['techNetwork'] as $planetTechLevel)
+				foreach($user->techNetwork as $planetTechLevel)
 				{
 					if(!isset($elementObj->requirements[31]) || $planetTechLevel >= $elementObj->requirements[31])
 					{
@@ -194,7 +193,7 @@ class BuildUtil
 				}
 
 				$time = $elementCost / (1000 * (1 + $techLabLevel)) / ($config->game_speed / 2500);
-				$time += PlayerUtil::getBonusValue($time, 'ResearchTime', $USER);
+				$time += PlayerUtil::getBonusValue($time, 'ResearchTime', $user);
 			break;
 			case Vars::CLASS_PERM_BONUS:
 				$time = $elementCost / $config->game_speed;
@@ -210,13 +209,13 @@ class BuildUtil
 		return max($time, $config->min_build_time);
 	}
 	
-	public static function isElementBuyable($USER, $PLANET, Element $elementObj, $costResources = NULL, $forDestroy = false, $forLevel = NULL)
+	public static function isElementBuyable(User $user, Planet $planet, Element $elementObj, $costResources = NULL, $forDestroy = false, $forLevel = NULL)
 	{
-		$rest	= self::getRestPrice($USER, $PLANET, $elementObj, $costResources, $forDestroy, $forLevel);
+		$rest	= self::getRestPrice($user, $planet, $elementObj, $costResources, $forDestroy, $forLevel);
 		return count(array_filter($rest)) === 0;
 	}
 	
-	public static function maxBuildableElements($USER, $PLANET, Element $elementObj, $costResources = NULL)
+	public static function maxBuildableElements(User $user, Planet $planet, Element $elementObj, $costResources = NULL)
 	{
 		if(!isset($costResources))
 		{
@@ -232,18 +231,18 @@ class BuildUtil
 			$resourceElementObj	= Vars::getElement($resourceElementId);
 			if($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
 			{
-				$maxElement[$resourceElementId]	= floor($USER[$resourceElementObj->name] / $value);
+				$maxElement[$resourceElementId]	= floor($user->{$resourceElementObj->name} / $value);
 			}
 			else
 			{
-				$maxElement[$resourceElementId]	= floor($PLANET[$resourceElementObj->name] / $value);
+				$maxElement[$resourceElementId]	= floor($planet->{$resourceElementObj->name} / $value);
 			}
 		}
 		
 		return min($maxElement);
 	}
 	
-	public static function maxBuildableMissiles($USER, $PLANET, QueueManager $queueObj)
+	public static function maxBuildableMissiles(User $user, Planet $planet, QueueManager $queueObj)
 	{
 		$currentMissiles	= 0;
 		$missileElements	= Vars::getElements(Vars::CLASS_MISSILE);
@@ -251,11 +250,11 @@ class BuildUtil
 		{
 			if($missileElementObj->hasFlag(Vars::FLAG_ATTACK_MISSILE))
 			{
-				$currentMissiles	+= $PLANET[$missileElementObj->name] * 2;
+				$currentMissiles	+= $planet->{$missileElementObj->name} * 2;
 			}
 			else
 			{
-				$currentMissiles	+= $PLANET[$missileElementObj->name];
+				$currentMissiles	+= $planet->{$missileElementObj->name};
 			}
 		}
 
@@ -268,10 +267,10 @@ class BuildUtil
 		}
 		else
 		{
-			$missileDepot = $PLANET[Vars::getElement(44)->name];
+			$missileDepot = $planet->{Vars::getElement(44)->name};
 		}
 
-		$maxMissiles		= $missileDepot * 10 * max(Config::get($USER['universe'])->silo_factor, 1);
+		$maxMissiles		= $missileDepot * 10 * max(Config::get($user->universe)->silo_factor, 1);
 
 		$buildableMissileCount  = max(0, $maxMissiles, $currentMissiles);
 		$buildableMissiles	= array();

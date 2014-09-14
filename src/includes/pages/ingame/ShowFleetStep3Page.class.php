@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowFleetStep3Page.class.php 2796 2013-09-29 23:10:14Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -66,7 +66,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 			)));
 		}
 
-		if($missionData['userId'] != $this->user->id || $missionData['planetId'] != $PLANET['id'])
+		if($missionData['userId'] != $this->user->id || $missionData['planetId'] != $this->planet->id)
 		{
 			unset($session->{"fleet_$token"});
 			$this->printMessage($this->lang['invalid_action'], array(array(
@@ -423,8 +423,8 @@ class ShowFleetStep3Page extends AbstractGamePage
 			$this->ecoObj->saveToDatabase('PLANET', Vars::getElement($elementId)->name);
 		}
 
-		FleetUtil::sendFleet($fleetData, $targetMission, $this->user->id, $PLANET['id'], $PLANET['galaxy'],
-			$PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $targetPlanetData['id_owner'],
+		FleetUtil::sendFleet($fleetData, $targetMission, $this->user->id, $this->planet->id, $this->planet->galaxy,
+			$this->planet->system, $this->planet->planet, $this->planet->planet_type, $targetPlanetData['id_owner'],
 			$targetPlanetData['id'], $targetGalaxy, $targetSystem, $targetPlanet, $targetType, $fleetResource,
 			$fleetArrivalTime, $fleetStayTime, $fleetEndTime, $fleetGroup);
 
@@ -432,7 +432,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 			'targetMission'		=> $targetMission,
 			'distance'			=> $distance,
 			'consumption'		=> $consumption,
-			'from'				=> $PLANET['galaxy'] .":". $PLANET['system']. ":". $PLANET['planet'],
+			'from'				=> $this->planet->galaxy .":". $this->planet->system. ":". $this->planet->planet,
 			'destination'		=> $targetGalaxy .":". $targetSystem .":". $targetPlanet,
 			'fleetArrivalTime'	=> _date($this->lang['php_tdformat'], $fleetArrivalTime, $this->user->timezone),
 			'fleetEndTime'		=> _date($this->lang['php_tdformat'], $fleetEndTime, $this->user->timezone),

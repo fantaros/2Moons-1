@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: class.GalaxyRows.php 2794 2013-09-29 21:46:22Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -34,11 +34,15 @@ class GalaxyRows
 	private $System;
 	private $galaxyData;
 	private $galaxyRow;
-	
+
+	private $user;
+	private $planet;
+
 	const PLANET_DESTROYED = false;
-	
-	function __construct() {
-		
+
+	function __construct(User $user, Planet $planet) {
+		$this->user     = $user;
+		$this->planet   = $planet;
 	}
 	
 	public function setGalaxy($Galaxy) {
@@ -53,8 +57,6 @@ class GalaxyRows
 	
 	public function getGalaxyData()
 	{
-		global $USER, $PLANET;
-
         $sql	= 'SELECT SQL_BIG_RESULT DISTINCT
 		p.galaxy, p.system, p.planet, p.id, p.id_owner, p.name, p.image, p.last_update, p.diameter, p.temp_min, p.destroyed, p.der_metal, p.der_crystal, p.id_luna,
 		u.id as userid, u.ally_id, u.username, u.onlinetime, u.urlaubs_modus, u.banaday, 
@@ -78,35 +80,14 @@ class GalaxyRows
 		$galaxyResult	= Database::get()->select($sql, array(
 			':statTypeUser' 	=> 1,
 			':statTypeAlliance' => 2,
-			':allianceId'		=> $USER['ally_id'],
-			':userId'			=> $USER['id'],
+			':allianceId'		=> $this->user->ally_id,
+			':userId'			=> $this->user->id,
 			':universe'			=> Universe::current(),
 			':galaxy'			=> $this->Galaxy,
 			':system'			=> $this->System,
 			':planetTypePlanet'	=> 1,
 			':accept'			=> 1,
 	  	));
-
-		$PLANET['hasShipsToDestroy']	= false;
-		$PLANET['hasMissileToAttack']	= false;
-
-		foreach(Vars::getElements(NULL, Vars::FLAG_ATTACK_MISSILE) as $elementObj)
-		{
-			if($PLANET[$elementObj->name] > 0)
-			{
-				$PLANET['hasMissileToAttack'] = true;
-				break;
-			}
-		}
-
-		foreach(Vars::getElements(NULL, Vars::FLAG_DESTROY) as $elementObj)
-		{
-			if($PLANET[$elementObj->name] > 0)
-			{
-				$PLANET['hasShipsToDestroy'] = true;
-				break;
-			}
-		}
 
 		foreach ($galaxyResult as $galaxyRow)
 		{
@@ -138,14 +119,12 @@ class GalaxyRows
 	
 	protected function setLastActivity()
 	{
-		global $LNG;
-		
 		$lastActivity	= floor((TIMESTAMP - max($this->galaxyRow['last_update'], $this->galaxyRow['m_last_update'])) / 60);
 		
 		if ($lastActivity < 4) {
-			$this->galaxyData[$this->galaxyRow['planet']]['lastActivity']	= $LNG['gl_activity'];
+			$this->galaxyData[$this->galaxyRow['planet']]['lastActivity']	= $this->user->lang['gl_activity'];
 		} elseif($lastActivity < 15) {
-			$this->galaxyData[$this->galaxyRow['planet']]['lastActivity']	= sprintf($LNG['gl_activity_inactive'], $lastActivity);
+			$this->galaxyData[$this->galaxyRow['planet']]['lastActivity']	= sprintf($this->user->lang['gl_activity_inactive'], $lastActivity);
 		} else {
 			$this->galaxyData[$this->galaxyRow['planet']]['lastActivity']	= '';
 		}
@@ -153,61 +132,93 @@ class GalaxyRows
 	
 	protected function isOwnPlanet()
 	{
-		global $USER;
-		
-		$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet']	= $this->galaxyRow['id_owner'] == $USER['id'];
+		$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet']	= $this->galaxyRow['id_owner'] == $this->user->id;
 	}
 	
 	protected function getAllowedMissions()
 	{
-		global $PLANET;
+        $hasMissileToAttack = false;
+        $hasShipsToDestroy  = false;
+
+        foreach(Vars::getElements(NULL, Vars::FLAG_ATTACK_MISSILE) as $elementObj)
+        {
+            if($this->planet->{$elementObj->name} > 0)
+            {
+                $hasMissileToAttack = true;
+                break;
+            }
+        }
+
+        foreach(Vars::getElements(NULL, Vars::FLAG_DESTROY) as $elementObj)
+        {
+            if($this->planet->{$elementObj->name} > 0)
+            {
+                $hasShipsToDestroy = true;
+                break;
+            }
+        }
 
 		$this->galaxyData[$this->galaxyRow['planet']]['missions']	= array(
-			1	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && isModulAvalible(MODULE_MISSION_ATTACK),
-			3	=> isModulAvalible(MODULE_MISSION_TRANSPORT),
-			4	=> $this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && isModulAvalible(MODULE_MISSION_STATION),
-			5	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && isModulAvalible(MODULE_MISSION_HOLD),
-			6	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && isModulAvalible(MODULE_MISSION_SPY),
-			8	=> isModulAvalible(MODULE_MISSION_RECYCLE),
-			9	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && $PLANET['hasShipsToDestroy'] && isModulAvalible(MODULE_MISSION_DESTROY),
-			10	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && $PLANET['hasMissileToAttack'] && isModulAvalible(MODULE_MISSION_ATTACK) && isModulAvalible(MODULE_MISSILEATTACK) && $this->inMissileRange(),
+			1 => !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet']
+                && $this->user->can(MODULE_MISSION_ATTACK),
+
+			3 => $this->user->can(MODULE_MISSION_TRANSPORT),
+
+			4 => $this->galaxyData[$this->galaxyRow['planet']]['ownPlanet']
+                && $this->user->can(MODULE_MISSION_STATION),
+
+			5 => !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet']
+                && $this->user->can(MODULE_MISSION_HOLD),
+
+			6 => !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet']
+                && $this->user->can(MODULE_MISSION_SPY),
+
+			8 => $this->user->can(MODULE_MISSION_RECYCLE),
+
+			9 => !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet']
+                && $hasShipsToDestroy
+                && $this->user->can(MODULE_MISSION_DESTROY),
+
+			10 => !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet']
+                && $hasMissileToAttack
+                && $this->user->can(MODULE_MISSION_ATTACK)
+                && $this->user->can(MODULE_MISSILEATTACK)
+                && $this->inMissileRange(),
 		);
 	}
 
 	protected function inMissileRange()
 	{
-		global $USER, $PLANET;
-		
-		if ($this->galaxyRow['galaxy'] != $PLANET['galaxy'])
+		if ($this->galaxyRow['galaxy'] != $this->planet->galaxy)
 			return false;
 		
-		$Range		= FleetUtil::GetMissileRange($USER);
-		$systemMin	= $PLANET['system'] - $Range;
-		$systemMax	= $PLANET['system'] + $Range;
+		$Range		= FleetUtil::GetMissileRange($this->user);
+		$systemMin	= $this->planet->system - $Range;
+		$systemMax	= $this->planet->system + $Range;
 		
 		return $this->galaxyRow['system'] >= $systemMin && $this->galaxyRow['system'] <= $systemMax;
 	}
 	
 	protected function getActionButtons()
 	{
-		global $USER;
-        if($this->galaxyData[$this->galaxyRow['planet']]['ownPlanet']) {
+        if($this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'])
+        {
             $this->galaxyData[$this->galaxyRow['planet']]['action'] = false;
-        } else {
+        }
+        else
+        {
             $this->galaxyData[$this->galaxyRow['planet']]['action'] = array(
-                'esp'		=> $USER['settings_esp'] == 1 && $this->galaxyData[$this->galaxyRow['planet']]['missions'][6],
-                'message'	=> $USER['settings_wri'] == 1 && isModulAvalible(MODULE_MESSAGES),
-                'buddy'		=> $USER['settings_bud'] == 1 && isModulAvalible(MODULE_BUDDYLIST) && $this->galaxyRow['buddy'] == 0,
-                'missle'	=> $USER['settings_mis'] == 1 && $this->galaxyData[$this->galaxyRow['planet']]['missions'][10],
+                'esp'       => $this->user->settings_esp == 1 && $this->galaxyData[$this->galaxyRow['planet']]['missions'][6],
+                'message'   => $this->user->settings_wri == 1 && $this->user->can(MODULE_MESSAGES),
+                'buddy'     => $this->user->settings_bud == 1 && $this->user->can(MODULE_BUDDYLIST) && $this->galaxyRow['buddy'] == 0,
+                'missle'    => $this->user->settings_mis == 1 && $this->galaxyData[$this->galaxyRow['planet']]['missions'][10],
             );
         }
 	}
 
 	protected function getPlayerData()
 	{
-		global $USER, $LNG;
-
-		$IsNoobProtec		= CheckNoobProtec($USER, $this->galaxyRow, $this->galaxyRow);
+		$IsNoobProtec		= CheckNoobProtec($this->user, $this->galaxyRow, $this->galaxyRow);
 		$Class		 		= array();
 
 		if ($this->galaxyRow['banaday'] > TIMESTAMP && $this->galaxyRow['urlaubs_modus'] == 1)
@@ -244,7 +255,7 @@ class GalaxyRows
 			'username'		=> htmlspecialchars($this->galaxyRow['username'], ENT_QUOTES, "UTF-8"),
 			'rank'			=> $this->galaxyRow['total_rank'],
 			'points'		=> pretty_number($this->galaxyRow['total_points']),
-			'playerrank'	=> isModulAvalible(MODULE_STATISTICS) ? sprintf($LNG['gl_in_the_rank'], htmlspecialchars($this->galaxyRow['username'],ENT_QUOTES,"UTF-8"), $this->galaxyRow['total_rank']):htmlspecialchars($this->galaxyRow['username'],ENT_QUOTES,"UTF-8"),
+			'playerrank'	=> $this->user->can(MODULE_STATISTICS) ? sprintf($this->user->lang['gl_in_the_rank'], htmlspecialchars($this->galaxyRow['username'],ENT_QUOTES,"UTF-8"), $this->galaxyRow['total_rank']):htmlspecialchars($this->galaxyRow['username'],ENT_QUOTES,"UTF-8"),
 			'class'			=> $Class,
 			'isBuddy'		=> $this->galaxyRow['buddy'] == 0,
 		);
@@ -252,7 +263,6 @@ class GalaxyRows
 	
 	protected function getAllianceData()
 	{
-		global $USER, $LNG;
 		if(empty($this->galaxyRow['allyid'])) {
 			$this->galaxyData[$this->galaxyRow['planet']]['alliance']	= false;
 		} else {
@@ -271,7 +281,7 @@ class GalaxyRows
 				break;
 			}
 			
-			if($USER['ally_id'] == $this->galaxyRow['ally_id'])
+			if($this->user->ally_id == $this->galaxyRow['ally_id'])
 			{
 				$Class	= array('member');
 			}
@@ -279,7 +289,7 @@ class GalaxyRows
 			$this->galaxyData[$this->galaxyRow['planet']]['alliance']	= array(
 				'id'		=> $this->galaxyRow['allyid'],
 				'name'		=> htmlspecialchars($this->galaxyRow['ally_name'], ENT_QUOTES, "UTF-8"),
-				'member'	=> sprintf(($this->galaxyRow['ally_members'] == 1) ? $LNG['gl_member_add'] : $LNG['gl_member'], $this->galaxyRow['ally_members']),
+				'member'	=> sprintf(($this->galaxyRow['ally_members'] == 1) ? $this->user->lang['gl_member_add'] : $this->user->lang['gl_member'], $this->galaxyRow['ally_members']),
 				'web'		=> $this->galaxyRow['ally_web'],
 				'tag'		=> $this->galaxyRow['ally_tag'],
 				'rank'		=> $this->galaxyRow['ally_rank'],
@@ -318,12 +328,13 @@ class GalaxyRows
 
 	protected function getPlanetData()
 	{
-		global $PLANET;
 		$this->galaxyData[$this->galaxyRow['planet']]['planet']	= array(
-			'id'			=> $this->galaxyRow['id'],
-			'name'			=> htmlspecialchars($this->galaxyRow['name'], ENT_QUOTES, "UTF-8"),
-			'image'			=> $this->galaxyRow['image'],
-			'phalanx'		=> isModulAvalible(MODULE_PHALANX) && $PLANET[Vars::getElement(903)->name] >= PHALANX_DEUTERIUM && ShowPhalanxPage::allowPhalanx($this->galaxyRow['galaxy'], $this->galaxyRow['system']),
+			'id'		=> $this->galaxyRow['id'],
+			'name'		=> htmlspecialchars($this->galaxyRow['name'], ENT_QUOTES, "UTF-8"),
+			'image'		=> $this->galaxyRow['image'],
+			'phalanx'   => $this->user->can(MODULE_PHALANX)
+                && $this->planet->getElement(903) >= PHALANX_DEUTERIUM
+                && PlayerUtil::allowPhalanx($this->user, $this->planet, $this->galaxyRow['galaxy'], $this->galaxyRow['system']),
 		);
 	}
 }

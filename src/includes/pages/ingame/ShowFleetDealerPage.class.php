@@ -21,11 +21,10 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowFleetDealerPage.class.php 2789 2013-09-20 21:13:40Z slaver7 $
  * @link http://2moons.cc/
  */
-
 
 class ShowFleetDealerPage extends AbstractGamePage
 {
@@ -33,13 +32,12 @@ class ShowFleetDealerPage extends AbstractGamePage
 
     public function send()
 	{
-
 		$elementId		= HTTP::_GP('shipId', 0);
 		$amount			= max(0, round(HTTP::_GP('count', 0.0)));
 		$allowedShipIDs	= array_merge(Vars::getElements(Vars::CLASS_FLEET, Vars::FLAG_TRADE), Vars::getElements(Vars::CLASS_DEFENSE, Vars::FLAG_TRADE));
 
         $elementObj     = Vars::getElement($elementId);
-		if(!empty($amount) && in_array($elementId, $allowedShipIDs) && $PLANET[$elementObj->name] >= $amount)
+		if(!empty($amount) && in_array($elementId, $allowedShipIDs) && $this->planet->{$elementObj->name} >= $amount)
 		{
 			$tradeCharge					= 1 - (Config::get()->trade_charge / 100);
             $costResource                   = BuildUtil::getElementPrice($elementObj, $amount * $tradeCharge);
@@ -49,15 +47,15 @@ class ShowFleetDealerPage extends AbstractGamePage
 
                 if($resourceElementObj->isUserResource())
                 {
-                    $USER[$resourceElementObj->name]    += $resourceAmount;
+                    $this->user->{$resourceElementObj->name}    += $resourceAmount;
                 }
                 else
                 {
-                    $PLANET[$resourceElementObj->name]    += $resourceAmount;
+                    $this->planet->{$resourceElementObj->name}  += $resourceAmount;
                 }
             }
 			
-			$PLANET[$elementObj->name]  -= $amount;
+			$this->planet->{$elementObj->name}  -= $amount;
             $this->ecoObj->saveToDatabase('PLANET', $elementObj->name);
 
             $this->printMessage($this->lang['tr_exchange_done'], array(array(
@@ -76,7 +74,6 @@ class ShowFleetDealerPage extends AbstractGamePage
 	
 	function show()
 	{
-
 		$elementsData   = array();
 
         $allowedShipIDs = Vars::getElements(Vars::CLASS_FLEET, Vars::FLAG_TRADE) + Vars::getElements(Vars::CLASS_DEFENSE, Vars::FLAG_TRADE);
@@ -84,7 +81,7 @@ class ShowFleetDealerPage extends AbstractGamePage
 		foreach($allowedShipIDs as $elementId => $elementObj)
 		{
             $elementsData[$elementId]	= array(
-                'available' => $PLANET[$elementObj->name],
+                'available' => $this->planet->{$elementObj->name},
                 'price'     => BuildUtil::getElementPrice($elementObj)
             );
 		}

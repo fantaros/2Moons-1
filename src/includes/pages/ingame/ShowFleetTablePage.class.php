@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowFleetTablePage.class.php 2800 2013-10-04 22:07:04Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -187,7 +187,7 @@ class ShowFleetTablePage extends AbstractGamePage
 			}
 		}
 		
-		$techExpedition      = $USER[Vars::getElement(124)->name];
+		$techExpedition      = $this->user->getElement(124);
 
 		if ($techExpedition >= 1)
 		{
@@ -202,10 +202,10 @@ class ShowFleetTablePage extends AbstractGamePage
 
 		$maxFleetSlots	= FleetUtil::GetMaxFleetSlots($USER);
 
-		$targetGalaxy	= HTTP::_GP('galaxy', (int) $PLANET['galaxy']);
-		$targetSystem	= HTTP::_GP('system', (int) $PLANET['system']);
-		$targetPlanet	= HTTP::_GP('planet', (int) $PLANET['planet']);
-		$targetType		= HTTP::_GP('planettype', (int) $PLANET['planet_type']);
+		$targetGalaxy	= HTTP::_GP('galaxy', (int) $this->planet->galaxy);
+		$targetSystem	= HTTP::_GP('system', (int) $this->planet->system);
+		$targetPlanet	= HTTP::_GP('planet', (int) $this->planet->planet);
+		$targetType		= HTTP::_GP('planettype', (int) $this->planet->planet_type);
 		$targetMission	= HTTP::_GP('target_mission', 0);
 
         $activeFleetSlots	= 0;
@@ -276,9 +276,9 @@ class ShowFleetTablePage extends AbstractGamePage
 			'bonusAttack'			=> PlayerUtil::getBonusValue(100, 'Attack', $USER),
 			'bonusDefensive'		=> PlayerUtil::getBonusValue(100, 'Defensive', $USER),
 			'bonusShield'			=> PlayerUtil::getBonusValue(100, 'Shield', $USER),
-			'bonusCombustion'		=> $USER[Vars::getElement(115)->name] * 10,
-			'bonusImpulse'			=> $USER[Vars::getElement(117)->name] * 20,
-			'bonusHyperspace'		=> $USER[Vars::getElement(118)->name] * 30,
+			'bonusCombustion'		=> $this->user->getElement(115) * 10,
+			'bonusImpulse'			=> $this->user->getElement(117) * 20,
+			'bonusHyperspace'		=> $this->user->getElement(118) * 30,
 		));
 		
 		$this->display('page.fleetTable.default');

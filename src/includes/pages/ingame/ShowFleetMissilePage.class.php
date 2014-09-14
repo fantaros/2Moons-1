@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 2.0.0 (2013-03-18)
+ * @version 2.0.0 (2015-01-01)
  * @info $Id: ShowFleetMissilePage.class.php 2792 2013-09-27 18:18:53Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -57,8 +57,8 @@ class ShowFleetMissilePage extends AbstractGamePage
         ));
 
         $Range				= FleetUtil::GetMissileRange($USER);
-		$systemMin			= $PLANET['system'] - $Range;
-		$systemMax			= $PLANET['system'] + $Range;
+		$systemMin			= $this->planet->system - $Range;
+		$systemMax			= $this->planet->system + $Range;
 		
 		$error				= "";
 
@@ -77,7 +77,7 @@ class ShowFleetMissilePage extends AbstractGamePage
         {
             $error = $this->lang['fl_vacation_mode_active'];
         }
-		elseif ($PLANET['silo'] < 4)
+		elseif ($this->planet->silo < 4)
         {
             $error = $this->lang['ma_silo_level'];
         }
@@ -85,7 +85,7 @@ class ShowFleetMissilePage extends AbstractGamePage
         {
             $error = $this->lang['ma_impulse_drive_required'];
         }
-		elseif ($targetGalaxy != $PLANET['galaxy'] || $targetSystem < $systemMin || $targetSystem > $systemMax)
+		elseif ($targetGalaxy != $this->planet->galaxy || $targetSystem < $systemMin || $targetSystem > $systemMax)
         {
             $error = $this->lang['ma_not_send_other_galaxy'];
         }
@@ -144,7 +144,7 @@ class ShowFleetMissilePage extends AbstractGamePage
 			$this->printMessage($error);
 		}
 		
-		$Duration		= FleetUtil::getMissileDuration($PLANET['system'], $targetSystem);
+		$Duration		= FleetUtil::getMissileDuration($this->planet->system, $targetSystem);
 
 		$DefenseLabel 	= ($primaryTarget == 0) ? $this->lang['ma_all'] : $this->lang['tech'][$primaryTarget];
 		
@@ -154,8 +154,8 @@ class ShowFleetMissilePage extends AbstractGamePage
 		
 		$fleetResource	= ArrayUtil::combineArrayWithSingleElement(array_keys(Vars::getElements(NULL, Vars::FLAG_TRANSPORT)), 0);
 		
-		FleetUtil::sendFleet($fleetData, 10, $this->user->id, $PLANET['id'], $PLANET['galaxy'], $PLANET['system'],
-			$PLANET['planet'], $PLANET['planet_type'], $target['id_owner'], $target['id'], $targetGalaxy, $targetSystem,
+		FleetUtil::sendFleet($fleetData, 10, $this->user->id, $this->planet->id, $this->planet->galaxy, $this->planet->system,
+			$this->planet->planet, $this->planet->planet_type, $target['id_owner'], $target['id'], $targetGalaxy, $targetSystem,
 			$targetPlanet, $targetType, $fleetResource, $fleetStartTime, $fleetStayTime, $fleetEndTime, 0, $primaryTarget);
 
 		$this->printMessage("<b>".array_sum($fleetData)."</b>". $this->lang['ma_missiles_sended'].$DefenseLabel);
