@@ -53,7 +53,7 @@ $template->assign(array(
 $db = Database::get();
 $insertData = array();
 
-require 'includes/classes/BuildUtil.class.php';
+require 'includes/classes/BuildUtil.php';
 require 'includes/classes/Element.class.php';
 require 'includes/classes/Vars.class.php';
 Vars::init();

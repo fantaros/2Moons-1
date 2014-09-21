@@ -41,7 +41,7 @@ class ShowAccountPage extends AbstractInstallPage
         $password	= HTTP::_GP('password', '', true);
         $mail		= HTTP::_GP('email', '');
 
-        require 'includes/classes/BuildUtil.class.php';
+        require 'includes/classes/BuildUtil.php';
 
         Vars::init();
 

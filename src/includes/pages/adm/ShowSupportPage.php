@@ -34,7 +34,7 @@ class ShowSupportPage
 	
 	function __construct() 
 	{
-		require('includes/classes/class.SupportTickets.php');
+		require('includes/classes/SupportTickets.php');
 		$this->ticketObj	= new SupportTickets;
 		$this->tplObj		= new Template();
 		// 2Moons 1.7TO1.6 PageClass Wrapper
@@ -121,7 +121,7 @@ class ShowSupportPage
 
 		$ticket_status		= 0;
 
-		require 'includes/classes/BBCode.class.php';
+		require 'includes/classes/BBCode.php';
 
 		while($answerRow = $GLOBALS['DATABASE']->fetch_array($answerResult)) {
 			if (empty($ticket_status))

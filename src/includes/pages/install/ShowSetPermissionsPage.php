@@ -36,7 +36,7 @@ class ShowSetPermissionPage extends AbstractInstallPage
 
         require 'includes/libs/ftp/ftp.class.php';
         require 'includes/libs/ftp/ftpexception.class.php';
-        require 'includes/pages/install/ShowRequirementsPage.class.php';
+        require 'includes/pages/install/ShowRequirementsPage.php';
 
         $connectionConfig = array(
             'host'     => $_GET['host'],

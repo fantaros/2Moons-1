@@ -26,7 +26,8 @@
  * @link http://2moons.cc/
  */
 
-if (function_exists('mb_internal_encoding')) {
+if (function_exists('mb_internal_encoding'))
+{
 	mb_internal_encoding("UTF-8");
 }
 
@@ -46,9 +47,10 @@ require 'includes/constants.php';
 require 'includes/GeneralFunctions.php';
 set_exception_handler('exceptionHandler');
 set_error_handler('errorHandler');
+spl_autoload_register('classLoader');
 
 // Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
-HTTP::sendHeader('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
+#HTTP::sendHeader('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 define('AJAX_REQUEST', HTTP::_GP('ajax', 0));
 
 if (MODE === 'INSTALL')
@@ -77,7 +79,6 @@ if(!$session->isValid())
 }
 
 Vars::init();
-
 $user = $session->getUser();
 
 if($config->game_disable == 0 && $user->can(ACL_CAN_ENTER_CLOSED_GAME)) {

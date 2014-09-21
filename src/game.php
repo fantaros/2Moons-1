@@ -40,11 +40,6 @@ if(Universe::current() != $user->universe && $universeAmount > 1)
     HTTP::redirectToUniverse($user->universe);
 }
 
-if(!AJAX_REQUEST && isModulAvalible(MODULE_FLEET_EVENTS))
-{
-    FleetHandler::run();
-}
-
 $page 		= HTTP::_GP('page', 'overview');
 $mode 		= HTTP::_GP('mode', 'show');
 
@@ -61,25 +56,19 @@ if(empty($mode))
 $page		= str_replace(array('_', '\\', '/', '.', "\0"), '', $page);
 $pageClass	= 'Show'.ucfirst($page).'Page';
 
-if(!file_exists($path))
+
+if(!class_exists($pageClass))
 {
-	ShowErrorPage::printError($user->translate('page_doesnt_exist'));
+    ShowErrorPage::printError(Session::get()->getUser()->getLangObj()->page_doesnt_exist);
 }
 
 $pageObj	= new $pageClass;
-// PHP 5.2 FIX
-// can't use $pageObj::$requireModule
-$pageProps	= get_class_vars(get_class($pageObj));
-
-if(isset($pageProps['requireModule']) && $pageProps['requireModule'] !== 0 && !isModulAvalible($pageProps['requireModule']))
-{
-	ShowErrorPage::printError($user->translate('sys_module_inactive'));
-}
 
 if(!is_callable(array($pageObj, $mode)))
 {
-	if(!isset($pageProps['defaultController']) || !is_callable(array($pageObj, $pageProps['defaultController']))) {
-        ShowErrorPage::printError($user->translate('page_doesnt_exist'));
+	if(!isset($pageProps['defaultController']) || !is_callable(array($pageObj, $pageProps['defaultController'])))
+    {
+        ShowErrorPage::printError(Session::get()->getUser()->getLangObj()->page_doesnt_exist);
 	}
 
 	$mode	= $pageProps['defaultController'];

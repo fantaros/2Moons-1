@@ -47,7 +47,6 @@ else
 	$page	= 'Login';
 }
 
-
 Session::get()
     ->getUser()
     ->getLangObj()
@@ -61,13 +60,6 @@ if(!file_exists($path)) {
 }
 
 $pageObj	= new $pageClass;
-// PHP 5.2 FIX
-// can't use $pageObj::$requireModule
-$pageProps	= get_class_vars(get_class($pageObj));
-
-if(isset($pageProps['requireModule']) && $pageProps['requireModule'] !== 0 && !isModulAvalible($pageProps['requireModule'])) {
-	ShowErrorPage::printError($LNG['sys_module_inactive']);
-}
 
 if(!is_callable(array($pageObj, $mode))) {
 	if(!isset($pageProps['defaultController']) || !is_callable(array($pageObj, $pageProps['defaultController']))) {

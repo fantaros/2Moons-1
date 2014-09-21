@@ -57,7 +57,7 @@ $LNG['changelog']   = array(
 - 0000016: [Time] The extra zero in ACP -> Online users (Orion) - resolved.
 - 0000031: [User errors] Beim automatischen löschen eines Spieler der Mitglied in einer Ali ist, wird der kompletten Ali-Datensatz gelöscht! (Orion) - resolved.
 - 0000039: [Installer] Installation Error (Jan) - resolved.
-- 0000041: [Fleet missions] class.FlyingFleetsTable.php Ref 2306 verursacht undefined Index PM, kein Login mehr möglich. (Orion) - resolved.
+- 0000041: [Fleet missions] FlyingFleetsTable.php Ref 2306 verursacht undefined Index PM, kein Login mehr möglich. (Orion) - resolved.
 - 0000065: [Alliance] Error when you enter in menu Alliance (Jan) - resolved.
 - 0000072: [User errors] PHP Fatal error bei Ref 2349 (Orion) - resolved.
 - 0000076: [Fleet missions] Flying fleets disappear (Jan) - resolved.

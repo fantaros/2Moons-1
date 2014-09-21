@@ -22,7 +22,7 @@
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 2.0.0 (2015-01-01)
- * @info $Id: AbstractGamePage.class.php 2803 2013-10-06 22:23:27Z slaver7 $
+ * @info $Id: AbstractGamePage.php 2803 2013-10-06 22:23:27Z slaver7 $
  * @link http://2moons.cc/
  */
 
@@ -54,14 +54,24 @@ abstract class AbstractGamePage extends AbstractPage
 	    parent::__construct();
 
         $this->user     = Session::get()->getUser();
-        $this->planet   = $this->user->getCurrentPlanet();
         $this->lang     = $this->user->getLangObj();
+        if(isset($this->requireModule) && $this->requireModule !== 0 && !$this->user->can($this->requireModule))
+        {
+            $this->printMessage($this->lang['sys_module_inactive']);
+        }
+
+        $this->planet   = $this->user->getCurrentPlanet();
+
+        if(!AJAX_REQUEST && !$this->user->can(MODULE_FLEET_EVENTS))
+        {
+            FleetHandler::run();
+        }
 	}
 	
 	protected function getCronjobsTodo()
 	{
 		$this->assign(array(
-			'cronjobs'		=> Cron::getNeedTodoExecutedJobs()
+			'cronjobs'  => Cron::getNeedTodoExecutedJobs()
 		));
 	}
 	

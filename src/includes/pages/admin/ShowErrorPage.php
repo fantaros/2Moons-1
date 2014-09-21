@@ -22,13 +22,14 @@
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 2.0.0 (2015-01-01)
- * @info $Id: ShowErrorPage.class.php 2776 2013-08-05 21:30:40Z slaver7 $
+ * @info $Id: ShowErrorPage.php 2776 2013-08-05 21:30:40Z slaver7 $
  * @link http://2moons.cc/
  */
 
-class ShowErrorPage extends AbstractInstallPage
+class ShowErrorPage extends AbstractAdminPage
 {
-	protected $disableEcoSystem = true;
+    protected $disableEcoSystem = true;
+    public static $requireModule = 0;
 
     static function printError($Message, $redirect = false, $fullSide = true)
     {
@@ -37,7 +38,7 @@ class ShowErrorPage extends AbstractInstallPage
     }
 
     public function show()
-	{
-		
-	}
+    {
+
+    }
 }

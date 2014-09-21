@@ -32,33 +32,28 @@ set_include_path(ROOT_PATH);
 
 require 'includes/common.php';
 
-$LNG	= new Language();
-$LNG->getUserAgentLanguage();
-$LNG->includeData(array('INGAME', 'PUBLIC'));
+$lang	= new Language();
+$lang->getUserAgentLanguage();
+$lang->includeData(array('INGAME', 'PUBLIC'));
 
 $page 		= HTTP::_GP('page', 'index');
 $mode 		= HTTP::_GP('mode', 'show');
 $page		= str_replace(array('_', '\\', '/', '.', "\0"), '', $page);
 $pageClass	= 'Show'.ucfirst($page).'Page';
 
-
-if(!file_exists($path)) {
-	ShowErrorPage::printError($LNG['page_doesnt_exist']);
+if(!class_exists($pageClass))
+{
+	ShowErrorPage::printError($lang->page_doesnt_exist);
 }
 
 $pageObj	= new $pageClass;
-// PHP 5.2 FIX
-// can't use $pageObj::$requireModule
-$pageProps	= get_class_vars(get_class($pageObj));
-
-if(isset($pageProps['requireModule']) && $pageProps['requireModule'] !== 0 && !isModulAvalible($pageProps['requireModule'])) {
-	ShowErrorPage::printError($LNG['sys_module_inactive']);
-}
 
 if(!is_callable(array($pageObj, $mode))) {	
-	if(!isset($pageProps['defaultController']) || !is_callable(array($pageObj, $pageProps['defaultController']))) {
-		ShowErrorPage::printError($LNG['page_doesnt_exist']);
+	if(!isset($pageProps['defaultController']) || !is_callable(array($pageObj, $pageProps['defaultController'])))
+    {
+		ShowErrorPage::printError($lang->page_doesnt_exist);
 	}
+
 	$mode	= $pageProps['defaultController'];
 }
 

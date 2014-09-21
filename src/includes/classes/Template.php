@@ -31,11 +31,6 @@ require('includes/libs/Smarty/Smarty.class.php');
 		
 class Template
 {
-	protected $window	= 'full';
-	public $jsscript	= array();
-	public $script		= array();
-
-
 	/**
 	 * reference of the Smarty object
 	 * @var Smarty
@@ -55,7 +50,6 @@ class Template
 
 	private function smartySettings()
 	{
-        global $THEME;
 		$this->smarty->caching 					= false;
 		$this->smarty->merge_compiled_includes	= true;
 		$this->smarty->compile_check			= true; #Set false for production!
@@ -72,7 +66,7 @@ class Template
 		$this->smarty->setCacheDir($baseCachePath.'cache/');
 
 		$this->smarty->setTemplateDir(array(
-            $THEME->getTemplatePath().strtolower(MODE),
+#            $THEME->getTemplatePath().strtolower(MODE),
             TEMPLATE_PATH.strtolower(MODE),
             TEMPLATE_PATH.'basic'
         ));
@@ -84,26 +78,9 @@ class Template
 		return getTempDir();
 	}
 
-	public function loadscript($script)
-	{
-		$this->jsscript[]			    = substr($script, 0, -3);
-	}
-
-	public function execscript($script)
-	{
-		$this->script[]				    = $script;
-	}
-
 	public function display($file)
 	{
-        global $LNG, $THEME;
-
-        $this->smarty->assign(array(
-            'scripts'		=> $this->jsscript,
-            'execscript'	=> implode("\n", $this->script),
-        ));
-
-		$this->smarty->compile_id	= $LNG->getLanguage().'_'.$THEME->getThemeName();
+#		$this->smarty->compile_id	= $LNG->getLanguage().'_'.$THEME->getThemeName();
 		$this->smarty->display($file);
 	}
 }

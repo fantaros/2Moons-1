@@ -22,7 +22,7 @@
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 2.0.0 (2015-01-01)
- * @info $Id: AbstractGamePage.class.php 2793 2013-09-29 12:33:56Z slaver7 $
+ * @info $Id: AbstractGamePage.php 2793 2013-09-29 12:33:56Z slaver7 $
  * @link http://2moons.cc/
  */
 

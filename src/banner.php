@@ -47,7 +47,7 @@ $LNG = new Language;
 $LNG->getUserAgentLanguage();
 $LNG->includeData(array('L18N', 'BANNER', 'CUSTOM'));
 
-require 'includes/classes/class.UserBanner.php';
+require 'includes/classes/UserBanner.php';
 
 $banner = new UserBanner();
 $Data	= $banner->GetData($id);

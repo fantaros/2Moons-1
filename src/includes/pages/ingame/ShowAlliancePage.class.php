@@ -118,7 +118,7 @@ class ShowAlliancePage extends AbstractGamePage
 			$this->printMessage($this->lang['al_not_exists']);
 		}
 		
-		require 'includes/classes/BBCode.class.php';
+		require 'includes/classes/BBCode.php';
 		
 		if ($this->allianceData['ally_diplo'] == 1)
 		{
@@ -506,7 +506,7 @@ class ShowAlliancePage extends AbstractGamePage
 
 	private function homeAlliance()
 	{
-		require 'includes/classes/BBCode.class.php';
+		require 'includes/classes/BBCode.php';
 
         $db	= Database::get();
 
@@ -543,7 +543,7 @@ class ShowAlliancePage extends AbstractGamePage
             ));
 
 
-			require_once('includes/classes/class.FlyingFleetsTable.php');
+			require_once('includes/classes/FlyingFleetsTable.php');
 			$FlyingFleetsTable = new FlyingFleetsTable;
 			
 			$this->tplObj->loadscript('overview.js');
@@ -1089,7 +1089,7 @@ class ShowAlliancePage extends AbstractGamePage
 			)));
 		}
 		
-		require 'includes/classes/BBCode.class.php';
+		require 'includes/classes/BBCode.php';
 
 		$applyDetail['text']    	= BBCode::parse($applyDetail['text']);
 		$applyDetail['kbmetal']    	= pretty_number($applyDetail['kbmetal']);

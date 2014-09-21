@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-require_once('includes/classes/class.GalaxyRows.php');
+require_once('includes/classes/GalaxyRows.php');
 
 class ShowGalaxyPage extends AbstractGamePage
 {

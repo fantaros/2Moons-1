@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-require_once('AbstractGamePage.class.php');
+require_once('AbstractGamePage.php');
 
 class ShowResearchPage extends AbstractGamePage
 {

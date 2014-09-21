@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-function __autoload($className)
+function classLoader($className)
 {
     if(file_exists(ROOT_PATH.'includes/classes/'.$className.'.php'))
     {
@@ -35,7 +35,7 @@ function __autoload($className)
 
     if(defined('MODE') && file_exists(ROOT_PATH.'includes/pages/'.strtolower(MODE).'/'.$className.'.php'))
     {
-        include ROOT_PATH.'includes/classes/'.$className.'.php';
+        include ROOT_PATH.'includes/pages/'.strtolower(MODE).'/'.$className.'.php';
     }
 }
 
@@ -60,6 +60,7 @@ function get_timezone_selector() {
 			$timezones[$ex[0]][$value] = str_replace('_', ' ', $city);
 		}
 	}
+
 	return $timezones; 
 }
 
@@ -480,7 +481,7 @@ function exceptionHandler($exception)
 	<link rel="stylesheet" href="'.$DIR.'/resource/lib/boilerplate/boilerplate.css?v='.$VERSION.'">
 	<link rel="stylesheet" href="'.$DIR.'/resource/css/base/resource/lib/jquery-ui/css/jquery-ui-1.10.3.custom.min.css?v='.$VERSION.'">
 	<link rel="stylesheet" href="'.$DIR.'/resource/css/ingame/main.css?v='.$VERSION.'">
-	<link rel="stylesheet" href="'.$DIR.'/styles/theme/gow/formate.css?v='.$VERSION.'">
+	<link rel="stylesheet" href="'.$DIR.'/resource/theme/gow/formate.css?v='.$VERSION.'">
 	<link rel="shortcut icon" href="'.$DIR.'/favicon.ico" type="image/x-icon">
 	'.(MODE == 'CHAT' ? '<style>body{background: none;}</style>': '').'
 </head>
@@ -488,7 +489,7 @@ function exceptionHandler($exception)
 <br><br>
 <table width="960">
 	<tr>
-		<th>'.$errorName.'</th>
+		<th>PHP ERROR :: '.$errorName.'</th>
 	</tr>
 	<tr>
 		<td class="left">

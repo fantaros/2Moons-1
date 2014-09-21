@@ -59,7 +59,7 @@ function ShowSendMessagesPage() {
 
 		if (!empty($Message) && !empty($Subject))
 		{
-			require 'includes/classes/BBCode.class.php';
+			require 'includes/classes/BBCode.php';
 			if($Mode == 0 || $Mode == 2) {
 				$From    	= '<span class="'.$class.'">'.$LNG['user_level'][$USER['authlevel']].' '.$USER['username'].'</span>';
 				$pmSubject 	= '<span class="'.$class.'">'.$Subject.'</span>';

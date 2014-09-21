@@ -33,8 +33,8 @@ define('ROOT_PATH', str_replace('\\', '/', dirname(dirname(__FILE__))) . '/');
 set_include_path(ROOT_PATH);
 chdir(ROOT_PATH);
 
-require 'includes/pages/install/AbstractInstallPage.class.php';
-require 'includes/pages/install/ShowErrorPage.class.php';
+require 'includes/pages/install/AbstractInstallPage.php';
+require 'includes/pages/install/ShowErrorPage.php';
 require 'includes/common.php';
 
 $LNG = new Language;
